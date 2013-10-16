@@ -1,0 +1,5 @@
+<div class="list-group">
+  {% for value in values %}
+    <a class="list-group-item {{ value.active ? 'active' : '' }}" href="{{ value.link }}">{{ value.label }}<span class="badge">{{ value.count }}</span></a>
+  {% endfor %}
+</div>

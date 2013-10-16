@@ -1,0 +1,55 @@
+/** \page afs_search_coder AFS search query coder/decoder API
+ *
+ * \tableofcontents
+ *
+ * \section asc_introduction Introduction
+ *
+ * This API simplifies coding/decoding query so that query parameters can be
+ * serialized in URL and unserialized from URL. Main objective is to keep URL as
+ * readable as possible.
+ *
+ * Snippets of code are usable as is and can be joined to build a fully
+ * functional example step by step. If you prefer you can get access to full
+ * code example \ref full_example.php.
+ *
+ *
+ * \section asc_interface Query coder/decoder interface
+ *
+ * This interface is defined to allow home made implementations (see @a
+ * AfsQueryCoderInterface). But it is highly recommanded to use Antidot
+ * implementation of this interface.
+ *
+ * If it is still necessary to implement own coder/decoder, take a look at @a
+ * AfsCoderBase and @a AfsCoderInterface classes which can help saving time and
+ * avoid reimplementing existing functionalities.
+ *
+ *
+ * \section asc_coder Antidot query coder/decoder implementation
+ *
+ * Basically, instance of this class (@a AfsQueryCoder) allows to:
+ * - build @a AfsQuery object from URL parameters,
+ * - generate appropriate links for facet filtering and other options.
+ *
+ * Here is an example of building a query:
+ * @snippet full_example.php Coder/decoder and Query
+ *
+ *
+ * \section asc_query Query
+ *
+ * From @c coder declared in previous section, new links can be generated.
+ * Curent query should be modified with appropriate filters and then links can
+ * be generated as shown bellow (this example is not part of the
+ * @ref full_example.php):
+ * @code
+   $new_query = $query->add_filter('FOO', 'bar');
+   $link = $coder->generate_link($new_query);
+   @endcode
+ * With empty initial @c query and standard @c coder, generated link should
+ * correspond to:
+ * @verbatim http://FQDN/full_example.php?replies=10&filter=FOO_bar @endverbatim
+ *
+ *
+ * \section asc_end Next step
+ *
+ * @ref afs_search_query
+ */

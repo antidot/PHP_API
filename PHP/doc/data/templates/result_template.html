@@ -1,0 +1,18 @@
+<div class="col-md-9">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+      <h2>Results <span class="label label-success">{{ meta.total_replies }}</span></h2>
+    </div>
+  </div>
+  <ul class="list-unstyled">
+    {% for reply in replies %}
+      <li>
+        <h3>{{ reply.title|raw }}</h3>
+        <p><a href="{{ reply.uri|raw }}">{{ reply.uri }}</a></p>
+        <p>{{ reply.abstract|raw }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+

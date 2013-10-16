@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Antidot PHP API - Full example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="page-header">
+      <h1>Full example <small>based on the Antidot PHP API</small></h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5"></div>
+      <div class="input-group col-md-2">
+        <form method="get" action="" role="form" class="input-group">
+          <span class="input-group-addon">Search</span>
+          <input type="search" name="query" class="form-control" placeholder="Keywords" />
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      {% include 'facet_template.html' %}
+      {% include 'result_template.html' %}
+    </div>
+
+    <div class="row">
+      {% include 'pager_template.html' %}
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

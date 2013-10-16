@@ -1,0 +1,17 @@
+{% if facets %}
+<div class="col-md-3">
+  <h2>Filters</h2>
+  {% for facet in facets %}
+    <div class="panel panel-default">
+      <div class="panel-heading">{{ facet.label }}</div>
+      <div class="panel-body">
+        {% if facet.values is not empty %}
+          <div class="list-group">
+          {{ include('facet_values_template.html', {values: facet.values, depth: 0}, with_context=false) }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{%  endif %}

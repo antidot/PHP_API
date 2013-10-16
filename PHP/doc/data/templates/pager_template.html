@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="input-group col-md-3">
+    <ul class="pagination">
+      {% for key, value in pager.pages %}
+      <li class="{{ key == pager.current ? 'active' : '' }}"><a href="{{ value }}">{{ key }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

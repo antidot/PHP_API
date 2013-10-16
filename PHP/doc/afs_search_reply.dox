@@ -1,0 +1,18 @@
+/** \page afs_search_reply AFS search reply API
+ *
+ * \tableofcontents
+ *
+ * \section asr_introduction Introduction
+ *
+ * This API greatly simplify treatment of Antidot search engine replies. Main
+ * objective here is to add nearly no PHP code and make usage of PHP templates.
+ *
+ * Snippets of code are usable as is and can be joined to build a fully
+ * functional example step by step. If you prefer you can get access to full
+ * code example \ref full_example.php.
+ *
+ * If you have not read it yet you can start by reading @ref afs_search_query.
+ *
+ *
+ * \section asr_response Reponse helper
+ */
