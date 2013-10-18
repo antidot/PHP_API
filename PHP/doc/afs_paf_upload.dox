@@ -1,0 +1,72 @@
+/** \page afs_paf_upload Antidot PaF upload
+ *
+ * \tableofcontents
+ *
+ * \section apu_introduction Introduction
+ *
+ * This API simplify upload of one or more documents to Antidot PaF.
+ *
+ * Currently, there is no API which allow to launch specific PaF. So, documents
+ * should be uploaded to a PaF configured in auto start mode.
+ *
+ *
+ * \section apu_document Document and Document Manager
+ *
+ * A document is an instance of @a AfsDocument. Such document is built from
+ * string content or file available on the filesystem.
+ * It is the responsability of the user to set valid content to the document. If
+ * the document is initialized with a file from the filesystem, it should be
+ * still available until it has been sent correctly to the Web Service.
+ *
+ * One or more documents can be added to an instance of @a AfsDocumentManager.
+ * Using document manager is the only mean to upload more than one document at a
+ * time.
+ *
+ * Example for document manager and documents of various types:
+ * @code
+   $mgr = new AfsDocumentManager();
+
+   $content = generate_xml_document(42);
+   $mgr->add_document(new AfsDocument($content));
+
+   $doc = new AfsDocument();
+   $doc->set_content_from_file('/path/to/specific/path/file');
+   $mgr->add_document($doc); @endcode
+ *
+ *
+ * \section apu_paf_connector PaF connector
+ *
+ * Instance of @a AfsPafConnector allows to configure connection to specific
+ * PaF. Once it is configure, one or more documents can be uploaded by calling
+ * appropriate method (@a AfsPafConnector::upload_doc or @a
+ * AfsPafConnector::upload_docs).
+ *
+ * Example of uploading one or more documents:
+ * @code
+   $auth = new AfsAuthentication('antidot', 'change_on_install', AFS_AUTH_ANTIDOT);
+   $service = new AfsService(42);
+   $connector = new AfsPafConnector('eval.partners.antidot.net', $service, 'TEST', $auth);
+
+   // Upload one document directly
+   $result = $connector->upload_doc($doc);
+
+   // OR upload one or more documents using document manager
+   $result = $connector->upload_docs($mgr);@endcode
+ *
+ *
+ * \section apu_paf_reply PaF upload result
+ *
+ * Instance of @a AfsPafUploadReply simplifies reply management of PaF upload.
+ * If an error occured, you can get it in a very simple way:
+ * @code
+   $reply = $connector->upload_doc($doc);
+
+   if ($reply->in_error())
+   {
+     echo 'ERROR: ' . $reply->error;
+   }
+   else
+   {
+     echo 'OK (Job id: ' . $reply->result->jobId . ')';
+   }@endcode
+ */

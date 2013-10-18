@@ -3,16 +3,18 @@
  * @example full_example.php
  */
 
-require_once("afs_lib.php");
+/** [Include lib] */
+require_once "afs_lib.php";
+/** [Include lib] */
 
-// To make this test work, you need to dowload and install Twig 
-// (http://twig.sensiolabs.org/) 
+/** [Twig init] */
 // You shoud addapt following paths
-require_once "/var/www/php-full-example/Twig-1.13.2/lib/Twig/Autoloader.php";
+require_once "/var/www/php-example/Twig-1.14.1/lib/Twig/Autoloader.php";
 Twig_Autoloader::register();
-$loader = new Twig_Loader_Filesystem('/var/www/php-full-example/templates');
+$loader = new Twig_Loader_Filesystem('/var/www/php-example/templates');
 $twig = new Twig_Environment($loader, array('debug' => true));
 $twig->addExtension(new Twig_Extension_Debug());
+/** [Twig init] */
 
 // Coder/Decoder and Query
 /** [Coder/decoder and Query] */
@@ -50,11 +52,13 @@ $reply = $query_mgr->send($query);
 /** [Query manager] */
 
 // Response Helper
-/** [Reponse helper] */
+/** [Response helper] */
 $helper = new AfsResponseHelper($reply, $facet_mgr, $query, $coder, AFS_ARRAY_FORMAT);
-/** [Reponse helper] */
+/** [Response helper] */
 
 // Load and apply PHP templates
+/** [Twig template] */
 $template = $twig->loadTemplate('meta_template.html');
 echo $template->render($helper->replyset);
+/** [Twig template] */
 ?>

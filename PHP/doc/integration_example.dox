@@ -1,0 +1,153 @@
+/** \page integration_example Integration example
+ *
+ * \tableofcontents
+ *
+ * \section ie_prerequisite Prerequisites
+ *
+ * In order to test this example, following components are required.
+ *
+ * \subsection ie_http_server HTTP server
+ *
+ * Operationnal HTTP server with PHP support is mandatory. Supported PHP version
+ * should be at least 5.1.
+ *
+ *
+ * \subsection ie_twig Twig template engine
+ *
+ * Twig is a flexible, fast, and secure template engine for PHP. It will be used
+ * here to simplify integration example.
+ *
+ * It can be downloaded from
+ * http://pear.twig-project.org/get/Twig-1.14.1.tgz
+ *
+ * On GNU/Linux, necessary files can be uncompressed in
+ * <tt>/var/www/php-example/</tt>.
+ *
+ *
+ * \subsection ie_bootstrap Bootstrap (optional)
+ *
+ * Bootstrap is a front-end framework. It is used to generate pretty HTML pages
+ * with little effort.
+ *
+ * Necessary files can be downloaded and put to appropriate place. Then
+ * <tt>meta_template.html</tt> should be updated accordingly.
+ *
+ * Or, you can keep files unchanged and still point to external location.
+ *
+ *
+ * \subsection ie_php_api Antidot PHP API
+ *
+ * Yes, you need it! You can grab it from https://github.com/antidot/API.
+ *
+ * On GNU/Linux you can probably put everything in
+ * <tt>/var/www/php-example/</tt>.
+ *
+ *
+ * \subsection ie_antidot_service Antidot search service
+ *
+ * For purpose of this example you can refer free available service with id @c
+ * 70000 at http://eval.partners.antidot.net.
+ *
+ *
+ * \section ie_example Set up example step by step
+ *
+ * Most of the steps to set up this example are detailed in @ref
+ * afs_search_coder, @ref afs_search_query and @ref afs_search_reply.
+ *
+ * Here focus is given on missing steps in order to make the example fully
+ * functional.
+ *
+ *
+ * \subsection ie_example_init Initialization
+ *
+ * It should be the first step. Antidot PHP API should be loaded from PHP
+ * example script. It is not necessary to load each PHP script as one main
+ * script does it for you:
+ * @snippet full_example.php Include lib
+ *
+ * Then Twig should also be loaded and initialized. Depending on your
+ * installation choices, following example may be modified to reflect your
+ * installation paths:
+ * @snippet full_example.php Twig init
+ *
+ *
+ * \subsection ie_example_final Generate HTML page
+ *
+ * This is the last step.<br/>
+ * Main Twig template is loaded with appropriate parameters and then rendered:
+ * @snippet full_example.php Twig template
+ * This code brevity is obtained thanks to special array formatting of reply
+ * helpers (see @a AFS_ARRAY_FORMAT).
+ *
+ *
+ * \subsection ie_example_full Full example
+ *
+ * The full example is also available here: @ref full_example.php
+ *
+ *
+ * \section ie_templates PHP template examples
+ *
+ * They are available here:
+ * https://github.com/antidot/API/tree/master/PHP/doc/data/templates. But for
+ * convenience, content of each template file is given below.
+ *
+ * On GNU/Linux, these templates can be put in
+ * <tt>/var/www/php-example/templates</tt>.
+ *
+ * Templates will not be detaillled. If necessary, more documentation is
+ * available at Twig website.
+ *
+ *
+ * \subsection ie_template_main Main template
+ *
+ * This template is called to render the HTML page.
+ *
+ * @em meta_template.html
+ * @include meta_template.html
+ * Except that it refers three templates, there is nothing noticable here.
+ * Included templates are described below.
+ *
+ *
+ * \subsection ie_template_facet Facet template
+ *
+ * @em facet_template.html
+ * @include facet_template.html
+ * It  is quite easy to find the loop which allows to set up all facets. Then,
+ * in turn, this template refers specific template for facet values.
+ *
+ * @em facet_values_template.html
+ * @include facet_values_template.html
+ * Here again, the loop allows to set up all values for each facet.
+ *
+ *
+ * \subsection ie_template_result Result template
+ *
+ * This template allows to render URI, title and abstract of each result. As
+ * sicussed previously some additional work is necessary is you want to get
+ * access to client data.
+ *
+ * @em result_template.html
+ * @include result_template.html
+ *
+ *
+ * \subsection ie_template_pager Pager template
+ *
+ * This template generates simple pager at the bottom of the page. There is
+ * really no difficulty here.
+ *
+ * @em pager_template.html
+ * @include pager_template.html
+ *
+ *
+ * \section ie_conclusion Example conclusion
+ *
+ * Provided example is composed of about 28 lines of PHP code. About third of
+ * these lines are related to facet configuration. So in few PHP code lines
+ * and some PHP templates, you can get a fully functional Web interface for your
+ * Antidot search service.
+ *
+ *
+ * \section ie_further Go further
+ *
+ * Modify this example and templates then test on your own service!
+ */

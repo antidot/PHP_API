@@ -13,7 +13,7 @@
  * A short presentation of each API module is presented and links are provided
  * to detailled informations. Some of the examples provided rely on external
  * libraries which should be downloaded if you want to test them.
- * 
+ *
  * Most of the Antidot PHP API should work properly with PHP starting at version
  * 5.1. Some specific APIs will only work with more recent version of PHP but
  * version 5.3 is the maximum required version.
@@ -83,24 +83,6 @@
  * \li @a AfsReplyHelper: basic access to reply components.
  * \li @a AfsPagerHelper: simple access to pager features.
  *
- * \par Important helper features
- *
- * - Each getter @c get_XXX() of helper classes can also be called like a
- * property of the class. The two next statements are equivalent:
- * @code
-   $helper->get_error_msg();
-   $helper->error_msg;@endcode
- * This convenient feature can only be used for getters that do not require
- * parameter.
- * - Other main feature of getters is that they can generate
- * <em>formatted output</em>. In fact, starting from the main helper, you can
- * get access to specialized getters or to a formmatted array. This array is
- * made of keys corresponding to equivalent helper getters and values
- * corresponding to values the helper should have provided by calling
- * corresponding getter. For example, you can get a look at @a
- * AfsMetaHelper::format or @c format method of other helpers.
- *
- * \par
  * For detailled description and examples of this feature, refer to
  * @ref afs_search_reply.
  *

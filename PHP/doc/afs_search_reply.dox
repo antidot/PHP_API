@@ -15,4 +15,123 @@
  *
  *
  * \section asr_response Reponse helper
+ *
+ * This is the main helper (see @a AfsSearchQueryManager for more details). It
+ * should be initilized with result of @a AfsSearchQueryManager::send method,
+ * the facet manager, the current query and the query coder (see
+ * @ref afs_search_coder and @ref afs_search_query for details on these
+ * parameters).
+ *
+ * Here an example to initialize AFS response helper:
+ * @snippet full_example.php Response helper
+ *
+ * On initialization, error checking is performed. When no error occured, @a
+ * AfsReplysetHelper is initialized with the first reply set found in the reply.
+ * By the way, following helpers are also initialized:
+ * - @a AfsMetaHelper,
+ * - @a AfsFacetHelper: one helper is instantiated per facet,
+ * - @a AfsReplyHelper: one helper is instantiated per reply,
+ * - @a AfsPagerHelper.
+ *
+ * Details on each helper are available in their own documentation pages, so
+ * from now on only common features will be detailled.
+ *
+ *
+ * \section asr_helper_generalities Helper generalities
+ *
+ * Here are common main features of the helpers.
+ *
+ *
+ * \subsection asr_helper_getters Getters
+ *
+ * One main feature of helpers is that each getter @c get_XXX() can also be
+ * called like a property of the class.
+ *
+ * For example, the two following statements are equivalent:
+ * @code
+   $helper->get_error_msg();
+   $helper->error_msg;@endcode
+ *
+ * This convenient feature can only be used for getters that do not require
+ * parameter.
+ *
+ *
+ * \subsection asr_helper_format Helper formats
+ *
+ * Other main feature of helpers is that they can generate
+ * <em>formatted output</em>. In fact, starting from the main helper, you can
+ * get access to specialized getters or to formmatted array. This array is
+ * made of key/value pairs. Keys correspond to equivalent names of the helper
+ * getters. Values correspond to values the helper should have provided by
+ * calling corresponding getter.
+ *
+ * For example, let's consider an instance of @a AfsMetaHelper:
+ * - Meta data can be retrieve directly by calling appropriate getters:
+ * @code
+   $meta = new AfsMetaHelper($appropriate_initialization_value);
+   $feed = $meta->get_feed();
+   $total_replies = $meta->get_total_replies();
+   $duration = $meta->get_duration();
+   $producer = $meta->get_producer();@endcode
+ * Or, by using shortcut feature described previously (@ref asr_helper_getters):
+ * @code
+   $meta = new AfsMetaHelper($appropriate_initialization_value);
+   $feed = $meta->feed;
+   $total_replies = $meta->total_replies;
+   $duration = $meta->duration;
+   $producer = $meta->producer;@endcode
+ * - Meta data can also be retrieved directly as an array of key/value pairs:
+ * @code
+   $meta = new AfsMetaHelper($appropriate_initialization_value);
+   $data = $meta->format();@endcode
+ * Example of produced array:
+ * @verbatim
+   array(4) {
+      ["feed"]=> string(4) "Test"
+      ["total_replies"]=> int(666)
+      ["duration"]=> int(42)
+      ["producer"]=> string(6) "SEARCH"
+   }@endverbatim
+ *
+ * Array format is the @em default format generate when initializing instance of
+ * @a AfsResponseHelper. This format greatly simplify usage of PHP template
+ * engine such as Twig (see @ref full_example.php).
+ *
+ *
+ * \section asr_specific_helpers Specific helpers
+ *
+ * Here some specific helpers are presented. They are not instanciated directly
+ * or indirectly by @a AfsResponseHelper but they can be really usefull.
+ *
+ *
+ * \subsection asr_clientdata_helpers Client data helpers
+ *
+ * Client data are really specific to each customer. So there is no generic way
+ * to integrate them in standard flow of treatments. To help you managing your
+ * own data, two kinds of client data helpers are available:
+ * - @a AfsXmlClientDataHelper: for XML data,
+ * - @a AfsJsonClientDataHelper: for JSON data.
+ *
+ * Instances of these classes are generally not created directly. A @a
+ * AfsClientDataManager is provided to generate appropriate client data helpers.
+ * Like for @a AfsReplyHelper, it is initialized with a reply which should
+ * contain at least one client data. Then client data can be retrieved by @c id
+ * which has been provided on indexation side. If no @c id as been provided,
+ * it is defaultly set to @c main.
+ *
+ * XML client data can be retrieved by @c XPath. There is no limitation except
+ * that XPath are limited to version 1.0.
+ *
+ * JSON client data can be retrieved by <tt>array key</tt>. Only the first array
+ * level is considered. More details are vailable there: @a
+ * AfsJsonClientDataHelper::get_text.
+ *
+ * Main common feature of these helpers is that they both manage highlight in
+ * client data. Default callbacks are used for highlighted text but specific
+ * ones can be defined.
+ *
+ *
+ * \section asr_end Next step
+ *
+ * Full example detailled: @ref integration_example
  */
