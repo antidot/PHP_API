@@ -1,5 +1,17 @@
 <?php
 
+/** @defgroup uri_scheme Connection scheme
+ *
+ * Antidot Web Services can be queried in standard HTTP mode or in secured mode
+ * (HTTPS).
+ * @{ */
+/** @brief HTTP: Non secured mode */
+define('AFS_SCHEME_HTTP', 'http');
+/** @brief HTTPS: Secured mode */
+define('AFS_SCHEME_HTTPS', 'https');
+/** @} */
+
+
 /** @brief Base class for AFS connectors.
  *
  * This class provided usefull methods to manage connection strings. */

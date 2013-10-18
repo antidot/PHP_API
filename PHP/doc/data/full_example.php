@@ -25,8 +25,8 @@ $query = $coder->build_query($_GET);
 // Connector
 /** [Connector] */
 $service = new AfsService(70000, AFS_PAF_STABLE);
-$url = 'http://eval.partners.antidot.net/search';
-$connector = new AfsSearchConnector($url, $service);
+$host = 'eval.partners.antidot.net';
+$connector = new AfsSearchConnector($host, $service);
 /** [Connector] */
 
 // Facets and Facet Manager

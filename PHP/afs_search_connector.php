@@ -9,19 +9,30 @@ require_once "afs_service.php";
  */
 class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterface
 {
-    protected $search_url;
+    protected $scheme;
+    protected $host;
     protected $service;
 
     /** @brief Construct new search connector.
      *
      * All parameter values should have been provided by Antidot.
      *
-     * @param $search_url [in] URL of the AFS search engine.
+     * @param $host [in] server hosting the required service.
      * @param $service [in] Antidot service (see @a AfsService).
+     * @param $scheme [in] Scheme for the connection URL see
+     *        @ref uri_scheme (default: @a AFS_SCHEME_HTTP).
+     *
+     * @exception InvalidArgumentException invalid scheme parameter provided.
      */
-    public function __construct($search_url, AfsService $service)
+    public function __construct($host, AfsService $service,
+        $scheme=AFS_SCHEME_HTTP)
     {
-        $this->search_url = $search_url;
+        if ($scheme != AFS_SCHEME_HTTP) {
+            throw InvalidArgumentException('Search connector support only HTTTP'
+                . ' connection');
+        }
+        $this->scheme = $scheme;
+        $this->host = $host;
         $this->service = $service;
     }
 
@@ -54,7 +65,8 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
         $parameters['afs:service'] = $this->service->id;
         $parameters['afs:status'] = $this->service->status;
         $parameters['afs:output'] = 'json,2';
-        return $this->search_url . '?' . $this->format_parameters($parameters);
+        return sprintf('%s://%s/search?%s', $this->scheme, $this->host,
+            $this->format_parameters($parameters));
     }
 
     private function build_error($message, $details)

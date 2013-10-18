@@ -9,6 +9,7 @@ require_once "afs_paf_upload_reply.php";
  */
 class AfsPafConnector extends AfsConnectorBase
 {
+    private $scheme;
     private $host;
     private $service;
     private $paf_name;
@@ -21,10 +22,19 @@ class AfsPafConnector extends AfsConnectorBase
      * @param $paf_name [in] name of the PaF.
      * @param $authentication [in-out] authentication object (see
      *        @a AfsAuthentication).
+     * @param $scheme [in] Scheme for the connection URL see
+     *        @ref uri_scheme (default: @a AFS_SCHEME_HTTP).
+     *
+     * @exception InvalidArgumentException invalid scheme parameter provided.
      */
     public function __construct($host, AfsService $service, $paf_name,
-        AfsAuthentication &$authentication)
+        AfsAuthentication &$authentication, $scheme=AFS_SCHEME_HTTP)
     {
+        if ($scheme != AFS_SCHEME_HTTP && $scheme != AFS_SCHEME_HTTPS) {
+            throw InvalidArgumentException('PaF connector support only HTTP '
+                . 'and HTTPS connections');
+        }
+        $this->scheme = $scheme;
         $this->host = $host;
         $this->service = $service;
         $this->paf_name = $paf_name;
@@ -92,9 +102,10 @@ class AfsPafConnector extends AfsConnectorBase
         }
         $params['afs:login'] = $this->format_authentication();
 
-        return sprintf('http://%s/bo-ws/service/%d/instance/%s/paf/%s/upload?%s',
-            $this->host, $this->service->id, $this->service->status,
-            $this->paf_name, $this->format_parameters($params));
+        return sprintf('%s://%s/bo-ws/service/%d/instance/%s/paf/%s/upload?%s',
+            $this->scheme, $this->host, $this->service->id,
+            $this->service->status, $this->paf_name,
+            $this->format_parameters($params));
     }
 
     private function format_authentication()
