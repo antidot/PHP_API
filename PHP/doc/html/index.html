@@ -132,14 +132,7 @@ AFS search reply API</h2>
 <li><em><a class="el" href="classAfsReplyHelper.html" title="Helper to manager title, abstract and uri of one reply. ">AfsReplyHelper</a>:</em> basic access to reply components. </li>
 <li><em><a class="el" href="classAfsPagerHelper.html" title="Helper for pager. ">AfsPagerHelper</a>:</em> simple access to pager features.</li>
 </ul>
-<dl class="section user"><dt>Important helper features</dt><dd></dd></dl>
-<ul>
-<li>Each getter <code>get_XXX()</code> of helper classes can also be called like a property of the class. The two next statements are equivalent: <div class="fragment"><div class="line">$helper-&gt;get_error_msg();</div>
-<div class="line">$helper-&gt;error_msg;</div>
-</div><!-- fragment --> This convenient feature can only be used for getters that do not require parameter.</li>
-<li>Other main feature of getters is that they can generate <em>formatted output</em>. In fact, starting from the main helper, you can get access to specialized getters or to a formmatted array. This array is made of keys corresponding to equivalent helper getters and values corresponding to values the helper should have provided by calling corresponding getter. For example, you can get a look at <em><a class="el" href="classAfsMetaHelper.html#afe083716d50b3fb4057e519961b9235c" title="Retrieve meta as array. ">AfsMetaHelper::format</a></em> or <code>format</code> method of other helpers.</li>
-</ul>
-<dl class="section user"><dt></dt><dd>For detailled description and examples of this feature, refer to <a class="el" href="afs_search_reply.html">AFS search reply API</a>.</dd></dl>
+<p>For detailled description and examples of this feature, refer to <a class="el" href="afs_search_reply.html">AFS search reply API</a>.</p>
 <h1><a class="anchor" id="afs_paf_introduction"></a>
 PaF API</h1>
 <p>This API allows you to simplify interactions with Antidot PaF. Currently, you can only send one or more documents to an existing PaF. Other functionalities will come soon.</p>
@@ -152,11 +145,11 @@ Upload data to Antidot PaF</h2>
 <li><em><a class="el" href="classAfsPafConnector.html" title="AFS PaF connector. ">AfsPafConnector</a>:</em> connection manager to upload one or more documents. </li>
 <li><em><a class="el" href="classAfsPafUploadReply.html" title="Wrapper for reply of PaF upload document. ">AfsPafUploadReply</a>:</em> simple wrapper for upload reply.</li>
 </ul>
-<p>For detailled description and examples of this feature, refer to afs_paf_upload. </p>
+<p>For detailled description and examples of this feature, refer to <a class="el" href="afs_paf_upload.html">Antidot PaF upload</a>. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 16 2013 18:15:35 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 18 2013 10:07:30 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

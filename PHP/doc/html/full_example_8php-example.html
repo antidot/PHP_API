@@ -77,17 +77,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line">&lt;?php</div>
-<div class="line">require_once(<span class="stringliteral">&quot;afs_lib.php&quot;</span>);</div>
-<div class="line"></div>
-<div class="line"><span class="comment">// To make this test work, you need to dowload and install Twig </span></div>
-<div class="line"><span class="comment">// (http://twig.sensiolabs.org/) </span></div>
+<div class="line">require_once <span class="stringliteral">&quot;afs_lib.php&quot;</span>;</div>
 <div class="line"><span class="comment">// You shoud addapt following paths</span></div>
-<div class="line">require_once <span class="stringliteral">&quot;/var/www/php-full-example/Twig-1.13.2/lib/Twig/Autoloader.php&quot;</span>;</div>
+<div class="line">require_once <span class="stringliteral">&quot;/var/www/php-example/Twig-1.14.1/lib/Twig/Autoloader.php&quot;</span>;</div>
 <div class="line">Twig_Autoloader::register();</div>
-<div class="line">$loader = <span class="keyword">new</span> Twig_Loader_Filesystem(<span class="stringliteral">&#39;/var/www/php-full-example/templates&#39;</span>);</div>
+<div class="line">$loader = <span class="keyword">new</span> Twig_Loader_Filesystem(<span class="stringliteral">&#39;/var/www/php-example/templates&#39;</span>);</div>
 <div class="line">$twig = <span class="keyword">new</span> Twig_Environment($loader, array(<span class="stringliteral">&#39;debug&#39;</span> =&gt; <span class="keyword">true</span>));</div>
 <div class="line">$twig-&gt;addExtension(<span class="keyword">new</span> Twig_Extension_Debug());</div>
-<div class="line"></div>
 <div class="line"><span class="comment">// Coder/Decoder and Query</span></div>
 <div class="line"><span class="comment"></span>$coder = <span class="keyword">new</span> <a name="_a0"></a><a class="code" href="classAfsQueryCoder.html">AfsQueryCoder</a>(<span class="stringliteral">&#39;full_example.php&#39;</span>);</div>
 <div class="line">$query = $coder-&gt;build_query($_GET);</div>
@@ -114,13 +110,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="comment">// Response Helper</span></div>
 <div class="line"><span class="comment"></span>$helper = <span class="keyword">new</span> <a name="_a9"></a><a class="code" href="classAfsResponseHelper.html">AfsResponseHelper</a>($reply, $facet_mgr, $query, $coder, <a name="a10"></a><a class="code" href="group__helper__format.html#gae8b3739184b29c607d2538d40c488cbd">AFS_ARRAY_FORMAT</a>);</div>
 <div class="line"><span class="comment">// Load and apply PHP templates</span></div>
-<div class="line">$template = $twig-&gt;loadTemplate(<span class="stringliteral">&#39;meta_template.html&#39;</span>);</div>
+<div class="line"><span class="comment"></span>$template = $twig-&gt;loadTemplate(<span class="stringliteral">&#39;meta_template.html&#39;</span>);</div>
 <div class="line">echo $template-&gt;render($helper-&gt;replyset);</div>
 <div class="line">?&gt;</div>
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 16 2013 18:15:35 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 18 2013 10:07:30 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

@@ -79,6 +79,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="toc"><h3>Table of Contents</h3>
 <ul><li class="level1"><a href="#asr_introduction">Introduction</a></li>
 <li class="level1"><a href="#asr_response">Reponse helper</a></li>
+<li class="level1"><a href="#asr_helper_generalities">Helper generalities</a><ul><li class="level2"><a href="#asr_helper_getters">Getters</a></li>
+<li class="level2"><a href="#asr_helper_format">Helper formats</a></li>
+</ul>
+</li>
+<li class="level1"><a href="#asr_specific_helpers">Specific helpers</a><ul><li class="level2"><a href="#asr_clientdata_helpers">Client data helpers</a></li>
+</ul>
+</li>
+<li class="level1"><a href="#asr_end">Next step</a></li>
 </ul>
 </div>
 <div class="textblock"><h1><a class="anchor" id="asr_introduction"></a>
@@ -88,10 +96,74 @@ Introduction</h1>
 <p>If you have not read it yet you can start by reading <a class="el" href="afs_search_query.html">AFS search query API</a>.</p>
 <h1><a class="anchor" id="asr_response"></a>
 Reponse helper</h1>
+<p>This is the main helper (see <em><a class="el" href="classAfsSearchQueryManager.html" title="Manage search query. ">AfsSearchQueryManager</a></em> for more details). It should be initilized with result of <em><a class="el" href="classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163" title="Send query to AFS search engine. ">AfsSearchQueryManager::send</a></em> method, the facet manager, the current query and the query coder (see <a class="el" href="afs_search_coder.html">AFS search query coder/decoder API</a> and <a class="el" href="afs_search_query.html">AFS search query API</a> for details on these parameters).</p>
+<p>Here an example to initialize AFS response helper: </p>
+<div class="fragment"><div class="line">$helper = <span class="keyword">new</span> <a class="code" href="classAfsResponseHelper.html">AfsResponseHelper</a>($reply, $facet_mgr, $query, $coder, <a class="code" href="group__helper__format.html#gae8b3739184b29c607d2538d40c488cbd">AFS_ARRAY_FORMAT</a>);</div>
+</div><!-- fragment --><p> On initialization, error checking is performed. When no error occured, <em><a class="el" href="classAfsReplysetHelper.html" title="Helper for replies from one feed. ">AfsReplysetHelper</a></em> is initialized with the first reply set found in the reply. By the way, following helpers are also initialized:</p>
+<ul>
+<li><em><a class="el" href="classAfsMetaHelper.html" title="AFS reply meta data. ">AfsMetaHelper</a></em>,</li>
+<li><em><a class="el" href="classAfsFacetHelper.html" title="Helper to manage facets. ">AfsFacetHelper</a>:</em> one helper is instantiated per facet,</li>
+<li><em><a class="el" href="classAfsReplyHelper.html" title="Helper to manager title, abstract and uri of one reply. ">AfsReplyHelper</a>:</em> one helper is instantiated per reply,</li>
+<li><em><a class="el" href="classAfsPagerHelper.html" title="Helper for pager. ">AfsPagerHelper</a></em>.</li>
+</ul>
+<p>Details on each helper are available in their own documentation pages, so from now on only common features will be detailled.</p>
+<h1><a class="anchor" id="asr_helper_generalities"></a>
+Helper generalities</h1>
+<p>Here are common main features of the helpers.</p>
+<h2><a class="anchor" id="asr_helper_getters"></a>
+Getters</h2>
+<p>One main feature of helpers is that each getter <code>get_XXX()</code> can also be called like a property of the class.</p>
+<p>For example, the two following statements are equivalent: </p>
+<div class="fragment"><div class="line">$helper-&gt;get_error_msg();</div>
+<div class="line">$helper-&gt;error_msg;</div>
+</div><!-- fragment --><p>This convenient feature can only be used for getters that do not require parameter.</p>
+<h2><a class="anchor" id="asr_helper_format"></a>
+Helper formats</h2>
+<p>Other main feature of helpers is that they can generate <em>formatted output</em>. In fact, starting from the main helper, you can get access to specialized getters or to formmatted array. This array is made of key/value pairs. Keys correspond to equivalent names of the helper getters. Values correspond to values the helper should have provided by calling corresponding getter.</p>
+<p>For example, let's consider an instance of <em><a class="el" href="classAfsMetaHelper.html" title="AFS reply meta data. ">AfsMetaHelper</a>:</em> </p>
+<ul>
+<li>Meta data can be retrieve directly by calling appropriate getters: <div class="fragment"><div class="line">$meta = <span class="keyword">new</span> <a class="code" href="classAfsMetaHelper.html">AfsMetaHelper</a>($appropriate_initialization_value);</div>
+<div class="line">$feed = $meta-&gt;get_feed();</div>
+<div class="line">$total_replies = $meta-&gt;get_total_replies();</div>
+<div class="line">$duration = $meta-&gt;get_duration();</div>
+<div class="line">$producer = $meta-&gt;get_producer();</div>
+</div><!-- fragment --> Or, by using shortcut feature described previously (<a class="el" href="afs_search_reply.html#asr_helper_getters">Getters</a>): <div class="fragment"><div class="line">$meta = <span class="keyword">new</span> <a class="code" href="classAfsMetaHelper.html">AfsMetaHelper</a>($appropriate_initialization_value);</div>
+<div class="line">$feed = $meta-&gt;feed;</div>
+<div class="line">$total_replies = $meta-&gt;total_replies;</div>
+<div class="line">$duration = $meta-&gt;duration;</div>
+<div class="line">$producer = $meta-&gt;producer;</div>
+</div><!-- fragment --></li>
+<li>Meta data can also be retrieved directly as an array of key/value pairs: <div class="fragment"><div class="line">$meta = <span class="keyword">new</span> <a class="code" href="classAfsMetaHelper.html">AfsMetaHelper</a>($appropriate_initialization_value);</div>
+<div class="line">$data = $meta-&gt;format();</div>
+</div><!-- fragment --> Example of produced array: <pre class="fragment">array(4) {
+   ["feed"]=&gt; string(4) "Test"
+   ["total_replies"]=&gt; int(666)
+   ["duration"]=&gt; int(42)
+   ["producer"]=&gt; string(6) "SEARCH"
+}</pre></li>
+</ul>
+<p>Array format is the <em>default</em> format generate when initializing instance of <em><a class="el" href="classAfsResponseHelper.html" title="Main helper for AFS search reply. ">AfsResponseHelper</a></em>. This format greatly simplify usage of PHP template engine such as Twig (see <a class="el" href="full_example_8php-example.html">full_example.php</a>).</p>
+<h1><a class="anchor" id="asr_specific_helpers"></a>
+Specific helpers</h1>
+<p>Here some specific helpers are presented. They are not instanciated directly or indirectly by <em><a class="el" href="classAfsResponseHelper.html" title="Main helper for AFS search reply. ">AfsResponseHelper</a></em> but they can be really usefull.</p>
+<h2><a class="anchor" id="asr_clientdata_helpers"></a>
+Client data helpers</h2>
+<p>Client data are really specific to each customer. So there is no generic way to integrate them in standard flow of treatments. To help you managing your own data, two kinds of client data helpers are available:</p>
+<ul>
+<li><em><a class="el" href="classAfsXmlClientDataHelper.html" title="XML client data helper. ">AfsXmlClientDataHelper</a>:</em> for XML data,</li>
+<li><em><a class="el" href="classAfsJsonClientDataHelper.html" title="Helper for client data in JSON format. ">AfsJsonClientDataHelper</a>:</em> for JSON data.</li>
+</ul>
+<p>Instances of these classes are generally not created directly. A <em><a class="el" href="classAfsClientDataManager.html" title="Manage client data. ">AfsClientDataManager</a></em> is provided to generate appropriate client data helpers. Like for <em><a class="el" href="classAfsReplyHelper.html" title="Helper to manager title, abstract and uri of one reply. ">AfsReplyHelper</a></em>, it is initialized with a reply which should contain at least one client data. Then client data can be retrieved by <code>id</code> which has been provided on indexation side. If no <code>id</code> as been provided, it is defaultly set to <code>main</code>.</p>
+<p>XML client data can be retrieved by <code>XPath</code>. There is no limitation except that XPath are limited to version 1.0.</p>
+<p>JSON client data can be retrieved by <code>array key</code>. Only the first array level is considered. More details are vailable there: <em><a class="el" href="classAfsJsonClientDataHelper.html#afdaa014f3e575db771a2ecab8fe3d425" title="Retrieve text from JSON content. ">AfsJsonClientDataHelper::get_text</a></em>.</p>
+<p>Main common feature of these helpers is that they both manage highlight in client data. Default callbacks are used for highlighted text but specific ones can be defined.</p>
+<h1><a class="anchor" id="asr_end"></a>
+Next step</h1>
+<p>Full example detailled: <a class="el" href="integration_example.html">Integration example</a> </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 16 2013 18:15:35 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 18 2013 10:07:30 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
