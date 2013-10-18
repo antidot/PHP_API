@@ -5,7 +5,7 @@
  * Authority to use when authenticating on Antidot Back Office Web Service.
  * @{ */
 /** @brief LDAP: use LDAP for authentication */
-define('AFS_AUTH_LDAP', 'LDPA');
+define('AFS_AUTH_LDAP', 'LDAP');
 /** @brief BOWS: use internal Back Office authentication manager */
 define('AFS_AUTH_BOWS', 'BOWS');
 /* @brief SSO: single sign one (should not be used) */
