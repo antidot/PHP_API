@@ -21,5 +21,7 @@ var searchData=
   ['afs_5fpaf_5fbeta',['AFS_PAF_BETA',['../group__paf__status.html#gad421858c221225501344eadfa37e1e70',1,'afs_service.php']]],
   ['afs_5fpaf_5frc',['AFS_PAF_RC',['../group__paf__status.html#ga305a11288411ce2095cbbf19312caa0b',1,'afs_service.php']]],
   ['afs_5fpaf_5fsandbox',['AFS_PAF_SANDBOX',['../group__paf__status.html#ga57fc8f18f183ccb03ccd6610527313b2',1,'afs_service.php']]],
-  ['afs_5fpaf_5fstable',['AFS_PAF_STABLE',['../group__paf__status.html#ga0397c815c70ccc1d40f226399ac9afd0',1,'afs_service.php']]]
+  ['afs_5fpaf_5fstable',['AFS_PAF_STABLE',['../group__paf__status.html#ga0397c815c70ccc1d40f226399ac9afd0',1,'afs_service.php']]],
+  ['afs_5fscheme_5fhttp',['AFS_SCHEME_HTTP',['../group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91',1,'afs_connector_base.php']]],
+  ['afs_5fscheme_5fhttps',['AFS_SCHEME_HTTPS',['../group__uri__scheme.html#ga64b6aa6fa45e8a3646d57d994ffd9740',1,'afs_connector_base.php']]]
 ];

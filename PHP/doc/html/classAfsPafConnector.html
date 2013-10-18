@@ -102,9 +102,9 @@ Inheritance diagram for AfsPafConnector:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a99862e1acc4a8b3642714148a547a439"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsPafConnector.html#a99862e1acc4a8b3642714148a547a439">__construct</a> ($host, <a class="el" href="classAfsService.html">AfsService</a> $service, $paf_name, <a class="el" href="classAfsAuthentication.html">AfsAuthentication</a> &amp;$authentication)</td></tr>
-<tr class="memdesc:a99862e1acc4a8b3642714148a547a439"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new PaF connector.  <a href="#a99862e1acc4a8b3642714148a547a439">More...</a><br/></td></tr>
-<tr class="separator:a99862e1acc4a8b3642714148a547a439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaa1df9c73cf65506a41875fc41d0271"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsPafConnector.html#abaa1df9c73cf65506a41875fc41d0271">__construct</a> ($host, <a class="el" href="classAfsService.html">AfsService</a> $service, $paf_name, <a class="el" href="classAfsAuthentication.html">AfsAuthentication</a> &amp;$authentication, $scheme=<a class="el" href="group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91">AFS_SCHEME_HTTP</a>)</td></tr>
+<tr class="memdesc:abaa1df9c73cf65506a41875fc41d0271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new PaF connector.  <a href="#abaa1df9c73cf65506a41875fc41d0271">More...</a><br/></td></tr>
+<tr class="separator:abaa1df9c73cf65506a41875fc41d0271"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe4f4b5475b59dea35bbf2c18dd1aea4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsPafConnector.html#abe4f4b5475b59dea35bbf2c18dd1aea4">upload_doc</a> (<a class="el" href="classAfsDocument.html">AfsDocument</a> $doc, $comment=null)</td></tr>
 <tr class="memdesc:abe4f4b5475b59dea35bbf2c18dd1aea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload one document to the PaF.  <a href="#abe4f4b5475b59dea35bbf2c18dd1aea4">More...</a><br/></td></tr>
 <tr class="separator:abe4f4b5475b59dea35bbf2c18dd1aea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,7 +115,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>AFS PaF connector. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a99862e1acc4a8b3642714148a547a439"></a>
+<a class="anchor" id="abaa1df9c73cf65506a41875fc41d0271"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -141,7 +141,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classAfsAuthentication.html">AfsAuthentication</a> &amp;&#160;</td>
-          <td class="paramname"><em>$authentication</em>&#160;</td>
+          <td class="paramname"><em>$authentication</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$scheme</em> = <code><a class="el" href="group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91">AFS_SCHEME_HTTP</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -158,6 +164,13 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">$service</td><td>[in] antidot service (see <em><a class="el" href="classAfsService.html" title="Antidot service. ">AfsService</a></em>). </td></tr>
     <tr><td class="paramname">$paf_name</td><td>[in] name of the PaF. </td></tr>
     <tr><td class="paramname">$authentication</td><td>[in-out] authentication object (see <em><a class="el" href="classAfsAuthentication.html" title="AFS authentication. ">AfsAuthentication</a></em>). </td></tr>
+    <tr><td class="paramname">$scheme</td><td>[in] Scheme for the connection URL see <a class="el" href="group__uri__scheme.html">Connection scheme</a> (default: <em>AFS_SCHEME_HTTP</em>).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">InvalidArgumentException</td><td>invalid scheme parameter provided. </td></tr>
   </table>
   </dd>
 </dl>
@@ -253,7 +266,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 18 2013 10:07:30 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 18 2013 15:03:49 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

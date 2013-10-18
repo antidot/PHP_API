@@ -89,8 +89,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">$query = $coder-&gt;build_query($_GET);</div>
 <div class="line"><span class="comment">// Connector</span></div>
 <div class="line"><span class="comment"></span>$service = <span class="keyword">new</span> <a name="_a1"></a><a class="code" href="classAfsService.html">AfsService</a>(70000, <a name="a2"></a><a class="code" href="group__paf__status.html#ga0397c815c70ccc1d40f226399ac9afd0">AFS_PAF_STABLE</a>);</div>
-<div class="line">$url = <span class="stringliteral">&#39;http://eval.partners.antidot.net/search&#39;</span>;</div>
-<div class="line">$connector = <span class="keyword">new</span> <a name="_a3"></a><a class="code" href="classAfsSearchConnector.html">AfsSearchConnector</a>($url, $service);</div>
+<div class="line">$host = <span class="stringliteral">&#39;eval.partners.antidot.net&#39;</span>;</div>
+<div class="line">$connector = <span class="keyword">new</span> <a name="_a3"></a><a class="code" href="classAfsSearchConnector.html">AfsSearchConnector</a>($host, $service);</div>
 <div class="line"><span class="comment">// Facets and Facet Manager</span></div>
 <div class="line"><span class="comment"></span>$facet_mgr = <span class="keyword">new</span> <a name="_a4"></a><a class="code" href="classAfsFacetManager.html">AfsFacetManager</a>();</div>
 <div class="line">$facet_mgr-&gt;add_facet(<span class="keyword">new</span> <a name="_a5"></a><a class="code" href="classAfsFacet.html">AfsFacet</a>(<span class="stringliteral">&#39;Organization&#39;</span>, <a name="a6"></a><a class="code" href="group__facet__type.html#ga34bfb9de5f002a45be02352cbb149422">AFS_FACET_STRING</a>));</div>
@@ -116,7 +116,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 18 2013 10:07:30 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 18 2013 15:03:49 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

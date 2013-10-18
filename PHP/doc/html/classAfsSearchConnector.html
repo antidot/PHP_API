@@ -103,9 +103,9 @@ Inheritance diagram for AfsSearchConnector:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a21e883de9ded79db253db8f46491970b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSearchConnector.html#a21e883de9ded79db253db8f46491970b">__construct</a> ($search_url, <a class="el" href="classAfsService.html">AfsService</a> $service)</td></tr>
-<tr class="memdesc:a21e883de9ded79db253db8f46491970b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new search connector.  <a href="#a21e883de9ded79db253db8f46491970b">More...</a><br/></td></tr>
-<tr class="separator:a21e883de9ded79db253db8f46491970b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8afe2cec29488d15517fbc94f0c1345"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSearchConnector.html#ad8afe2cec29488d15517fbc94f0c1345">__construct</a> ($host, <a class="el" href="classAfsService.html">AfsService</a> $service, $scheme=<a class="el" href="group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91">AFS_SCHEME_HTTP</a>)</td></tr>
+<tr class="memdesc:ad8afe2cec29488d15517fbc94f0c1345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new search connector.  <a href="#ad8afe2cec29488d15517fbc94f0c1345">More...</a><br/></td></tr>
+<tr class="separator:ad8afe2cec29488d15517fbc94f0c1345"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03bfab6c450f8e8c50488f99f838a69e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSearchConnector.html#a03bfab6c450f8e8c50488f99f838a69e">send</a> (array $parameters)</td></tr>
 <tr class="memdesc:a03bfab6c450f8e8c50488f99f838a69e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a query.  <a href="#a03bfab6c450f8e8c50488f99f838a69e">More...</a><br/></td></tr>
 <tr class="separator:a03bfab6c450f8e8c50488f99f838a69e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,7 +115,7 @@ Public Member Functions</h2></td></tr>
 <p>Only one object of this type should be instanciated in each PHP integration. </p>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="full_example_8php-example.html#_a3">full_example.php</a>.</dd>
 </dl></div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a21e883de9ded79db253db8f46491970b"></a>
+<a class="anchor" id="ad8afe2cec29488d15517fbc94f0c1345"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -123,13 +123,19 @@ Public Member Functions</h2></td></tr>
           <td class="memname">__construct </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$search_url</em>, </td>
+          <td class="paramname"><em>$host</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classAfsService.html">AfsService</a>&#160;</td>
-          <td class="paramname"><em>$service</em>&#160;</td>
+          <td class="paramname"><em>$service</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$scheme</em> = <code><a class="el" href="group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91">AFS_SCHEME_HTTP</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -143,8 +149,15 @@ Public Member Functions</h2></td></tr>
 <p>All parameter values should have been provided by Antidot.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">$search_url</td><td>[in] URL of the AFS search engine. </td></tr>
+    <tr><td class="paramname">$host</td><td>[in] server hosting the required service. </td></tr>
     <tr><td class="paramname">$service</td><td>[in] Antidot service (see <em><a class="el" href="classAfsService.html" title="Antidot service. ">AfsService</a></em>). </td></tr>
+    <tr><td class="paramname">$scheme</td><td>[in] Scheme for the connection URL see <a class="el" href="group__uri__scheme.html">Connection scheme</a> (default: <em>AFS_SCHEME_HTTP</em>).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">InvalidArgumentException</td><td>invalid scheme parameter provided. </td></tr>
   </table>
   </dd>
 </dl>
@@ -183,7 +196,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 18 2013 10:07:30 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 18 2013 15:03:49 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

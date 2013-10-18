@@ -97,8 +97,8 @@ AFS search connector</h1>
 <p>Along with the search URL, a service number and service status should also have been provided. These informations are used to initialized an instance of <em><a class="el" href="classAfsService.html" title="Antidot service. ">AfsService</a></em>. Production services are not modified in place so their status are usually <code>stable</code>.</p>
 <p>Here an example to initialize an AFS search connector: </p>
 <div class="fragment"><div class="line">$service = <span class="keyword">new</span> <a class="code" href="classAfsService.html">AfsService</a>(70000, <a class="code" href="group__paf__status.html#ga0397c815c70ccc1d40f226399ac9afd0">AFS_PAF_STABLE</a>);</div>
-<div class="line">$url = <span class="stringliteral">&#39;http://eval.partners.antidot.net/search&#39;</span>;</div>
-<div class="line">$connector = <span class="keyword">new</span> <a class="code" href="classAfsSearchConnector.html">AfsSearchConnector</a>($url, $service);</div>
+<div class="line">$host = <span class="stringliteral">&#39;eval.partners.antidot.net&#39;</span>;</div>
+<div class="line">$connector = <span class="keyword">new</span> <a class="code" href="classAfsSearchConnector.html">AfsSearchConnector</a>($host, $service);</div>
 </div><!-- fragment --><p> Once the connector is initialized, queries can be submitted by calling <a class="el" href="classAfsSearchConnector.html#a03bfab6c450f8e8c50488f99f838a69e" title="Send a query. ">AfsSearchConnector::send</a> method. This method is generally never called directlty. Instead, call to <a class="el" href="classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163" title="Send query to AFS search engine. ">AfsSearchQueryManager::send</a> (see <a class="el" href="afs_search_query.html#asq_query_manager">Query manager</a>) triggers appropriate call to this method.</p>
 <p>An array of parameters should be provided to the method. Array key/value pairs should correspond to valid AFS search engine parameter names with valid associated value (see <code>AFS Integration Guide &gt; AFS WEB SERVICES &gt; search &gt; Parameters</code>). <br/>
  Provided array of parameters is filled with default parameters such as <code>afs:service</code>, <code>afs:status</code> and <code>afs:output</code> before Antidot search engine is queried.</p>
@@ -142,7 +142,7 @@ Next step</h1>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 18 2013 10:07:30 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 18 2013 15:03:49 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

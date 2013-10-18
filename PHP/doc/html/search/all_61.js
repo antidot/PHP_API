@@ -28,6 +28,8 @@ var searchData=
   ['afs_5fpaf_5fsandbox',['AFS_PAF_SANDBOX',['../group__paf__status.html#ga57fc8f18f183ccb03ccd6610527313b2',1,'afs_service.php']]],
   ['afs_5fpaf_5fstable',['AFS_PAF_STABLE',['../group__paf__status.html#ga0397c815c70ccc1d40f226399ac9afd0',1,'afs_service.php']]],
   ['antidot_20paf_20upload',['Antidot PaF upload',['../afs_paf_upload.html',1,'']]],
+  ['afs_5fscheme_5fhttp',['AFS_SCHEME_HTTP',['../group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91',1,'afs_connector_base.php']]],
+  ['afs_5fscheme_5fhttps',['AFS_SCHEME_HTTPS',['../group__uri__scheme.html#ga64b6aa6fa45e8a3646d57d994ffd9740',1,'afs_connector_base.php']]],
   ['afs_20search_20query_20coder_2fdecoder_20api',['AFS search query coder/decoder API',['../afs_search_coder.html',1,'']]],
   ['afs_20search_20query_20api',['AFS search query API',['../afs_search_query.html',1,'']]],
   ['afs_20search_20reply_20api',['AFS search reply API',['../afs_search_reply.html',1,'']]],
