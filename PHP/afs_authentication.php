@@ -28,7 +28,7 @@ class AfsAuthentication
      *
      * @param $user [in] login user name.
      * @param $password [in] login password.
-     * @param $authority [in] authentication authority to use (see @ref 
+     * @param $authority [in] authentication authority to use (see @ref
      *        auth_authorities).
      */
     public function __construct($user, $password, $authority)
@@ -37,8 +37,8 @@ class AfsAuthentication
                                         AFS_AUTH_SSO, AFS_AUTH_ANTIDOT))) {
             throw new InvalidArgumentException('Invalid authority parameter');
         }
-        $this->user = $user;
-        $this->password = $password;
+        $this->user = urlencode($user);
+        $this->password = urlencode($password);
         $this->authority = $authority;
     }
 }
