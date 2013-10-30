@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<afs:replies xmlns:afs="http://ref.antidot.net/v7/afs#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ref.antidot.net/v7/afs# http://ref.antidot.net/v7.6/search.xsd">
+  <afs:header>
+    <afs:query userId="bdc3bea1-bbb6-4c10-9a0b-1313a4882a11" sessionId="131075aa-38cd-4f0a-948f-6efb7b02f809" date="2013-10-31T12:25:04+0100" textQuery="foo">
+      <afs:queryParam name="afs:service" value="42"/>
+      <afs:queryParam name="afs:status" value="stable"/>
+      <afs:queryParam name="afs:output" value="xml"/>
+      <afs:queryParam name="afs:query" value="foo"/>
+      <afs:mainCtx textQuery="foo"/>
+    </afs:query>
+    <afs:user requestMethod="GET" agent="curl/7.21.0 (x86_64-pc-linux-gnu) libcurl/7.21.0 OpenSSL/0.9.8o zlib/1.2.3.4 libidn/1.15 libssh2/1.2.6" address="127.0.0.1">
+      <afs:output format="XML" encoding="" charset="UTF-8"/>
+    </afs:user>
+    <afs:performance durationMs="101"/>
+    <afs:info/>
+  </afs:header>
+  <afs:replySet>
+    <afs:meta uri="TEST" totalItems="6" totalItemsIsExact="true" pageItems="6" firstPageItem="1" lastPageItem="6" durationMs="93" firstPaFId="8" lastPaFId="68" producer="search"/>
+    <afs:facets/>
+    <afs:content>
+      <afs:reply docId="38" uri="file://localhost//home/ml/travail/index/test_php/BO/upload/WS//ac7e367e-9237-41fd-8479-5d6b001f73c9/file">
+        <afs:title>
+          <afs:match>FOO</afs:match>
+          <afs:text> BAR BAZ</afs:text>
+        </afs:title>
+        <afs:relevance rank="1"/>
+      </afs:reply>
+      <afs:reply docId="37" uri="file://localhost//home/ml/travail/index/test_php/BO/upload/WS//ac3e971e-0faa-4381-84e2-77e6943ace33/file">
+        <afs:title>
+          <afs:match>FOO</afs:match>
+          <afs:text> BAR BAZ</afs:text>
+        </afs:title>
+        <afs:relevance rank="2"/>
+      </afs:reply>
+      <afs:reply docId="59" uri="http://JAVAgenerated.doc.php">
+        <afs:title>
+          <afs:text>JAVA </afs:text>
+          <afs:match>FOO2</afs:match>
+          <afs:text> Generated doc</afs:text>
+        </afs:title>
+        <afs:abstract>
+          <afs:text>JAVA Generated content</afs:text>
+        </afs:abstract>
+        <afs:relevance rank="3"/>
+      </afs:reply>
+      <afs:reply docId="58" uri="http://JAVAgenerated.doc.php">
+        <afs:title>
+          <afs:text>JAVA </afs:text>
+          <afs:match>FOO1</afs:match>
+          <afs:text> Generated doc</afs:text>
+        </afs:title>
+        <afs:abstract>
+          <afs:text>JAVA Generated content</afs:text>
+        </afs:abstract>
+        <afs:relevance rank="4"/>
+      </afs:reply>
+      <afs:reply docId="57" uri="http://JAVAgenerated.doc.php">
+        <afs:title>
+          <afs:text>JAVA </afs:text>
+          <afs:match>FOO1</afs:match>
+          <afs:text> Generated doc</afs:text>
+        </afs:title>
+        <afs:abstract>
+          <afs:text>JAVA Generated content</afs:text>
+        </afs:abstract>
+        <afs:relevance rank="5"/>
+      </afs:reply>
+      <afs:reply docId="56" uri="http://JAVAgenerated.doc.php">
+        <afs:title>
+          <afs:text>JAVA </afs:text>
+          <afs:match>FOO2</afs:match>
+          <afs:text> Generated doc</afs:text>
+        </afs:title>
+        <afs:abstract>
+          <afs:text>JAVA Generated content</afs:text>
+        </afs:abstract>
+        <afs:relevance rank="6"/>
+      </afs:reply>
+    </afs:content>
+  </afs:replySet>
+</afs:replies>
