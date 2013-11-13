@@ -1,0 +1,18 @@
+@(facets: List[net.antidot.api.search.FacetHelper])
+@if(facets.size() > 0) {
+<div class="col-md-3">
+  <h2>Filters</h2>
+  @for(facet <- facets) {
+    <div class="panel panel-default">
+      <div class="panel-heading">@facet.getLabel()</div>
+      <div class="panel-body">
+        @if(facet.getValues().size() > 0) {
+          <div class="list-group">
+            @facetValues(facet)
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
+}

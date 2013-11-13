@@ -1,0 +1,19 @@
+@(pager: net.antidot.api.search.PagerHelper)
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="input-group col-md-3">
+    <ul class="pagination">
+      @if(pager.hasPrevious()) {
+        <li><a href="@pager.getLink(pager.getPrevious())">Previous</a></li>
+      }
+      @for(page <- pager.getPages()) {
+	    @defining(if(pager.getCurrent() == page) "active" else "") { active =>
+          <li class="@active"><a href="@pager.getLink(page)">@page</a></li>
+        }
+      }
+      @if(pager.hasNext()) {
+        <li><a href="@pager.getLink(pager.getNext())">Next</a></li>
+      }
+    </ul>
+  </div>
+</div>

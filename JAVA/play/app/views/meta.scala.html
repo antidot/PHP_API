@@ -1,0 +1,60 @@
+@(replies: net.antidot.api.search.RepliesHelper)
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Antidot Java API - Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="page-header">
+      <h1>Example <small>based on the Antidot Java API</small></h1>
+    </div>
+
+  @if(replies.hasReplySet()) {
+    @defining(replies.getReplySet()) { replySet =>
+	    <div class="row">
+	      <div class="col-md-5"></div>
+	      <div class="input-group col-md-2">
+	        <form method="get" action="" role="form" class="input-group">
+	          <span class="input-group-addon">Search</span>
+	          <input type="search" name="query" class="form-control" placeholder="Keywords" />
+	          <span class="input-group-btn">
+	            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+	          </span>
+	        </form>
+	      </div>
+	    </div>
+	
+	    <div class="row">
+	      @facet(replySet.getFacets())
+	      @result(replySet.getMeta(), replySet.getReplies())
+	    </div>
+	
+		@if(replySet.hasPager()) {
+		  <div class="row">
+		    @pager(replySet.getPager())
+	   	  </div>
+		}
+    }
+  } else {
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-5">No reply available</div>
+    </div>
+  }
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

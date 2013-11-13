@@ -1,0 +1,19 @@
+@(meta: net.antidot.api.search.MetaHelper, replies: List[net.antidot.api.search.ReplyHelper])
+<div class="col-md-9">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+      <h2>Results <span class="label label-success">@meta.getReplyNb()</span></h2>
+      <h4><span class="label label-info">Duration @meta.getDuration() ms</span></h4>
+    </div>
+  </div>
+  <ul class="list-unstyled">
+    @for(reply <- replies) {
+      <li>
+        <h3>@Html(reply.getTitle())</h3>
+        <p><a href="@reply.getUri()">@reply.getUri()</a></p>
+        <p>@Html(reply.getAbstract())</p>
+      </li>
+    }
+  </ul>
+</div>
