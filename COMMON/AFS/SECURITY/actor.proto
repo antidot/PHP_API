@@ -1,0 +1,23 @@
+/***************************************************************************
+*
+* AFS © 2013 Antidot
+*
+***************************************************************************/
+// java_antidot_api
+package N_Security;
+
+option java_outer_classname = "ActorClass";
+option java_package = "net.antidot.protobuf.security";
+
+enum ActorType
+{
+  USER = 1;
+  GROUP = 2;
+  OTHERS = 3;
+}
+
+message Actor
+{
+  required ActorType type = 2;
+  required string name = 1;
+}

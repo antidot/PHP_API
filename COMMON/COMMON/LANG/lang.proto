@@ -1,0 +1,227 @@
+/***************************************************************************
+ *
+ * AFS © 2013 Antidot
+ *
+ ***************************************************************************/
+// java_antidot_api
+package N_Lang.Lang;
+
+option java_package = "net.antidot.common.lang";
+option java_outer_classname = "LangProtos";
+
+//
+// List of ISO 639-1 codes
+//
+// To generate this list:
+//
+// 1) wget http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes -O lang.html
+// 2) cat lang.html | grep "xml:lang=\"" | cut -d' ' -f3 | cut -d'"' -f2
+// 3) generate numbers. For this emacs can be used:
+//    - store initial value (example: 12) in register 1:
+//              C-u 12 C-x r n 1
+//    - increment register value by 1 :
+//              C-u 12 C-x r + 1
+//    - insert the current registry number:
+//				C-x r g 1
+// 4) replace "-" by "_"
+
+// enum values are in uppercase otherwise they clash with C++ or Python
+// keywords (or, is, ...)
+enum Lang
+{
+  // for unitialized values
+  UNKNOWN = 0;
+
+  // ISO 639-1 codes
+  AA = 1;
+  AB = 2;
+  AE = 3;
+  AF = 4;
+  AK = 5;
+  AM = 6;
+  AN = 7;
+  AR = 8;
+  AS = 9;
+  AV = 10;
+  AY = 11;
+  AZ = 12;
+  BA = 13;
+  BE = 14;
+  BG = 15;
+  BH = 16;
+  BI = 17;
+  BM = 18;
+  BN = 19;
+  BO = 20;
+  BR = 21;
+  BS = 22;
+  CA = 23;
+  CE = 24;
+  CH = 25;
+  CO = 26;
+  CR = 27;
+  CS = 28;
+  CU = 29;
+  CV = 30;
+  CY = 31;
+  DA = 32;
+  DE = 33;
+  DV = 34;
+  DZ = 35;
+  EE = 36;
+  EL = 37;
+  EN = 38;
+  EO = 39;
+  ES = 40;
+  ET = 41;
+  EU = 42;
+  FA = 43;
+  FF = 44;
+  FI = 45;
+  FJ = 46;
+  FO = 47;
+  FR = 48;
+  FY = 49;
+  GA = 50;
+  GD = 51;
+  GL = 52;
+  GN = 53;
+  GU = 54;
+  GV = 55;
+  HA = 56;
+  HE = 57;
+  HI = 58;
+  HO = 59;
+  HR = 60;
+  HT = 61;
+  HU = 62;
+  HY = 63;
+  HZ = 64;
+  IA = 65;
+  ID = 66;
+  IE = 67;
+  IG = 68;
+  II = 69;
+  IK = 70;
+  IO = 71;
+  IS = 72;
+  IT = 73;
+  IU = 74;
+  JA = 75;
+  JV = 76;
+  KA = 77;
+  KG = 78;
+  KI = 79;
+  KJ = 80;
+  KK = 81;
+  KL = 82;
+  KM = 83;
+  KN = 84;
+  KO = 85;
+  KR = 86;
+  KS = 87;
+  KU = 88;
+  KV = 89;
+  KW = 90;
+  KY = 91;
+  LA = 92;
+  LB = 93;
+  LG = 94;
+  LI = 95;
+  LN = 96;
+  LO = 97;
+  LT = 98;
+  LU = 99;
+  LV = 100;
+  MG = 101;
+  MH = 102;
+  MI = 103;
+  MK = 104;
+  ML = 105;
+  MN = 106;
+  MR = 107;
+  MS = 108;
+  MT = 109;
+  MY = 110;
+  NA = 111;
+  NB = 112;
+  ND = 113;
+  NE = 114;
+  NG = 115;
+  NL = 116;
+  NN = 117;
+  NO = 118;
+  NR = 119;
+  NV = 120;
+  NY = 121;
+  OC = 122;
+  OJ = 123;
+  OM = 124;
+  OR = 125;
+  OS = 126;
+  PA = 127;
+  PI = 128;
+  PL = 129;
+  PS = 130;
+  PT = 131;
+  QU = 132;
+  RM = 133;
+  RN = 134;
+  RO = 135;
+  RU = 137;
+  RW = 138;
+  SA = 139;
+  SC = 140;
+  SD = 141;
+  SE = 142;
+  SG = 143;
+  SI = 144;
+  SK = 145;
+  SL = 146;
+  SM = 147;
+  SN = 148;
+  SO = 149;
+  SQ = 150;
+  SR = 151;
+  SS = 152;
+  ST = 153;
+  SU = 154;
+  SV = 155;
+  SW = 156;
+  TA = 157;
+  TE = 158;
+  TG = 159;
+  TH = 160;
+  TI = 161;
+  TK = 162;
+  TL = 163;
+  TN = 164;
+  TO = 165;
+  TR = 166;
+  TS = 167;
+  TT = 168;
+  TW = 169;
+  TY = 170;
+  UG = 171;
+  UK = 172;
+  UR = 173;
+  UZ = 174;
+  VE = 175;
+  VI = 176;
+  VO = 177;
+  WA = 178;
+  WO = 179;
+  XH = 180;
+  YI = 181;
+  YO = 182;
+  ZA = 183;
+  ZH = 184;
+  ZU = 185;
+
+  // Don't forget to remove RTL
+
+
+  // All Languages
+  ALL = 999;
+  DEFAULT = 1000;
+}

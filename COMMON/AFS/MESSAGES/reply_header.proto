@@ -1,0 +1,94 @@
+/***************************************************************************
+*
+* AFS © 2013 Antidot
+*
+***************************************************************************/
+// java_antidot_api
+package N_Query_Engine.Header;
+
+import "AFS/MESSAGES/pred.proto";
+import "AFS/MESSAGES/query.proto";
+
+option java_package = "net.antidot.protobuf.reply";
+
+message Header
+{
+  optional Query query = 1;
+  optional User user = 2;
+  optional Performance performance = 3;
+  optional SystemInfo info = 4;
+  optional Error error = 5;
+}
+
+message Query
+{
+  required string userId = 1;
+  required string sessionId = 2;
+  optional string permalink = 3; // requires afs:explain=permalink
+  required string date = 4;
+  repeated Parameter queryParam = 5; // Query parameters (sorted)
+  required Context mainCtx = 6;
+  repeated AgentContext agentCtx = 7;
+  required string textQuery = 8; // plain text query, needed for 7.2
+								  // compatibility
+}
+
+message AgentContext
+{
+  required string agent = 1;
+  required Context context = 2;
+}
+
+message Context
+{
+  optional string textQuery = 4; // plain text query
+  repeated N_Query_Engine.Query.Source from = 7; // (explain)
+  optional Predicate.Pred where = 8; // (explain)
+  repeated N_Query_Engine.Query.Tag tag = 9; // (explain)
+  optional N_Query_Engine.Query.Cluster cluster = 10; // (explain)
+  repeated N_Query_Engine.Query.SortItem sort = 11; // (explain)
+  optional N_Query_Engine.Query.Options options = 12; // (explain)
+  optional N_Query_Engine.Query.Page page = 13; // (explain)
+  optional Predicate.Pred whereTextQuery = 14; // (explain ; internal use only)
+  optional Predicate.Pred whereLang = 15; // 7.5-> explain, internal use only
+  optional Predicate.Pred whereUri = 16; // 7.6.1-> explain, internal use only
+  optional Predicate.Pred wheredocId = 17; // 7.6.2-> explain,
+											// internal use only
+}
+
+message Parameter
+{
+  required string name = 1;
+  required string value = 2;
+}
+
+message User
+{
+  required string requestMethod = 1;
+  required string agent = 2;
+  required string address = 3;
+  required Output output = 4;
+}
+
+message Output
+{
+  required string format = 1; // XML, ...
+  required string encoding = 2; // gzip, ...
+  required string charset = 3; // UTF-8, ...
+  optional string skin = 4;
+}
+
+message Performance
+{
+  required int64 durationMs = 1; // negative value indicates timestamp error
+}
+
+message SystemInfo
+{
+  repeated string message = 1;
+}
+
+message Error
+{
+  repeated string message = 1;
+}

@@ -1,0 +1,21 @@
+/***************************************************************************
+*
+* AFS © 2013 Antidot
+*
+***************************************************************************/
+// java_antidot_api
+package N_Query_Engine.Predicate;
+
+import "AFS/MESSAGES/expr.proto";
+
+option java_package = "net.antidot.protobuf.query_engine.predicate";
+
+//
+// Distance
+//
+message Geodist_Pred
+{
+  required Real latitude = 1;
+  required Real longitude = 2;
+  required Real distance = 3;
+}

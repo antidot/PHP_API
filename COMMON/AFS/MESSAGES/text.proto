@@ -1,0 +1,72 @@
+/***************************************************************************
+*
+* AFS © 2013 Antidot
+*
+***************************************************************************/
+// java_antidot_api
+package N_Query_Engine.Predicate ;
+
+option java_package = "net.antidot.protobuf.predicate";
+
+//
+// Text predicate
+//
+enum Text_Pred_Type
+{
+  MANDATORY = 1 ;
+  OPTIONAL = 2 ;
+  EXCLUDED = 3 ;
+  DEFAULT = 4 ; // Uses default mode
+}
+
+message Text_Keyword
+{
+  required string keyword = 1 ;
+  required bool empty = 2 ;
+  optional string source = 3 ; // source keyword (not normalized)
+  optional string pre = 4 ; // separator with previous lexem (usually
+							// space) ; if empty then keyword is right
+							// next to previous lexem (ex: "foo" in
+							// "(foo)" but not in "( foo )"
+
+  extensions 1300 to 1399 ;
+}
+
+message Text_Wildcard
+{
+  required uint64 max_expansions = 1 ;
+}
+
+extend Text_Keyword
+{
+  optional Text_Wildcard wildcard = 1300 ;
+}
+
+enum Text_Match_Type
+{
+  WORD = 1 ; // Search one word a a time
+  PHRASE = 2 ; // Words must appear exactly in this order
+  FIELD = 3 ; // Phrase match + no other words in item WAS: EXACT then ITEM
+  STRICT = 4 ; // Words must appear exactly in this order and
+  // not be expanded WAS: ORIGINAL_PHRASE
+}
+
+message Text_Pred
+{
+  //optional bool				is_expression = 1 [ default = false ] ;
+  // explicit=true iff group has been explicitely delimited with parenthesis
+  //optional bool				is_explicit = 2 [ default = false ] ;
+  optional string				nl_op = 2 ; // natural language
+											// operator for pred_type,
+											// if any
+  optional Text_Pred_Type		pred_type = 3 [ default = MANDATORY ] ;
+  repeated Text_Keyword			keywords = 4 ;
+  optional string				field = 5 ;
+  optional Text_Match_Type		match_type = 6 ;
+  optional uint64 fts_id = 7 ; // Source full text search predicate,
+							   // numbered from 1 in order of query
+							   // string (left to right)
+  optional uint64 removedCharacters = 8 ; // if set, gived the number
+										  // of removed characters (by conf)
+  // 7.6.1.4 ->  
+}

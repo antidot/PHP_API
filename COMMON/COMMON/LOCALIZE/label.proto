@@ -1,0 +1,31 @@
+/***************************************************************************
+*
+* AFS © 2013 Antidot
+*
+***************************************************************************/
+// java_antidot_api
+import "COMMON/LANG/lang.proto";
+import "COMMON/LANG/region.proto";
+import "COMMON/MESSAGES/serialize_xml.proto";
+import "COMMON/MESSAGES/serialize_xsd.proto";
+import "COMMON/MESSAGES/serialize_json.proto";
+
+package N_Lang;
+
+option java_package = "net.antidot.protobuf.lang";
+
+message Language
+{
+  option (N_Protobuf.Serialize.XML.is_language) = true;
+
+  required Lang.Lang lang = 1;
+  optional Region.Region region = 2 [default = UNKNOWN];
+}
+
+message LocalizedLabel
+{
+  optional Language language = 1
+    [ (N_Protobuf.Serialize.XSD.force_ref) = "xml:lang",
+      (N_Protobuf.Serialize.N_JSON.no_element) = true ];
+  required string label = 2;
+}

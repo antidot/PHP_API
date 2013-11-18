@@ -1,0 +1,38 @@
+/***************************************************************************
+*
+* AFS
+*
+* (C) 2010-2013 Antidot
+*
+* Module				: Protocol Buffers
+*
+* Description			: Field options affection XSD serialization
+*
+***************************************************************************/
+// java_antidot_api
+import "google/protobuf/descriptor.proto";
+
+option java_package = "net.antidot.protobuf.serialize.xsd";
+
+package N_Protobuf.Serialize.XSD ;
+
+extend google.protobuf.FieldOptions
+{
+  // Use this option to generate a xsd:any element indicating that
+  // the data in this field is not specified (i.e. random client content)
+  optional bool generate_any_type = 11001 [ default = false ] ;
+
+  // Use this option to force the type of a field to be a "ref"
+  // with string value
+  optional string force_ref = 11010 ;
+
+  // Do not serialize... ex: when two fields have the same name,
+  // one for v7.n and one for v7.n+1, and they are compatible and
+  // never present at the same time. But declaring both makes
+  // an invalid xsd (ex: #1926)
+  optional bool do_not_serialize = 11011 [ default = false ] ;
+}
+
+//
+// End of file
+//

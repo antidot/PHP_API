@@ -1,0 +1,16 @@
+/***************************************************************************
+ *
+ * AFS © 2013 Antidot
+ *
+ ****************************************************************************/
+// java_antidot_api
+package N_Query_Engine.Count;
+
+option java_package = "net.antidot.protobuf.query_engine.count";
+
+/// @brief How should replies be counted ?
+enum Reply
+{
+  DOCUMENTS = 1; /// afs:replies=10 needs 10 documents in feed
+  CLUSTERS = 2; /// afs:replies=10 needs 10 clusters in feed
+}

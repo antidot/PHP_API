@@ -1,0 +1,31 @@
+/***************************************************************************
+ *
+ * AFS © 2013 Antidot
+ *
+ ****************************************************************************/
+// java_antidot_api
+package N_Service;
+
+option java_package = "net.antidot.protobuf.service";
+option java_outer_classname = "StatusProtos";
+
+// Status of a service
+// DO *NOT* change order
+// DO *NOT* add an item before checking codes looking for archive
+enum Status
+{
+  stable = 0;
+  rc = 1; // Release Candidate
+  beta = 2;
+  alpha = 3;
+  sandbox = 4;
+  archive = 5; // old version
+  // 6 -> 98 : placeholders
+  ALL_STATUSES = 99;
+}
+
+message Instance // A service instance, wrapper for id + status
+{
+  required uint64 id = 1;
+  required N_Service.Status status = 2;
+}

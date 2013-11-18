@@ -1,0 +1,18 @@
+/***************************************************************************
+*
+* AFS © 2013 Antidot
+*
+***************************************************************************/
+// java_antidot_api
+import "google/protobuf/descriptor.proto";
+
+package N_Protobuf.Serialize;
+
+option java_package = "net.antidot.protobuf.serialize";
+
+extend google.protobuf.FieldOptions
+{
+  // Use this option to serialize the field iff "env" contains
+  // a varible "var" of value "value" (use "var=value")
+  optional string requires_env = 10030;
+}

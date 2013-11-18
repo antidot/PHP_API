@@ -1,0 +1,148 @@
+/***************************************************************************
+*
+* AFS © 2013 Antidot
+*
+***************************************************************************/
+// java_antidot_api
+package N_Query_Engine.Query;
+
+import "AFS/MESSAGES/pred.proto";
+import "AFS/MESSAGES/expr.proto";
+import "CONF/API/service.proto"; // uncomment for new config. system
+import "AFS/MESSAGES/text.proto";
+import "AFS/MESSAGES/facet_options.proto";
+import "AFS/MESSAGES/count_options.proto";
+import "AFS/MESSAGES/sort_order.proto";
+import "COMMON/MESSAGES/serialize.proto";
+import "AFS/SECURITY/actor.proto";
+
+option java_package = "net.antidot.protobuf.query";
+option java_outer_classname = "QueryProto";
+
+message Query
+{
+  repeated What select = 1; // what we search
+  repeated Source from = 2; // where we search
+  optional Predicate.Pred where = 3; // filter (fulltext + facets)
+  repeated Tag tag = 4; // tags (name:predicate)*
+  optional Cluster cluster = 5; // cluster results
+  repeated SortItem sort = 6; // list of sort items, in order
+  required Page page = 7; // result page
+  required Options options = 9; // 7.4 ->
+  //optional Origin origin = 10; // was: afs:from 7.4 -> ; moved into
+  //context after 7.6
+  optional Unique unique = 11; // afs:unique, 7.5 ->
+  repeated N_Security.Actor who = 12; // afs:user, afs:group, 7.5 ->
+
+  // 
+  // The following fields are forinternal use only
+  //
+  optional Predicate.Pred whereTextQuery = 8 // fulltext filter
+  	[(N_Protobuf.Serialize.requires_env) = "afs:explain=whereTextQuery"];
+  optional Predicate.Pred whereLang = 13 // afs:lang 7.5.4 ->
+  	[(N_Protobuf.Serialize.requires_env) = "afs:explain=whereLang"];
+  optional Predicate.Pred whereUri = 14 // afs:uri 7.6.1 ->
+  	[(N_Protobuf.Serialize.requires_env) = "afs:explain=whereUri"];
+  optional Predicate.Pred wheredocId = 15 // afs:docId 7.6.2 ->
+  	[(N_Protobuf.Serialize.requires_env) = "afs:explain=wheredocId"];
+}
+
+message What
+{
+  required What_Type type = 1;
+  required string name = 2; // ?
+}
+
+enum What_Type
+{
+  ONLY_FACETS = 1;
+  RESULT_SET = 2;
+}
+
+message Source
+{
+  required uint64 serviceId = 1;
+  required N_Service.Status status = 2;
+  repeated string feeds = 3; // if not empty, list of feeds to query
+}
+
+// Search options; used internally by query parser
+message Options
+{
+  // afs:ftsDefaultMode
+  required N_Query_Engine.Predicate.Text_Pred_Type tpred_type = 1;
+
+  // afs:facetDefault
+  optional N_Query_Engine.Facet.Options facet_options = 2;
+
+  // count documents or objects ?
+  optional N_Query_Engine.Count.Reply count_replies = 3 [ default = DOCUMENTS ];
+
+  // seed when using random (parser -> queryParam)
+  optional uint64 seed = 4 [ default = 0 ];
+
+  // afs:maxpathlen: if >0 then discard replies with pathlen > this value
+  optional uint64 maxpathlen = 5 [ default = 0 ];
+
+  // afs:ftsMatch
+  optional N_Query_Engine.Predicate.Text_Match_Type match_type = 6;
+
+  // afs:maxClusters
+  optional uint64 maxClusters = 7;
+
+  // afs:overspill
+  optional bool overspill_mode = 8;
+
+  // data:timestamp
+  // If date:timestampId has been used then its value is stored here (US649)
+  optional string timestamp_facet = 9; // 7.5 ->
+
+  // clientDate run-time selection: alphabetically sorted list
+  repeated string clientData_ids = 10; // 7.6 ->
+
+  optional GeoCluster geoCluster = 11; // 7.6 ->
+
+  optional bool phraseSemExp = 12 [ default = true ]; // 7.6.3 ->
+}
+
+message Tag
+{
+  required string id = 1;
+  required Predicate.Pred where = 2;
+}
+
+message Cluster
+{
+  required string facet = 1;
+  required uint64 maxItemsPerCluster = 2;
+  required uint64 maxClusters = 3;
+  required bool overspill_mode = 4; // put overspill replies in reply set
+  // after last group
+}
+
+message Page
+{
+  required uint32 page = 1;
+  required uint32 replies = 2;
+}
+
+message SortItem
+{
+  required SortOrder order = 1;
+  required Predicate.Expr criterion = 2; // only facet or builtin
+										  // function allowed for now
+}
+
+message Unique // what facet should we use to remove duplicates ?
+// for now we only support facets but one day we might replace
+// this with Expressions. Therefore facet is optional for
+// upwards compatibility
+{
+  optional string facet = 1;
+}
+
+message GeoCluster
+{
+  required uint32 horizontal_items = 1;
+  required uint32 vertical_items = 2;
+}

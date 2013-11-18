@@ -1,0 +1,34 @@
+/***************************************************************************
+*
+* AFS © 2013 Antidot
+*
+***************************************************************************/
+// java_antidot_api
+import "AFS/MESSAGES/sort_order.proto";
+
+package N_Query_Engine.ReplySet.SortInfo;
+
+option java_package = "net.antidot.protobuf.query_engine.reply_set";
+option java_outer_classname = "SortInfosProto";
+
+enum SortInfoType
+{
+  UNDEF = 0;
+  INT = 1;
+  FLOAT = 2;
+  STRING = 3;
+  DATE = 4;
+  BOOL = 5;
+}
+
+message SortInfos
+{
+  repeated SortInfoItem item = 1;
+}
+
+message SortInfoItem
+{
+  required N_Query_Engine.Query.SortOrder order = 1;
+  required SortInfoType type = 2;
+  required string value = 3;
+}

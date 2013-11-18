@@ -1,0 +1,83 @@
+/***************************************************************************
+ *
+ * AFS © 2013 Antidot
+ *
+ ****************************************************************************/
+// java_antidot_api
+package N_Query_Engine.Facet;
+
+option java_package = "net.antidot.protobuf.facet";
+
+import "AFS/MESSAGES/sort_order.proto";
+
+/// @brief The options for all facets
+message Options
+{
+  required Option default_options = 1;
+  repeated Option facet_options = 2;
+  repeated string order = 3; // 7.5 -> if non-empty then output only
+							  // these facets in this order
+}
+
+/// @brief The option for a facet
+message Option
+{
+  /// @brief The facet name. If empty then this object defines the
+  /// default options
+  required string name = 1;
+
+  /// @brief The number of replies for this facet. If 0 then
+  /// the facet must no appear in the results. Default is 10
+  required int64 replies = 2;
+
+  /// @brief The page number for the Facet. The first displayed
+  /// facet is at rank 1 + (page-1)*replies. Default is 1
+  required int64 page = 3;
+
+  /// @brief The maximum depth allowed for hierarchical facets
+  /// If 0 then this is unlimited (dangerous !). Default is 8
+  required int64 max_depth = 4;
+
+  /// @brief If true then count documents, not instances, for facets
+  /// on afs:sets. Otherwise count instances. Default is true
+  required bool count_documents = 5;
+
+  // @brief Sorting method for this facet
+  required Sort sort = 6;
+
+  // @brief Facet values with less/more item count than threshold will
+  // not be displayed
+  required Threshold value_thr = 7;
+  required Threshold total_thr = 8;
+
+  // @brief Run-time activation of "stickyness"
+  optional bool sticky = 9 [ default = false ]; // 7.6 ->
+}
+
+message Threshold
+{
+  // Default is 0 meaning that every value with items is displayed
+  // (Setting min to 1 produces the same result)
+  required int64 min = 1;
+  // Default is -1 (infinite) meaning that every item is displayed
+  required int64 max = 2;
+}
+
+/// @brief sorting criterion
+enum SortCriterion
+{
+  ALPHA = 1;
+  ITEMS = 2;
+  ALPHAKEY = 3;
+  NUMKEY = 4;
+}
+
+/// @brief sorting method
+message Sort
+{
+  /// @brief order (ASC or DESC, from sort_order.proto)
+  required N_Query_Engine.Query.SortOrder order = 1;
+
+  /// @brief criterion
+  required SortCriterion criterion = 2;
+}
