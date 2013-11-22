@@ -13,9 +13,9 @@
   </parent>
 
   <scm>
-    <connection>scm:git:https://github.com/antidot/API.git</connection>
-    <developerConnection>scm:git:https://github.com/antidot/API.git</developerConnection>
-    <url>https://github.com/antidot/API</url>
+    <connection>scm:git:git@github.com:antidot/API.git</connection>
+    <developerConnection>scm:git:git@github.com:antidot/API.git</developerConnection>
+    <url>git@github.com:antidot/API.git</url>
   </scm>
 
   <dependencies>
