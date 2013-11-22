@@ -121,7 +121,7 @@
             <configuration>
               <executable>${basedir}/src/main/scripts/compile_protobuf.sh</executable>
               <arguments>
-                <argument>${basedir}/src/main/resources</argument>
+                <argument>${basedir}/src/main/protobuf</argument>
                 <argument>${project.build.directory}/generated-sources</argument>
               </arguments>
             </configuration>
