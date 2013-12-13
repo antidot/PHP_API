@@ -382,7 +382,7 @@ class AfsQuery
      * <tt>facet1,ORDER;facet2,ORDER;...</tt>
      * where:
      * - @c facetX: should be a built-in facet like: @c afs:weight,
-     *              @c afs:relevance, @c afs:words ...
+     *              @c afs:relevance, @c afs:words ... or user defined facet
      * - @c ORDER: should be @c ASC or @c DESC for ascending and descending
      *             order respectively. Order can be omitted.
      *
@@ -400,16 +400,6 @@ class AfsQuery
         if ($sort_order == '')
         {
             $sort_order = null;
-        }
-        elseif ($sort_order != null)
-        {
-            $check_result = preg_match('/^(afs:[a-zA-Z]+(?:,(?:ASC|DESC))?)(?:;(?1))*$/',
-                                       $sort_order);
-            if ($check_result != 1)
-            {
-                throw new Exception('Invalid sort order value provided: '
-                    . $sort_order);
-            }
         }
         $copy = $this->copy();
         $copy->reset_page();

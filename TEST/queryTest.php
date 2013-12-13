@@ -348,16 +348,11 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->reset_sort();
         $this->assertTrue($query->get_sort() == null);
     }
-    public function testInvalidSortOrderFacet()
+    public function testCustomSortOrderFacet()
     {
         $query = new AfsQuery();
-        try
-        {
-            $query = $query->set_sort('relevance');
-            $this->fail('Invalid sort order parameter should have raised an exception!');
-        }
-        catch (Exception $e)
-        { }
+        $query = $query->set_sort('relevance');
+        $this->assertTrue($query->get_sort() == 'relevance');
     }
     public function testInvalidSortOrderOrder()
     {
