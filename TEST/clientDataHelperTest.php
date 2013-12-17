@@ -67,6 +67,21 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('data 1', $helper->get_text('/boo:clientdata/boo:data/boo:data1[2]', array('boo' => 'http://bar')));
     }
 
+    public function testRetrieveSpecificDataFromXMLClientDataWithAfsNamespace()
+    {
+        $input = json_decode('{
+            "clientData": [
+              {
+                "contents": "<clientdata xmlns=\"http://ref.antidot.net/v7/afs#\"><data><data1>data 0</data1><data1>data 1</data1><multi><m0>m 0</m0><m1>m 1</m1><m2>m 2</m2><m3>m 3</m3></multi></data></clientdata>",
+                "id": "main",
+                "mimeType": "text/xml"
+              }
+            ]
+          }');
+        $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
+        $this->assertEquals('data 0', $helper->get_text('/afs:clientdata/afs:data/afs:data1'));
+    }
+
     public function testInvalidXpathForXmlClientDataRetrieval()
     {
         $input = json_decode('{

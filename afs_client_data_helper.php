@@ -25,24 +25,36 @@ class AfsClientDataManager
         }
     }
 
+    /** @brief Retrieves client data helper.
+     *
+     * @param $id [in] Id of the client data to retrieve (default='main').
+     * @return client data helper.
+     *
+     * @exception OutOfBoundsException when required client data is not found.
+     */
+    public function get_clientdata($id='main')
+    {
+        if (array_key_exists($id, $this->client_data)) {
+            return $this->client_data[$id];
+        } else {
+            throw new OutOfBoundsException('No client data with id \'' . $id . '\' found.');
+        }
+    }
+
     /** @brief Retrieve text from the appropriate client data.
      *
      * @param $id [in] client data id.
      * @param $name [in] name or XPath of the required element for JSON
      *        respectively XML clent data.
+     * @param $context [in] context used for looking for text with specified name.
      * @param $formatter [in] used for highlighted content (default=null,
      *        appropriate formatter is instanced for JSON and XML).
      *
      * @return client data as text.
      */
-    public function get_text($id, $name=null, $formatter=null)
+    public function get_text($id, $name=null, $context=array(), $formatter=null)
     {
-        if (array_key_exists($id, $this->client_data)) {
-            return $this->client_data[$id]->get_text($name, $formatter);
-        } else {
-            throw new OutOfBoundsException('No client data with id \'' . $id
-                . '\' found.');
-        }
+        return $this->get_clientdata($id)->get_text($name, $context, $formatter);
     }
 }
 
@@ -56,12 +68,13 @@ interface AfsClientDataHelperInterface
      * parameter.
      * @param $name [in] data name to be extracted (default=null, retrieve
      *        all client data).
+     * @param $context [in] context used for looking for text with specified name.
      * @param $formatter [in] format output string. It is used when highlight in
      *        client data is activated. See implementation to provide
      *        appropriate formatter (default=null, default formatter is used).
      * @return client data as text.
      */
-    public function get_text($name, $formatter);
+    public function get_text($name, $context, $formatter);
 
     /** @brief Retrieve client data's mime type.
      *
@@ -165,16 +178,17 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
      * @remark XPath which points on unknown node can not be differenciated from
      * XPath pointing on empty node. So, in both cases empty string is returned.
      */
-    public function get_text($path=null, $nsmap=null, $highlight_callback=null)
+    public function get_text($path=null, $nsmap=array(), $highlight_callback=null)
     {
         if (is_null($path)) {
             return $this->client_data->contents;
         } else {
             $xpath = new DOMXPath($this->doc);
-            if (! is_null($nsmap)) {
-                foreach ($nsmap as $prefix => $namespace) {
-                    $xpath->registerNamespace($prefix, $namespace);
-                }
+            if (! array_key_exists('afs', $nsmap)) {
+                $nsmap['afs'] = AfsXmlClientDataHelper::$afs_ns;
+            }
+            foreach ($nsmap as $prefix => $namespace) {
+                $xpath->registerNamespace($prefix, $namespace);
             }
             $result = $xpath->query($path);
             if ($result->length == 0) {
@@ -282,7 +296,7 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
      * Call to <tt>get_text('')</tt> will return
      * @verbatim some text @endverbatim.
      */
-    public function get_text($name=null, $visitor=null)
+    public function get_text($name=null, $unused=array(), $visitor=null)
     {
         if (is_null($visitor)) {
             $visitor = new AfsTextVisitor();

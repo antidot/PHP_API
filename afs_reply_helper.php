@@ -2,6 +2,7 @@
 require_once "afs_text_helper.php";
 require_once "afs_text_visitor.php";
 require_once "afs_helper_base.php";
+require_once "afs_client_data_helper.php";
 
 /** @brief Helper to manager title, abstract and uri of one reply.
  *
@@ -70,6 +71,33 @@ class AfsReplyHelper extends AfsHelperBase
         } else {
             return '';
         }
+    }
+
+    /** @brief Retrieves client data manager.
+     *
+     * @return Manager of client data or null when no client data is available.
+     *
+     * @exception Exception when no client data is available.
+     */
+    public function get_clientdatas()
+    {
+      if (array_key_exists('clientData', $this->reply)) {
+          return new AfsClientDataManager($this->reply->clientData);
+      } else {
+          throw new Exception('No client data available!');
+      }
+    }
+
+    /** @brief Retrieves specific client data.
+     *
+     * @param $id [in] Id of the client data to retrieve (default: 'main').
+     * @return Client data helper with appropriate id
+     *
+     * @exception OutOfBoundsException when required client data is not found.
+     */
+    public function get_clientdata($id='main')
+    {
+        return $this->get_clientdatas()->get_clientdata($id);
     }
 
     /** @brief Retrieve reply data as array.
