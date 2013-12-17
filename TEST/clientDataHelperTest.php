@@ -16,6 +16,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
         $this->assertEquals($helper->text, '<clientdata><data><data1>data 0</data1><data1>data 1</data1><multi><m0>m 0</m0><m1>m 1</m1><m2>m 2</m2><m3>m 3</m3></multi></data></clientdata>');
+        $this->assertEquals($helper->mime_type, 'application/xml');
     }
 
     public function testRetrieveSpecificDataFromXMLClientData()
@@ -78,6 +79,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
         $this->assertEquals($helper->text, '{"data":[{"data1":[{"afs:t":"KwicString","text":"data 0"}]},{"data1":[{"afs:t":"KwicString","text":"data "},{"afs:t":"KwicMatch","match":"1"}]}]}');
+        $this->assertEquals($helper->mime_type, 'application/json');
     }
 
     public function testRetrieveSimpleJSONDataAsText()

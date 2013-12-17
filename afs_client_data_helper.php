@@ -62,6 +62,12 @@ interface AfsClientDataHelperInterface
      * @return client data as text.
      */
     public function get_text($name, $formatter);
+
+    /** @brief Retrieve client data's mime type.
+     *
+     * @return mime type of the client data.
+     */
+    public function get_mime_type();
 }
 
 /** @brief Base class  for client data helpers. */
@@ -175,6 +181,15 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         }
     }
 
+    /** @brief Retrieve client data's mime type.
+     *
+     * @return application/xml mime type.
+     */
+    public function get_mime_type()
+    {
+        return 'application/xml';
+    }
+
     private function get_highlighted_text($node, $callback)
     {
         if (is_null($callback)) {
@@ -282,6 +297,15 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
             }
             return $text_mgr->visit_text($visitor);
         }
+    }
+
+    /** @brief Retrieve client data's mime type.
+     *
+     * @return application/json mime type.
+     */
+    public function get_mime_type()
+    {
+        return 'application/json';
     }
 }
 
