@@ -155,6 +155,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
      *
      * @param $path [in] XPath to apply (default=null, retrieve all content as
      *        text).
+     * @param $nsmap [in] prefix/uri mapping to use along with provided XPath.
      * @param $highlight_callback [in] callback to emphase text when highlight of
      *        client data is activated. It should be of @a FilterNode type
      *        (default=null, instance of @a FilterNode is used).
@@ -164,12 +165,17 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
      * @remark XPath which points on unknown node can not be differenciated from
      * XPath pointing on empty node. So, in both cases empty string is returned.
      */
-    public function get_text($path=null, $highlight_callback=null)
+    public function get_text($path=null, $nsmap=null, $highlight_callback=null)
     {
         if (is_null($path)) {
             return $this->client_data->contents;
         } else {
             $xpath = new DOMXPath($this->doc);
+            if (! is_null($nsmap)) {
+                foreach ($nsmap as $prefix => $namespace) {
+                    $xpath->registerNamespace($prefix, $namespace);
+                }
+            }
             $result = $xpath->query($path);
             if ($result->length == 0) {
                 return '';

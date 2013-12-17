@@ -35,6 +35,38 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($helper->get_text('/clientdata/data/data1[2]'), 'data 1');
     }
 
+    public function testRetrieveSpecificDataFromXMLClientDataWithNamedNamespace()
+    {
+        $input = json_decode('{
+            "clientData": [
+              {
+                "contents": "<clientdata xmlns:foo=\"http://bar\"><foo:data><data1>data 0</data1><data1>data 1</data1><multi><m0>m 0</m0><m1>m 1</m1><m2>m 2</m2><m3>m 3</m3></multi></foo:data></clientdata>",
+                "id": "main",
+                "mimeType": "text/xml"
+              }
+            ]
+          }');
+        $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
+        $this->assertEquals('data 0', $helper->get_text('/clientdata/boo:data/data1', array('boo' => 'http://bar')));
+        $this->assertEquals('data 1', $helper->get_text('/clientdata/boo:data/data1[2]', array('boo' => 'http://bar')));
+    }
+
+    public function testRetrieveSpecificDataFromXMLClientDataWithDefaultNamespace()
+    {
+        $input = json_decode('{
+            "clientData": [
+              {
+                "contents": "<clientdata xmlns=\"http://bar\"><data><data1>data 0</data1><data1>data 1</data1><multi><m0>m 0</m0><m1>m 1</m1><m2>m 2</m2><m3>m 3</m3></multi></data></clientdata>",
+                "id": "main",
+                "mimeType": "text/xml"
+              }
+            ]
+          }');
+        $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
+        $this->assertEquals('data 0', $helper->get_text('/boo:clientdata/boo:data/boo:data1', array('boo' => 'http://bar')));
+        $this->assertEquals('data 1', $helper->get_text('/boo:clientdata/boo:data/boo:data1[2]', array('boo' => 'http://bar')));
+    }
+
     public function testInvalidXpathForXmlClientDataRetrieval()
     {
         $input = json_decode('{
