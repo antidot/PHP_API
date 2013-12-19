@@ -36,7 +36,7 @@ class ReplyHelperTest extends PHPUnit_Framework_TestCase
                 },
                 "clientData": [
                     {
-                        "contents": "<clientdata>&lt;data&gt;&lt;data1&gt;data 0&lt;/data1&gt;&lt;data1&gt;data 1&lt;/data1&gt;&lt;multi&gt;&lt;m0&gt;m 0&lt;/m0&gt;&lt;m1&gt;m 1&lt;/m1&gt;&lt;m2&gt;m 2&lt;/m2&gt;&lt;m3&gt;m 3&lt;/m3&gt;&lt;/multi&gt;&lt;/data&gt;</clientdata>",
+                        "contents": "<clientdata><data><data1>data 0</data1><data1>data 1</data1><multi><m0>m 0</m0><m1>m 1</m1><m2>m 2</m2><m3>m 3</m3></multi></data></clientdata>",
                         "id": "main",
                         "mimeType": "text/xml"
                     }
@@ -50,5 +50,7 @@ class ReplyHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($helper->title, 'The title 14');
         $this->assertEquals($helper->abstract, 'some content <b>match content</b> other content...');
         $this->assertEquals($helper->uri, 'http://foo.bar.baz/14');
+
+        $this->assertEquals('data 1', $helper->get_clientdata()->get_text('/clientdata/data/data1[2]'));
     }
 }

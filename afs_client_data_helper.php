@@ -15,11 +15,11 @@ class AfsClientDataManager
     /** @brief Construct new manager with all necessary client data helpers.
      *
      * One or more client data helper can be created and managed.
-     * @param $reply [in] root reply element.
+     * @param $client_datas [in] root of client data element.
      */
-    public function __construct($reply)
+    public function __construct($client_datas)
     {
-        foreach ($reply->clientData as $data) {
+        foreach ($client_datas as $data) {
             $helper = AfsClientDataHelperFactory::create($data);
             $this->client_data[$helper->id] = $helper;
         }
@@ -46,7 +46,7 @@ class AfsClientDataManager
      * @param $id [in] client data id.
      * @param $name [in] name or XPath of the required element for JSON
      *        respectively XML clent data.
-     * @param $context [in] context used for looking for text with specified name.
+     * @param $context [in] context used to look for text with specified name.
      * @param $formatter [in] used for highlighted content (default=null,
      *        appropriate formatter is instanced for JSON and XML).
      *

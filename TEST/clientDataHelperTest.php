@@ -195,10 +195,9 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testClientDataManager()
+    public function testClientDataManagerDirectClientDataAccess()
     {
-        $input = json_decode('{
-            "clientData": [
+        $input = json_decode('[
               {
                 "contents": { "foo": [ { "afs:t": "KwicString", "text": "data " },
                                        { "afs:t": "KwicMatch", "match": "1" } ],
@@ -213,12 +212,37 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
                 "id": "foo",
                 "mimeType": "text/xml"
               }
-            ]
-          }');
+            ]');
         $mgr = new AfsClientDataManager($input);
         $this->assertEquals($mgr->get_text('id1', 'bar'), 'baz <b>42</b> bat');
         $this->assertEquals($mgr->get_text('foo', '/clientdata/data/data1[1]'), 'data <b>0</b>');
         $this->assertEquals($mgr->get_text('foo', '/clientdata/data/data1[2]'), 'data <b>1</b> foo');
+    }
+
+    public function testClientDataManagerFirstRetrieveClientDataHelpers()
+    {
+        $input = json_decode('[
+              {
+                "contents": { "foo": [ { "afs:t": "KwicString", "text": "data " },
+                                       { "afs:t": "KwicMatch", "match": "1" } ],
+                              "bar": [ { "afs:t": "KwicString", "text": "baz " },
+                                       { "afs:t": "KwicMatch", "match": "42" },
+                                       { "afs:t": "KwicString", "text": " bat" } ] },
+                "id": "id1",
+                "mimeType": "application/json"
+              },
+              {
+                "contents": "<clientdata><data><data1>data <afs:match>0</afs:match></data1><data1>data <afs:match>1</afs:match> foo</data1></data></clientdata>",
+                "id": "foo",
+                "mimeType": "text/xml"
+              }
+            ]');
+        $mgr = new AfsClientDataManager($input);
+        $data1 = $mgr->get_clientdata('id1');
+        $this->assertEquals('data <b>1</b>', $data1->get_text('foo'));
+
+        $data2 = $mgr->get_clientdata('foo');
+        $this->assertEquals('data <b>0</b>', $data2->get_text('/clientdata/data/data1[1]'));
     }
 }
 

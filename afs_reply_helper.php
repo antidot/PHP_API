@@ -75,7 +75,7 @@ class AfsReplyHelper extends AfsHelperBase
 
     /** @brief Retrieves client data manager.
      *
-     * @return Manager of client data or null when no client data is available.
+     * @return Manager of client data (see AfsClientDataManager).
      *
      * @exception Exception when no client data is available.
      */

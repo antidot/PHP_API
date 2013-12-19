@@ -4,7 +4,7 @@
  *
  * \section asr_introduction Introduction
  *
- * This API greatly simplify treatment of Antidot search engine replies. Main
+ * This API greatly simplifies treatment of Antidot search engine replies. Main
  * objective here is to add nearly no PHP code and make usage of PHP templates.
  *
  * Snippets of code are usable as is and can be joined to build a fully
@@ -94,7 +94,7 @@
    }@endverbatim
  *
  * Array format is the @em default format generate when initializing instance of
- * @a AfsResponseHelper. This format greatly simplify usage of PHP template
+ * @a AfsResponseHelper. This format greatly simplifies usage of PHP template
  * engine such as Twig (see @ref full_example.php).
  *
  *
@@ -134,4 +134,5 @@
  * \section asr_end Next step
  *
  * Full example detailled: @ref integration_example
+ * Alternate example without template engine is also available: @ref raw_integration_example
  */
