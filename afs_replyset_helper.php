@@ -5,6 +5,27 @@ require_once "afs_pager_helper.php";
 require_once "afs_facet_helper.php";
 require_once "afs_helper_base.php";
 
+/** @defgroup afs_producer AFS reply set producer.
+ *
+ * Specifies which agent produces reply set.
+ * @{ */
+/** @brief Reply set result of check query. */
+define('AFS_PRODUCER_CHECK', 'CHECK');
+/** @brief Reply set result of search agent. */
+define('AFS_PRODUCER_SEARCH', 'SEARCH');
+/** @brief Reply set result of spellcheck agent. */
+define('AFS_PRODUCER_SPELLCHECK', 'SPELLCHECK');
+/** @brief Reply set result of concept agent. */
+define('AFS_PRODUCER_CONCEPT', 'CONCEPT');
+/** @brief Reply set result of proxy. */
+define('AFS_PRODUCER_PROXY', 'PROXY');
+/** @brief Reply set result of master agent. */
+define('AFS_PRODUCER_SEARCH_MASTER', 'SEARCH_MASTER');
+/** @brief Reply set result of slave agent. */
+define('AFS_PRODUCER_SEARCH_SLAVE', 'SEARCH_SLAVE');
+/** @} */
+
+
 /** @brief Helper for replies from one feed.
  *
  * This helper gives access to underlying helpers for metadata, replies, factes 
@@ -39,13 +60,17 @@ class AfsReplysetHelper extends AfsHelperBase
         $this->check_format($format);
         $meta_helper = new AfsMetaHelper($reply_set->meta);
         $this->meta = $format == AFS_ARRAY_FORMAT ? $meta_helper->format() : $meta_helper;
-        foreach ($reply_set->content->reply as $reply) {
-            $reply_helper = new AfsReplyHelper($reply, $visitor);
-            $this->replies[] = $format == AFS_ARRAY_FORMAT ? $reply_helper->format() : $reply_helper;
+        if (property_exists($reply_set, 'content') && property_exists($reply_set->content, 'reply')) {
+            foreach ($reply_set->content->reply as $reply) {
+                $reply_helper = new AfsReplyHelper($reply, $visitor);
+                $this->replies[] = $format == AFS_ARRAY_FORMAT ? $reply_helper->format() : $reply_helper;
+            }
         }
-        foreach ($reply_set->facets->facet as $facet) {
-            $facet_helper = new AfsFacetHelper($facet, $facet_mgr, $query, $coder, $format);
-            $this->facets[] = $format == AFS_ARRAY_FORMAT ? $facet_helper->format() : $facet_helper;
+        if (property_exists($reply_set, 'facets') && property_exists($reply_set->facets, 'facet')) {
+            foreach ($reply_set->facets->facet as $facet) {
+                $facet_helper = new AfsFacetHelper($facet, $facet_mgr, $query, $coder, $format);
+                $this->facets[] = $format == AFS_ARRAY_FORMAT ? $facet_helper->format() : $facet_helper;
+            }
         }
         if (property_exists($reply_set, 'pager')) {
             $pager_helper = new AfsPagerHelper($reply_set->pager, $query, $coder);
@@ -73,6 +98,14 @@ class AfsReplysetHelper extends AfsHelperBase
     public function get_facets()
     {
         return $this->facets;
+    }
+
+    /** @brief Checks whether reply set contains at least one reply.
+     * @return true when one or more reply is defined, false otherwise.
+     */
+    public function has_reply()
+    {
+        return ! empty($this->replies);
     }
     /** @brief Retrieve number of replies for current page.
      *

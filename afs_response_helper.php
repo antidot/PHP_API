@@ -20,13 +20,14 @@ define('AFS_ARRAY_FORMAT', 2);
 /** @brief Main helper for AFS search reply.
  *
  * This helper is intended to be initiliazed with the reply provided by @a 
- * AfsSearchQueryManager::send. It allows to manage replies of the first 
- * replyset, including facets and pager. Connection and query errors are
- * managed in a uniform way to simplify integration.
+ * AfsSearchQueryManager::send. It allows to manage replies of one of the
+ * available replysets, including facets and pager. Connection and query errors
+ * are managed in a uniform way to simplify integration.
  */
 class AfsResponseHelper extends AfsHelperBase
 {
-    private $replyset = null;
+    private $replysets = array();
+    private $spellcheck = array();
     private $error = null;
 
     /** @brief Construct new response helper instance.
@@ -53,14 +54,30 @@ class AfsResponseHelper extends AfsHelperBase
     {
         $this->check_format($format);
         if (property_exists($response, 'replySet')) {
-            $replyset_helper = new AfsReplysetHelper($response->replySet[0],
-                $facet_mgr, $query, $coder, $format, $visitor);
-            $this->replyset = $format == AFS_ARRAY_FORMAT ? $replyset_helper->format()
-                                 : $replyset_helper;
+            $this->initialize_replysets($response->replySet, $facet_mgr, $query,
+                $coder, $format, $visitor);
         } elseif (property_exists($response->header, 'error')) {
             $this->error = $response->header->error->message[0];
         } else {
             $this->error = 'Unmanaged error';
+        }
+    }
+
+    private function initialize_replysets($replysets,
+        AfsFacetManager $facet_mgr, AfsQuery $query,
+        AfsQueryCoderInterface $coder=null, $format=AFS_ARRAY_FORMAT,
+        AfsTextVisitorInterface $visitor=null)
+    {
+        foreach ($replysets as $replyset) {
+            if (property_exists($replyset, 'meta')
+                    && property_exists($replyset->meta, 'producer')
+                    && $replyset->meta->producer == AFS_PRODUCER_SEARCH) {
+                $replyset_helper = new AfsReplysetHelper($replyset,
+                    $facet_mgr, $query, $coder, $format, $visitor);
+                $this->replysets[] = $format == AFS_ARRAY_FORMAT
+                    ? $replyset_helper->format()
+                    : $replyset_helper;
+            }
         }
     }
 
@@ -69,16 +86,41 @@ class AfsResponseHelper extends AfsHelperBase
      */
     public function has_replyset()
     {
-        return ! is_null($this->replyset);
+        return ! empty($this->replysets);
     }
 
-    /** @brief Retrieve first replyset from the @a response.
+    /** @brief Retrieves all replysets.
+     * @return all defined reply sets.
+     */
+    public function get_replysets()
+    {
+        return $this->replysets;
+    }
+
+    /** @brief Retrieves replyset from the @a response.
+     *
+     * @param $feed [in] name of the feed to filter on
+     *        (default: null -> retrieves first replyset).
      * @return @a AfsReplysetHelper or formatted replyset depending on @a format
      * parameter.
      */
-    public function get_replyset()
+    public function get_replyset($feed=null)
     {
-        return $this->replyset;
+        if (is_null($feed)) {
+            if ($this->has_replyset()) {
+                return $this->replysets[0];
+            }
+        } else {
+            foreach ($this->replysets as $replyset) {
+                $meta = $replyset->get_meta();
+                if ($meta->get_feed() == $feed
+                    && $meta->get_producer() == AFS_PRODUCER_SEARCH) {
+                        return $replyset;
+                }
+            }
+        }
+        throw new OutOfBoundsException('No reply set '
+            . (is_null($feed) ? '' : 'named \'' . $feed . '\' '). 'available');
     }
 
     /** @brief Check whether an error has been raised.
