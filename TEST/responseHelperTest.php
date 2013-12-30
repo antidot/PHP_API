@@ -97,6 +97,24 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
                             "firstPaFId": 1,
                             "lastPaFId": 1,
                             "producer": "SPELLCHECK"
+                        },
+                        "content": {
+                            "reply": [
+                                {
+                                    "uri": "Catalog",
+                                    "suggestion": [
+                                        {
+                                            "items": [
+                                                {
+                                                    "match": {
+                                                        "text": "FOO"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     },
                     {
@@ -164,6 +182,24 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
                             "firstPaFId": 1,
                             "lastPaFId": 1,
                             "producer": "SPELLCHECK"
+                        },
+                        "content": {
+                            "reply": [
+                                {
+                                    "uri": "Catalog",
+                                    "suggestion": [
+                                        {
+                                            "items": [
+                                                {
+                                                    "match": {
+                                                        "text": "FOO"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     }
                 ]

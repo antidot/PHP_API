@@ -31,6 +31,8 @@
       </div>
     </div>
 
+    {{ include('spellcheck_template.html', {spellchecks: spellchecks}, with_context=false) }}
+
     {% for replyset in replysets %}
       <div class="">
           <h1>Feed <span class="label label-default">{{ replyset.meta.feed }}</span> / Producer<span class="label label-info">{{ replyset.meta.producer }}</span></h1>

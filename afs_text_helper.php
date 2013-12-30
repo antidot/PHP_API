@@ -1,6 +1,6 @@
 <?php
 
-/** @brief Base class for AFS texts which accept @a AfsTextVisitorInterface
+/** @brief Base class for AFS texts which accepts @a AfsTextVisitorInterface
  * visitors. */
 abstract class AfsText
 {
@@ -127,7 +127,7 @@ class AfsTextManager
     /** @brief Construct text manager instance.
      *
      * Each portion of text (text, match and truncate) is extracted from input
-     * parameter and store with appropriate text type.<br/>
+     * parameter and stored with appropriate text type.<br/>
      * Two methods are available to traverse these portions of text:
      * - @a visit_text method using  predefined visitor (@a AfsTextVisitor) or
      *   user defined visitor. This is the prefered method.

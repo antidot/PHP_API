@@ -4,12 +4,12 @@
  */
 
 /** [Include lib] */
-require_once "afs_lib.php";
+require_once "PHP_API/afs_lib.php";
 /** [Include lib] */
 
 /** [Twig init] */
 // You shoud addapt following paths
-require_once "/var/www/php-example/Twig-1.14.1/lib/Twig/Autoloader.php";
+require_once "/var/www/php-example/Twig-1.15.0/lib/Twig/Autoloader.php";
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem('/var/www/php-example/templates');
 $twig = new Twig_Environment($loader, array('debug' => true));
@@ -59,6 +59,6 @@ $helper = new AfsResponseHelper($reply, $facet_mgr, $query, $coder, AFS_ARRAY_FO
 // Load and apply PHP templates
 /** [Twig template] */
 $template = $twig->loadTemplate('meta_template.html');
-echo $template->render($helper->replyset);
+echo $template->render($helper->format());
 /** [Twig template] */
 ?>

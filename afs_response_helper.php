@@ -1,5 +1,6 @@
 <?php
 require_once "afs_replyset_helper.php";
+require_once "afs_spellcheck_helper.php";
 require_once "afs_helper_base.php";
 
 /** @defgroup helper_format Helper format
@@ -27,7 +28,7 @@ define('AFS_ARRAY_FORMAT', 2);
 class AfsResponseHelper extends AfsHelperBase
 {
     private $replysets = array();
-    private $spellcheck = array();
+    private $spellchecks = null;
     private $error = null;
 
     /** @brief Construct new response helper instance.
@@ -50,9 +51,13 @@ class AfsResponseHelper extends AfsHelperBase
      */
     public function __construct($response, AfsFacetManager $facet_mgr,
         AfsQuery $query, AfsQueryCoderInterface $coder=null,
-        $format=AFS_ARRAY_FORMAT, AfsTextVisitorInterface $visitor=null)
+        $format=AFS_ARRAY_FORMAT, AfsTextVisitorInterface $visitor=null,
+        AfsSpellcheckTextVisitorInterface $spellcheck_visitor=null)
     {
         $this->check_format($format);
+        $this->spellchecks = new AfsSpellcheckManager($query, $coder,
+            $spellcheck_visitor);
+
         if (property_exists($response, 'replySet')) {
             $this->initialize_replysets($response->replySet, $facet_mgr, $query,
                 $coder, $format, $visitor);
@@ -70,14 +75,21 @@ class AfsResponseHelper extends AfsHelperBase
     {
         foreach ($replysets as $replyset) {
             if (property_exists($replyset, 'meta')
-                    && property_exists($replyset->meta, 'producer')
-                    && $replyset->meta->producer == AFS_PRODUCER_SEARCH) {
-                $replyset_helper = new AfsReplysetHelper($replyset,
-                    $facet_mgr, $query, $coder, $format, $visitor);
-                $this->replysets[] = $format == AFS_ARRAY_FORMAT
-                    ? $replyset_helper->format()
-                    : $replyset_helper;
+                    && property_exists($replyset->meta, 'producer')) {
+                $producer = $replyset->meta->producer;
+                if (AFS_PRODUCER_SEARCH == $producer) {
+                    $replyset_helper = new AfsReplysetHelper($replyset,
+                        $facet_mgr, $query, $coder, $format, $visitor);
+                    $this->replysets[] = $format == AFS_ARRAY_FORMAT
+                        ? $replyset_helper->format()
+                        : $replyset_helper;
+                } elseif (AFS_PRODUCER_SPELLCHECK == $producer) {
+                    $this->spellchecks->add_spellcheck($replyset);
+                }
             }
+        }
+        if (AFS_ARRAY_FORMAT == $format) {
+            $this->spellchecks = $this->spellchecks->format();
         }
     }
 
@@ -121,6 +133,29 @@ class AfsResponseHelper extends AfsHelperBase
         }
         throw new OutOfBoundsException('No reply set '
             . (is_null($feed) ? '' : 'named \'' . $feed . '\' '). 'available');
+    }
+
+    /** @brief Retrieves spellchecks from the @a response.
+     * @return spellcheck manager or formatted spellcheck depending on
+     * parameter initialization.
+     */
+    public function get_spellchecks()
+    {
+        return $this->spellchecks;
+    }
+
+    /** @brief Retrieve reply data as array.
+     *
+     * All data are store in <tt>key => value</tt> format:
+     * @li @c replysets: replies per feed,
+     * @li @c spellchecks: spellcheck replies per feed.
+     *
+     * @return array filled with key and values.
+     */
+    public function format()
+    {
+        return array('replysets' => $this->get_replysets(),
+                     'spellchecks' => $this->get_spellchecks());
     }
 
     /** @brief Check whether an error has been raised.

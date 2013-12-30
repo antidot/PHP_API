@@ -1,0 +1,12 @@
+{% if spellchecks %}
+  {% for feed, spellcheck in spellchecks %}
+  <div class="row">
+    <div class="input-group col-md-3">
+      <h2>Spellcheck for feed <span class="label label-default">{{ feed }}</span></h2>
+      {% for value in spellcheck %}
+      Suggestion: <a href="{{ value.link }}">{{ value.formatted|raw }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+{% endif %}
