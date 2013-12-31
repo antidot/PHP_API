@@ -25,16 +25,16 @@
  * Here an example to initialize AFS response helper:
  * @snippet full_example.php Response helper
  *
- * On initialization, error checking is performed. When no error occured, @a
- * AfsResponseHelper::replies returns a list of @a AfsReplysetHelper.
+ * On initialization, error checking is performed. When no error occured,
+ * @a AfsResponseHelper::get_replysets returns a list of @a AfsReplysetHelper.
  * By the way, following helpers are also initialized:
  * - @a AfsMetaHelper,
  * - @a AfsFacetHelper: one helper is instantiated per facet,
  * - @a AfsReplyHelper: one helper is instantiated per reply,
  * - @a AfsPagerHelper.
  *
- * Spellcheck replies can be retrieved by calling @a
- * AfsResponseHelper::spellchecks, so that new query can be suggested to
+ * Spellcheck replies can be retrieved by calling
+ * @a AfsResponseHelper::get_spellchecks, so that new query can be suggested to
  * customer.
  *
  * Details on each helper are available in their own documentation pages, so

@@ -75,7 +75,8 @@
  * Main helpers involved in this feature are:
  * \li @a AfsResponseHelper: this is the @em main helper which is initialized
  * from result provided by @a AfsSearchQueryManager. It allows to check whether
- * an error occured and to retrieve helper on the first replyset.
+ * an error occured and to retrieve helpers for each replyset and spellcheck
+ * suggestion.
  * \li @a AfsReplysetHelper: manage all data related to @em one replyset
  * (metadata, facets, replies...).
  * \li @a AfsMetaHelper: simple access to useful metadata.

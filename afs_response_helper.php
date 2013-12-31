@@ -136,7 +136,7 @@ class AfsResponseHelper extends AfsHelperBase
     }
 
     /** @brief Retrieves spellchecks from the @a response.
-     * @return spellcheck manager or formatted spellcheck depending on
+     * @return @a AfsSpellcheckManager or formatted spellcheck depending on
      * parameter initialization.
      */
     public function get_spellchecks()
