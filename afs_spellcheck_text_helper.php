@@ -87,7 +87,7 @@ class AfsSpellcheckText extends AfsSpellcheckBaseText
 class AfsSpellcheckMatch extends AfsSpellcheckBaseText
 {
     /** @brief Constructs spellcheck match instance.
-     * @param $text_element [in] a spellcheck match element with or without
+     * @param $match_element [in] a spellcheck match element with or without
      *        prefix text.
      */
     public function __construct($match_element)

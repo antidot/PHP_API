@@ -104,8 +104,19 @@
  *
  * @em meta_template.html
  * @include meta_template.html
- * Except that it refers three templates, there is nothing noticable here.
- * Included templates are described below.
+ * It first refers to  spellcheck template in order to display suggestions
+ * provided by Antidot search engine. Then three other templates are called
+ * in a loop to display results of each replyset. All of these templates are
+ * described below.
+ *
+ *
+ * \subsection ie_template_spellcheck Spellcheck template
+ *
+ * @em spellcheck_template.html
+ * @include spellcheck_template.html
+ *
+ * A loop is used to display a list of all spellcheck values for each feed
+ * with suggestions.
  *
  *
  * \subsection ie_template_facet Facet template
@@ -132,7 +143,7 @@
  *
  * \subsection ie_template_pager Pager template
  *
- * This template generates simple pager at the bottom of the page. There is
+ * This template generates simple pager at the bottom of the reply set. There is
  * really no difficulty here.
  *
  * @em pager_template.html

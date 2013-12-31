@@ -26,12 +26,16 @@
  * @snippet full_example.php Response helper
  *
  * On initialization, error checking is performed. When no error occured, @a
- * AfsReplysetHelper is initialized with the first reply set found in the reply.
+ * AfsResponseHelper::replies returns a list of @a AfsReplysetHelper.
  * By the way, following helpers are also initialized:
  * - @a AfsMetaHelper,
  * - @a AfsFacetHelper: one helper is instantiated per facet,
  * - @a AfsReplyHelper: one helper is instantiated per reply,
  * - @a AfsPagerHelper.
+ *
+ * Spellcheck replies can be retrieved by calling @a
+ * AfsResponseHelper::spellchecks, so that new query can be suggested to
+ * customer.
  *
  * Details on each helper are available in their own documentation pages, so
  * from now on only common features will be detailled.
@@ -93,8 +97,8 @@
       ["producer"]=> string(6) "SEARCH"
    }@endverbatim
  *
- * Array format is the @em default format generate when initializing instance of
- * @a AfsResponseHelper. This format greatly simplifies usage of PHP template
+ * Array format is the @em default format generated when initializing instance
+ * of @a AfsResponseHelper. This format greatly simplifies usage of PHP template
  * engine such as Twig (see @ref full_example.php).
  *
  *
