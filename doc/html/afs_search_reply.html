@@ -99,14 +99,14 @@ Reponse helper</h1>
 <p>This is the main helper (see <em><a class="el" href="classAfsSearchQueryManager.html" title="Manage search query. ">AfsSearchQueryManager</a></em> for more details). It should be initilized with result of <em><a class="el" href="classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163" title="Send query to AFS search engine. ">AfsSearchQueryManager::send</a></em> method, the facet manager, the current query and the query coder (see <a class="el" href="afs_search_coder.html">AFS search query coder/decoder API</a> and <a class="el" href="afs_search_query.html">AFS search query API</a> for details on these parameters).</p>
 <p>Here an example to initialize AFS response helper: </p>
 <div class="fragment"><div class="line">$helper = <span class="keyword">new</span> <a class="code" href="classAfsResponseHelper.html">AfsResponseHelper</a>($reply, $facet_mgr, $query, $coder, <a class="code" href="group__helper__format.html#gae8b3739184b29c607d2538d40c488cbd">AFS_ARRAY_FORMAT</a>);</div>
-</div><!-- fragment --><p> On initialization, error checking is performed. When no error occured, <em>AfsResponseHelper::replies</em> returns a list of <em><a class="el" href="classAfsReplysetHelper.html" title="Helper for replies from one feed. ">AfsReplysetHelper</a></em>. By the way, following helpers are also initialized:</p>
+</div><!-- fragment --><p> On initialization, error checking is performed. When no error occured, <em><a class="el" href="classAfsResponseHelper.html#aa47b950f8dc54f7b06c97d9d12a3f767" title="Retrieves all replysets. ">AfsResponseHelper::get_replysets</a></em> returns a list of <em><a class="el" href="classAfsReplysetHelper.html" title="Helper for replies from one feed. ">AfsReplysetHelper</a></em>. By the way, following helpers are also initialized:</p>
 <ul>
 <li><em><a class="el" href="classAfsMetaHelper.html" title="AFS reply meta data. ">AfsMetaHelper</a></em>,</li>
 <li><em><a class="el" href="classAfsFacetHelper.html" title="Helper to manage facets. ">AfsFacetHelper</a>:</em> one helper is instantiated per facet,</li>
 <li><em><a class="el" href="classAfsReplyHelper.html" title="Helper to manager title, abstract and uri of one reply. ">AfsReplyHelper</a>:</em> one helper is instantiated per reply,</li>
 <li><em><a class="el" href="classAfsPagerHelper.html" title="Helper for pager. ">AfsPagerHelper</a></em>.</li>
 </ul>
-<p>Spellcheck replies can be retrieved by calling <em>AfsResponseHelper::spellchecks</em>, so that new query can be suggested to customer.</p>
+<p>Spellcheck replies can be retrieved by calling <em><a class="el" href="classAfsResponseHelper.html#aa9ad67eb28cdd424181433a37f88cac8" title="Retrieves spellchecks from the response. ">AfsResponseHelper::get_spellchecks</a></em>, so that new query can be suggested to customer.</p>
 <p>Details on each helper are available in their own documentation pages, so from now on only common features will be detailled.</p>
 <h1><a class="anchor" id="asr_helper_generalities"></a>
 Helper generalities</h1>
@@ -164,7 +164,7 @@ Next step</h1>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 31 2013 10:03:42 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 31 2013 11:16:56 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
