@@ -16,6 +16,7 @@ var searchData=
   ['afs_5ffacet_5freplace',['AFS_FACET_REPLACE',['../group__facet__mode.html#ga1bbce35cfbf880cdf4ce8d3e3a5e1c26',1,'afs_facet.php']]],
   ['afs_5ffacet_5fsticky',['AFS_FACET_STICKY',['../group__facet__stickyness.html#gaa1f00ffeed6150f2862840161c4a7fca',1,'afs_facet.php']]],
   ['afs_5ffacet_5fstring',['AFS_FACET_STRING',['../group__facet__type.html#ga34bfb9de5f002a45be02352cbb149422',1,'afs_facet.php']]],
+  ['afs_5ffacet_5ftree',['AFS_FACET_TREE',['../group__facet__type.html#gaeb7abdda59231b0d1dad80f90a9f19aa',1,'afs_facet.php']]],
   ['afs_5fhelper_5fformat',['AFS_HELPER_FORMAT',['../group__helper__format.html#ga02e81eaa970a40778c0d8bef08cf8446',1,'afs_response_helper.php']]],
   ['afs_5fpaf_5falpha',['AFS_PAF_ALPHA',['../group__paf__status.html#ga0dad1beda79d76e7bc11045050a5fed9',1,'afs_service.php']]],
   ['afs_5fpaf_5farchive',['AFS_PAF_ARCHIVE',['../group__paf__status.html#gac74e2370ac8798f27f9ac0ffe1170861',1,'afs_service.php']]],
