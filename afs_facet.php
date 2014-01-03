@@ -4,17 +4,19 @@
  * Type of the facet use to format facet parameter.
  * @{ */
 /** @brief Integer facet type. */
-define('AFS_FACET_INTEGER', 1);
+define('AFS_FACET_INTEGER', 'INTEGER');
 /** @brief Real facet type. */
-define('AFS_FACET_REAL', 2);
+define('AFS_FACET_REAL', 'REAL');
 /** @brief String facet type. */
-define('AFS_FACET_STRING', 3);
+define('AFS_FACET_STRING', 'STRING');
 /** @brief Date facet type. */
-define('AFS_FACET_DATE', 4);
+define('AFS_FACET_DATE', 'DATE');
 /** @brief Boolean facet type. */
-define('AFS_FACET_BOOL', 5);
+define('AFS_FACET_BOOL', 'BOOL');
 /** @brief Interval facets of one of the previous defined type. */
-define('AFS_FACET_INTERVAL', 6);
+define('AFS_FACET_INTERVAL', 'INTERVAL');
+/** @brief Tree facet of one of the previous defined type. */
+define('AFS_FACET_TREE', 'TREE');
 /**  @} */
 
 /** @defgroup facet_mode Facet mode

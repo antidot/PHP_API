@@ -7,6 +7,8 @@ class AfsFacetHelper extends AfsHelperBase
 {
     private $id = null;
     private $label = null;
+    private $layout = null;
+    private $type = null;
     private $elements = null;
 
     /** @brief Construct new instance of facet helper.
@@ -26,6 +28,8 @@ class AfsFacetHelper extends AfsHelperBase
         $this->check_format($format);
         $this->id = $facet->id;
         $this->label = $facet->labels[0]->label;
+        $this->layout = $facet->layout;
+        $this->type = $facet->type;
         $builder = new AfsFacetElementBuilder($facet_mgr, $query);
         $this->elements = $builder->create_elements($this->id, $facet, $coder,
                                 $format);
@@ -41,6 +45,36 @@ class AfsFacetHelper extends AfsHelperBase
     public function get_label()
     {
         return $this->label;
+    }
+
+    /** @brief Retrieves facet id.
+     *
+     * This value is not necessary unless specific query should be created
+     * instead of the ones provided by @a AfsFacetValueHelper.
+     *
+     * @return the id of the facet.
+     */
+    public function get_id()
+    {
+        return $this->id;
+    }
+
+    /** @brief Retrieves facet layout.
+     * @return layout of the facet (should be AFS_FACET_INTERVAL or
+     *         AFS_FACET_TREE).
+     */
+    public function get_layout()
+    {
+        return $this->layout;
+    }
+
+    /** @brief Retrieves facet type.
+     * @return type of the facet (should be one of AFS_FACET_INTEGER,
+     *         AFS_FACET_REAL...)
+     */
+    public function get_type()
+    {
+        return $this->type;
     }
 
     /** @brief Retrieve all facet elements of this facet.

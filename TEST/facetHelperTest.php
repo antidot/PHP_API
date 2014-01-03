@@ -49,6 +49,9 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
         $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery());
         $this->assertEquals($helper->get_label(), "Faceta booleana");
+        $this->assertEquals('BOOL', $helper->get_id());
+        $this->assertEquals(AFS_FACET_BOOL, $helper->get_type());
+        $this->assertEquals(AFS_FACET_TREE, $helper->get_layout());
     }
 
     public function testFacetElementBuilderOnInterval()
