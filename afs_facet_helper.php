@@ -145,9 +145,12 @@ class AfsFacetValueHelper extends AfsHelperBase
      * This list is usually empty except for tree facets. */
     public $values = null;
 
+    /** @brief Meta data associated to facet value. */
+    private $meta = null;
+
     /** @brief Construct new instance. (see class attributes for details) */
-    public function __construct($label, $key, $count, $active, $query, $link,
-        $children)
+    public function __construct($label, $key, $count, $meta, $active, $query,
+        $link, $children)
     {
         $this->label = $label;
         $this->key = $key;
@@ -156,20 +159,46 @@ class AfsFacetValueHelper extends AfsHelperBase
         $this->query = $query;
         $this->link = $link;
         $this->values = $children;
+        $this->meta = $meta;
+    }
+
+    /** @brief Retrieves meta data associated to the facet value.
+     *
+     * @param $name [in] Name of the metadata to retrieve. Default is null which
+     *        means retrieves all meta data as array of values (keys correspond
+     *        to meta data name, values correspond to meta data value associated
+     *        to current facet value).
+     *
+     * @return required meta data or all meta data (see @a name).
+     *
+     * @exception OutOfBoundsException when required meta data name does not
+     *            exist.
+     */
+    public function get_meta($name=null)
+    {
+        if (is_null($name)) {
+            return $this->meta;
+        } elseif (array_key_exists($name, $this->meta)) {
+            return $this->meta[$name];
+        } else {
+            throw new OutOfBoundsException('No meta data available with name: ' . $name);
+        }
     }
 
     /** @brief Retrieve facet element as array.
      *
      * All data are store in <tt>key => value</tt> format:
      * @li @c label: label of the facet value,
+     * @li @c key: key of the facet value,
      * @li @c count: number of element of the facet value,
      * @li @c active: state of the facet value: true when this facet value is 
      * used in current query, false otherwise,
      * @li @c query: query associated to the facet value (see @a query property
      * for more details),
      * @li @c link: link generated from the @a query,
-     * @li @c values: list of children facet values. This list is not empty for 
+     * @li @c values: list of children facet values. This list is not empty for
      * tree facets only.
+     * @li @c meta: key-value pairs of meta data identifiers and values.
      *
      * @remark: When helpers are used to create such facet value, if @a link is
      * generated from @a query, then the query is no more necessary and not 
@@ -235,24 +264,10 @@ class AfsFacetElementBuilder
                 $children = $this->create_elements($facet_id, $elem, $coder, $format);
             }
 
-            if (property_exists($elem, 'labels')) {
-                $label = $elem->labels[0]->label;
-            } else {
-                $label = $elem->key;
-            }
+            $label = $this->extract_label($elem);
+            $meta = $this->extract_meta($elem);
             $active = $this->query->has_filter($facet_id, $elem->key);
-            $facet = $this->facet_mgr->get_facet($facet_id);
-            if ($active) {
-                $query = $this->query->remove_filter($facet_id, $elem->key);
-            } else {
-                if ($facet->has_replace_mode()) {
-                    $query = $this->query->set_filter($facet_id, $elem->key);
-                } elseif ($facet->has_add_mode()) {
-                    $query = $this->query->add_filter($facet_id, $elem->key);
-                } else {
-                    throw new Exception('Unmanaged facet mode: ' . $facet->get_mode());
-                }
-            }
+            $query = $this->generate_query($facet_id, $elem, $active);
             if (is_null($coder)) {
                 $link = null;
             } else {
@@ -260,11 +275,49 @@ class AfsFacetElementBuilder
                 $query = null; // we don't need it anymore
             }
             $helper = new AfsFacetValueHelper($label, $elem->key, $elem->items,
-                            $active, $query, $link, $children);
+                            $meta, $active, $query, $link, $children);
             $elements[] = $format == AFS_ARRAY_FORMAT ? $helper->format() : $helper;
 
         }
         return $elements;
+    }
+
+    private function extract_label($element)
+    {
+        if (property_exists($element, 'labels')) {
+            return $element->labels[0]->label;
+        } else {
+            return $element->key;
+        }
+    }
+
+    private function extract_meta($element)
+    {
+        $result = array();
+        if (property_exists($element, 'meta')) {
+            foreach($element->meta as $meta) {
+                $result[$meta->key] = $meta->value;
+            }
+        }
+        return $result;
+    }
+
+    private function generate_query($facet_id, $element, $active)
+    {
+        $result = null;
+        $facet = $this->facet_mgr->get_facet($facet_id);
+        if ($active) {
+            $result = $this->query->remove_filter($facet_id, $element->key);
+        } else {
+            if ($facet->has_replace_mode()) {
+                $result = $this->query->set_filter($facet_id, $element->key);
+            } elseif ($facet->has_add_mode()) {
+                $result = $this->query->add_filter($facet_id, $element->key);
+            } else {
+                throw new Exception('Unmanaged facet mode: ' . $facet->get_mode());
+            }
+        }
+        return $result;
     }
 }
 

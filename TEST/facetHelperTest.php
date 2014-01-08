@@ -90,6 +90,181 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(true, $helper->is_sticky());
     }
 
+    public function testFacetValueNoMetaAvailable()
+    {
+        $input = json_decode('{
+            "afs:t": "FacetTree",
+            "node": [ {
+                    "key": "false",
+                    "labels": [ { "label": "BAD" } ],
+                    "items": 67
+                } ],
+            "layout": "TREE",
+            "type": "BOOL",
+            "id": "BOOL",
+            "labels": [ { "label": "Boolean facet" } ] }');
+
+        $facet_mgr = new AfsFacetManager();
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
+        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AFS_HELPER_FORMAT);
+        $elems = $helper->get_elements();
+        $this->assertEquals(1, count($elems));
+        $this->assertEquals(0, count($elems[0]->get_meta()));
+    }
+
+    public function testFacetValueOneMetaAvailable()
+    {
+        $input = json_decode('{
+            "afs:t": "FacetTree",
+            "node": [ {
+                    "key": "false",
+                    "labels": [ { "label": "BAD" } ],
+                    "items": 67,
+                    "meta": [ {
+                        "key": "meta_id",
+                        "value": "meta_value"
+                    } ]
+                } ],
+            "layout": "TREE",
+            "type": "BOOL",
+            "id": "BOOL",
+            "labels": [ { "label": "Boolean facet" } ]
+        }');
+
+        $facet_mgr = new AfsFacetManager();
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
+        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AFS_HELPER_FORMAT);
+        $elems = $helper->get_elements();
+
+        $this->assertEquals(1, count($elems));
+        $metas = $elems[0]->get_meta();
+        $this->assertEquals(1, count($metas));
+        foreach ($metas as $meta_key => $meta_value) {
+            $this->assertEquals('meta_id', $meta_key);
+            $this->assertEquals('meta_value', $meta_value);
+        }
+        $this->assertEquals('meta_value', $elems[0]->get_meta('meta_id'));
+    }
+
+    public function testFacetValueMultipleMetaAvailable()
+    {
+        $input = json_decode('{
+            "afs:t": "FacetTree",
+            "node": [ {
+                    "key": "false",
+                    "labels": [ { "label": "BAD" } ],
+                    "items": 67,
+                    "meta": [
+                        {
+                            "key": "meta_id_1",
+                            "value": "meta_value_1"
+                        },
+                        {
+                            "key": "meta_id_2",
+                            "value": "meta_value_2"
+                        } ]
+                } ],
+            "layout": "TREE",
+            "type": "BOOL",
+            "id": "BOOL",
+            "labels": [ { "label": "Boolean facet" } ]
+        }');
+
+        $facet_mgr = new AfsFacetManager();
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
+        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AFS_HELPER_FORMAT);
+        $elems = $helper->get_elements();
+
+        $this->assertEquals(1, count($elems));
+        $metas = $elems[0]->get_meta();
+        $this->assertEquals(2, count($metas));
+        for ($i = 1; $i < 2; $i++) {
+            $res = each($metas);
+            $this->assertEquals('meta_id_' . $i, $res['key']);
+            $this->assertEquals('meta_value_' . $i, $res['value']);
+        }
+        $this->assertEquals('meta_value_1', $elems[0]->get_meta('meta_id_1'));
+        $this->assertEquals('meta_value_2', $elems[0]->get_meta('meta_id_2'));
+    }
+
+    public function testFacetValueWrongMetaRequested()
+    {
+        $input = json_decode('{
+            "afs:t": "FacetTree",
+            "node": [ {
+                    "key": "false",
+                    "labels": [ { "label": "BAD" } ],
+                    "items": 67,
+                    "meta": [
+                        {
+                            "key": "meta_id_1",
+                            "value": "meta_value_1"
+                        },
+                        {
+                            "key": "meta_id_2",
+                            "value": "meta_value_2"
+                        } ]
+                } ],
+            "layout": "TREE",
+            "type": "BOOL",
+            "id": "BOOL",
+            "labels": [ { "label": "Boolean facet" } ]
+        }');
+
+        $facet_mgr = new AfsFacetManager();
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
+        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AFS_HELPER_FORMAT);
+        $elems = $helper->get_elements();
+
+        $this->assertEquals(1, count($elems));
+        $metas = $elems[0]->get_meta();
+        $this->assertEquals(2, count($metas));
+        try {
+            $elems[0]->get_meta('unknown_meta_id');
+            $this->fail('Should have raised an exception on unknown meta id');
+        } catch (OutOfBoundsException $e) { }
+    }
+
+    public function testFacetValueMultipleMetaAvailableInArrayFormat()
+    {
+        $input = json_decode('{
+            "afs:t": "FacetTree",
+            "node": [ {
+                    "key": "false",
+                    "labels": [ { "label": "BAD" } ],
+                    "items": 67,
+                    "meta": [
+                        {
+                            "key": "meta_id_1",
+                            "value": "meta_value_1"
+                        },
+                        {
+                            "key": "meta_id_2",
+                            "value": "meta_value_2"
+                        } ]
+                } ],
+            "layout": "TREE",
+            "type": "BOOL",
+            "id": "BOOL",
+            "labels": [ { "label": "Boolean facet" } ]
+        }');
+
+        $facet_mgr = new AfsFacetManager();
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
+        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AFS_ARRAY_FORMAT);
+        $elems = $helper->get_elements();
+
+        $this->assertEquals(1, count($elems));
+        $metas = $elems[0]['meta'];
+        $this->assertEquals(2, count($metas));
+        for ($i = 1; $i < 2; $i++) {
+            $res = each($metas);
+            $this->assertEquals('meta_id_' . $i, $res['key']);
+            $this->assertEquals('meta_value_' . $i, $res['value']);
+        }
+    }
+
+
     public function testFacetElementBuilderOnInterval()
     {
         $input = json_decode('{
