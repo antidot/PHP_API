@@ -123,6 +123,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(count($elems), 2);
         $elem = reset($elems);
         $this->assertEquals($elem->label, '["2009-10-02" .. "2013-10-01"[');
+        $this->assertEquals('["2009-10-02" .. "2013-10-01"[', $elem->key);
         $this->assertEquals($elem->count, 109);
         $this->assertFalse($elem->active);
         $this->assertTrue($elem->query->has_filter('ADVANCED_INTERVAL_DATE', '["2009-10-02" .. "2013-10-01"['));
@@ -130,6 +131,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         next($elems);
         $elem = current($elems);
         $this->assertEquals($elem->label, '["2010-10-02" .. "2013-10-01"[');
+        $this->assertEquals('["2010-10-02" .. "2013-10-01"[', $elem->key);
         $this->assertEquals($elem->count, 97);
         $this->assertFalse($elem->active);
         $this->assertTrue($elem->query->has_filter('ADVANCED_INTERVAL_DATE', '["2010-10-02" .. "2013-10-01"['));

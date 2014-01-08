@@ -117,10 +117,12 @@ class AfsFacetHelper extends AfsHelperBase
 
 
 /** @brief Simple AFS facet value representation. */
-class AfsFacetValueHelper
+class AfsFacetValueHelper extends AfsHelperBase
 {
     /** @brief Label of facet value. */
     public $label = null;
+    /** @brief Key of facet value. */
+    public $key = null;
     /** @brief Number of elements of facet value. */
     public $count = null;
     /** @brief Boolean state of facet value.
@@ -144,10 +146,11 @@ class AfsFacetValueHelper
     public $values = null;
 
     /** @brief Construct new instance. (see class attributes for details) */
-    public function __construct($label, $count, $active, $query, $link,
+    public function __construct($label, $key, $count, $active, $query, $link,
         $children)
     {
         $this->label = $label;
+        $this->key = $key;
         $this->count = $count;
         $this->active = $active;
         $this->query = $query;
@@ -256,8 +259,8 @@ class AfsFacetElementBuilder
                 $link = $coder->generate_link($query);
                 $query = null; // we don't need it anymore
             }
-            $helper = new AfsFacetValueHelper($label, $elem->items, $active,
-                             $query, $link, $children);
+            $helper = new AfsFacetValueHelper($label, $elem->key, $elem->items,
+                            $active, $query, $link, $children);
             $elements[] = $format == AFS_ARRAY_FORMAT ? $helper->format() : $helper;
 
         }
