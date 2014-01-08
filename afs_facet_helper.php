@@ -9,6 +9,7 @@ class AfsFacetHelper extends AfsHelperBase
     private $label = null;
     private $layout = null;
     private $type = null;
+    private $sticky = null;
     private $elements = null;
 
     /** @brief Construct new instance of facet helper.
@@ -30,6 +31,11 @@ class AfsFacetHelper extends AfsHelperBase
         $this->label = $facet->labels[0]->label;
         $this->layout = $facet->layout;
         $this->type = $facet->type;
+        if (property_exists($facet, 'sticky')) {
+            $this->sticky = $facet->sticky;
+        } else {
+            $this->sticky = false;
+        }
         $builder = new AfsFacetElementBuilder($facet_mgr, $query);
         $this->elements = $builder->create_elements($this->id, $facet, $coder,
                                 $format);
@@ -75,6 +81,14 @@ class AfsFacetHelper extends AfsHelperBase
     public function get_type()
     {
         return $this->type;
+    }
+
+    /** @brief Retrieves stickyness of the facet.
+     * @return return true when the facet is sticky, false otherwise.
+     */
+    public function is_sticky()
+    {
+        return $this->sticky;
     }
 
     /** @brief Retrieve all facet elements of this facet.
