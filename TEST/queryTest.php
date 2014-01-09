@@ -1,5 +1,6 @@
 <?php
 require_once "afs_query.php";
+require_once "afs_query_origin.php";
 
 
 class QueryTest extends PHPUnit_Framework_TestCase
@@ -377,6 +378,44 @@ class QueryTest extends PHPUnit_Framework_TestCase
         { }
     }
 
+    public function testOriginDefaultValue()
+    {
+        $query = new AfsQuery();
+        $this->assertNull($query->get_from());
+    }
+    public function testOriginKnownValue()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_from(AfsOrigin::RTE);
+        $this->assertEquals(AfsOrigin::RTE, $query->get_from());
+    }
+    public function testOriginUnknownValue()
+    {
+        $query = new AfsQuery();
+        try {
+            $query = $query->set_from('UnknownValue');
+            $this->fail('Unknown query origin value should have raised exception!');
+        } catch (Exception $e) { }
+    }
+    public function testOriginAutoSetForQuery()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_query('foo');
+        $this->assertEquals(AfsOrigin::SEARCHBOX, $query->get_from());
+    }
+    public function testOriginAutoSetForFilters()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_filter('foo', 'bar');
+        $this->assertEquals(AfsOrigin::FACET, $query->get_from());
+    }
+    public function testOriginAutoSetForPager()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_page(42);
+        $this->assertEquals(AfsOrigin::PAGER, $query->get_from());
+    }
+
     public function testCloneQuery()
     {
         $query = new AfsQuery();
@@ -391,6 +430,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->set_lang('en');
         $query = $query->set_sort('afs:weight,ASC;afs:foo;afs:BAR,DESC');
         $query = $query->set_page(42);
+        $query = $query->set_from(AfsOrigin::SEARCHBOX);
         $clone = new AfsQuery($query);
         $this->assertTrue($clone->get_query('query') == 'query');
         $this->assertTrue($clone->has_filter('foo', 'bar'));
@@ -403,6 +443,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($clone->get_replies() == 666);
         $this->assertTrue($clone->get_lang() == 'en');
         $this->assertTrue($clone->get_sort() == 'afs:weight,ASC;afs:foo;afs:BAR,DESC');
+        $this->assertEquals(AfsOrigin::SEARCHBOX, $clone->get_from());
     }
 
     public function testRetrieveParametersArray()
@@ -425,6 +466,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->set_sort('afs:weight,ASC;afs:foo;afs:BAR,DESC');
 
         $query = $query->set_page(42);
+
+        $query = $query->set_from(AfsOrigin::CONCEPT);
 
         $result = $query->get_parameters();
         $this->assertTrue(array_key_exists('query', $result));
@@ -453,6 +496,9 @@ class QueryTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(array_key_exists('page', $result));
         $this->assertTrue($result['page'] == 42);
+
+        $this->assertTrue(array_key_exists('from', $result));
+        $this->assertEquals(AfsOrigin::CONCEPT, $result['from']);
     }
 
     public function testInitializeWithArray()
@@ -465,7 +511,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
             'feed' => array('feed', 'food'),
             'replies' => 666,
             'lang' => 'en',
-            'sort' => 'afs:weight,ASC;afs:foo;afs:BAR,DESC'));
+            'sort' => 'afs:weight,ASC;afs:foo;afs:BAR,DESC',
+            'from' => 'PAGER'));
 
         $this->assertTrue($query->has_query());
         $this->assertTrue($query->get_query() == 'query');
@@ -492,6 +539,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($query->has_page());
         $this->assertTrue($query->get_page() == 42);
+
+        $this->assertEquals(AfsOrigin::PAGER, $query->get_from());
     }
 }
 

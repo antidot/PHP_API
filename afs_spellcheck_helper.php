@@ -123,7 +123,8 @@ class AfsSpellcheckManager extends AfsHelperBase
             $this->spellchecks[$feed] = array();
         }
 
-        $spellcheck_query = $this->query->set_query($raw_and_formatted->raw);
+        $spellcheck_query = $this->query->set_query($raw_and_formatted->raw)
+                                ->set_from(AfsOrigin::SPELLCHECK);
         $link = null;
         if (! is_null($this->coder)) {
             $link = $this->coder->generate_link($spellcheck_query);

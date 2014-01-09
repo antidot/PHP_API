@@ -74,6 +74,13 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    private function checkFromValue($origin)
+    {
+        $params = $this->connector->get_parameters();
+        $this->assertTrue(array_key_exists('afs:from', $params));
+        $this->assertEquals($origin, $params['afs:from']);
+    }
+
     public function testNoParameterProvided()
     {
         $query = new AfsQuery();
@@ -173,5 +180,17 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         }
         catch (Exception $e)
         { }
+    }
+
+    public function testFromParameter()
+    {
+        $facet = new AfsFacet('foo', AFS_FACET_INTEGER, AFS_FACET_ADD, AFS_FACET_OR);
+        $this->facet_mgr->add_facet($facet);
+
+        $query = new AfsQuery();
+        $query = $query->add_filter('foo', '4');
+        $query = $query->add_filter('foo', '2');
+        $this->qm->send($query);
+        $this->checkFromValue(AfsOrigin::FACET);
     }
 }

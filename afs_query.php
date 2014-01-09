@@ -1,5 +1,6 @@
 <?php
 require_once "afs_language.php";
+require_once "afs_query_origin.php";
 
 /** @brief Represent an AFS query.
  *
@@ -29,6 +30,7 @@ class AfsQuery
     private $replies = 10;      // afs:replies
     private $lang = null;       // afs:lang
     private $sort = null;       // afs:sort
+    private $from = null;       // afs:from : query origin
 
     /**
      * @brief Construct new AFS query object.
@@ -45,6 +47,7 @@ class AfsQuery
             $this->replies = $afs_query->replies;
             $this->lang = $afs_query->lang;
             $this->sort = $afs_query->sort;
+            $this->from = $afs_query->from;
         } else {
             $this->lang = new AfsLanguage(null);
         }
@@ -133,7 +136,7 @@ class AfsQuery
         $copy = $this->copy();
         $copy->reset_page();
         $copy->query = $new_query;
-        return $copy;
+        return $copy->set_from(AfsOrigin::SEARCHBOX);
     }
     /**  @} */
 
@@ -150,7 +153,7 @@ class AfsQuery
         $copy = $this->copy();
         $copy->reset_page();
         $copy->filter[$facet_id] = array($value);
-        return $copy;
+        return $copy->set_from(AfsOrigin::FACET);
     }
     /** @brief Assign new value to specific facet.
      * @param $facet_id [in] id of the facet for which new @a value should be
@@ -167,7 +170,7 @@ class AfsQuery
             $copy->filter[$facet_id] = array();
         }
         $copy->filter[$facet_id][] = $value;
-        return $copy;
+        return $copy->set_from(AfsOrigin::FACET);
     }
     /** @brief Remove existing value from specific facet.
      * @remark No error is reported when the removed @a value is not already set.
@@ -189,7 +192,7 @@ class AfsQuery
                 unset($copy->filter[$facet_id]);
             }
         }
-        return $copy;
+        return $copy->set_from(AfsOrigin::FACET);
     }
     /** @brief Check whether instance has a @a value associated with specified
      * facet id.
@@ -263,7 +266,7 @@ class AfsQuery
         }
         $copy = $this->copy();
         $copy->page = $page;
-        return $copy;
+        return $copy->set_from(AfsOrigin::PAGER);
     }
     /** @brief Retrieve current reply page.
      * @remark For a new query, this vaue is reset to 1.
@@ -415,6 +418,35 @@ class AfsQuery
     }
     /**  @} */
 
+    /** @name Origine of the query.
+     * @{ */
+    /** @brief Defines the origin of the query.
+     *
+     * @remark Page value is preserved when this method is called.
+     *
+     * @param $from [in] origin of the query. It should be a value defined by
+     *        @a AfsOrigin.
+     *
+     * @exception Exception when provided origin value is invalid.
+     */
+    public function set_from($from)
+    {
+        if (AfsOrigin::is_valid_name($from)) {
+            $this->from = $from;
+        } else {
+            throw new Exception('Invalid query origin: ' . $from);
+        }
+        return $this;
+    }
+    /** @brief Retrieves origin of the query.
+     * @return origin of the query.
+     */
+    public function get_from()
+    {
+        return $this->from;
+    }
+    /** @} */
+
     /** @name Full configuration through array of parameters
      * @{ */
 
@@ -450,19 +482,30 @@ class AfsQuery
         return $result;
     }
 
-    /** @brief Retrieve query parameters.
+    /** @brief Retrieves query parameters.
+     *
+     * Retrieved all or relevant parameters. For example, @c from parameter is
+     * not relevant except for AFS search engine. So, this parameter is not
+     * retrieved when @a all is set to @c false.
+     *
+     * @param $all [in] if set to @c true, all parameters are retrieved,
+     *        otherwise only relevent parameters are retrieved.
+     *
      * @return array of all defined query parameters.
      */
-    public function get_parameters()
+    public function get_parameters($all=true)
     {
+        $parameters = array('feed', 'query', 'filter', 'sort');
+        if ($all) {
+            array_push($parameters, 'from');
+        }
+
         $result = array('replies' => $this->replies);
         if ($this->page != 1) {
             $result['page'] = $this->page;
         }
-        foreach (array('feed', 'query', 'filter', 'sort') as $param)
-        {
-            if ($this->$param != null && !empty($this->$param))
-            {
+        foreach ($parameters as $param) {
+            if ($this->$param != null && !empty($this->$param)) {
                 $result[$param] = $this->$param;
             }
         }

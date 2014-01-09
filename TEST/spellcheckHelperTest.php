@@ -79,6 +79,7 @@ class spellcheckHelperTest extends PHPUnit_Framework_TestCase
                 }');
         $query = new AfsQuery();
         $query = $query->set_query('lige ET plum');
+        $this->assertTrue($query->get_from() != AfsOrigin::SPELLCHECK);
         $mgr = new AfsSpellcheckManager($query);
         $mgr->add_spellcheck($input);
 
@@ -98,11 +99,12 @@ class spellcheckHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('LIGNE', $first->get_raw_text());
         $this->assertEquals('<b>LIGNE</b>', $first->get_formatted_text());
         $this->assertEquals('LIGNE', $first->get_query()->get_query());
+        $this->assertEquals(AfsOrigin::SPELLCHECK, $first->get_query()->get_from());
 
         $second = $spellcheck[1];
         $this->assertEquals('LIGNE ET PLUME', $second->get_raw_text());
         $this->assertEquals('<b>LIGNE</b> ET <b>PLUME</b>', $second->get_formatted_text());
-        $this->assertEquals('LIGNE ET PLUME', $second->get_query()->get_query());
+        $this->assertEquals(AfsOrigin::SPELLCHECK, $second->get_query()->get_from());
     }
 
     public function testMultiSpellcheck()

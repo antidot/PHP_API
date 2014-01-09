@@ -39,7 +39,7 @@ class AfsQueryCoder implements AfsQueryCoderInterface
     public function generate_parameters(AfsQuery $query)
     {
         $result = array();
-        foreach ($query->get_parameters() as $param => $values) {
+        foreach ($query->get_parameters(false) as $param => $values) {
             $result[] = $param . '=' . htmlspecialchars(urlencode(
                 $this->coder($param, $values, 'encode')));
         }
