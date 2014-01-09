@@ -24,6 +24,10 @@ class Connector extends AfsSearchConnector
     {
         return parent::format_parameters($parameters);
     }
+    public function build_url(array $parameters)
+    {
+        return parent::build_url($parameters);
+    }
 }
 
 class SearchConnectorTest extends PHPUnit_Framework_TestCase
@@ -64,6 +68,14 @@ class SearchConnectorTest extends PHPUnit_Framework_TestCase
             $connector->send(array());
             $this->fail('Send query with bad URL should have failed!');
         } catch (Exception $e) { }
+    }
+
+    public function testAPIVersion()
+    {
+        $connector = new Connector('foo', new AfsService(42));
+        $query = new AfsQuery();
+        $url = $connector->build_url($query->get_parameters());
+        $this->assertFalse(strpos($url, urlencode(get_api_version())) === False);
     }
 }
 

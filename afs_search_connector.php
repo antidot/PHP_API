@@ -2,6 +2,7 @@
 require_once "afs_connector_interface.php";
 require_once "afs_connector_base.php";
 require_once "afs_service.php";
+require_once "afs_version.php";
 
 /** @brief AFS search connector.
  *
@@ -65,6 +66,7 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
         $parameters['afs:service'] = $this->service->id;
         $parameters['afs:status'] = $this->service->status;
         $parameters['afs:output'] = 'json,2';
+        $parameters['afs:log'] = get_api_version();
         return sprintf('%s://%s/search?%s', $this->scheme, $this->host,
             $this->format_parameters($parameters));
     }
