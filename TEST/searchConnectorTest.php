@@ -1,6 +1,8 @@
 <?php
 require_once "afs_search_connector.php";
 
+
+
 class Connector extends AfsSearchConnector
 {
     public function __construct($host, $service)
@@ -76,6 +78,42 @@ class SearchConnectorTest extends PHPUnit_Framework_TestCase
         $query = new AfsQuery();
         $url = $connector->build_url($query->get_parameters());
         $this->assertFalse(strpos($url, urlencode(get_api_version())) === False);
+    }
+
+    public function testNoUserAgent()
+    {
+        $connector = new Connector('foo', new AfsService(42));
+        $query = new AfsQuery();
+        $url = $connector->build_url($query->get_parameters());
+        $this->assertTrue(strpos($url, urlencode('afs:userAgent')) === False);
+    }
+
+    public function testUserAgent()
+    {
+        global $_SERVER;
+        $_SERVER = array('HTTP_USER_AGENT' => 'foo');
+        $connector = new Connector('foo', new AfsService(42));
+        $query = new AfsQuery();
+        $url = $connector->build_url($query->get_parameters());
+        $this->assertFalse(strpos($url, urlencode('afs:userAgent')) === False);
+    }
+
+    public function testNoIp()
+    {
+        $connector = new Connector('foo', new AfsService(42));
+        $query = new AfsQuery();
+        $url = $connector->build_url($query->get_parameters());
+        $this->assertTrue(strpos($url, urlencode('afs:ip')) === False);
+    }
+
+    public function testIp()
+    {
+        global $_SERVER;
+        $_SERVER = array('REMOTE_ADDR' => '127.0.0.1');
+        $connector = new Connector('foo', new AfsService(42));
+        $query = new AfsQuery();
+        $url = $connector->build_url($query->get_parameters());
+        $this->assertFalse(strpos($url, urlencode('afs:ip')) === False);
     }
 }
 

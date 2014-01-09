@@ -63,12 +63,23 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
 
     protected function build_url(array $parameters)
     {
+        $this->update_with_defaults($parameters);
+        return sprintf('%s://%s/search?%s', $this->scheme, $this->host,
+            $this->format_parameters($parameters));
+    }
+
+    protected function update_with_defaults(array& $parameters)
+    {
         $parameters['afs:service'] = $this->service->id;
         $parameters['afs:status'] = $this->service->status;
         $parameters['afs:output'] = 'json,2';
         $parameters['afs:log'] = get_api_version();
-        return sprintf('%s://%s/search?%s', $this->scheme, $this->host,
-            $this->format_parameters($parameters));
+        if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+            $parameters['afs:ip'] = $_SERVER['REMOTE_ADDR'];
+        }
+        if (array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
+            $parameters['afs:userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+        }
     }
 
     private function build_error($message, $details)
