@@ -1,4 +1,5 @@
 <?php
+require_once "afs_header_helper.php";
 require_once "afs_replyset_helper.php";
 require_once "afs_spellcheck_helper.php";
 require_once "afs_helper_base.php";
@@ -27,6 +28,7 @@ define('AFS_ARRAY_FORMAT', 2);
  */
 class AfsResponseHelper extends AfsHelperBase
 {
+    private $header = null;
     private $replysets = array();
     private $spellchecks = null;
     private $error = null;
@@ -58,11 +60,12 @@ class AfsResponseHelper extends AfsHelperBase
         $this->spellchecks = new AfsSpellcheckManager($query, $coder,
             $spellcheck_visitor);
 
+        $this->header = new AfsHeaderHelper($response->header);
         if (property_exists($response, 'replySet')) {
             $this->initialize_replysets($response->replySet, $facet_mgr, $query,
                 $coder, $format, $visitor);
-        } elseif (property_exists($response->header, 'error')) {
-            $this->error = $response->header->error->message[0];
+        } elseif ($this->header->in_error()) {
+            $this->error = $this->header->get_error();
         } else {
             $this->error = 'Unmanaged error';
         }
@@ -144,6 +147,18 @@ class AfsResponseHelper extends AfsHelperBase
         return $this->spellchecks;
     }
 
+    /** @brief Retrieves AFS search engine computation duration.
+     *
+     * Individual durations are available for each replyset, see
+     * @a AfsReplysetHelper for more details.
+     *
+     * @return Computation duration in milliseconds.
+     */
+    public function get_duration()
+    {
+        return $this->header->get_duration();
+    }
+
     /** @brief Retrieve reply data as array.
      *
      * All data are store in <tt>key => value</tt> format:
@@ -154,7 +169,8 @@ class AfsResponseHelper extends AfsHelperBase
      */
     public function format()
     {
-        return array('replysets' => $this->get_replysets(),
+        return array('duration' => $this->get_duration(),
+                     'replysets' => $this->get_replysets(),
                      'spellchecks' => $this->get_spellchecks());
     }
 

@@ -54,6 +54,7 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
         $facet_mgr = new AfsFacetManager();
         $query = new AfsQuery();
         $response = new AfsResponseHelper($input, $facet_mgr, $query, null, AFS_HELPER_FORMAT);
+        $this->assertEquals(211, $response->get_duration());
         $this->assertTrue($response->has_replyset());
         $this->assertEquals('Catalog', $response->get_replyset()->get_meta()->get_feed());
         $this->assertFalse($response->get_replyset()->has_reply());
