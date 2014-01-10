@@ -7,7 +7,10 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
     {
         $input = json_decode('{
                 "header": {
-                    "query": { },
+                    "query": {
+                        "userId": "foo",
+                        "sessionId": "bar"
+                    },
                     "user": { },
                     "performance": {
                         "durationMs": 215
@@ -26,7 +29,10 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
     {
         $input = json_decode('{
                 "header": {
-                    "query": { },
+                    "query": {
+                        "userId": "foo",
+                        "sessionId": "bar"
+                    },
                     "user": { },
                     "performance": {
                         "durationMs": 211
@@ -64,7 +70,10 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
     {
         $input = json_decode('{
                 "header": {
-                    "query": { },
+                    "query": {
+                        "userId": "foo",
+                        "sessionId": "bar"
+                    },
                     "user": { },
                     "performance": {
                         "durationMs": 211
@@ -149,7 +158,10 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
     {
         $input = json_decode('{
                 "header": {
-                    "query": { },
+                    "query": {
+                        "userId": "foo",
+                        "sessionId": "bar"
+                    },
                     "user": { },
                     "performance": {
                         "durationMs": 211

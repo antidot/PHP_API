@@ -31,6 +31,8 @@ class AfsQuery
     private $lang = null;       // afs:lang
     private $sort = null;       // afs:sort
     private $from = null;       // afs:from : query origin
+    private $userId = null;     // afs:userId
+    private $sessionId = null;  // afs:sessionId
 
     /**
      * @brief Construct new AFS query object.
@@ -48,6 +50,8 @@ class AfsQuery
             $this->lang = $afs_query->lang;
             $this->sort = $afs_query->sort;
             $this->from = $afs_query->from;
+            $this->userId = $afs_query->userId;
+            $this->sessionId = $afs_query->sessionId;
         } else {
             $this->lang = new AfsLanguage(null);
         }
@@ -420,6 +424,7 @@ class AfsQuery
 
     /** @name Origine of the query.
      * @{ */
+
     /** @brief Defines the origin of the query.
      *
      * @remark Page value is preserved when this method is called.
@@ -427,6 +432,7 @@ class AfsQuery
      * @param $from [in] origin of the query. It should be a value defined by
      *        @a AfsOrigin.
      *
+     * @return current instance.
      * @exception Exception when provided origin value is invalid.
      */
     public function set_from($from)
@@ -444,6 +450,102 @@ class AfsQuery
     public function get_from()
     {
         return $this->from;
+    }
+    /** @} */
+
+    /** @name User and session identifier.
+     *
+     * These identifiers are used to uniquely identify a user and a
+     * corresponding session.
+     *
+     * The value of the session id is reset as soon as new user id is set.
+     * @{ */
+
+    /** @brief Defines user id.
+     * @remark Session id is reset as soon as new value is defined for user id.
+     * @remark Page value is preserved when this method is called.
+     * @param $user_id [in] User id to set.
+     * @return current instance.
+     */
+    public function set_user_id($user_id)
+    {
+        if ($this->userId != $user_id) {
+            $this->userId = $user_id;
+            $this->set_session_id(null);
+        }
+        return $this;
+    }
+    /** @brief Checks whether user id is set.
+     * @return @c True when user id is set, @c false otherwise.
+     */
+    public function has_user_id()
+    {
+        return ! is_null($this->userId);
+    }
+    /** @brief Retrieves user identifier.
+     * @return user identifier or null if unset.
+     */
+    public function get_user_id()
+    {
+        return $this->userId;
+    }
+
+    /** @brief Defines session id.
+     * @remark Page value is preserved when this method is called.
+     * @param $session_id [in] Session id to set.
+     * @return current instance.
+     */
+    public function set_session_id($session_id)
+    {
+        $this->sessionId = $session_id;
+        return $this;
+    }
+    /** @brief Checks whether session id is set.
+     * @return @c True when session id is set, @c false otherwise.
+     */
+    public function has_session_id()
+    {
+        return ! is_null($this->sessionId);
+    }
+    /** @brief Retrieves session id.
+     * @return the session id or null if unset.
+     */
+    public function get_session_id()
+    {
+        return $this->sessionId;
+    }
+
+    /** @brief Initializes user id and session id.
+     *
+     * These identifiers are initialized thanks to specific manager. Refers to
+     * @a AfsUserSessionManager for more details.
+     *
+     * @param $mgr [in] Instance of @a AfsUserSessionManager.
+     */
+    public function initialize_user_and_session_id(AfsUserSessionManager $mgr)
+    {
+        $this->set_user_id($mgr->get_user_id());
+        $this->set_session_id($mgr->get_session_id());
+    }
+
+    /** @brief Update user and session identifiers.
+     *
+     * These identifiers are updated only if they are not yet defined.
+     * @remark Page value is preserved when this method is called.
+     *
+     * @param $user_id [in] user id to set.
+     * @param $session_id [in] session id to set.
+     *
+     * @return current instance.
+     */
+    public function update_user_and_session_id($user_id, $session_id)
+    {
+        if (! $this->has_user_id()) {
+            $this->set_user_id($user_id);
+        }
+        if (! $this->has_session_id()) {
+            $this->set_session_id($session_id);
+        }
     }
     /** @} */
 
@@ -497,7 +599,7 @@ class AfsQuery
     {
         $parameters = array('feed', 'query', 'filter', 'sort');
         if ($all) {
-            array_push($parameters, 'from');
+            array_push($parameters, 'from', 'userId', 'sessionId');
         }
 
         $result = array('replies' => $this->replies);

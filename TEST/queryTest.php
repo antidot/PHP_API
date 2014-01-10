@@ -416,6 +416,74 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(AfsOrigin::PAGER, $query->get_from());
     }
 
+    public function testNoUserId()
+    {
+        $query = new AfsQuery();
+        $this->assertFalse($query->has_user_id());
+        $this->assertNull($query->get_user_id());
+    }
+    public function testUserId()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_user_id('foo');
+        $this->assertTrue($query->has_user_id());
+        $this->assertEquals('foo', $query->get_user_id());
+    }
+
+    public function testNoSessionId()
+    {
+        $query = new AfsQuery();
+        $this->assertFalse($query->has_session_id());
+        $this->assertNull($query->get_session_id());
+    }
+    public function testSessionId()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_session_id('foo');
+        $this->assertTrue($query->has_session_id());
+        $this->assertEquals('foo', $query->get_session_id());
+    }
+    public function testResetSessionIdWhenUserIdIsModified()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_user_id('foo')->set_session_id('bar');
+        $this->assertEquals('foo', $query->get_user_id());
+        $this->assertEquals('bar', $query->get_session_id());
+
+        $query = $query->set_user_id('baz');
+        $this->assertEquals('baz', $query->get_user_id());
+        $this->assertNull($query->get_session_id());
+    }
+
+    public function testPreserveSessionIdWhenUserIdIsNotModified()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_user_id('foo')->set_session_id('bar');
+        $this->assertEquals('foo', $query->get_user_id());
+        $this->assertEquals('bar', $query->get_session_id());
+
+        $query = $query->set_user_id('foo');
+        $this->assertEquals('foo', $query->get_user_id());
+        $this->assertEquals('bar', $query->get_session_id());
+    }
+
+    public function testNoUpdateUserAndSession()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_user_id('foo')->set_session_id('bar');
+        $query->update_user_and_session_id('bla', 'blo');
+        $this->assertEquals('foo', $query->get_user_id());
+        $this->assertEquals('bar', $query->get_session_id());
+    }
+
+    public function testUpdateUserAndSession()
+    {
+        $query = new AfsQuery();
+        $query->update_user_and_session_id('bla', 'blo');
+        $this->assertEquals('bla', $query->get_user_id());
+        $this->assertEquals('blo', $query->get_session_id());
+    }
+
     public function testCloneQuery()
     {
         $query = new AfsQuery();

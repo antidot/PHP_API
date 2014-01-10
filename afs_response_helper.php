@@ -57,10 +57,13 @@ class AfsResponseHelper extends AfsHelperBase
         AfsSpellcheckTextVisitorInterface $spellcheck_visitor=null)
     {
         $this->check_format($format);
+        $this->header = new AfsHeaderHelper($response->header);
+        $query->update_user_and_session_id($this->header->get_user_id(),
+            $this->header->get_session_id());
+
         $this->spellchecks = new AfsSpellcheckManager($query, $coder,
             $spellcheck_visitor);
 
-        $this->header = new AfsHeaderHelper($response->header);
         if (property_exists($response, 'replySet')) {
             $this->initialize_replysets($response->replySet, $facet_mgr, $query,
                 $coder, $format, $visitor);
