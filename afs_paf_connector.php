@@ -122,7 +122,9 @@ class AfsPafConnector extends AfsConnectorBase
                       //CURLOPT_FAILONERROR => true,
                       CURLOPT_POST => true,
                       CURLOPT_HTTPHEADER => array('Expect:',
-                                                  'Accept: application/json')
+                                                  'Accept: application/json'),
+                      CURLOPT_SSL_VERIFYPEER => false,
+                      CURLOPT_SSL_VERIFYHOST => false
                       )) === false) {
             throw new Exception('Cannot define standard query options to send documents');
         }
