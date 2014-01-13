@@ -1,5 +1,7 @@
 <?php
 
+require_once "afs_tools.php";
+
 /** @brief Defines various query origins.
  *
  * Origin of the query is set automatically by the query itself or various

@@ -1,6 +1,6 @@
 <?php
 require_once "afs_language.php";
-require_once "afs_query_origin.php";
+require_once "afs_origin.php";
 
 /** @brief Represent an AFS query.
  *

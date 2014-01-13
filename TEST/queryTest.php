@@ -1,6 +1,5 @@
 <?php
 require_once "afs_query.php";
-require_once "afs_query_origin.php";
 
 
 class QueryTest extends PHPUnit_Framework_TestCase
