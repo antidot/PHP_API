@@ -1,6 +1,7 @@
 <?php
 require_once "afs_spellcheck_helper.php";
-require_once("afs_version.php");
+require_once "afs_query.php";
+require_once "afs_version.php" ;
 
 class spellcheckHelperTest extends PHPUnit_Framework_TestCase
 {

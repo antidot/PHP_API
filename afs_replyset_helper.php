@@ -4,26 +4,7 @@ require_once "afs_reply_helper.php";
 require_once "afs_pager_helper.php";
 require_once "afs_facet_helper.php";
 require_once "afs_helper_base.php";
-
-/** @defgroup afs_producer AFS reply set producer.
- *
- * Specifies which agent produces reply set.
- * @{ */
-/** @brief Reply set result of check query. */
-define('AFS_PRODUCER_CHECK', 'CHECK');
-/** @brief Reply set result of search agent. */
-define('AFS_PRODUCER_SEARCH', 'SEARCH');
-/** @brief Reply set result of spellcheck agent. */
-define('AFS_PRODUCER_SPELLCHECK', 'SPELLCHECK');
-/** @brief Reply set result of concept agent. */
-define('AFS_PRODUCER_CONCEPT', 'CONCEPT');
-/** @brief Reply set result of proxy. */
-define('AFS_PRODUCER_PROXY', 'PROXY');
-/** @brief Reply set result of master agent. */
-define('AFS_PRODUCER_SEARCH_MASTER', 'SEARCH_MASTER');
-/** @brief Reply set result of slave agent. */
-define('AFS_PRODUCER_SEARCH_SLAVE', 'SEARCH_SLAVE');
-/** @} */
+require_once "afs_producer.php";
 
 
 /** @brief Helper for replies from one feed.

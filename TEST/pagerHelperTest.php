@@ -1,5 +1,7 @@
 <?php
 require_once "afs_pager_helper.php";
+require_once "afs_query.php";
+require_once "afs_query_coder.php";
 
 class PagerHelperTest extends PHPUnit_Framework_TestCase
 {

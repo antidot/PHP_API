@@ -1,5 +1,7 @@
 <?php
 require_once "afs_response_helper.php";
+require_once "afs_query.php";
+require_once "afs_producer.php";
 
 class ResponseHelperTest extends PHPUnit_Framework_TestCase
 {
@@ -150,7 +152,7 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($response->has_replyset());
         $replyset = $response->get_replyset('Catalog');
         $this->assertEquals('Catalog', $replyset->get_meta()->get_feed());
-        $this->assertEquals(AFS_PRODUCER_SEARCH, $replyset->get_meta()->get_producer());
+        $this->assertEquals(AfsProducer::SEARCH, $replyset->get_meta()->get_producer());
         $this->assertEquals(42, $replyset->get_meta()->get_total_replies());
     }
 

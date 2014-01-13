@@ -1,6 +1,7 @@
 <?php
 require_once "afs_response_helper.php";
 require_once "afs_replyset_helper.php";
+require_once "afs_query.php";
 require_once "afs_query_coder.php";
 
 class ReplysetHelperTest extends PHPUnit_Framework_TestCase

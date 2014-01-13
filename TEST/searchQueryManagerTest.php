@@ -1,6 +1,7 @@
 <?php
 require_once "afs_connector_interface.php";
 require_once "afs_search_query_manager.php";
+require_once "afs_query.php";
 
 class ConnectorMock implements AfsConnectorInterface
 {

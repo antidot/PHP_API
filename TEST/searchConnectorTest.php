@@ -1,5 +1,6 @@
 <?php
 require_once "afs_search_connector.php";
+require_once "afs_query.php";
 
 
 

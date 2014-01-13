@@ -3,6 +3,7 @@ require_once "afs_header_helper.php";
 require_once "afs_replyset_helper.php";
 require_once "afs_spellcheck_helper.php";
 require_once "afs_helper_base.php";
+require_once "afs_producer.php";
 
 /** @defgroup helper_format Helper format
  *
@@ -31,6 +32,7 @@ class AfsResponseHelper extends AfsHelperBase
     private $header = null;
     private $replysets = array();
     private $spellchecks = null;
+    private $concepts = null;
     private $error = null;
 
     /** @brief Construct new response helper instance.
@@ -83,13 +85,13 @@ class AfsResponseHelper extends AfsHelperBase
             if (property_exists($replyset, 'meta')
                     && property_exists($replyset->meta, 'producer')) {
                 $producer = $replyset->meta->producer;
-                if (AFS_PRODUCER_SEARCH == $producer) {
+                if ($producer == AfsProducer::SEARCH) {
                     $replyset_helper = new AfsReplysetHelper($replyset,
                         $facet_mgr, $query, $coder, $format, $visitor);
                     $this->replysets[] = $format == AFS_ARRAY_FORMAT
                         ? $replyset_helper->format()
                         : $replyset_helper;
-                } elseif (AFS_PRODUCER_SPELLCHECK == $producer) {
+                } elseif ($producer == AfsProducer::SPELLCHECK) {
                     $this->spellchecks->add_spellcheck($replyset);
                 }
             }
@@ -132,7 +134,7 @@ class AfsResponseHelper extends AfsHelperBase
             foreach ($this->replysets as $replyset) {
                 $meta = $replyset->get_meta();
                 if ($meta->get_feed() == $feed
-                    && $meta->get_producer() == AFS_PRODUCER_SEARCH) {
+                    && AfsProducer::SEARCH == $meta->get_producer()) {
                         return $replyset;
                 }
             }

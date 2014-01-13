@@ -1,5 +1,7 @@
 <?php
 require_once "afs_facet_helper.php";
+require_once "afs_query.php";
+require_once "afs_response_helper.php";
 
 class FacetHelperTest extends PHPUnit_Framework_TestCase
 {

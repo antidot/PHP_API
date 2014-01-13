@@ -1,6 +1,7 @@
 <?php
 require_once "afs_helper_base.php";
 require_once "afs_spellcheck_text_visitor.php";
+require_once "afs_producer.php";
 
 /** @defgroup default_spellcheck Spellcheck names.
  *
@@ -47,7 +48,7 @@ class AfsSpellcheckManager extends AfsHelperBase
      */
     public function add_spellcheck($replyset)
     {
-        if ($replyset->meta->producer != AFS_PRODUCER_SPELLCHECK) {
+        if ($replyset->meta->producer != AfsProducer::SPELLCHECK) {
             throw new Exception('Invalid replyset provided for spellcheck initialization');
         }
         foreach ($replyset->content->reply as $reply) {
