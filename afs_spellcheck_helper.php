@@ -1,5 +1,5 @@
 <?php
-
+require_once "afs_helper_base.php";
 require_once "afs_spellcheck_text_visitor.php";
 
 /** @defgroup default_spellcheck Spellcheck names.
