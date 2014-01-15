@@ -94,7 +94,25 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals($helper->get_text('/clientdata/data/foo'), '');
+        try {
+            $helper->get_text('/clientdata/data/foo');
+            $this->fail('XPath with no reply should have raised exception');
+        } catch (AfsClientDataException $e) { }
+    }
+
+    public function testEmptyResultXpathForXmlClientDataRetrieval()
+    {
+        $input = json_decode('{
+            "clientData": [
+              {
+                "contents": "<clientdata><data></data></clientdata>",
+                "id": "main",
+                "mimeType": "text/xml"
+              }
+            ]
+          }');
+        $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
+        $this->assertEquals('', $helper->get_text('/clientdata/data'));
     }
 
     public function testRetrieveXmlClientDataWithHighlight()
@@ -191,7 +209,10 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals($helper->get_text('bar'), '');
+        try {
+            $helper->get_text('bar');
+            $this->fail('Unknown JSON element should have rosen exception');
+        } catch (AfsClientDataException $e) { }
     }
 
 

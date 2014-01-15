@@ -2,6 +2,7 @@
 require_once "afs_text_visitor.php";
 require_once "afs_helper_base.php";
 require_once "afs_tools.php";
+require_once "afs_client_data_exception.php";
 
 
 /** @brief Manage client data.
@@ -164,7 +165,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         $this->doc->loadXML($contents);
     }
 
-    /** @brief Retrieve text from XML node.
+    /** @brief Retrieves text from XML node.
      *
      * @param $path [in] XPath to apply (default=null, retrieve all content as
      *        text).
@@ -175,8 +176,8 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
      *
      * @return text of specific node(s) depending on parameters.
      *
-     * @remark XPath which points on unknown node can not be differenciated from
-     * XPath pointing on empty node. So, in both cases empty string is returned.
+     * @exception AfsInvalidQueryException when provided XPath is invalid.
+     * @exception AfsNoResultException when provided XPath returns no value/node.
      */
     public function get_text($path=null, $nsmap=array(), $highlight_callback=null)
     {
@@ -191,8 +192,10 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
                 $xpath->registerNamespace($prefix, $namespace);
             }
             $result = $xpath->query($path);
-            if ($result->length == 0) {
-                return '';
+            if (false === $result) {
+                throw new AfsInvalidQueryException('Invalid XPath: ' . $path);
+            } elseif ($result->length == 0) {
+                throw new AfsNoResultException('No result available for: ' . $path);
             } elseif ($this->has_highlight) {
                 return $this->get_highlighted_text($result->item(0), $highlight_callback);
             } else {
@@ -236,17 +239,20 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
         $this->client_data = $client_data;
     }
 
-    /** @brief Retrieve text from JSON content.
+    /** @brief Retrieves text from JSON content.
      *
      * @param $name [in] name of the first element to retrieve (default=null,
      *        all JSON content is returned as text). Empty string allows to
      *        retrieve text content correctly formatted when highlight is
      *        activated.
+     * @param $unused Hum...
      * @param $visitor [in] instance of @a AfsTextVisitorInterface used to format
      *        appropriately text content when highlight has been activated
      *        (default=null, @a AfsTextVisitor is used).
      *
      * @return formatted text.
+     *
+     * @exception AfsNoResultException when required JSON element is not defined.
      *
      * @par Example with name=null:
      * Input JSON client data:
@@ -309,8 +315,7 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
                 if (property_exists($contents, $name)) {
                     $text_mgr = new AfsTextManager($contents->$name);
                 } else {
-                    error_log('No client data content named: ' . $name);
-                    return '';
+                    throw new AfsNoResultException('No client data content named: ' . $name);
                 }
             } else {
                 $text_mgr = new AfsTextManager($contents);
