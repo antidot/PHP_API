@@ -10,8 +10,8 @@ var indexSectionsWithContent =
   0: "$_abcdefghiprsuv",
   1: "abdf",
   2: "_abcdefghirsuv",
-  3: "$a",
-  4: "acfhps",
+  3: "$acfhprs",
+  4: "acfps",
   5: "aip"
 };
 

@@ -108,7 +108,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a11a69db643868cafc91c724896668470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new instance of XML helper.  <a href="#a11a69db643868cafc91c724896668470">More...</a><br/></td></tr>
 <tr class="separator:a11a69db643868cafc91c724896668470"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63587742a4a16dc99a64a3304f5ddbc6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsXmlClientDataHelper.html#a63587742a4a16dc99a64a3304f5ddbc6">get_text</a> ($path=null, $nsmap=array(), $highlight_callback=null)</td></tr>
-<tr class="memdesc:a63587742a4a16dc99a64a3304f5ddbc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve text from XML node.  <a href="#a63587742a4a16dc99a64a3304f5ddbc6">More...</a><br/></td></tr>
+<tr class="memdesc:a63587742a4a16dc99a64a3304f5ddbc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves text from XML node.  <a href="#a63587742a4a16dc99a64a3304f5ddbc6">More...</a><br/></td></tr>
 <tr class="separator:a63587742a4a16dc99a64a3304f5ddbc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86d3d731abb89083c30a1f8ca0d45cb3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsXmlClientDataHelper.html#a86d3d731abb89083c30a1f8ca0d45cb3">get_mime_type</a> ()</td></tr>
 <tr class="memdesc:a86d3d731abb89083c30a1f8ca0d45cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve client data's mime type.  <a href="#a86d3d731abb89083c30a1f8ca0d45cb3">More...</a><br/></td></tr>
@@ -203,7 +203,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieve text from XML node. </p>
+<p>Retrieves text from XML node. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$path</td><td>[in] XPath to apply (default=null, retrieve all content as text). </td></tr>
@@ -213,7 +213,13 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>text of specific node(s) depending on parameters.</dd></dl>
-<dl class="section remark"><dt>Remarks</dt><dd>XPath which points on unknown node can not be differenciated from XPath pointing on empty node. So, in both cases empty string is returned. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classAfsInvalidQueryException.html" title="Exception raised on malformed expression or invalid context. ">AfsInvalidQueryException</a></td><td>when provided XPath is invalid. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classAfsNoResultException.html" title="Exception raised when provided path query has no result. ">AfsNoResultException</a></td><td>when provided XPath returns no value/node. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceAfsClientDataHelperInterface.html#ad27ecf7d7249fafa52a6e876ca7f8bf5">AfsClientDataHelperInterface</a>.</p>
 
@@ -222,7 +228,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 3 2014 11:24:58 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 15 2014 16:39:17 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

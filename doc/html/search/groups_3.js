@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['helper_20format',['Helper format',['../group__helper__format.html',1,'']]]
+  ['paf_20statuses',['PaF statuses',['../group__paf__status.html',1,'']]]
 ];

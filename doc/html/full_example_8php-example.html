@@ -108,7 +108,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="comment"></span>$query_mgr = <span class="keyword">new</span> <a name="_a8"></a><a class="code" href="classAfsSearchQueryManager.html">AfsSearchQueryManager</a>($connector, $facet_mgr);</div>
 <div class="line">$reply = $query_mgr-&gt;send($query);</div>
 <div class="line"><span class="comment">// Response Helper</span></div>
-<div class="line"><span class="comment"></span>$helper = <span class="keyword">new</span> <a name="_a9"></a><a class="code" href="classAfsResponseHelper.html">AfsResponseHelper</a>($reply, $facet_mgr, $query, $coder, <a name="a10"></a><a class="code" href="group__helper__format.html#gae8b3739184b29c607d2538d40c488cbd">AFS_ARRAY_FORMAT</a>);</div>
+<div class="line"><span class="comment"></span>$helper = <span class="keyword">new</span> <a name="_a9"></a><a class="code" href="classAfsResponseHelper.html">AfsResponseHelper</a>($reply, $facet_mgr, $query, $coder, AFS_ARRAY_FORMAT);</div>
 <div class="line"><span class="comment">// Load and apply PHP templates</span></div>
 <div class="line"><span class="comment"></span>$template = $twig-&gt;loadTemplate(<span class="stringliteral">&#39;meta_template.html&#39;</span>);</div>
 <div class="line">echo $template-&gt;render($helper-&gt;format());</div>
@@ -116,7 +116,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 3 2014 11:24:58 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 15 2014 16:39:17 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

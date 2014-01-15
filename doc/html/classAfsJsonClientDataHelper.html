@@ -108,7 +108,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a11a69db643868cafc91c724896668470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new instance of JSON helper.  <a href="#a11a69db643868cafc91c724896668470">More...</a><br/></td></tr>
 <tr class="separator:a11a69db643868cafc91c724896668470"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae591726d0d330ad8554edff062153eb6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsJsonClientDataHelper.html#ae591726d0d330ad8554edff062153eb6">get_text</a> ($name=null, $unused=array(), $visitor=null)</td></tr>
-<tr class="memdesc:ae591726d0d330ad8554edff062153eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve text from JSON content.  <a href="#ae591726d0d330ad8554edff062153eb6">More...</a><br/></td></tr>
+<tr class="memdesc:ae591726d0d330ad8554edff062153eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves text from JSON content.  <a href="#ae591726d0d330ad8554edff062153eb6">More...</a><br/></td></tr>
 <tr class="separator:ae591726d0d330ad8554edff062153eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86d3d731abb89083c30a1f8ca0d45cb3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsJsonClientDataHelper.html#a86d3d731abb89083c30a1f8ca0d45cb3">get_mime_type</a> ()</td></tr>
 <tr class="memdesc:a86d3d731abb89083c30a1f8ca0d45cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve client data's mime type.  <a href="#a86d3d731abb89083c30a1f8ca0d45cb3">More...</a><br/></td></tr>
@@ -203,15 +203,22 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieve text from JSON content. </p>
+<p>Retrieves text from JSON content. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$name</td><td>[in] name of the first element to retrieve (default=null, all JSON content is returned as text). Empty string allows to retrieve text content correctly formatted when highlight is activated. </td></tr>
+    <tr><td class="paramname">$unused</td><td>Hum... </td></tr>
     <tr><td class="paramname">$visitor</td><td>[in] instance of <em><a class="el" href="interfaceAfsTextVisitorInterface.html" title="Text visitor interface to be used along with AfsText or one of its derived class. ...">AfsTextVisitorInterface</a></em> used to format appropriately text content when highlight has been activated (default=null, <em><a class="el" href="classAfsTextVisitor.html" title="Default implementation for text visitor. ">AfsTextVisitor</a></em> is used).</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>formatted text.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classAfsNoResultException.html" title="Exception raised when provided path query has no result. ">AfsNoResultException</a></td><td>when required JSON element is not defined.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section user"><dt>Example with name=null:</dt><dd>Input JSON client data: <pre class="fragment">{
   "clientData": [
     {
@@ -250,7 +257,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 3 2014 11:24:58 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 15 2014 16:39:17 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

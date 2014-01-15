@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['paf_20statuses',['PaF statuses',['../group__paf__status.html',1,'']]]
+  ['spellcheck_20names_2e',['Spellcheck names.',['../group__default__spellcheck.html',1,'']]]
 ];
