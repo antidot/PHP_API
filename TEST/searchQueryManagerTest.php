@@ -96,10 +96,12 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
             $query = new AfsQuery();
             $query = $query->add_filter('foo', 'bar');
             $this->qm->send($query);
-            $this->fail('No error whereas provided facet hsa not been configured!');
         }
         catch (Exception $e)
-        { }
+        {
+            return;
+        }
+        $this->fail('No error whereas provided facet hsa not been configured!');
     }
 
     public function testOneFacetOneValue()
@@ -126,10 +128,12 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         try
         {
             $this->checkOneFacetValue('foo', '"bar"');
-            $this->fail('Should have failed due to value type/reference provided!');
         }
         catch (Exception $e)
-        { }
+        {
+            return;
+        }
+        $this->fail('Should have failed due to value type/reference provided!');
     }
 
     public function testOneFacetMultipleValues()
@@ -158,10 +162,12 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         try
         {
             $this->checkFacetValues('foo', array('4', '3'), 'or');
-            $this->fail('Should have failed due to invalid value provided!');
         }
         catch (Exception $e)
-        { }
+        {
+            return;
+        }
+        $this->fail('Should have failed due to invalid value provided!');
     }
 
     public function testFailOnModeValueOneFacetMultipleValues()
@@ -177,10 +183,12 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         try
         {
             $this->checkFacetValues('foo', array('4', '2'), 'and');
-            $this->fail('Should have failed due to invalid mode provided!');
         }
         catch (Exception $e)
-        { }
+        {
+            return;
+        }
+        $this->fail('Should have failed due to invalid mode provided!');
     }
 
     public function testFromParameter()
