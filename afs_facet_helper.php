@@ -19,12 +19,12 @@ class AfsFacetHelper extends AfsHelperBase
      * @param $query [in] @a AfsQuery which has produced current reply.
      * @param $coder [in] @a AfsQueryCoderInterface if set it will be used to
      *        create links (default: null).
-     * @param $format [in] if set to AFS_ARRAY_FORMAT (default), format facet
+     * @param $format [in] if set to AfsHelperFormat::ARRAYS (default), format facet
      *        and its values as array, otherwise, helpers are returned as is.
      */
     public function __construct($facet, AfsFacetManager $facet_mgr,
         AfsQuery $query, AfsQueryCoderInterface $coder=null,
-        $format=AFS_ARRAY_FORMAT)
+        $format=AfsHelperFormat::ARRAYS)
     {
         $this->check_format($format);
         $this->id = $facet->id;
@@ -241,13 +241,13 @@ class AfsFacetElementBuilder
      * @param $facet_element [in] starting point used to create facet elements.
      * @param $coder [in] @a AfsQueryCoderInterface if set it will be used to
      *        create links (default: null).
-     * @param $format [in] if set to AFS_ARRAY_FORMAT (default), formats
+     * @param $format [in] if set to AfsHelperFormat::ARRAYS (default), formats
      *        elements as array, otherwise element objects are kept as is.
      *
      * @return list of facet elements (see @ AfsFacetValueHelper).
      */
     public function create_elements($facet_id, $facet_element,
-        AfsQueryCoderInterface $coder=null, $format=AFS_ARRAY_FORMAT)
+        AfsQueryCoderInterface $coder=null, $format=AfsHelperFormat::ARRAYS)
     {
         $elements = array();
 
@@ -276,7 +276,7 @@ class AfsFacetElementBuilder
             }
             $helper = new AfsFacetValueHelper($label, $elem->key, $elem->items,
                             $meta, $active, $query, $link, $children);
-            $elements[] = $format == AFS_ARRAY_FORMAT ? $helper->format() : $helper;
+            $elements[] = $format == AfsHelperFormat::ARRAYS ? $helper->format() : $helper;
 
         }
         return $elements;

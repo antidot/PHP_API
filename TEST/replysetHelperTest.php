@@ -196,7 +196,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $query = $query->set_replies(2);
         $query = $query->set_page(3);
 
-        $helper = new AfsReplysetHelper($input->replySet[0], $facet_mgr, $query, null, AFS_HELPER_FORMAT);
+        $helper = new AfsReplysetHelper($input->replySet[0], $facet_mgr, $query, null, AfsHelperFormat::HELPERS);
 
         $meta = $helper->get_meta();
         $this->assertEquals('Test', $meta->get_feed());
@@ -416,7 +416,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $query = $query->set_replies(2);
         $query = $query->set_page(3);
 
-        $helper = new AfsReplysetHelper($input->replySet[0], $facet_mgr, $query, $coder, AFS_HELPER_FORMAT);
+        $helper = new AfsReplysetHelper($input->replySet[0], $facet_mgr, $query, $coder, AfsHelperFormat::HELPERS);
 
         $meta = $helper->get_meta();
         $this->assertEquals('Test', $meta->get_feed());
@@ -639,7 +639,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $query = $query->set_replies(2);
         $query = $query->set_page(3);
 
-        $helper = new AfsReplysetHelper($input->replySet[0], $facet_mgr, $query, $coder, AFS_ARRAY_FORMAT);
+        $helper = new AfsReplysetHelper($input->replySet[0], $facet_mgr, $query, $coder, AfsHelperFormat::ARRAYS);
 
         $meta = $helper->get_meta();
         $this->assertEquals('Test', $meta['feed']);

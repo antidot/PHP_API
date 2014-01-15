@@ -437,7 +437,7 @@ class AfsQuery
      */
     public function set_from($from)
     {
-        if (AfsOrigin::is_valid_name($from)) {
+        if (AfsOrigin::is_valid_value($from)) {
             $this->from = $from;
         } else {
             throw new Exception('Invalid query origin: ' . $from);

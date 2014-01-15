@@ -1,25 +1,12 @@
 <?php
 require_once "afs_header_helper.php";
 require_once "afs_replyset_helper.php";
+require_once "afs_promote_replyset_helper.php";
 require_once "afs_spellcheck_helper.php";
 require_once "afs_concept_helper.php";
 require_once "afs_helper_base.php";
 require_once "afs_producer.php";
-
-/** @defgroup helper_format Helper format
- *
- * Specify in which format helpers are generated.
- * @{ */
-/** @brief Outputs from response helper and sub-sequent child helpers are 
- * instances of helper classes. */
-define('AFS_HELPER_FORMAT', 1);
-/** @brief Outputs from response helper and sub-sequent child helpers are 
- * array of key/value pairs.
- *
- * This is the prefered format to use in combination with PHP template engines. 
- */
-define('AFS_ARRAY_FORMAT', 2);
-/** @} */
+require_once "afs_helper_format.php";
 
 /** @brief Main helper for AFS search reply.
  *
@@ -33,6 +20,7 @@ class AfsResponseHelper extends AfsHelperBase
     private $header = null;
     private $replysets = array();
     private $spellchecks = null;
+    private $promote = null;
     private $concepts = null;
     private $error = null;
 
@@ -44,9 +32,9 @@ class AfsResponseHelper extends AfsHelperBase
      * @param $query [in] query which has produced current reply.
      * @param $coder [in] @a AfsQueryCoderInterface if set it will be used to
      *        create links (default: null).
-     * @param $format [in] if set to AFS_ARRAY_FORMAT (default), all underlying
-     *        helpers will be formatted as array of data, otherwise they are
-     *        kept as is. See @ref helper_format for more details.
+     * @param $format [in] if set to AfsHelperFormat::ARRAYS (default), all
+     *        underlying helpers will be formatted as array of data, otherwise
+     *        they are kept as is. See @ref helper_format for more details.
      * @param $visitor [in] text visitor implementing @a AfsTextVisitorInterface
      *        used to extract title and abstract contents. If not set, default
      *        visitor is used (see @a AfsReplyHelper).
@@ -56,7 +44,7 @@ class AfsResponseHelper extends AfsHelperBase
      */
     public function __construct($response, AfsFacetManager $facet_mgr,
         AfsQuery $query, AfsQueryCoderInterface $coder=null,
-        $format=AFS_ARRAY_FORMAT, AfsTextVisitorInterface $visitor=null,
+        $format=AfsHelperFormat::ARRAYS, AfsTextVisitorInterface $visitor=null,
         AfsSpellcheckTextVisitorInterface $spellcheck_visitor=null)
     {
         $this->check_format($format);
@@ -80,7 +68,7 @@ class AfsResponseHelper extends AfsHelperBase
 
     private function initialize_replysets($replysets,
         AfsFacetManager $facet_mgr, AfsQuery $query,
-        AfsQueryCoderInterface $coder=null, $format=AFS_ARRAY_FORMAT,
+        AfsQueryCoderInterface $coder=null, $format=AfsHelperFormat::ARRAYS,
         AfsTextVisitorInterface $visitor=null)
     {
         foreach ($replysets as $replyset) {
@@ -88,11 +76,16 @@ class AfsResponseHelper extends AfsHelperBase
                     && property_exists($replyset->meta, 'producer')) {
                 $producer = $replyset->meta->producer;
                 if ($producer == AfsProducer::SEARCH) {
-                    $replyset_helper = new AfsReplysetHelper($replyset,
-                        $facet_mgr, $query, $coder, $format, $visitor);
-                    $this->replysets[] = $format == AFS_ARRAY_FORMAT
-                        ? $replyset_helper->format()
-                        : $replyset_helper;
+                    if ('Promote' == $replyset->meta->uri) {
+                        $this->promote = new AfsPromoteReplysetHelper($replyset, $format);
+                    } else {
+                        $replyset_helper = new AfsReplysetHelper($replyset,
+                            $facet_mgr, $query, $coder, $format, $visitor);
+                        $result = $format == AfsHelperFormat::ARRAYS
+                            ? $replyset_helper->format()
+                            : $replyset_helper;
+                        $this->replysets[] = $result;
+                    }
                 } elseif ($producer == AfsProducer::SPELLCHECK) {
                     $this->spellchecks->add_spellcheck($replyset);
                 } elseif ($producer == AfsProducer::CONCEPT) {
@@ -100,8 +93,11 @@ class AfsResponseHelper extends AfsHelperBase
                 }
             }
         }
-        if (AFS_ARRAY_FORMAT == $format) {
+        if (AfsHelperFormat::ARRAYS == $format) {
             $this->spellchecks = $this->spellchecks->format();
+            if (! is_null($this->promote)) {
+                $this->promote = $this->promote->format();
+            }
         }
     }
 

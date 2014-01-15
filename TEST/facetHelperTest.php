@@ -108,7 +108,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
 
         $facet_mgr = new AfsFacetManager();
         $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
-        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AFS_HELPER_FORMAT);
+        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AfsHelperFormat::HELPERS);
         $elems = $helper->get_elements();
         $this->assertEquals(1, count($elems));
         $this->assertEquals(0, count($elems[0]->get_meta()));
@@ -135,7 +135,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
 
         $facet_mgr = new AfsFacetManager();
         $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
-        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AFS_HELPER_FORMAT);
+        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AfsHelperFormat::HELPERS);
         $elems = $helper->get_elements();
 
         $this->assertEquals(1, count($elems));
@@ -174,7 +174,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
 
         $facet_mgr = new AfsFacetManager();
         $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
-        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AFS_HELPER_FORMAT);
+        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AfsHelperFormat::HELPERS);
         $elems = $helper->get_elements();
 
         $this->assertEquals(1, count($elems));
@@ -215,7 +215,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
 
         $facet_mgr = new AfsFacetManager();
         $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
-        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AFS_HELPER_FORMAT);
+        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AfsHelperFormat::HELPERS);
         $elems = $helper->get_elements();
 
         $this->assertEquals(1, count($elems));
@@ -253,7 +253,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
 
         $facet_mgr = new AfsFacetManager();
         $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL, AFS_FACET_ADD));
-        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AFS_ARRAY_FORMAT);
+        $helper = new AfsFacetHelper($input, $facet_mgr, new AfsQuery(), null, AfsHelperFormat::ARRAYS);
         $elems = $helper->get_elements();
 
         $this->assertEquals(1, count($elems));
@@ -295,7 +295,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $facet_mgr->add_facet(new AfsFacet('ADVANCED_INTERVAL_DATE', AFS_FACET_DATE));
         $query = new AfsQuery();
         $builder = new AfsFacetElementBuilder($facet_mgr, $query);
-        $elems = $builder->create_elements('ADVANCED_INTERVAL_DATE', $input, null, AFS_HELPER_FORMAT);
+        $elems = $builder->create_elements('ADVANCED_INTERVAL_DATE', $input, null, AfsHelperFormat::HELPERS);
 
         $this->assertEquals(count($elems), 2);
         $elem = reset($elems);
@@ -353,7 +353,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL));
         $query = new AfsQuery();
         $builder = new AfsFacetElementBuilder($facet_mgr, $query);
-        $elems = $builder->create_elements('BOOL', $input, null, AFS_HELPER_FORMAT);
+        $elems = $builder->create_elements('BOOL', $input, null, AfsHelperFormat::HELPERS);
 
         $this->assertEquals(count($elems), 2);
         $elem = reset($elems);
@@ -428,7 +428,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $facet_mgr->add_facet(new AfsFacet('TREE_DATE', AFS_FACET_DATE));
         $query = new AfsQuery();
         $builder = new AfsFacetElementBuilder($facet_mgr, $query);
-        $elems = $builder->create_elements('TREE_DATE', $input, null, AFS_HELPER_FORMAT);
+        $elems = $builder->create_elements('TREE_DATE', $input, null, AfsHelperFormat::HELPERS);
 
         $this->assertEquals(count($elems), 1);
         $elem = reset($elems);
@@ -490,7 +490,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $query = new AfsQuery();
         $query = $query->add_filter('BOOL', 'false');
         $builder = new AfsFacetElementBuilder($facet_mgr, $query);
-        $elems = $builder->create_elements('BOOL', $input, null, AFS_HELPER_FORMAT);
+        $elems = $builder->create_elements('BOOL', $input, null, AfsHelperFormat::HELPERS);
 
         $this->assertEquals(count($elems), 2);
         $elem = reset($elems);
@@ -548,7 +548,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $query = new AfsQuery();
         $query = $query->add_filter('BOOL', 'false');
         $builder = new AfsFacetElementBuilder($facet_mgr, $query);
-        $elems = $builder->create_elements('BOOL', $input, null, AFS_HELPER_FORMAT);
+        $elems = $builder->create_elements('BOOL', $input, null, AfsHelperFormat::HELPERS);
 
         $this->assertEquals(count($elems), 2);
         $elem = reset($elems);

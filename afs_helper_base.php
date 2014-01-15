@@ -1,4 +1,5 @@
 <?php
+require_once "afs_helper_format.php";
 
 /** @brief Add @e magic so that getter methods can be called the same way as
  * properties. */
@@ -21,9 +22,10 @@ abstract class AfsHelperBase
 
     protected function check_format($format)
     {
-        if ($format != AFS_HELPER_FORMAT && $format != AFS_ARRAY_FORMAT) {
+        if (! AfsHelperFormat::is_valid_value($format)) {
             throw new InvalidArgumentException('Helper format parameter should '
-                . 'be set to \'AFS_HELPER_FORMAT\' or \'AFS_ARRAY_FORMAT\'');
+                . 'be set to \'AfsHelperFormat::HELPERS\' or '
+                . '\'AfsHelperFormat::ARRAYS\'; not: ' . $format);
         }
     }
 }

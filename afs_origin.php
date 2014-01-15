@@ -10,6 +10,8 @@ require_once "afs_tools.php";
  */
 abstract class AfsOrigin extends BasicEnum
 {
+    private static $cache = null;
+
     /** @brief Query originates from search box.
      *
      * This value is automatically set when new search words are set to the

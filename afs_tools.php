@@ -174,16 +174,11 @@ class BoldFilterNode extends FilterNode
  *
  * You whould derive from this class to create your own pseudo enum. */
 abstract class BasicEnum {
-    private static $cache = NULL;
 
     private static function get_constants()
     {
-        if (self::$cache === NULL) {
-            $reflect = new ReflectionClass(get_called_class());
-            self::$cache = $reflect->getConstants();
-        }
-
-        return self::$cache;
+        $reflect = new ReflectionClass(get_called_class());
+        return $reflect->getConstants();
     }
 
     public static function is_valid_name($name)
