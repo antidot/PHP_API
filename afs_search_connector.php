@@ -52,6 +52,15 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
         } else {
             curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($request, CURLOPT_FAILONERROR, true);
+            if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+                curl_setopt($request, CURLOPT_HTTPHEADER,
+                    array('X-Forwarded-For: ' . $_SERVER['HTTP_X_FORWARDED_FOR']
+                        . ', ' . $_SERVER['REMOTE_ADDR']));
+            } else {
+                curl_setopt($request, CURLOPT_HTTPHEADER,
+                    array('X-Forwarded-For: ' . $_SERVER['REMOTE_ADDR']));
+            }
+
             $result = curl_exec($request);
             if ($result == false) {
                 $result = $this->build_error('Failed to execute request',  $url);
@@ -84,7 +93,7 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
 
     private function build_error($message, $details)
     {
-        error_log("$message [$details]");
+        //error_log("$message [$details]");
         return '{ "header": { "error": { "message": [ "' . $message . '" ] } } }';
     }
 }
