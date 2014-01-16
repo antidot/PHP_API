@@ -52,14 +52,7 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
         } else {
             curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($request, CURLOPT_FAILONERROR, true);
-            if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
-                curl_setopt($request, CURLOPT_HTTPHEADER,
-                    array('X-Forwarded-For: ' . $_SERVER['HTTP_X_FORWARDED_FOR']
-                        . ', ' . $_SERVER['REMOTE_ADDR']));
-            } else {
-                curl_setopt($request, CURLOPT_HTTPHEADER,
-                    array('X-Forwarded-For: ' . $_SERVER['REMOTE_ADDR']));
-            }
+            curl_setopt($request, CURLOPT_HTTPHEADER, $this->get_http_header());
 
             $result = curl_exec($request);
             if ($result == false) {
@@ -89,6 +82,22 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
         if (array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
             $parameters['afs:userAgent'] = $_SERVER['HTTP_USER_AGENT'];
         }
+    }
+
+    private function get_http_header()
+    {
+        $header = array();
+        if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+            $header[] = 'X-Forwarded-For: ' . $_SERVER['HTTP_X_FORWARDED_FOR']
+                    . ', ' . $_SERVER['REMOTE_ADDR'];
+        } else {
+            $header[] = 'X-Forwarded-For: ' . $_SERVER['REMOTE_ADDR'];
+        }
+
+        if (array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
+            $header[] = 'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'];
+        }
+        return $header;
     }
 
     private function build_error($message, $details)
