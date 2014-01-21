@@ -53,7 +53,7 @@ $reply = $query_mgr->send($query);
 
 // Response Helper
 /** [Response helper] */
-$helper = new AfsResponseHelper($reply, $facet_mgr, $query, $coder, AFS_ARRAY_FORMAT);
+$helper = new AfsResponseHelper($reply, $facet_mgr, $query, $coder, AfsHelperFormat::ARRAYS);
 /** [Response helper] */
 
 // Load and apply PHP templates

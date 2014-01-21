@@ -51,4 +51,4 @@ then
     echo "[WARNING] You should consider to use a more recent version of doxygen.[0m"
 fi
 
-doxygen afs_lib.dox
+doxygen afs_lib.doxygen
