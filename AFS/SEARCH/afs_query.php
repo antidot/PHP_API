@@ -33,6 +33,7 @@ class AfsQuery
     private $from = null;       // afs:from : query origin
     private $userId = null;     // afs:userId
     private $sessionId = null;  // afs:sessionId
+    private $facetDefault = 'replies=1000'; // afs:facetDefault
 
     /**
      * @brief Construct new AFS query object.
@@ -599,7 +600,7 @@ class AfsQuery
     {
         $parameters = array('feed', 'query', 'filter', 'sort');
         if ($all) {
-            array_push($parameters, 'from', 'userId', 'sessionId');
+            array_push($parameters, 'from', 'userId', 'sessionId', 'facetDefault');
         }
 
         $result = array('replies' => $this->replies);
