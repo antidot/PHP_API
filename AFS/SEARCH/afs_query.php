@@ -34,6 +34,7 @@ class AfsQuery
     private $userId = null;     // afs:userId
     private $sessionId = null;  // afs:sessionId
     private $facetDefault = 'replies=1000'; // afs:facetDefault
+    private $log = array();     // afs:log
 
     /**
      * @brief Construct new AFS query object.
@@ -53,6 +54,7 @@ class AfsQuery
             $this->from = $afs_query->from;
             $this->userId = $afs_query->userId;
             $this->sessionId = $afs_query->sessionId;
+            $this->log = $afs_query->log;
         } else {
             $this->lang = new AfsLanguage(null);
         }
@@ -550,6 +552,33 @@ class AfsQuery
     }
     /** @} */
 
+    /** @name Logging
+     * @{ */
+
+    /** @brief Adds new logging information.
+     *
+     * This can be used to log your system version or anything else.
+     * Version of this API is appended to this list of values.
+     * @remark Page value is preserved when this method is called.
+     * @param $value [in] appended value.
+     */
+    public function add_log($value)
+    {
+        $this->log[] = $value;
+        return $this;
+    }
+
+    /** @brief Retrieves current defined logs.
+     *
+     * Main purpose of this method is debugging purpose.
+     * @return defined logs.
+     */
+    public function get_logs()
+    {
+        return $this->log;
+    }
+    /** @} */
+
     /** @name Full configuration through array of parameters
      * @{ */
 
@@ -600,7 +629,7 @@ class AfsQuery
     {
         $parameters = array('feed', 'query', 'filter', 'sort');
         if ($all) {
-            array_push($parameters, 'from', 'userId', 'sessionId', 'facetDefault');
+            array_push($parameters, 'from', 'userId', 'sessionId', 'facetDefault', 'log');
         }
 
         $result = array('replies' => $this->replies);

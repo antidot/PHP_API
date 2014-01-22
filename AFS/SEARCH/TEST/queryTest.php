@@ -472,6 +472,23 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('blo', $query->get_session_id());
     }
 
+    public function testNoLog()
+    {
+        $query = new AfsQuery();
+        $this->assertEquals(0, count($query->get_logs()));
+    }
+
+    public function testSomeLogs()
+    {
+        $query = new AfsQuery();
+        $query->add_log('foo');
+        $query->add_log('bar');
+        $logs = $query->get_logs();
+        $this->assertEquals(2, count($logs));
+        $this->assertEquals('foo', $logs[0]);
+        $this->assertEquals('bar', $logs[1]);
+    }
+
     public function testCloneQuery()
     {
         $query = new AfsQuery();
@@ -487,6 +504,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->set_sort('afs:weight,ASC;afs:foo;afs:BAR,DESC');
         $query = $query->set_page(42);
         $query = $query->set_from(AfsOrigin::SEARCHBOX);
+        $query = $query->add_log('loggy');
         $clone = new AfsQuery($query);
         $this->assertTrue($clone->get_query('query') == 'query');
         $this->assertTrue($clone->has_filter('foo', 'bar'));
@@ -500,6 +518,9 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($clone->get_lang() == 'en');
         $this->assertTrue($clone->get_sort() == 'afs:weight,ASC;afs:foo;afs:BAR,DESC');
         $this->assertEquals(AfsOrigin::SEARCHBOX, $clone->get_from());
+        $logs = $clone->get_logs();
+        $this->assertEquals(1, count($logs));
+        $this->assertEquals('loggy', $logs[0]);
     }
 
     public function testRetrieveParametersArray()
@@ -524,6 +545,9 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->set_page(42);
 
         $query = $query->set_from(AfsOrigin::CONCEPT);
+
+        $query = $query->add_log('loggy');
+        $query = $query->add_log('loggo');
 
         $result = $query->get_parameters();
         $this->assertTrue(array_key_exists('query', $result));
@@ -555,6 +579,10 @@ class QueryTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(array_key_exists('from', $result));
         $this->assertEquals(AfsOrigin::CONCEPT, $result['from']);
+
+        $this->assertTrue(array_key_exists('log', $result));
+        $this->assertEquals('loggy', $result['log'][0]);
+        $this->assertEquals('loggo', $result['log'][1]);
     }
 
     public function testInitializeWithArray()
@@ -568,7 +596,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
             'replies' => 666,
             'lang' => 'en',
             'sort' => 'afs:weight,ASC;afs:foo;afs:BAR,DESC',
-            'from' => 'PAGER'));
+            'from' => 'PAGER',
+            'log' => array('loggy', 'loggo')));
 
         $this->assertTrue($query->has_query());
         $this->assertTrue($query->get_query() == 'query');
@@ -597,6 +626,11 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($query->get_page() == 42);
 
         $this->assertEquals(AfsOrigin::PAGER, $query->get_from());
+
+        $logs = $query->get_logs();
+        $this->assertEquals(2, count($logs));
+        $this->assertEquals('loggy', $logs[0]);
+        $this->assertEquals('loggo', $logs[1]);
     }
 }
 
