@@ -1,7 +1,8 @@
 <?php
-require_once "COMMON/afs_helper_base.php";
-require_once "AFS/SEARCH/afs_spellcheck_text_visitor.php";
-require_once "AFS/SEARCH/afs_producer.php";
+require_once 'COMMON/afs_helper_base.php';
+require_once 'AFS/SEARCH/afs_spellcheck_text_visitor.php';
+require_once 'AFS/SEARCH/afs_producer.php';
+require_once 'AFS/SEARCH/afs_helper_configuration.php';
 
 /** @defgroup default_spellcheck Spellcheck names.
  *
@@ -16,30 +17,18 @@ define('AFS_DEFAULT_SPELLCHECK', 'afs:spellcheck');
 class AfsSpellcheckManager extends AfsHelperBase
 {
     private $query = null;
-    private $coder = null;
-    private $visitor = null;
+    private $config = null;
     private $spellchecks = array();
 
     /** @brief Constructs new manager instance.
      *
      * @param $query [in] the query which has generated current reply.
-     * @param $coder [in] query coder. It is used to generate appropriate links
-     *        when spellcheck produces replies. Default value is <tt>null</tt>,
-     *        so link can not be generated.
-     * @param $visitor [in] visitor used to format spellcheck result. Default
-     *        value is <tt>null</tt>, when not specified default visitor is
-     *        instanced.
+     * @param $config [in] helper configuration.
      */
-    public function __construct(AfsQuery $query, AfsQueryCoderInterface $coder=null,
-        AfsSpellcheckTextVisitorInterface $visitor=null)
+    public function __construct(AfsQuery $query, AfsHelperConfiguration $config)
     {
         $this->query = $query;
-        $this->coder = $coder;
-        if (is_null($visitor)) {
-            $this->visitor = new AfsSpellcheckTextVisitor();
-        } else {
-            $this->visitor = $visitor;
-        }
+        $this->config = $config;
     }
 
     /** @brief Add new spellcheck reply to spellcheck manager.
@@ -119,7 +108,7 @@ class AfsSpellcheckManager extends AfsHelperBase
     {
         $feed = empty($reply->uri) ? AFS_DEFAULT_SPELLCHECK : $reply->uri;
         $text_mgr = new AfsSpellcheckTextManager($reply->suggestion[0]->items);
-        $raw_and_formatted = $text_mgr->visit_text($this->visitor);
+        $raw_and_formatted = $text_mgr->visit_text($this->config->get_spellcheck_text_visitor());
         if (! array_key_exists($feed, $this->spellchecks)) {
             $this->spellchecks[$feed] = array();
         }
@@ -127,8 +116,8 @@ class AfsSpellcheckManager extends AfsHelperBase
         $spellcheck_query = $this->query->set_query($raw_and_formatted->raw)
                                 ->set_from(AfsOrigin::SPELLCHECK);
         $link = null;
-        if (! is_null($this->coder)) {
-            $link = $this->coder->generate_link($spellcheck_query);
+        if ($this->config->has_query_coder()) {
+            $link = $this->config->get_query_coder()->generate_link($spellcheck_query);
         }
 
         $this->spellchecks[$feed][] = new AfsSpellcheckHelper($raw_and_formatted,

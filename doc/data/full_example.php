@@ -29,9 +29,15 @@ $host = 'eval.partners.antidot.net';
 $connector = new AfsSearchConnector($host, $service);
 /** [Connector] */
 
+// Configuration
+/** [Helper configuration] */
+$config = new AfsHelperConfiguration();
+$config->set_query_coder($coder);
+/** [Helper configuration] */
+
 // Facets and Facet Manager
 /** [Facets and Facet manager] */
-$facet_mgr = new AfsFacetManager();
+$facet_mgr = $config->get_facet_manager();
 $facet_mgr->add_facet(new AfsFacet('Organization', AFS_FACET_STRING));
 $facet_mgr->add_facet(new AfsFacet('date_parution', AFS_FACET_DATE));
 $facet_mgr->add_facet(new AfsFacet('geo', AFS_FACET_STRING));
@@ -43,6 +49,11 @@ $facet_mgr->add_facet(new AfsFacet('taxo_iptc', AFS_FACET_STRING));
 $facet_mgr->add_facet(new AfsFacet('theme', AFS_FACET_STRING));
 $facet_mgr->add_facet(new AfsFacet('type', AFS_FACET_STRING));
 $facet_mgr->add_facet(new AfsFacet('pays', AFS_FACET_STRING));
+$facet_mgr->add_facet(new AfsFacet('annotated_city', AFS_FACET_STRING));
+$facet_mgr->add_facet(new AfsFacet('buildingDate', AFS_FACET_STRING));
+$facet_mgr->add_facet(new AfsFacet('date', AFS_FACET_STRING));
+$facet_mgr->add_facet(new AfsFacet('stationParRegion', AFS_FACET_STRING));
+$facet_mgr->add_facet(new AfsFacet('ticketPrice', AFS_FACET_STRING));
 /** [Facets and Facet manager] */
 
 // Query Manager
@@ -53,7 +64,7 @@ $reply = $query_mgr->send($query);
 
 // Response Helper
 /** [Response helper] */
-$helper = new AfsResponseHelper($reply, $facet_mgr, $query, $coder, AfsHelperFormat::ARRAYS);
+$helper = new AfsResponseHelper($reply, $query, $config);
 /** [Response helper] */
 
 // Load and apply PHP templates

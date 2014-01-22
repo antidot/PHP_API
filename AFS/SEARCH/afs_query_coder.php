@@ -1,7 +1,8 @@
 <?php
-require_once "AFS/SEARCH/afs_query_coder_interface.php";
-require_once "AFS/SEARCH/afs_filter_coder.php";
-require_once "AFS/SEARCH/afs_feed_coder.php";
+require_once 'AFS/SEARCH/afs_query_coder_interface.php';
+require_once 'AFS/SEARCH/afs_filter_coder.php';
+require_once 'AFS/SEARCH/afs_feed_coder.php';
+require_once 'AFS/SEARCH/afs_query.php';
 
 /** @brief Default query coder implementation. */
 class AfsQueryCoder implements AfsQueryCoderInterface
@@ -12,19 +13,23 @@ class AfsQueryCoder implements AfsQueryCoderInterface
 
     /** @brief Construct new instance.
      * @param $path [in] base path used to generate appropriate link (see
-     *        @a generate_link method).
+     *        @a generate_link method). If this parameter is not provided, value
+     *        of $_SERVER['PHP_SELF'] is used as default value.
      * @param $feed_coder [in] (optional) feed coder. If not set, default
      *        implementation is used (see @a AfsFeedCoder).
      * @param $filter_coder [in] (optional) filter coder. If not set, default
      *        implementation is used (see @a AfsFilterCoder).
      */
-    public function __construct($path, AfsCoderInterface $feed_coder=null,
+    public function __construct($path=null, AfsCoderInterface $feed_coder=null,
         AfsCoderInterface $filter_coder=null)
     {
-        if ($feed_coder == null) {
+        if (is_null($path)) {
+            $path = $_SERVER['PHP_SELF'];
+        }
+        if (is_null($feed_coder)) {
             $feed_coder = new AfsFeedCoder();
         }
-        if ($filter_coder == null) {
+        if (is_null($filter_coder)) {
             $filter_coder = new AfsFilterCoder();
         }
         $this->path = $path;

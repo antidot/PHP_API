@@ -82,7 +82,7 @@ class spellcheckHelperTest extends PHPUnit_Framework_TestCase
         $query = new AfsQuery();
         $query = $query->set_query('lige ET plum');
         $this->assertTrue($query->get_from() != AfsOrigin::SPELLCHECK);
-        $mgr = new AfsSpellcheckManager($query);
+        $mgr = new AfsSpellcheckManager($query, new AfsHelperConfiguration());
         $mgr->add_spellcheck($input);
 
         try {
@@ -116,7 +116,7 @@ class spellcheckHelperTest extends PHPUnit_Framework_TestCase
 
         $query = new AfsQuery();
         $query = $query->set_query('lige ET plum');
-        $mgr = new AfsSpellcheckManager($query);
+        $mgr = new AfsSpellcheckManager($query, new AfsHelperConfiguration());
         $mgr->add_spellcheck($input1);
         $mgr->add_spellcheck($input2);
 

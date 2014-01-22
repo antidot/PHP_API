@@ -19,15 +19,6 @@ abstract class AfsHelperBase
             return $this->$getter();
         }
     }
-
-    protected function check_format($format)
-    {
-        if (! AfsHelperFormat::is_valid_value($format)) {
-            throw new InvalidArgumentException('Helper format parameter should '
-                . 'be set to \'AfsHelperFormat::HELPERS\' or '
-                . '\'AfsHelperFormat::ARRAYS\'; not: ' . $format);
-        }
-    }
 }
 
 ?>

@@ -12,21 +12,14 @@ class AfsFacetHelper extends AfsHelperBase
     private $sticky = null;
     private $elements = null;
 
-    /** @brief Construct new instance of facet helper.
+    /** @brief Constructs new instance of facet helper.
      *
      * @param $facet [in] root facet element.
-     * @param $facet_mgr [in] @a AfsFacetManager with properly configured facets.
      * @param $query [in] @a AfsQuery which has produced current reply.
-     * @param $coder [in] @a AfsQueryCoderInterface if set it will be used to
-     *        create links (default: null).
-     * @param $format [in] if set to AfsHelperFormat::ARRAYS (default), format facet
-     *        and its values as array, otherwise, helpers are returned as is.
+     * @param $config [in] helper configuration object.
      */
-    public function __construct($facet, AfsFacetManager $facet_mgr,
-        AfsQuery $query, AfsQueryCoderInterface $coder=null,
-        $format=AfsHelperFormat::ARRAYS)
+    public function __construct($facet, AfsQuery $query, AfsHelperConfiguration $config)
     {
-        $this->check_format($format);
         $this->id = $facet->id;
         $this->label = $facet->labels[0]->label;
         $this->layout = $facet->layout;
@@ -37,9 +30,8 @@ class AfsFacetHelper extends AfsHelperBase
         } else {
             $this->sticky = false;
         }
-        $builder = new AfsFacetElementBuilder($facet_mgr, $query);
-        $this->elements = $builder->create_elements($this->id, $facet, $coder,
-                                $format);
+        $builder = new AfsFacetElementBuilder($config->get_facet_manager(), $query);
+        $this->elements = $builder->create_elements($this->id, $facet, $config);
     }
 
     /** @brief Retrieve facet label.
@@ -223,7 +215,7 @@ class AfsFacetElementBuilder
     private $facet_mgr = null;
     private $query = null;
 
-    /** @brief Construct new instance of facet element builder.
+    /** @brief Constructs new instance of facet element builder.
      *
      * @param $facet_mgr [in] in conjunction with @a query, it is used to produce
      *        adequate query for each facet element.
@@ -235,20 +227,20 @@ class AfsFacetElementBuilder
         $this->query = $query;
     }
 
-    /** @brief Create recursively facet elements.
+    /** @brief Creates recursively facet elements.
      *
      * @param $facet_id [in] current facet id. This value is used to update
      *        current query for each facet element.
      * @param $facet_element [in] starting point used to create facet elements.
-     * @param $coder [in] @a AfsQueryCoderInterface if set it will be used to
-     *        create links (default: null).
-     * @param $format [in] if set to AfsHelperFormat::ARRAYS (default), formats
-     *        elements as array, otherwise element objects are kept as is.
+     * @param $config [in] helper configuration object.
      *
      * @return list of facet elements (see @ AfsFacetValueHelper).
      */
     public function create_elements($facet_id, $facet_element,
+        AfsHelperConfiguration $config)
+        /*
         AfsQueryCoderInterface $coder=null, $format=AfsHelperFormat::ARRAYS)
+         */
     {
         $elements = array();
 
@@ -262,22 +254,22 @@ class AfsFacetElementBuilder
             // First create children
             $children = array();
             if (property_exists($elem, 'node')) {
-                $children = $this->create_elements($facet_id, $elem, $coder, $format);
+                $children = $this->create_elements($facet_id, $elem, $config);
             }
 
             $label = $this->extract_label($elem);
             $meta = $this->extract_meta($elem);
             $active = $this->query->has_filter($facet_id, $elem->key);
             $query = $this->generate_query($facet_id, $elem, $active);
-            if (is_null($coder)) {
-                $link = null;
-            } else {
-                $link = $coder->generate_link($query);
+            if ($config->has_query_coder()) {
+                $link = $config->get_query_coder()->generate_link($query);
                 $query = null; // we don't need it anymore
+            } else {
+                $link = null;
             }
             $helper = new AfsFacetValueHelper($label, $elem->key, $elem->items,
                             $meta, $active, $query, $link, $children);
-            $elements[] = $format == AfsHelperFormat::ARRAYS ? $helper->format() : $helper;
+            $elements[] = $config->is_array_format() ? $helper->format() : $helper;
 
         }
         return $elements;

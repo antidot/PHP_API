@@ -1,8 +1,8 @@
 <?php
-require_once "AFS/SEARCH/afs_meta_helper.php";
-require_once "AFS/SEARCH/afs_producer.php";
-require_once "COMMON/afs_helper_base.php";
-require_once "COMMON/afs_helper_format.php";
+require_once 'AFS/SEARCH/afs_meta_helper.php';
+require_once 'AFS/SEARCH/afs_producer.php';
+require_once 'COMMON/afs_helper_base.php';
+require_once 'COMMON/afs_helper_format.php';
 
 class AfsBaseReplysetHelper extends AfsHelperBase
 {
@@ -12,32 +12,42 @@ class AfsBaseReplysetHelper extends AfsHelperBase
     /** @brief Construct new replyset helper instance.
      *
      * @param $reply_set [in] one reply from decoded json reply.
-     * @param $format [in] if set to AfsHelperFormat::ARRAYS, all underlying
-     *        helpers will be formatted as array of data, otherwise they are
-     *        kept as is.
+     * @param $config [in] helper configuration object (see AfsHelperConfiguration).
      * @param $factory [in] used to create appropriate reply helper.
      */
-    public function __construct($reply_set, $format, AfsReplyHelperFactory $factory)
+    public function __construct($reply_set, AfsHelperConfiguration $config,
+        AfsReplyHelperFactory $factory)
     {
-        $this->check_format($format);
-        $this->initialize_meta($reply_set, $format);
-        $this->initialize_content($reply_set, $format, $factory);
+        $this->initialize_meta($reply_set, $config);
+        $this->initialize_content($reply_set, $config, $factory);
     }
 
-    protected function initialize_meta($reply_set, $format)
+    protected function initialize_meta($reply_set, AfsHelperConfiguration $config)
     {
         $meta_helper = new AfsMetaHelper($reply_set->meta);
-        $this->meta = $format == AfsHelperFormat::ARRAYS ? $meta_helper->format() : $meta_helper;
+        if ($config->is_array_format()) {
+            $this->meta = $meta_helper->format();
+        } else {
+            $this->meta = $meta_helper;
+        }
     }
 
-    protected function initialize_content($reply_set, $format, $factory)
+    protected function initialize_content($reply_set, AfsHelperConfiguration $config, $factory)
     {
         if (property_exists($reply_set, 'content') && property_exists($reply_set->content, 'reply')) {
             // Remove this horrible thing!
-            $feed = $format == AfsHelperFormat::ARRAYS ? $this->meta['feed'] : $this->meta->get_feed();
+            if ($config->is_array_format()) {
+                $feed = $this->meta['feed'];
+            } else {
+                $feed = $this->meta->get_feed();
+            }
             foreach ($reply_set->content->reply as $reply) {
                 $reply_helper = $factory->create($feed, $reply);
-                $this->replies[] = $format == AfsHelperFormat::ARRAYS ? $reply_helper->format() : $reply_helper;
+                if ($config->is_array_format()) {
+                    $this->replies[] = $reply_helper->format();
+                } else {
+                    $this->replies[] = $reply_helper;
+                }
             }
         }
     }

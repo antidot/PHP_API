@@ -38,16 +38,12 @@ class AfsSearchQueryManager
      * @brief Add options specific to facets
      *
      * Currently managed options are:
-     * - <tt>afs:facetOrder</tt> which allows to sort facets in AFS reply
-     *   stream.
      * - <tt>afs:facet stickyness</tt> to defined dynamically sticky facets.
      *
      * @param $params [in-out] array of parameter to update with facet options.
      */
     private function add_facet_options(&$params)
     {
-        $params['afs:facetOrder'] = implode(',',
-            array_keys($this->facet_mgr->get_facets()));
         foreach ($this->facet_mgr->get_facets() as $name => $facet) {
             if ($facet->is_sticky()) {
                 if (empty($params['afs:facet'])) {

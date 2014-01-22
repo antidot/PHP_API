@@ -1,12 +1,13 @@
 <?php
-require_once "AFS/SEARCH/afs_header_helper.php";
-require_once "AFS/SEARCH/afs_replyset_helper.php";
-require_once "AFS/SEARCH/afs_promote_replyset_helper.php";
-require_once "AFS/SEARCH/afs_spellcheck_helper.php";
-require_once "AFS/SEARCH/afs_concept_helper.php";
-require_once "AFS/SEARCH/afs_producer.php";
-require_once "COMMON/afs_helper_base.php";
-require_once "COMMON/afs_helper_format.php";
+require_once 'AFS/SEARCH/afs_header_helper.php';
+require_once 'AFS/SEARCH/afs_replyset_helper.php';
+require_once 'AFS/SEARCH/afs_promote_replyset_helper.php';
+require_once 'AFS/SEARCH/afs_spellcheck_helper.php';
+require_once 'AFS/SEARCH/afs_concept_helper.php';
+require_once 'AFS/SEARCH/afs_producer.php';
+require_once 'AFS/SEARCH/afs_helper_configuration.php';
+require_once 'COMMON/afs_helper_base.php';
+require_once 'COMMON/afs_helper_format.php';
 
 /** @brief Main helper for AFS search reply.
  *
@@ -17,6 +18,7 @@ require_once "COMMON/afs_helper_format.php";
  */
 class AfsResponseHelper extends AfsHelperBase
 {
+    private $config = null;
     private $header = null;
     private $replysets = array();
     private $spellchecks = null;
@@ -27,38 +29,25 @@ class AfsResponseHelper extends AfsHelperBase
     /** @brief Construct new response helper instance.
      *
      * @param $response [in] result from @a AfsSearchQueryManager::send call.
-     * @param $facet_mgr [in] @a AfsFacetManager used to create appropriate
-     *        queries.
      * @param $query [in] query which has produced current reply.
-     * @param $coder [in] @a AfsQueryCoderInterface if set it will be used to
-     *        create links (default: null).
-     * @param $format [in] if set to AfsHelperFormat::ARRAYS (default), all
-     *        underlying helpers will be formatted as array of data, otherwise
-     *        they are kept as is. See @ref helper_format for more details.
-     * @param $visitor [in] text visitor implementing @a AfsTextVisitorInterface
-     *        used to extract title and abstract contents. If not set, default
-     *        visitor is used (see @a AfsReplyHelper).
+     * @param $config [in] helper configuration object.
      *
      * @exception InvalidArgumentException when one of the parameters is 
      * invalid.
      */
-    public function __construct($response, AfsFacetManager $facet_mgr,
-        AfsQuery $query, AfsQueryCoderInterface $coder=null,
-        $format=AfsHelperFormat::ARRAYS, AfsTextVisitorInterface $visitor=null,
-        AfsSpellcheckTextVisitorInterface $spellcheck_visitor=null)
+    public function __construct($response, AfsQuery $query,
+        AfsHelperConfiguration $config)
     {
-        $this->check_format($format);
+        $this->config = $config;
         $this->header = new AfsHeaderHelper($response->header);
         $query->update_user_and_session_id($this->header->get_user_id(),
             $this->header->get_session_id());
 
-        $this->spellchecks = new AfsSpellcheckManager($query, $coder,
-            $spellcheck_visitor);
+        $this->spellchecks = new AfsSpellcheckManager($query, $config);
         $this->concepts = new AfsConceptManager();
 
         if (property_exists($response, 'replySet')) {
-            $this->initialize_replysets($response->replySet, $facet_mgr, $query,
-                $coder, $format, $visitor);
+            $this->initialize_replysets($response->replySet, $query, $config);
         } elseif ($this->header->in_error()) {
             $this->error = $this->header->get_error();
         } else {
@@ -66,10 +55,8 @@ class AfsResponseHelper extends AfsHelperBase
         }
     }
 
-    private function initialize_replysets($replysets,
-        AfsFacetManager $facet_mgr, AfsQuery $query,
-        AfsQueryCoderInterface $coder=null, $format=AfsHelperFormat::ARRAYS,
-        AfsTextVisitorInterface $visitor=null)
+    private function initialize_replysets($replysets, AfsQuery $query,
+        AfsHelperConfiguration $config)
     {
         foreach ($replysets as $replyset) {
             if (property_exists($replyset, 'meta')
@@ -77,14 +64,14 @@ class AfsResponseHelper extends AfsHelperBase
                 $producer = $replyset->meta->producer;
                 if ($producer == AfsProducer::SEARCH) {
                     if ('Promote' == $replyset->meta->uri) {
-                        $this->promote = new AfsPromoteReplysetHelper($replyset, $format);
+                        $this->promote = new AfsPromoteReplysetHelper($replyset, $config);
                     } else {
-                        $replyset_helper = new AfsReplysetHelper($replyset,
-                            $facet_mgr, $query, $coder, $format, $visitor);
-                        $result = $format == AfsHelperFormat::ARRAYS
-                            ? $replyset_helper->format()
-                            : $replyset_helper;
-                        $this->replysets[] = $result;
+                        $replyset_helper = new AfsReplysetHelper($replyset, $query, $config);
+                        if ($config->is_array_format()) {
+                            $this->replysets[] = $replyset_helper->format();
+                        } else {
+                            $this->replysets[] = $replyset_helper;
+                        }
                     }
                 } elseif ($producer == AfsProducer::SPELLCHECK) {
                     $this->spellchecks->add_spellcheck($replyset);
@@ -93,7 +80,7 @@ class AfsResponseHelper extends AfsHelperBase
                 }
             }
         }
-        if (AfsHelperFormat::ARRAYS == $format) {
+        if ($config->is_array_format()) {
             $this->spellchecks = $this->spellchecks->format();
             if (! is_null($this->promote)) {
                 $this->promote = $this->promote->format();

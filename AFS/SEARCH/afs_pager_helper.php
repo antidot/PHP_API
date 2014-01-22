@@ -1,5 +1,6 @@
 <?php
-require_once "COMMON/afs_helper_base.php";
+require_once 'COMMON/afs_helper_base.php';
+require_once 'AFS/SEARCH/afs_helper_configuration.php';
 
 /** @brief Helper for pager.
  *
@@ -12,7 +13,7 @@ class AfsPagerHelper extends AfsHelperBase
 {
     private $pager = null;
     private $query = null;
-    private $coder = null;
+    private $config = null;
 
     /** @brief Construct helper with pager and current query.
      *
@@ -20,20 +21,19 @@ class AfsPagerHelper extends AfsHelperBase
      * @param $query [in] current @a AfsQuery which will be used to generate
      *        appropriate queries (see bellow @a get_pages, @a get_previous and
      *        @a get_next).
-     * @param $coder [in] @a AfsQueryCoderInterface if set it will be used to
-     *        create links instead of queries (default: null).
+     * @param $config [in] helper ocnfiguration object.
      *
      * @exception InvalidArgumentException @a pager is invalid.
      */
     public function __construct($pager, AfsQuery $query,
-        AfsQueryCoderInterface $coder=null)
+        AfsHelperConfiguration $config)
     {
         if (! property_exists($pager, 'currentPage')) {
             throw new InvalidArgumentException('Pager is of the wrong type.');
         }
         $this->pager = $pager;
         $this->query = $query;
-        $this->coder = $coder;
+        $this->config = $config;
     }
 
     /** @brief Retrieve all pages.
@@ -48,8 +48,9 @@ class AfsPagerHelper extends AfsHelperBase
         $result = array();
         foreach ($this->pager->page as $page) {
             $query = $this->query->set_page($page);
-            $result[$page] = is_null($this->coder) ? $query
-                : $this->coder->generate_link($query);
+            $result[$page] = $this->config->has_query_coder()
+                ? $this->config->get_query_coder()->generate_link($query)
+                : $query;
         }
         return $result;
     }
@@ -110,8 +111,8 @@ class AfsPagerHelper extends AfsHelperBase
     {
         if (property_exists($this->pager, $type)) {
             $query = $this->query->set_page($this->pager->$type);
-            return is_null($this->coder) ? $query
-                : $this->coder->generate_link($query);
+            return $this->config->has_query_coder()
+                ? $this->config->get_query_coder()->generate_link($query) : $query;
         } else {
             throw new OutOfBoundsException("No page type $type available.");
         }

@@ -21,9 +21,9 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
                 }
             }');
 
-        $facet_mgr = new AfsFacetManager();
+        $config = new AfsHelperConfiguration();
         $query = new AfsQuery();
-        $response = new AfsResponseHelper($input, $facet_mgr, $query);
+        $response = new AfsResponseHelper($input, $query, $config);
         $this->assertFalse($response->has_replyset());
     }
 
@@ -59,9 +59,10 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
                 ]
             }');
 
-        $facet_mgr = new AfsFacetManager();
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
         $query = new AfsQuery();
-        $response = new AfsResponseHelper($input, $facet_mgr, $query, null, AfsHelperFormat::HELPERS);
+        $response = new AfsResponseHelper($input, $query, $config);
         $this->assertEquals(211, $response->get_duration());
         $this->assertTrue($response->has_replyset());
         $this->assertEquals('Catalog', $response->get_replyset()->get_meta()->get_feed());
@@ -146,9 +147,10 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
                 ]
             }');
 
-        $facet_mgr = new AfsFacetManager();
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
         $query = new AfsQuery();
-        $response = new AfsResponseHelper($input, $facet_mgr, $query, null, AfsHelperFormat::HELPERS);
+        $response = new AfsResponseHelper($input, $query, $config);
         $this->assertTrue($response->has_replyset());
         $replyset = $response->get_replyset('Catalog');
         $this->assertEquals('Catalog', $replyset->get_meta()->get_feed());
@@ -220,9 +222,10 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
                 ]
             }');
 
-        $facet_mgr = new AfsFacetManager();
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
         $query = new AfsQuery();
-        $response = new AfsResponseHelper($input, $facet_mgr, $query, null, AfsHelperFormat::HELPERS);
+        $response = new AfsResponseHelper($input, $query, $config);
         $this->assertTrue($response->has_replyset());
         try {
             $replyset = $response->get_replyset('Catalog');
@@ -289,9 +292,10 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
                 ]
             }');
 
-        $facet_mgr = new AfsFacetManager();
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
         $query = new AfsQuery();
-        $response = new AfsResponseHelper($input, $facet_mgr, $query, null, AfsHelperFormat::HELPERS);
+        $response = new AfsResponseHelper($input, $query, $config);
         
         $this->assertTrue($response->has_concept());
         $concept_helper = $response->get_concept('Default');

@@ -1,10 +1,11 @@
 <?php
-require_once "AFS/SEARCH/afs_pager_helper.php";
-require_once "AFS/SEARCH/afs_facet_helper.php";
-require_once "AFS/SEARCH/afs_query.php";
-require_once "AFS/SEARCH/afs_producer.php";
-require_once "AFS/SEARCH/afs_base_replyset_helper.php";
-require_once "AFS/SEARCH/afs_reply_helper_factory.php";
+require_once 'AFS/SEARCH/afs_pager_helper.php';
+require_once 'AFS/SEARCH/afs_facet_helper.php';
+require_once 'AFS/SEARCH/afs_query.php';
+require_once 'AFS/SEARCH/afs_producer.php';
+require_once 'AFS/SEARCH/afs_base_replyset_helper.php';
+require_once 'AFS/SEARCH/afs_reply_helper_factory.php';
+require_once 'AFS/SEARCH/afs_response_helper.php';
 
 
 /** @brief Helper for replies from one feed.
@@ -23,39 +24,30 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
      * @param $facet_mgr [in] @a AfsFacetManager used to create appropriate
      *        queries.
      * @param $query [in] query which has produced current reply.
-     * @param $coder [in] @a AfsQueryCoderInterface if set it will be used to
-     *        create links (default: null).
-     * @param $format [in] if set to AfsHelperFormat::ARRAYS (default), all
-     *        underlying helpers will be formatted as array of data, otherwise
-     *        they are kept as is.
-     * @param $visitor [in] text visitor implementing @a AfsTextVisitorInterface
-     *        used to extract title and abstract contents. If not set, default
-     *        visitor is used (see @a AfsReplyHelper).
+     * @param $config [in] helper configuration object.
      */
-    public function __construct($reply_set, AfsFacetManager $facet_mgr,
-        AfsQuery $query, AfsQueryCoderInterface $coder=null,
-        $format=AfsHelperFormat::ARRAYS, AfsTextVisitorInterface $visitor=null)
+    public function __construct($reply_set, AfsQuery $query, AfsHelperConfiguration $config)
     {
-        parent::__construct($reply_set, $format, new AfsReplyHelperFactory($visitor));
-        $this->initialize_facet($reply_set, $facet_mgr, $query, $coder, $format);
-        $this->initialize_pager($reply_set, $query, $coder, $format);
+        parent::__construct($reply_set, $config, new AfsReplyHelperFactory($config->get_reply_text_visitor()));
+        $this->initialize_facet($reply_set, $query, $config);
+        $this->initialize_pager($reply_set, $query, $config);
     }
 
-    protected function initialize_facet($reply_set, $facet_mgr, $query, $coder, $format)
+    protected function initialize_facet($reply_set, $query, $config)
     {
         if (property_exists($reply_set, 'facets') && property_exists($reply_set->facets, 'facet')) {
             foreach ($reply_set->facets->facet as $facet) {
-                $facet_helper = new AfsFacetHelper($facet, $facet_mgr, $query, $coder, $format);
-                $this->facets[] = $format == AfsHelperFormat::ARRAYS ? $facet_helper->format() : $facet_helper;
+                $facet_helper = new AfsFacetHelper($facet, $query, $config);
+                $this->facets[] = $config->is_array_format() ? $facet_helper->format() : $facet_helper;
             }
         }
     }
 
-    protected function initialize_pager($reply_set, $query, $coder, $format)
+    protected function initialize_pager($reply_set, $query, $config)
     {
         if (property_exists($reply_set, 'pager')) {
-            $pager_helper = new AfsPagerHelper($reply_set->pager, $query, $coder);
-            $this->pager = $format == AfsHelperFormat::ARRAYS ? $pager_helper->format() : $pager_helper;
+            $pager_helper = new AfsPagerHelper($reply_set->pager, $query, $config);
+            $this->pager = $config->is_array_format() ? $pager_helper->format() : $pager_helper;
         }
     }
 

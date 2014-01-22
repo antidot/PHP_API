@@ -1,7 +1,7 @@
 <?php
-require_once "AFS/SEARCH/afs_pager_helper.php";
-require_once "AFS/SEARCH/afs_query.php";
-require_once "AFS/SEARCH/afs_query_coder.php";
+require_once 'AFS/SEARCH/afs_pager_helper.php';
+require_once 'AFS/SEARCH/afs_query.php';
+require_once 'AFS/SEARCH/afs_query_coder.php';
 
 class PagerHelperTest extends PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,8 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
             }
         }');
 
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery());
+        $helper = new AfsPagerHelper($input->pager, new AfsQuery(),
+            new AfsHelperConfiguration());
         try {
             $helper->get_previous();
             $this->fail('No previous page available should have rosen exception!');
@@ -48,7 +49,8 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
             }
         }');
 
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery());
+        $helper = new AfsPagerHelper($input->pager, new AfsQuery(),
+            new AfsHelperConfiguration());
         try {
             $helper->get_next();
             $this->fail('No next page available should have rosen exception!');
@@ -80,7 +82,8 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
             }
         }');
 
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery());
+        $helper = new AfsPagerHelper($input->pager, new AfsQuery(),
+            new AfsHelperConfiguration());
         $format = $helper->format();
         $this->assertFalse(array_key_exists('next', $format['pages']));
         $this->assertEquals($format['pages']['previous']->get_page(), 2);
@@ -105,8 +108,9 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
             }
         }');
 
-        $coder = new AfsQueryCoder('foo.php');
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $coder);
+        $config = new AfsHelperConfiguration();
+        $config->set_query_coder(new AfsQueryCoder('foo.php'));
+        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
         $this->assertEquals($helper->get_previous(), 'foo.php?replies=10');
         $this->assertEquals($helper->get_next(), 'foo.php?replies=10&page=3');
 
@@ -136,8 +140,9 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
             }
         }');
 
-        $coder = new AfsQueryCoder('foo.php');
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $coder);
+        $config = new AfsHelperConfiguration();
+        $config->set_query_coder(new AfsQueryCoder('foo.php'));
+        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
         $format = $helper->format();
 
         $this->assertEquals($format['pages']['previous'], 'foo.php?replies=10');

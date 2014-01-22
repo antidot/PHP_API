@@ -156,7 +156,9 @@ class PromoteReplysetHelperTest extends PHPUnit_Framework_TestCase
             ]
         }');
 
-        $helper = new AfsPromoteReplysetHelper($input->replySet[0], AfsHelperFormat::HELPERS);
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
+        $helper = new AfsPromoteReplysetHelper($input->replySet[0], $config);
 
         $meta = $helper->get_meta();
         $this->assertEquals('Promote', $meta->get_feed());

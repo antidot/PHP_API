@@ -28,23 +28,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->qm = new AfsSearchQueryManager($this->connector, $this->facet_mgr);
     }
 
-    private function checkFacetOrder(array $values)
-    {
-        $params = $this->connector->get_parameters();
-        $facet_order = $params['afs:facetOrder'];
-        if (empty($values))
-        {
-            // assertEmpty not available in this PHPUnitTest version!
-            $this->assertTrue(empty($facet_order));
-        }
-
-        $facet_order = explode(',', $facet_order);
-        foreach ($values as $key => $value)
-        {
-            $this->assertTrue($facet_order[$key] == $value);
-        }
-    }
-
     private function checkOneFacetValue($facet_id, $facet_value)
     {
         $params = $this->connector->get_parameters();
@@ -86,7 +69,8 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     {
         $query = new AfsQuery();
         $this->qm->send($query);
-        $this->checkFacetOrder(array());
+        $params = $this->connector->get_parameters();
+        $this->assertTrue(array_key_exists('afs:facetDefault', $params));
     }
 
     public function testUnregisteredFacet()
@@ -112,7 +96,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $query = new AfsQuery();
         $query = $query->add_filter('foo', 'bar');
         $this->qm->send($query);
-        $this->checkFacetOrder(array('foo'));
         $this->checkOneFacetValue('foo', '"bar"');
     }
 
@@ -124,7 +107,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $query = new AfsQuery();
         $query = $query->add_filter('foo', 'bar');
         $this->qm->send($query);
-        $this->checkFacetOrder(array('foo'));
         try
         {
             $this->checkOneFacetValue('foo', '"bar"');
@@ -145,7 +127,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $query = $query->add_filter('foo', '4');
         $query = $query->add_filter('foo', '2');
         $this->qm->send($query);
-        $this->checkFacetOrder(array('foo'));
         $this->checkFacetValues('foo', array('4', '2'), 'or');
     }
 
@@ -158,7 +139,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $query = $query->add_filter('foo', '4');
         $query = $query->add_filter('foo', '2');
         $this->qm->send($query);
-        $this->checkFacetOrder(array('foo'));
         try
         {
             $this->checkFacetValues('foo', array('4', '3'), 'or');
@@ -179,7 +159,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $query = $query->add_filter('foo', '4');
         $query = $query->add_filter('foo', '2');
         $this->qm->send($query);
-        $this->checkFacetOrder(array('foo'));
         try
         {
             $this->checkFacetValues('foo', array('4', '2'), 'and');
