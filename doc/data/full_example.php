@@ -38,22 +38,22 @@ $config->set_query_coder($coder);
 // Facets and Facet Manager
 /** [Facets and Facet manager] */
 $facet_mgr = $config->get_facet_manager();
-$facet_mgr->add_facet(new AfsFacet('Organization', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('date_parution', AFS_FACET_DATE));
-$facet_mgr->add_facet(new AfsFacet('geo', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('media', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('person', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('period', AFS_FACET_DATE));
-$facet_mgr->add_facet(new AfsFacet('source', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('taxo_iptc', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('theme', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('type', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('pays', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('annotated_city', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('buildingDate', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('date', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('stationParRegion', AFS_FACET_STRING));
-$facet_mgr->add_facet(new AfsFacet('ticketPrice', AFS_FACET_STRING));
+$facet_mgr->add_facet(new AfsFacet('Organization', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('date_parution', AfsFacetType::DATE_TYPE));
+$facet_mgr->add_facet(new AfsFacet('geo', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('media', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('person', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('period', AfsFacetType::DATE_TYPE));
+$facet_mgr->add_facet(new AfsFacet('source', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('taxo_iptc', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('theme', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('type', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('pays', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('annotated_city', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('buildingDate', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('date', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('stationParRegion', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('ticketPrice', AfsFacetType::STRING_TYPE));
 /** [Facets and Facet manager] */
 
 // Query Manager

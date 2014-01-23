@@ -90,7 +90,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testOneFacetOneValue()
     {
-        $facet = new AfsFacet('foo', AFS_FACET_STRING);
+        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
@@ -101,7 +101,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testFailOneFacetOneValue()
     {
-        $facet = new AfsFacet('foo', AFS_FACET_INTEGER);
+        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE);
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
@@ -120,7 +120,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testOneFacetMultipleValues()
     {
-        $facet = new AfsFacet('foo', AFS_FACET_INTEGER, AFS_FACET_ADD, AFS_FACET_OR);
+        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::OR_MODE);
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
@@ -132,7 +132,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testFailOnValueOneFacetMultipleValues()
     {
-        $facet = new AfsFacet('foo', AFS_FACET_INTEGER, AFS_FACET_ADD, AFS_FACET_OR);
+        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::OR_MODE);
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
@@ -152,7 +152,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testFailOnModeValueOneFacetMultipleValues()
     {
-        $facet = new AfsFacet('foo', AFS_FACET_INTEGER, AFS_FACET_ADD, AFS_FACET_OR);
+        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::OR_MODE);
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
@@ -172,7 +172,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testFromParameter()
     {
-        $facet = new AfsFacet('foo', AFS_FACET_INTEGER, AFS_FACET_ADD, AFS_FACET_OR);
+        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::OR_MODE);
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();

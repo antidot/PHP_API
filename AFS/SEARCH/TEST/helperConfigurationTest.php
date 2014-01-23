@@ -76,7 +76,7 @@ class HelperConfigurationTest extends PHPUnit_Framework_TestCase
     {
         $config = new AfsHelperConfiguration();
         $mgr = new AfsFacetManager();
-        $mgr->add_facet(new AfsFacet('FOO', AFS_FACET_STRING));
+        $mgr->add_facet(new AfsFacet('FOO', AfsFacetType::STRING_TYPE));
         $config->set_facet_manager($mgr);
 
         $mgr = $config->get_facet_manager();
@@ -93,7 +93,7 @@ class HelperConfigurationTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($mgr);
         $facets = $mgr->get_facets();
         $this->assertTrue(empty($facets));
-        $mgr->add_facet(new AfsFacet('FOO', AFS_FACET_STRING));
+        $mgr->add_facet(new AfsFacet('FOO', AfsFacetType::STRING_TYPE));
 
         $mgr = $config->get_facet_manager();
         $this->assertNotNull($mgr);

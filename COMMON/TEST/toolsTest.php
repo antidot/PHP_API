@@ -1,6 +1,14 @@
 <?php
 require_once "COMMON/afs_tools.php";
 
+
+abstract class MyEnum extends BasicEnum
+{
+    const FOO = 'foo';
+    const BAR = 'bar';
+}
+
+
 class ToolsTest extends PHPUnit_Framework_TestCase
 {
     public function testReplaceFirstOccurrence()
@@ -51,6 +59,42 @@ class ToolsTest extends PHPUnit_Framework_TestCase
         $doc->loadXML('<r>foo <u>bar</u> <u>baz</u> zoo <a>arf</a> final</r>');
         $filter = new BoldFilterNode('u');
         $this->assertEquals(DOMNodeHelper::get_text($doc->documentElement, array(XML_ELEMENT_NODE => $filter)), 'foo <b>bar</b> <b>baz</b> zoo  final');
+    }
+
+    public function testValidEnumValue()
+    {
+        $this->assertTrue(MyEnum::is_valid_value(MyEnum::FOO));
+        $this->assertTrue(MyEnum::is_valid_value('foo'));
+        $this->assertTrue(MyEnum::is_valid_value(MyEnum::BAR));
+        $this->assertTrue(MyEnum::is_valid_value('bar'));
+    }
+
+    public function testInvalidEnumValue()
+    {
+        $this->assertFalse(MyEnum::is_valid_value('FOO'));
+        $this->assertFalse(MyEnum::is_valid_value('Foo'));
+    }
+
+    public function testCheckValidValue()
+    {
+        try
+        {
+            $this->assertTrue(MyEnum::is_valid_value(MyEnum::FOO));
+            $this->assertTrue(MyEnum::is_valid_value('foo'));
+            $this->assertTrue(MyEnum::is_valid_value(MyEnum::BAR));
+            $this->assertTrue(MyEnum::is_valid_value('bar'));
+        } catch (Exception $e) {
+            $this->fail('Should not have raise any exception!');
+        }
+    }
+
+    public function testCheckInvalidValue()
+    {
+        try
+        {
+            MyEnum::check_value('Foo');
+            $this->fail('Invalid checked value should have raised an exception!');
+        } catch (InvalidArgumentException $e) { }
     }
 }
 

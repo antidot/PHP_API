@@ -21,23 +21,23 @@ class FacetManagerTest extends PHPUnit_Framework_TestCase
     public function testGetDefinedFacet()
     {
         $mgr = new AfsFacetManager();
-        $mgr->add_facet(new AfsFacet('foo', AFS_FACET_STRING));
+        $mgr->add_facet(new AfsFacet('foo', AfsFacetType::STRING_TYPE));
         $this->assertEquals($mgr->get_facet('foo')->get_id(), 'foo');
     }
 
     public function testGetAllFacets()
     {
         $mgr = new AfsFacetManager();
-        $mgr->add_facet(new AfsFacet('foo', AFS_FACET_STRING));
+        $mgr->add_facet(new AfsFacet('foo', AfsFacetType::STRING_TYPE));
         $this->assertTrue(array_key_exists('foo', $mgr->get_facets()));
     }
 
     public function testAddFacetWithSameName()
     {
         $mgr = new AfsFacetManager();
-        $mgr->add_facet(new AfsFacet('foo', AFS_FACET_STRING));
+        $mgr->add_facet(new AfsFacet('foo', AfsFacetType::STRING_TYPE));
         try {
-            $mgr->add_facet(new AfsFacet('foo', AFS_FACET_DATE));
+            $mgr->add_facet(new AfsFacet('foo', AfsFacetType::DATE_TYPE));
         } catch (InvalidArgumentException $e) { }
     }
 }

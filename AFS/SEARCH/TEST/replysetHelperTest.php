@@ -192,7 +192,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $config->set_helper_format(AfsHelperFormat::HELPERS);
 
         $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL));
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
 
         $query = new AfsQuery();
         $query = $query->set_query('title');
@@ -416,7 +416,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $coder = new AfsQueryCoder('foo.php');
         $config->set_query_coder($coder);
         $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL));
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
 
         $query = new AfsQuery();
         $query = $query->set_query('title');
@@ -642,7 +642,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $coder = new AfsQueryCoder('foo.php');
         $config->set_query_coder($coder);
         $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->add_facet(new AfsFacet('BOOL', AFS_FACET_BOOL));
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
 
         $query = new AfsQuery();
         $query = $query->set_query('title');
