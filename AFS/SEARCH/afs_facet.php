@@ -150,16 +150,10 @@ class AfsFacet
     public function join_values($values)
     {
         $formatted = array();
-        foreach ($values as $value)
-        {
-            $formatted[] = $this->format_value($value);
+        foreach ($values as $value) {
+            $formatted[] = $this->id . '=' . $value;
         }
         return implode(' ' . $this->combination . ' ', $formatted);
-    }
-    private function format_value($value)
-    {
-        return $this->id . '=' . $this->embracing_char . $value
-            . $this->embracing_char;
     }
 
     /** @brief Printable facet.

@@ -1,6 +1,7 @@
 <?php
-require_once "AFS/SEARCH/afs_facet_manager.php";
-require_once "COMMON/afs_helper_base.php";
+require_once 'AFS/SEARCH/afs_facet_manager.php';
+require_once 'COMMON/afs_helper_base.php';
+require_once 'AFS/SEARCH/afs_facet_value_formatter.php';
 
 /** @brief Helper to manage facets. */
 class AfsFacetHelper extends AfsHelperBase
@@ -242,9 +243,32 @@ class AfsFacetElementBuilder
      */
     public function create_elements($facet_id, $facet_element,
         AfsHelperConfiguration $config)
-        /*
-        AfsQueryCoderInterface $coder=null, $format=AfsHelperFormat::ARRAYS)
-         */
+    {
+        $facet = $config->get_facet_manager()->get_facet($facet_id);
+        if ((AfsFacetType::STRING_TYPE == $facet->get_type()
+                || AfsFacetType::DATE_TYPE == $facet->get_type())
+                && AfsFacetLayout::TREE == $facet->get_layout()) {
+            $formatter = new AfsQuoteFacetValueIdFormatter();
+        } else {
+            $formatter = new AfsNoFacetValueIdFormatter();
+        }
+        return $this->create_elements_recursively($facet_id, $facet_element,
+            $formatter, $config);
+    }
+
+    /** @internal
+     * @brief Creates recursively facet elements.
+     *
+     * @param $facet_id [in] current facet id. This value is used to update
+     *        current query for each facet element.
+     * @param $facet_element [in] starting point used to create facet elements.
+     * @param $formatter [in] formatter used for facet value identifiers.
+     * @param $config [in] helper configuration object.
+     *
+     * @return list of facet elements (see @ AfsFacetValueHelper).
+     */
+    private function create_elements_recursively($facet_id, $facet_element,
+        AfsFacetValueIdFormatter $formatter, AfsHelperConfiguration $config)
     {
         $elements = array();
 
@@ -258,20 +282,22 @@ class AfsFacetElementBuilder
             // First create children
             $children = array();
             if (property_exists($elem, 'node')) {
-                $children = $this->create_elements($facet_id, $elem, $config);
+                $children = $this->create_elements_recursively($facet_id,
+                    $elem, $formatter, $config);
             }
 
+            $value_id = $formatter->format($elem->key);
             $label = $this->extract_label($elem);
             $meta = $this->extract_meta($elem);
-            $active = $this->query->has_filter($facet_id, $elem->key);
-            $query = $this->generate_query($facet_id, $elem, $active);
+            $active = $this->query->has_filter($facet_id, $value_id);
+            $query = $this->generate_query($facet_id, $value_id, $active);
             if ($config->has_query_coder()) {
                 $link = $config->get_query_coder()->generate_link($query);
                 $query = null; // we don't need it anymore
             } else {
                 $link = null;
             }
-            $helper = new AfsFacetValueHelper($label, $elem->key, $elem->items,
+            $helper = new AfsFacetValueHelper($label, $value_id, $elem->items,
                             $meta, $active, $query, $link, $children);
             $elements[] = $config->is_array_format() ? $helper->format() : $helper;
 
@@ -299,17 +325,17 @@ class AfsFacetElementBuilder
         return $result;
     }
 
-    private function generate_query($facet_id, $element, $active)
+    private function generate_query($facet_id, $value_id, $active)
     {
         $result = null;
         $facet = $this->facet_mgr->get_facet($facet_id);
         if ($active) {
-            $result = $this->query->remove_filter($facet_id, $element->key);
+            $result = $this->query->remove_filter($facet_id, $value_id);
         } else {
             if ($facet->has_replace_mode()) {
-                $result = $this->query->set_filter($facet_id, $element->key);
+                $result = $this->query->set_filter($facet_id, $value_id);
             } elseif ($facet->has_add_mode()) {
-                $result = $this->query->add_filter($facet_id, $element->key);
+                $result = $this->query->add_filter($facet_id, $value_id);
             } else {
                 throw new Exception('Unmanaged facet mode: ' . $facet->get_mode());
             }

@@ -83,12 +83,12 @@ class FacetTest extends PHPUnit_Framework_TestCase
     public function testJoinOneStringValue()
     {
         $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
-        $this->assertTrue($facet->join_values(array('bar')) == 'foo="bar"');
+        $this->assertTrue($facet->join_values(array('"bar"')) == 'foo="bar"');
     }
     public function testJoinStringValues()
     {
         $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
-        $this->assertTrue($facet->join_values(array('bar', 'baz')) == 'foo="bar" or foo="baz"');
+        $this->assertTrue($facet->join_values(array('"bar"', '"baz"')) == 'foo="bar" or foo="baz"');
     }
 
     public function testJoinOneValueOtherThanString()

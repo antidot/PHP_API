@@ -119,10 +119,13 @@ class AfsSearchQueryManager
     {
         $facets = $this->facet_mgr->get_facets();
         if (empty($facets[$name])) {
-            throw new Exception('No facet named "' . $name
-                . '" is currently registered!');
+            if (count($values) > 1) {
+                error_log('No facet named "' . $name . '" is currently registered. Only first facet value will be used to query AFS search engine');
+            }
+            return $name . '=' . $values[0];
+        } else {
+            return $facets[$name]->join_values($values);
         }
-        return $facets[$name]->join_values($values);
     }
 }
 

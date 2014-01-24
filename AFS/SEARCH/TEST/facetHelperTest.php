@@ -305,7 +305,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $config = new AfsHelperConfiguration();
         $config->set_helper_format(AfsHelperFormat::HELPERS);
         $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->add_facet(new AfsFacet('ADVANCED_INTERVAL_DATE', AfsFacetType::DATE_TYPE));
+        $facet_mgr->add_facet(new AfsFacet('ADVANCED_INTERVAL_DATE', AfsFacetType::DATE_TYPE, AfsFacetLayout::INTERVAL));
         $query = new AfsQuery();
         $builder = new AfsFacetElementBuilder($facet_mgr, $query);
         $elems = $builder->create_elements('ADVANCED_INTERVAL_DATE', $input, $config);
@@ -452,19 +452,19 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($elem->label, '2010');
         $this->assertEquals($elem->count, 24);
         $this->assertFalse($elem->active);
-        $this->assertTrue($elem->query->has_filter('TREE_DATE', '2010'));
+        $this->assertTrue($elem->query->has_filter('TREE_DATE', '"2010"'));
         $this->assertEquals(count($elem->values), 1);
         $elem = $elem->values[0];
         $this->assertEquals($elem->label, '03');
         $this->assertEquals($elem->count, 14);
         $this->assertFalse($elem->active);
-        $this->assertTrue($elem->query->has_filter('TREE_DATE', '2010-03'));
+        $this->assertTrue($elem->query->has_filter('TREE_DATE', '"2010-03"'));
         $this->assertEquals(count($elem->values), 1);
         $elem = $elem->values[0];
         $this->assertEquals($elem->label, '07');
         $this->assertEquals($elem->count, 4);
         $this->assertFalse($elem->active);
-        $this->assertTrue($elem->query->has_filter('TREE_DATE', '2010-03-07'));
+        $this->assertTrue($elem->query->has_filter('TREE_DATE', '"2010-03-07"'));
         $this->assertEquals(count($elem->values), 0);
     }
 

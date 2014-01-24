@@ -34,7 +34,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $filter_str = explode('=', $params['afs:filter'][0], 2);
         $filter[$filter_str[0]] = $filter_str[1];
         $facet = $filter[$facet_id];
-        $this->assertTrue($facet == $facet_value);
+        $this->assertEquals($facet_value, $facet);
     }
 
     private function checkFacetValues($facet_id, $facet_values, $split)
@@ -75,17 +75,9 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testUnregisteredFacet()
     {
-        try
-        {
-            $query = new AfsQuery();
-            $query = $query->add_filter('foo', 'bar');
-            $this->qm->send($query);
-        }
-        catch (Exception $e)
-        {
-            return;
-        }
-        $this->fail('No error whereas provided facet hsa not been configured!');
+        $query = new AfsQuery();
+        $query = $query->add_filter('foo', 'bar');
+        $this->qm->send($query);
     }
 
     public function testOneFacetOneValue()
@@ -94,7 +86,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
-        $query = $query->add_filter('foo', 'bar');
+        $query = $query->add_filter('foo', '"bar"');
         $this->qm->send($query);
         $this->checkOneFacetValue('foo', '"bar"');
     }
