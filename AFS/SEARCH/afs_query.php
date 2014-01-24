@@ -35,6 +35,7 @@ class AfsQuery
     private $sessionId = null;  // afs:sessionId
     private $facetDefault = 'replies=1000'; // afs:facetDefault
     private $log = array();     // afs:log
+    private $key = null;
 
     /**
      * @brief Construct new AFS query object.
@@ -55,6 +56,7 @@ class AfsQuery
             $this->userId = $afs_query->userId;
             $this->sessionId = $afs_query->sessionId;
             $this->log = $afs_query->log;
+            $this->key = $afs_query->key;
         } else {
             $this->lang = new AfsLanguage(null);
         }
@@ -579,6 +581,34 @@ class AfsQuery
     }
     /** @} */
 
+    /** @name key  management
+     * @{ */
+
+    /** @brief Check whether key parameter is set.
+     * @return true when key parameter is set, false otherwise.
+     */
+    public function has_key()
+    {
+        return $this->key != null;
+    }
+    /** @brief Defines key id.
+     * @param $key_id [in] Key id to set.
+     * @return current instance.
+     */
+    public function set_key($key_id)
+    {
+        $this->key = $key_id;
+        return $this;
+    }
+    /** @brief Retrieve key value.
+     * @return key value.
+     */
+    public function get_key()
+    {
+        return $this->key;
+    }
+    /**  @} */
+
     /** @name Full configuration through array of parameters
      * @{ */
 
@@ -629,7 +659,7 @@ class AfsQuery
     {
         $parameters = array('feed', 'query', 'filter', 'sort');
         if ($all) {
-            array_push($parameters, 'from', 'userId', 'sessionId', 'facetDefault', 'log');
+	  array_push($parameters, 'from', 'userId', 'sessionId', 'facetDefault', 'log', 'key');
         }
 
         $result = array('replies' => $this->replies);
