@@ -581,11 +581,11 @@ class AfsQuery
     }
     /** @} */
 
-    /** @name key  management
+    /** @name Key management
      * @{ */
 
-    /** @brief Check whether key parameter is set.
-     * @return true when key parameter is set, false otherwise.
+    /** @brief Checks whether key parameter is set.
+     * @return True when key parameter is set, false otherwise.
      */
     public function has_key()
     {
@@ -593,15 +593,15 @@ class AfsQuery
     }
     /** @brief Defines key id.
      * @param $key_id [in] Key id to set.
-     * @return current instance.
+     * @return Current instance.
      */
     public function set_key($key_id)
     {
         $this->key = $key_id;
         return $this;
     }
-    /** @brief Retrieve key value.
-     * @return key value.
+    /** @brief Retrieves key value.
+     * @return Key value.
      */
     public function get_key()
     {
@@ -659,7 +659,7 @@ class AfsQuery
     {
         $parameters = array('feed', 'query', 'filter', 'sort');
         if ($all) {
-	  array_push($parameters, 'from', 'userId', 'sessionId', 'facetDefault', 'log', 'key');
+            array_push($parameters, 'from', 'userId', 'sessionId', 'facetDefault', 'log', 'key');
         }
 
         $result = array('replies' => $this->replies);
