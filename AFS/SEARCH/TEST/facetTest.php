@@ -7,11 +7,13 @@ class FacetTest extends PHPUnit_Framework_TestCase
     {
         $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
         $this->assertTrue($facet->get_id() == 'foo');
+        $this->assertEquals(AfsFacetType::STRING_TYPE, $facet->get_type());
+        $this->assertEquals(AfsFacetLayout::TREE, $facet->get_layout());
         $this->assertTrue($facet->get_mode() == AfsFacetMode::REPLACE);
         $this->assertTrue($facet->has_replace_mode());
         $this->assertFalse($facet->has_add_mode());
         $this->assertTrue($facet->get_combination() == AfsFacetCombination::OR_MODE);
-        $this->assertTrue($facet->is_sticky());
+        $this->assertFalse($facet->is_sticky());
     }
 
     public function testDefaultStickyMode()
@@ -98,6 +100,32 @@ class FacetTest extends PHPUnit_Framework_TestCase
     {
         $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::AND_MODE);
         $this->assertTrue($facet->join_values(array('bar', 'baz')) == 'foo=bar and foo=baz');
+    }
+
+    public function testFacetAreSimilar()
+    {
+        $facet = new AfsFacet('foo', AfsFacetType::BOOL_TYPE);
+        $other = new AfsFacet('foo', AfsFacetType::BOOL_TYPE, AfsFacetLayout::TREE);
+        $this->assertTrue($facet->is_similar_to($facet));
+        $this->assertTrue($facet->is_similar_to($other));
+    }
+    public function testFacetOfDifferentName()
+    {
+        $facet = new AfsFacet('foo', AfsFacetType::BOOL_TYPE);
+        $other = new AfsFacet('FOO', AfsFacetType::BOOL_TYPE, AfsFacetLayout::TREE);
+        $this->assertFalse($facet->is_similar_to($other));
+    }
+    public function testFacetOfDifferentType()
+    {
+        $facet = new AfsFacet('foo', AfsFacetType::BOOL_TYPE);
+        $other = new AfsFacet('foo', AfsFacetType::DATE_TYPE, AfsFacetLayout::TREE);
+        $this->assertFalse($facet->is_similar_to($other));
+    }
+    public function testFacetOfDifferentLayout()
+    {
+        $facet = new AfsFacet('foo', AfsFacetType::BOOL_TYPE);
+        $other = new AfsFacet('foo', AfsFacetType::BOOL_TYPE, AfsFacetLayout::INTERVAL);
+        $this->assertFalse($facet->is_similar_to($other));
     }
 }
 ?>

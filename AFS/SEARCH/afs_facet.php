@@ -42,16 +42,14 @@ class AfsFacet
      */
     public function __construct($id, $type, $layout=AfsFacetLayout::TREE,
         $mode=AfsFacetMode::REPLACE, $combination=AfsFacetCombination::OR_MODE,
-        $sticky=null)
+        $sticky=AfsFacetStickyness::NON_STICKY)
     {
         AfsFacetType::check_value($type, 'Invalid facet type parameter: ');
         AfsFacetLayout::check_value($layout, 'Invalid facet layout parameter: ');
         AfsFacetMode::check_value($mode, 'Invalid facet mode parameter: ');
         AfsFacetCombination::check_value($combination,
             'Invalid facet combination mode parameter: ');
-        if (! is_null($sticky)) {
-            AfsFacetStickyness::check_value($sticky);
-        }
+        AfsFacetStickyness::check_value($sticky, 'Invalid facet stickyness parameter: ');
 
         $this->id = $id;
         $this->type = $type;
@@ -63,22 +61,29 @@ class AfsFacet
                 || AfsFacetType::DATE_TYPE == $this->type)) {
             $this->embracing_char = '"';
         }
-        if (is_null($sticky)) {
-            if (AfsFacetCombination::OR_MODE == $combination) {
-                $sticky = AfsFacetStickyness::STICKY;
-            } else {
-                $sticky = AfsFacetStickyness::NON_STICKY;
-            }
-        }
         $this->sticky = $sticky;
     }
 
-    /** @brief Retrieve facet id.
+    /** @brief Retrieves facet id.
      * @return facet id.
      */
     public function get_id()
     {
         return $this->id;
+    }
+    /** @brief Retrieves facet type.
+     * @return type of the facet.
+     */
+    public function get_type()
+    {
+        return $this->type;
+    }
+    /** @brief Retrieves facet layout.
+     * @return layout of the facet.
+     */
+    public function get_layout()
+    {
+        return $this->layout;
     }
     /** @brief Retrieve facet mode.
      * @return facet mode (@c replace or @c add).
@@ -115,6 +120,28 @@ class AfsFacet
     {
         return $this->sticky == AfsFacetStickyness::STICKY;
     }
+
+    /** @brief Checks whether provided facet is similar to current instance.
+     *
+     * Two instances are considered similar when following values are equals:
+     * - facet identifier,
+     * - facet type,
+     * - facet layout.
+     * Other facet parameters are not taken into account.
+     *
+     * @param $other [in] instance to compare with.
+     * @return @c True when both instances are similar, @c false otherwise.
+     */
+    public function is_similar_to(AfsFacet $other)
+    {
+        if ($this->id == $other->get_id()
+                && $this->type == $other->get_type()
+                && $this->layout == $other->get_layout()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     /** @internal
      * @brief Join all provided @a values and format them appropriately.
      * @param $values [in] array of values to be joined.
@@ -133,6 +160,18 @@ class AfsFacet
     {
         return $this->id . '=' . $this->embracing_char . $value
             . $this->embracing_char;
+    }
+
+    /** @brief Printable facet.
+     *
+     * This method should be used for debug purpose only.
+     * @return string representation of the facet.
+     */
+    public function __toString()
+    {
+        return '<' . $this->id . ': ' . $this->type . ' - ' . $this->layout
+            . ', ' . $this->mode . ', ' . $this->combination . ', '
+            . $this->sticky . '>';
     }
 }
 

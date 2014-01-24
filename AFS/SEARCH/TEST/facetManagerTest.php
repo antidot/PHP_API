@@ -40,6 +40,85 @@ class FacetManagerTest extends PHPUnit_Framework_TestCase
             $mgr->add_facet(new AfsFacet('foo', AfsFacetType::DATE_TYPE));
         } catch (InvalidArgumentException $e) { }
     }
+
+    public function testHasDefinedFacet()
+    {
+        $mgr = new AfsFacetManager();
+        $mgr->add_facet(new AfsFacet('foo', AfsFacetType::STRING_TYPE));
+        $this->assertTrue($mgr->has_facet('foo'));
+    }
+    public function testHasNotFacet()
+    {
+        $mgr = new AfsFacetManager();
+        $mgr->add_facet(new AfsFacet('foo', AfsFacetType::STRING_TYPE));
+        $this->assertFalse($mgr->has_facet('bar'));
+    }
+
+    public function testCheckExistingFacet()
+    {
+        $mgr = new AfsFacetManager();
+        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
+        $mgr->add_facet($facet);
+        try {
+            $mgr->check_facet($facet);
+        } catch (Exception $e) {
+            $this->fail('Check of existing facet with right parameters should not have raised any exception! '
+                . $e);
+        }
+    }
+    public function testCheckUnexistingFacet()
+    {
+        $mgr = new AfsFacetManager();
+        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
+        try {
+            $mgr->check_facet($facet);
+            $this->fail('Check of unknown facet should have raise exception');
+        } catch (AfsUndefinedFacetException $e) { }
+    }
+    public function testCheckFacetWithImproperParameters()
+    {
+        $mgr = new AfsFacetManager();
+        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
+        $mgr->add_facet(new AfsFacet('foo', AfsFacetType::INTEGER_TYPE));
+        try {
+            $mgr->check_facet($facet);
+            $this->fail('Check of invalid facet parameters should have raise exception');
+        } catch (AfsInvalidFacetParameterException $e) { }
+    }
+
+    public function testCheckOrAddNewFacet()
+    {
+        $mgr = new AfsFacetManager();
+        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
+        try {
+            $mgr->check_or_add_facet($facet);
+        } catch (Exception $e) {
+            $this->fail('New facet should have been added!');
+        }
+        $this->assertTrue($mgr->has_facet('foo'));
+    }
+    public function testCheckOrAddExistingFacet()
+    {
+        $mgr = new AfsFacetManager();
+        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
+        $mgr->add_facet($facet);
+        try {
+            $mgr->check_or_add_facet($facet);
+        } catch (Exception $e) {
+            $this->fail('New facet should have been added!');
+        }
+        $this->assertTrue($mgr->has_facet('foo'));
+    }
+    public function testCheckOrAddExistingFacetWithDifferentParameter()
+    {
+        $mgr = new AfsFacetManager();
+        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
+        $mgr->add_facet(new AfsFacet('foo', AfsFacetType::STRING_TYPE, AfsFacetLayout::INTERVAL));
+        try {
+            $mgr->check_or_add_facet($facet);
+            $this->fail('Existing facet with different parameters should have raise exception!');
+        } catch (AfsInvalidFacetParameterException $e) { }
+    }
 }
 
 ?>

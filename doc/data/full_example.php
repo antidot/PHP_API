@@ -43,17 +43,17 @@ $facet_mgr->add_facet(new AfsFacet('date_parution', AfsFacetType::DATE_TYPE));
 $facet_mgr->add_facet(new AfsFacet('geo', AfsFacetType::STRING_TYPE));
 $facet_mgr->add_facet(new AfsFacet('media', AfsFacetType::STRING_TYPE));
 $facet_mgr->add_facet(new AfsFacet('person', AfsFacetType::STRING_TYPE));
-$facet_mgr->add_facet(new AfsFacet('period', AfsFacetType::DATE_TYPE));
+$facet_mgr->add_facet(new AfsFacet('period', AfsFacetType::DATE_TYPE, AfsFacetLayout::INTERVAL));
 $facet_mgr->add_facet(new AfsFacet('source', AfsFacetType::STRING_TYPE));
 $facet_mgr->add_facet(new AfsFacet('taxo_iptc', AfsFacetType::STRING_TYPE));
 $facet_mgr->add_facet(new AfsFacet('theme', AfsFacetType::STRING_TYPE));
 $facet_mgr->add_facet(new AfsFacet('type', AfsFacetType::STRING_TYPE));
 $facet_mgr->add_facet(new AfsFacet('pays', AfsFacetType::STRING_TYPE));
 $facet_mgr->add_facet(new AfsFacet('annotated_city', AfsFacetType::STRING_TYPE));
-$facet_mgr->add_facet(new AfsFacet('buildingDate', AfsFacetType::STRING_TYPE));
-$facet_mgr->add_facet(new AfsFacet('date', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('buildingDate', AfsFacetType::DATE_TYPE, AfsFacetLayout::INTERVAL));
+$facet_mgr->add_facet(new AfsFacet('date', AfsFacetType::DATE_TYPE));
 $facet_mgr->add_facet(new AfsFacet('stationParRegion', AfsFacetType::STRING_TYPE));
-$facet_mgr->add_facet(new AfsFacet('ticketPrice', AfsFacetType::STRING_TYPE));
+$facet_mgr->add_facet(new AfsFacet('ticketPrice', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::INTERVAL));
 /** [Facets and Facet manager] */
 
 // Query Manager

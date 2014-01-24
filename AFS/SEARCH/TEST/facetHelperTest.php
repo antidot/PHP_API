@@ -73,8 +73,8 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
                     "items": 67
                 }
             ],
-            "layout": "INTERVAL",
-            "type": "STRING",
+            "layout": "TREE",
+            "type": "BOOL",
             "id": "FOO",
             "labels": [
                 {
@@ -89,8 +89,8 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $helper = new AfsFacetHelper($input, new AfsQuery(), $config);
         $this->assertEquals($helper->get_label(), "String facet");
         $this->assertEquals('FOO', $helper->get_id());
-        $this->assertEquals(AfsFacetType::STRING_TYPE, $helper->get_type());
-        $this->assertEquals(AfsFacetLayout::INTERVAL, $helper->get_layout());
+        $this->assertEquals(AfsFacetType::BOOL_TYPE, $helper->get_type());
+        $this->assertEquals(AfsFacetLayout::TREE, $helper->get_layout());
         $this->assertEquals(true, $helper->is_sticky());
     }
 

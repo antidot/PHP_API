@@ -11,11 +11,11 @@ abstract class AfsFacetMode extends BasicEnum
     /** @brief Replace mode.
      *
      * New value set for the facet replace existing one. */
-    const REPLACE = 1;
+    const REPLACE = 'replace';
     /** @brief Add mode.
      *
      * New value set for the facet is appended to the list of already set facets. */
-    const ADD = 2;
+    const ADD = 'add';
 }
 
 ?>

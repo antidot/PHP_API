@@ -24,13 +24,17 @@ class AfsFacetHelper extends AfsHelperBase
         $this->label = $facet->labels[0]->label;
         $this->layout = $facet->layout;
         $this->type = $facet->type;
-        if (property_exists($facet, 'sticky')             
-                && 0 == strcmp('true', $facet->sticky)) { 
-            $this->sticky = true;                         
+        if (property_exists($facet, 'sticky')
+                && 0 == strcmp('true', $facet->sticky)) {
+            $this->sticky = true;
         } else {
             $this->sticky = false;
         }
-        $builder = new AfsFacetElementBuilder($config->get_facet_manager(), $query);
+        $facet_manager = $config->get_facet_manager();
+        $facet_manager->check_or_add_facet(new AfsFacet($this->id, $this->type,
+            $this->layout, AfsFacetMode::REPLACE, AfsFacetCombination::OR_MODE,
+            $this->sticky ? AfsFacetStickyness::STICKY : AfsFacetStickyness::NON_STICKY));
+        $builder = new AfsFacetElementBuilder($facet_manager, $query);
         $this->elements = $builder->create_elements($this->id, $facet, $config);
     }
 

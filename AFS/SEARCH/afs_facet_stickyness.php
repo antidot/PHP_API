@@ -10,9 +10,9 @@ abstract class AfsFacetStickyness extends BasicEnum
 {
     /** @brief All facet values are present in reply even if no current
      * result corresponds to some of these values. */
-    const STICKY = 1;
+    const STICKY = 'sticky';
     /** @brief Only relevant facet values are present in reply. */
-    const NON_STICKY = 2;
+    const NON_STICKY = 'non sticky';
 }
 
 ?>
