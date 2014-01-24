@@ -31,8 +31,9 @@ class AfsFacetHelper extends AfsHelperBase
         $this->label = $facet->labels[0]->label;
         $this->layout = $facet->layout;
         $this->type = $facet->type;
-        if (property_exists($facet, 'sticky')) {
-            $this->sticky = $facet->sticky;
+        if (property_exists($facet, 'sticky')             
+                && 0 == strcmp('true', $facet->sticky)) { 
+            $this->sticky = true;                         
         } else {
             $this->sticky = false;
         }
