@@ -489,6 +489,21 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $logs[1]);
     }
 
+    public function testNoKey()
+    {
+        $query = new AfsQuery();
+        $this->assertFalse($query->has_key());
+        $this->assertEquals(null, $query->get_key());
+    }
+
+    public function testKey()
+    {
+        $query = new AfsQuery();
+        $query->set_key('test');
+        $this->assertTrue($query->has_key());
+        $this->assertEquals($query->get_key(), 'test');
+    }
+
     public function testCloneQuery()
     {
         $query = new AfsQuery();
