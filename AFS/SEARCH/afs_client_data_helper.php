@@ -42,20 +42,36 @@ class AfsClientDataManager
         }
     }
 
-    /** @brief Retrieve text from the appropriate client data.
+    /** @brief Retrieves value from the appropriate client data.
      *
      * @param $id [in] client data id.
      * @param $name [in] name or XPath of the required element for JSON
-     *        respectively XML clent data.
+     *        respectively XML client data.
      * @param $context [in] context used to look for text with specified name.
      * @param $formatter [in] used for highlighted content (default=null,
      *        appropriate formatter is instanced for JSON and XML).
      *
      * @return client data as text.
      */
-    public function get_text($id, $name=null, $context=array(), $formatter=null)
+    public function get_value($id, $name=null, $context=array(), $formatter=null)
     {
-        return $this->get_clientdata($id)->get_text($name, $context, $formatter);
+        return $this->get_clientdata($id)->get_value($name, $context, $formatter);
+    }
+
+    /** @brief Retrieves value(s) from the appropriate client data.
+     *
+     * @param $id [in] client data id.
+     * @param $name [in] name or XPath of the required element for JSON
+     *        respectively XML client data.
+     * @param $context [in] context used to look for text with specified name.
+     * @param $formatter [in] used for highlighted content (default=null,
+     *        appropriate formatter is instanced for JSON and XML).
+     *
+     * @return client data as text.
+     */
+    public function get_values($id, $name=null, $context=array(), $formatter=null)
+    {
+        return $this->get_clientdata($id)->get_values($name, $context, $formatter);
     }
 }
 
@@ -63,9 +79,9 @@ class AfsClientDataManager
 /** @brief Client data interface. */
 interface AfsClientDataHelperInterface
 {
-    /** @brief Retrieve client data as text.
+    /** @brief Retrieves client data as text.
      *
-     * All client data or sub-tree can be retrieved depending on @a path
+     * All client data or sub-tree can be retrieved depending on @a name
      * parameter.
      * @param $name [in] data name to be extracted (default=null, retrieve
      *        all client data).
@@ -73,9 +89,22 @@ interface AfsClientDataHelperInterface
      * @param $formatter [in] format output string. It is used when highlight in
      *        client data is activated. See implementation to provide
      *        appropriate formatter (default=null, default formatter is used).
-     * @return client data as text.
+     * @return first matching client data with specified name as text.
      */
-    public function get_text($name, $context, $formatter);
+    public function get_value($name, $context, $formatter);
+    /** @brief Retrieves client data as array of texts.
+     *
+     * All client data or sub-tree can be retrieved depending on @a name
+     * parameter.
+     * @param $name [in] data name to be extracted (default=null, retrieve
+     *        all client data).
+     * @param $context [in] context used for looking for text with specified name.
+     * @param $formatter [in] format output string. It is used when highlight in
+     *        client data is activated. See implementation to provide
+     *        appropriate formatter (default=null, default formatter is used).
+     * @return matching client data as array of texts.
+     */
+    public function get_values($name, $context, $formatter);
 
     /** @brief Retrieve client data's mime type.
      *
@@ -174,34 +203,78 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
      *        client data is activated. It should be of @a FilterNode type
      *        (default=null, instance of @a FilterNode is used).
      *
-     * @return text of specific node(s) depending on parameters.
+     * @return text of first specific node(s) depending on parameters.
      *
      * @exception AfsInvalidQueryException when provided XPath is invalid.
      * @exception AfsNoResultException when provided XPath returns no value/node.
      */
-    public function get_text($path=null, $nsmap=array(), $highlight_callback=null)
+    public function get_value($path=null, $nsmap=array(), $highlight_callback=null)
     {
         if (is_null($path)) {
             return $this->client_data->contents;
         } else {
-            $xpath = new DOMXPath($this->doc);
-            if (! array_key_exists('afs', $nsmap)) {
-                $nsmap['afs'] = AfsXmlClientDataHelper::$afs_ns;
-            }
-            foreach ($nsmap as $prefix => $namespace) {
-                $xpath->registerNamespace($prefix, $namespace);
-            }
-            $result = $xpath->query($path);
-            if (false === $result) {
-                throw new AfsInvalidQueryException('Invalid XPath: ' . $path);
-            } elseif ($result->length == 0) {
-                throw new AfsNoResultException('No result available for: ' . $path);
-            } elseif ($this->has_highlight) {
-                return $this->get_highlighted_text($result->item(0), $highlight_callback);
-            } else {
-                return DOMNodeHelper::get_text($result->item(0));
-            }
+            $items = $this->apply_xpath($path, $nsmap);
+            $callbacks = $this->init_highlight_callbacks($highlight_callback);
+            return DOMNodeHelper::get_text($items->item(0), $callbacks);
         }
+    }
+
+    /** @brief Retrieves array of texts from XML node.
+     *
+     * @param $path [in] XPath to apply (default=null, retrieve all content as
+     *        text).
+     * @param $nsmap [in] prefix/uri mapping to use along with provided XPath.
+     * @param $highlight_callback [in] callback to emphase text when highlight of
+     *        client data is activated. It should be of @a FilterNode type
+     *        (default=null, instance of @a FilterNode is used).
+     *
+     * @return text of first specific node(s) depending on parameters.
+     *
+     * @exception AfsInvalidQueryException when provided XPath is invalid.
+     * @exception AfsNoResultException when provided XPath returns no value/node.
+     */
+    public function get_values($path=null, $nsmap=array(), $highlight_callback=null)
+    {
+        if (is_null($path)) {
+            return array($this->client_data->contents);
+        } else {
+            $items = $this->apply_xpath($path, $nsmap);
+            $callbacks = $this->init_highlight_callbacks($highlight_callback);
+            $result = array();
+            foreach ($items as $item) {
+                $result[] = DOMNodeHelper::get_text($item, $callbacks);
+            }
+            return $result;
+        }
+    }
+
+    /** @internal
+     * @brief Retrieves values at given XPath or fails.
+     *
+     * @param $path [in] XPath to apply to the document.
+     * @param $nsmap [in] Namespace mapping used along with XPath.
+     *
+     * @return List of matching results.
+     *
+     * @exception AfsInvalidQueryException provided XPath is invalid.
+     * @exception AfsNoResultException provided XPath does not return any result.
+     */
+    private function apply_xpath($path, $nsmap)
+    {
+        $xpath = new DOMXPath($this->doc);
+        if (! array_key_exists('afs', $nsmap)) {
+            $nsmap['afs'] = AfsXmlClientDataHelper::$afs_ns;
+        }
+        foreach ($nsmap as $prefix => $namespace) {
+            $xpath->registerNamespace($prefix, $namespace);
+        }
+        $result = $xpath->query($path);
+        if (false === $result) {
+            throw new AfsInvalidQueryException('Invalid XPath: ' . $path);
+        } elseif ($result->length == 0) {
+            throw new AfsNoResultException('No result available for: ' . $path);
+        }
+        return $result;
     }
 
     /** @brief Retrieve client data's mime type.
@@ -213,13 +286,17 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         return 'application/xml';
     }
 
-    private function get_highlighted_text($node, $callback)
+    private function init_highlight_callbacks($callback)
     {
-        if (is_null($callback)) {
-            $callback = new BoldFilterNode('match',
-                AfsXmlClientDataHelper::$afs_ns);
+        if ($this->has_highlight) {
+            if (is_null($callback)) {
+                $callback = new BoldFilterNode('match',
+                    AfsXmlClientDataHelper::$afs_ns);
+            }
+            return array(XML_ELEMENT_NODE => $callback);
+        } else {
+            return array();
         }
-        return DOMNodeHelper::get_text($node, array(XML_ELEMENT_NODE => $callback));
     }
 }
 
@@ -302,7 +379,27 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
      * Call to <tt>get_text('')</tt> will return
      * @verbatim some text @endverbatim.
      */
-    public function get_text($name=null, $unused=array(), $visitor=null)
+    public function get_value($name=null, $unused=array(), $visitor=null)
+    {
+        return $this->get_values($name, $unused, $visitor);
+    }
+
+    /** @brief Same result as @a get_value method
+     *
+     * @param $name [in] name of the first element to retrieve (default=null,
+     *        all JSON content is returned as text). Empty string allows to
+     *        retrieve text content correctly formatted when highlight is
+     *        activated.
+     * @param $unused Hum...
+     * @param $visitor [in] instance of @a AfsTextVisitorInterface used to format
+     *        appropriately text content when highlight has been activated
+     *        (default=null, @a AfsTextVisitor is used).
+     *
+     * @return formatted text.
+     *
+     * @exception AfsNoResultException when required JSON element is not defined.
+     */
+    public function get_values($name=null, $unused=array(), $visitor=null)
     {
         if (is_null($visitor)) {
             $visitor = new AfsTextVisitor();

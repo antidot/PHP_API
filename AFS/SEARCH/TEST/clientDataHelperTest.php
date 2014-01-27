@@ -15,7 +15,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals($helper->text, '<clientdata><data><data1>data 0</data1><data1>data 1</data1><multi><m0>m 0</m0><m1>m 1</m1><m2>m 2</m2><m3>m 3</m3></multi></data></clientdata>');
+        $this->assertEquals($helper->value, '<clientdata><data><data1>data 0</data1><data1>data 1</data1><multi><m0>m 0</m0><m1>m 1</m1><m2>m 2</m2><m3>m 3</m3></multi></data></clientdata>');
         $this->assertEquals($helper->mime_type, 'application/xml');
     }
 
@@ -31,8 +31,9 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals($helper->get_text('/clientdata/data/data1'), 'data 0');
-        $this->assertEquals($helper->get_text('/clientdata/data/data1[2]'), 'data 1');
+        $this->assertEquals($helper->get_value('/clientdata/data/data1'), 'data 0');
+        $this->assertEquals($helper->get_value('/clientdata/data/data1[2]'), 'data 1');
+        $this->assertEquals(array('data 0', 'data 1'), $helper->get_values('/clientdata/data/data1'));
     }
 
     public function testRetrieveSpecificDataFromXMLClientDataWithNamedNamespace()
@@ -47,8 +48,9 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals('data 0', $helper->get_text('/clientdata/boo:data/data1', array('boo' => 'http://bar')));
-        $this->assertEquals('data 1', $helper->get_text('/clientdata/boo:data/data1[2]', array('boo' => 'http://bar')));
+        $this->assertEquals('data 0', $helper->get_value('/clientdata/boo:data/data1', array('boo' => 'http://bar')));
+        $this->assertEquals('data 1', $helper->get_value('/clientdata/boo:data/data1[2]', array('boo' => 'http://bar')));
+        $this->assertEquals(array('data 0', 'data 1'), $helper->get_values('/clientdata/boo:data/data1', array('boo' => 'http://bar')));
     }
 
     public function testRetrieveSpecificDataFromXMLClientDataWithDefaultNamespace()
@@ -63,8 +65,9 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals('data 0', $helper->get_text('/boo:clientdata/boo:data/boo:data1', array('boo' => 'http://bar')));
-        $this->assertEquals('data 1', $helper->get_text('/boo:clientdata/boo:data/boo:data1[2]', array('boo' => 'http://bar')));
+        $this->assertEquals('data 0', $helper->get_value('/boo:clientdata/boo:data/boo:data1', array('boo' => 'http://bar')));
+        $this->assertEquals('data 1', $helper->get_value('/boo:clientdata/boo:data/boo:data1[2]', array('boo' => 'http://bar')));
+        $this->assertEquals(array('data 0', 'data 1'), $helper->get_values('/boo:clientdata/boo:data/boo:data1', array('boo' => 'http://bar')));
     }
 
     public function testRetrieveSpecificDataFromXMLClientDataWithAfsNamespace()
@@ -79,7 +82,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals('data 0', $helper->get_text('/afs:clientdata/afs:data/afs:data1'));
+        $this->assertEquals('data 0', $helper->get_value('/afs:clientdata/afs:data/afs:data1'));
     }
 
     public function testInvalidXpathForXmlClientDataRetrieval()
@@ -95,7 +98,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
         try {
-            $helper->get_text('/clientdata/data/foo');
+            $helper->get_value('/clientdata/data/foo');
             $this->fail('XPath with no reply should have raised exception');
         } catch (AfsClientDataException $e) { }
     }
@@ -112,7 +115,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals('', $helper->get_text('/clientdata/data'));
+        $this->assertEquals('', $helper->get_value('/clientdata/data'));
     }
 
     public function testRetrieveXmlClientDataWithHighlight()
@@ -127,8 +130,9 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals($helper->get_text('/clientdata/data/data1[1]'), 'data <b>0</b>');
-        $this->assertEquals($helper->get_text('/clientdata/data/data1[2]'), 'data <b>1</b> foo');
+        $this->assertEquals($helper->get_value('/clientdata/data/data1[1]'), 'data <b>0</b>');
+        $this->assertEquals($helper->get_value('/clientdata/data/data1[2]'), 'data <b>1</b> foo');
+        $this->assertEquals(array('data <b>0</b>', 'data <b>1</b> foo'), $helper->get_values('/clientdata/data/data1'));
     }
 
     public function testRetrieveJSONDataAsText()
@@ -143,7 +147,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals($helper->text, '{"data":[{"data1":[{"afs:t":"KwicString","text":"data 0"}]},{"data1":[{"afs:t":"KwicString","text":"data "},{"afs:t":"KwicMatch","match":"1"}]}]}');
+        $this->assertEquals($helper->value, '{"data":[{"data1":[{"afs:t":"KwicString","text":"data 0"}]},{"data1":[{"afs:t":"KwicString","text":"data "},{"afs:t":"KwicMatch","match":"1"}]}]}');
         $this->assertEquals($helper->mime_type, 'application/json');
     }
 
@@ -159,7 +163,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals($helper->get_text(''), 'data 1');
+        $this->assertEquals($helper->get_value(''), 'data 1');
     }
 
     public function testRetrieveJSONDataAsTextWithHighlight()
@@ -174,7 +178,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals($helper->get_text(''), 'data <b>1</b>');
+        $this->assertEquals($helper->get_value(''), 'data <b>1</b>');
     }
 
     public function testRetrieveSpecificJSONDataAsTextWithHighlight()
@@ -193,7 +197,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
-        $this->assertEquals($helper->get_text('bar'), 'baz <b>42</b> bat');
+        $this->assertEquals($helper->get_value('bar'), 'baz <b>42</b> bat');
     }
 
     public function testRetrieveUnknownSpecificJSONDataAsTextWithHighlight()
@@ -210,7 +214,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
           }');
         $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
         try {
-            $helper->get_text('bar');
+            $helper->get_value('bar');
             $this->fail('Unknown JSON element should have rosen exception');
         } catch (AfsClientDataException $e) { }
     }
@@ -235,9 +239,10 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
               }
             ]');
         $mgr = new AfsClientDataManager($input);
-        $this->assertEquals($mgr->get_text('id1', 'bar'), 'baz <b>42</b> bat');
-        $this->assertEquals($mgr->get_text('foo', '/clientdata/data/data1[1]'), 'data <b>0</b>');
-        $this->assertEquals($mgr->get_text('foo', '/clientdata/data/data1[2]'), 'data <b>1</b> foo');
+        $this->assertEquals($mgr->get_value('id1', 'bar'), 'baz <b>42</b> bat');
+        $this->assertEquals($mgr->get_value('foo', '/clientdata/data/data1[1]'), 'data <b>0</b>');
+        $this->assertEquals($mgr->get_value('foo', '/clientdata/data/data1[2]'), 'data <b>1</b> foo');
+        $this->assertEquals(array('data <b>0</b>', 'data <b>1</b> foo'), $mgr->get_values('foo', '/clientdata/data/data1'));
     }
 
     public function testClientDataManagerFirstRetrieveClientDataHelpers()
@@ -260,10 +265,10 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
             ]');
         $mgr = new AfsClientDataManager($input);
         $data1 = $mgr->get_clientdata('id1');
-        $this->assertEquals('data <b>1</b>', $data1->get_text('foo'));
+        $this->assertEquals('data <b>1</b>', $data1->get_value('foo'));
 
         $data2 = $mgr->get_clientdata('foo');
-        $this->assertEquals('data <b>0</b>', $data2->get_text('/clientdata/data/data1[1]'));
+        $this->assertEquals('data <b>0</b>', $data2->get_value('/clientdata/data/data1[1]'));
     }
 }
 

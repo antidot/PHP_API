@@ -51,6 +51,6 @@ class ReplyHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($helper->abstract, 'some content <b>match content</b> other content...');
         $this->assertEquals($helper->uri, 'http://foo.bar.baz/14');
 
-        $this->assertEquals('data 1', $helper->get_clientdata()->get_text('/clientdata/data/data1[2]'));
+        $this->assertEquals('data 1', $helper->get_clientdata()->get_value('/clientdata/data/data1[2]'));
     }
 }

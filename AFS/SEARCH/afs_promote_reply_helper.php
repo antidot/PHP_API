@@ -53,7 +53,7 @@ class AfsPromoteReplyHelper extends AfsBaseReplyHelper
                 . ' your PHP connector or contact Antidot support team.');
         }
 
-        return $clientdata->get_text("/afs:customData/afs:$key",
+        return $clientdata->get_value("/afs:customData/afs:$key",
             array('afs' => 'http://ref.antidot.net/7.3/bo.xsd'));
     }
 }
