@@ -30,11 +30,12 @@ class AfsPromoteReplyHelper extends AfsBaseReplyHelper
     }
 
     /** @brief Retrieves custom data from promote reply.
-     * @param $key [in] Identifier of the custom resource.
-     * @return value associated to specified key or @c null.
+     * @param $key [in] Identifier of the custom resource. When not specified
+     *        custom data are returned as key/value pairs.
+     * @return value(s) associated to specified key or all key/value pairs.
      * @execption Exception no custom data has been defined.
      */
-    public function get_custom_data($key)
+    public function get_custom_data($key=null)
     {
         if (is_null($this->clientdata_mgr)) {
             throw new Exception('No custom data available for this promote ('
@@ -53,8 +54,24 @@ class AfsPromoteReplyHelper extends AfsBaseReplyHelper
                 . ' your PHP connector or contact Antidot support team.');
         }
 
-        return $clientdata->get_value("/afs:customData/afs:$key",
-            array('afs' => 'http://ref.antidot.net/7.3/bo.xsd'));
+        if (is_null($key)) {
+            return $this->extract_key_value_pairs($clientdata);
+        } else {
+            return $clientdata->get_value("/afs:customData/afs:$key",
+                array('afs' => 'http://ref.antidot.net/7.3/bo.xsd'));
+        }
+    }
+
+    private function extract_key_value_pairs($clientdata)
+    {
+        $result = array();
+        $doc = DOMDocument::loadXML($clientdata->get_value());
+        if ($doc->hasChildNodes() && $doc->childNodes->item(0)->hasChildNodes()) {
+            foreach ($doc->childNodes->item(0)->childNodes as $node) {
+                $result[$node->localName] = $node->nodeValue;
+            }
+        }
+        return $result;
     }
 }
 

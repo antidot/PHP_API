@@ -72,7 +72,40 @@ class PromoteReplyHelperTest extends PHPUnit_Framework_TestCase
         } catch (Exception $e) {
             return;
         }
-        //$this->fail('Exception should have been raised for unknown key');
+        $this->fail('Exception should have been raised for unknown key');
+    }
+
+    public function testPromoteRetrieveCustomDataAsArray()
+    {
+        $reply = json_decode('{
+                    "docId": 1,
+                    "uri": "http://www.wanimo.com/marques/tresor",
+                    "title": [
+                        {
+                            "afs:t": "KwicString",
+                            "text": "Foo"
+                        }
+                    ],
+                    "abstract": [
+                        {
+                            "afs:t": "KwicString",
+                            "text": "Bar"
+                        }
+                    ],
+                    "relevance": {
+                        "rank": 1
+                    },
+                    "clientData": [
+                        {
+                            "contents": "<afs:customData xmlns:afs=\"http://ref.antidot.net/7.3/bo.xsd\"><afs:banniere>BAN1</afs:banniere><afs:foo>FOO</afs:foo></afs:customData>",
+                            "id": "main",
+                            "mimeType": "text/xml"
+                        }
+                    ]
+                }');
+        $helper = new AfsPromoteReplyHelper($reply);
+        $this->assertEquals(array('banniere' => 'BAN1', 'foo' => 'FOO'),
+                            $helper->get_custom_data());
     }
 }
 
