@@ -166,6 +166,8 @@ class AfsSpellcheckTextManager
         foreach ($json_reply as $element) {
             if (property_exists($element, 'text')) {
                 $this->texts[] = new AfsSpellcheckText($element->text);
+            } elseif (property_exists($element, 'sep')) {
+                $this->texts[] = new AfsSpellcheckText($element->sep);
             } elseif (property_exists($element, 'match')) {
                 $this->texts[] = new AfsSpellcheckMatch($element->match);
             } else {
