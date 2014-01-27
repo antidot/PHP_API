@@ -200,6 +200,64 @@ class spellcheckHelperTest extends PHPUnit_Framework_TestCase
                     }
                 }');
     }
+
+    public function testSpellcheckWithSep()   // bug #2531
+    {
+        $input = json_decode('{
+                    "meta": {
+                        "uri": "Catalog",
+                        "totalItems": 2,
+                        "totalItemsIsExact": true,
+                        "pageItems": 2,
+                        "firstPageItem": 1,
+                        "lastPageItem": 1,
+                        "durationMs": 4,
+                        "firstPaFId": 1,
+                        "lastPaFId": 1,
+                        "producer": "SPELLCHECK"
+                    },
+                    "content": {
+                        "reply": [
+                            {
+                                "docId": 1,
+                                "uri": "Catalog",
+                                "title": [
+                                    {
+                                        "afs:t": "KwicMatch",
+                                        "match": "Bar"
+                                    }
+                                ],
+                                "abstract": [
+                                    {
+                                        "afs:t": "KwicString",
+                                        "text": "Bar"
+                                    }
+                                ],
+                                "suggestion": [
+                                    {
+                                        "items": [
+                                            { "sep": { "text": "(" } },
+                                            { "match": { "text": "FOO" } }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }');
+        $query = new AfsQuery();
+        $mgr = new AfsSpellcheckManager($query, new AfsHelperConfiguration());
+        $mgr->add_spellcheck($input);
+
+        $spellcheck = $mgr->get_spellcheck('Catalog');
+        $this->assertEquals(1, count($spellcheck));
+
+        $first = $spellcheck[0];
+        $this->assertEquals('(FOO', $first->get_raw_text());
+        $this->assertEquals('(<b>FOO</b>', $first->get_formatted_text());
+        $this->assertEquals('(FOO', $first->get_query()->get_query());
+        $this->assertEquals(AfsOrigin::SPELLCHECK, $first->get_query()->get_from());
+    }
 }
 
 ?>
