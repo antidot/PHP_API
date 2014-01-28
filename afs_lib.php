@@ -10,4 +10,6 @@ require_once 'AFS/SEARCH/afs_response_helper.php';
 require_once 'AFS/SEARCH/afs_query_coder.php';
 
 require_once 'AFS/SEARCH/afs_text_visitor.php';
+
+require_once 'AFS/SEARCH/afs_search.php';
 ?>

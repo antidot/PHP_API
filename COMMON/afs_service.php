@@ -12,14 +12,14 @@ class AfsService
     /** @brief Constructs service object.
      *
      * @param $id [in] identifier of the desired service.
-     * @param $status [in] status of the desired service (see @ref paf_status).
+     * @param $status [in] status of the desired service (see @ref AfsServiceStatus).
      *
      * @exception InvalidArgumentException when @a id or @a status is invalid.
      */
     public function __construct($id, $status=AfsServiceStatus::STABLE)
     {
         if (! is_numeric($id)) {
-            throw new InvalidArgumentException('Service id must be integer');
+            throw new InvalidArgumentException('Service id must be integer, invalid value: ' . $id);
         }
         AfsServiceStatus::check_value($status, 'Invalid service status provided: ');
         $this->id = $id;

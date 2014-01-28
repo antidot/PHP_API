@@ -24,7 +24,7 @@ $query = $coder->build_query($_GET);
 
 // Connector
 /** [Connector] */
-$service = new AfsService(70000, AFS_PAF_STABLE);
+$service = new AfsService(70000, AfsServiceStatus::STABLE);
 $host = 'eval.partners.antidot.net';
 $connector = new AfsSearchConnector($host, $service);
 /** [Connector] */
