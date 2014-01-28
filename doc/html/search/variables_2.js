@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['check',['CHECK',['../classAfsProducer.html#a6e355041a8ff11ca4269478350e4a363',1,'AfsProducer']]],
-  ['concept',['CONCEPT',['../classAfsOrigin.html#ac5473e22704a2f1cdcb3f50608fdfa14',1,'AfsOrigin\CONCEPT()'],['../classAfsProducer.html#ac5473e22704a2f1cdcb3f50608fdfa14',1,'AfsProducer\CONCEPT()']]]
+  ['beta',['BETA',['../classAfsServiceStatus.html#ad15ca511b6ce6ae7eb421fc5aea23107',1,'AfsServiceStatus']]],
+  ['bool_5ftype',['BOOL_TYPE',['../classAfsFacetType.html#a1f6e5deb12318921a3f4f29badc5f0e4',1,'AfsFacetType']]]
 ];

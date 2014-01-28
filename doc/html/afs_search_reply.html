@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>AFS search reply API</title>
+<title>Antidot PHP API: AFS search reply API</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,6 +22,11 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Antidot PHP API
+   &#160;<span id="projectnumber">version 0.5.0</span>
+   </div>
+  </td>
  </tr>
  </tbody>
 </table>
@@ -98,7 +103,7 @@ Introduction</h1>
 Reponse helper</h1>
 <p>This is the main helper (see <em><a class="el" href="classAfsSearchQueryManager.html" title="Manage search query. ">AfsSearchQueryManager</a></em> for more details). It should be initilized with result of <em><a class="el" href="classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163" title="Send query to AFS search engine. ">AfsSearchQueryManager::send</a></em> method, the facet manager, the current query and the query coder (see <a class="el" href="afs_search_coder.html">AFS search query coder/decoder API</a> and <a class="el" href="afs_search_query.html">AFS search query API</a> for details on these parameters).</p>
 <p>Here an example to initialize AFS response helper: </p>
-<div class="fragment"><div class="line">$helper = <span class="keyword">new</span> <a class="code" href="classAfsResponseHelper.html">AfsResponseHelper</a>($reply, $facet_mgr, $query, $coder, AFS_ARRAY_FORMAT);</div>
+<div class="fragment"><div class="line">$helper = <span class="keyword">new</span> <a class="code" href="classAfsResponseHelper.html">AfsResponseHelper</a>($reply, $query, $config);</div>
 </div><!-- fragment --><p> On initialization, error checking is performed. When no error occured, <em><a class="el" href="classAfsResponseHelper.html#aa47b950f8dc54f7b06c97d9d12a3f767" title="Retrieves all replysets. ">AfsResponseHelper::get_replysets</a></em> returns a list of <em><a class="el" href="classAfsReplysetHelper.html" title="Helper for replies from one feed. ">AfsReplysetHelper</a></em>. By the way, following helpers are also initialized:</p>
 <ul>
 <li><em><a class="el" href="classAfsMetaHelper.html" title="AFS reply meta data. ">AfsMetaHelper</a></em>,</li>
@@ -156,7 +161,7 @@ Client data helpers</h2>
 </ul>
 <p>Instances of these classes are generally not created directly. A <em><a class="el" href="classAfsClientDataManager.html" title="Manage client data. ">AfsClientDataManager</a></em> is provided to generate appropriate client data helpers. Like for <em><a class="el" href="classAfsReplyHelper.html" title="Helper to manager title, abstract and uri of one reply. ">AfsReplyHelper</a></em>, it is initialized with a reply which should contain at least one client data. Then client data can be retrieved by <code>id</code> which has been provided on indexation side. If no <code>id</code> as been provided, it is defaultly set to <code>main</code>.</p>
 <p>XML client data can be retrieved by <code>XPath</code>. There is no limitation except that XPath are limited to version 1.0.</p>
-<p>JSON client data can be retrieved by <code>array key</code>. Only the first array level is considered. More details are vailable there: <em><a class="el" href="classAfsJsonClientDataHelper.html#ae591726d0d330ad8554edff062153eb6" title="Retrieves text from JSON content. ">AfsJsonClientDataHelper::get_text</a></em>.</p>
+<p>JSON client data can be retrieved by <code>array key</code>. Only the first array level is considered. More details are vailable there: <em>AfsJsonClientDataHelper::get_text</em>.</p>
 <p>Main common feature of these helpers is that they both manage highlight in client data. Default callbacks are used for highlighted text but specific ones can be defined.</p>
 <h1><a class="anchor" id="asr_end"></a>
 Next step</h1>
@@ -164,7 +169,7 @@ Next step</h1>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 15 2014 16:39:17 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

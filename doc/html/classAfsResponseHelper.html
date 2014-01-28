@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>AfsResponseHelper Class Reference</title>
+<title>Antidot PHP API: AfsResponseHelper Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,6 +22,11 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Antidot PHP API
+   &#160;<span id="projectnumber">version 0.5.0</span>
+   </div>
+  </td>
  </tr>
  </tbody>
 </table>
@@ -102,9 +107,9 @@ Inheritance diagram for AfsResponseHelper:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4eb2fbb2a980a75587488bd14a9da284"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsResponseHelper.html#a4eb2fbb2a980a75587488bd14a9da284">__construct</a> ($response, <a class="el" href="classAfsFacetManager.html">AfsFacetManager</a> $facet_mgr, <a class="el" href="classAfsQuery.html">AfsQuery</a> $query, <a class="el" href="interfaceAfsQueryCoderInterface.html">AfsQueryCoderInterface</a> $coder=null, $<a class="el" href="classAfsResponseHelper.html#afe083716d50b3fb4057e519961b9235c">format</a>=<a class="el" href="classAfsHelperFormat.html#a896b8a062d099cb54681b259342e2399">AfsHelperFormat::ARRAYS</a>, <a class="el" href="interfaceAfsTextVisitorInterface.html">AfsTextVisitorInterface</a> $visitor=null, <a class="el" href="interfaceAfsSpellcheckTextVisitorInterface.html">AfsSpellcheckTextVisitorInterface</a> $spellcheck_visitor=null)</td></tr>
-<tr class="memdesc:a4eb2fbb2a980a75587488bd14a9da284"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new response helper instance.  <a href="#a4eb2fbb2a980a75587488bd14a9da284">More...</a><br/></td></tr>
-<tr class="separator:a4eb2fbb2a980a75587488bd14a9da284"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c094872991e49945941bd6140530512"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsResponseHelper.html#a7c094872991e49945941bd6140530512">__construct</a> ($response, <a class="el" href="classAfsQuery.html">AfsQuery</a> $query, <a class="el" href="classAfsHelperConfiguration.html">AfsHelperConfiguration</a> $config)</td></tr>
+<tr class="memdesc:a7c094872991e49945941bd6140530512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new response helper instance.  <a href="#a7c094872991e49945941bd6140530512">More...</a><br/></td></tr>
+<tr class="separator:a7c094872991e49945941bd6140530512"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f3780f5cea9b8536c402e7306bf6af8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsResponseHelper.html#a5f3780f5cea9b8536c402e7306bf6af8">has_replyset</a> ()</td></tr>
 <tr class="memdesc:a5f3780f5cea9b8536c402e7306bf6af8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether reponse has a reply.  <a href="#a5f3780f5cea9b8536c402e7306bf6af8">More...</a><br/></td></tr>
 <tr class="separator:a5f3780f5cea9b8536c402e7306bf6af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,9 +151,9 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main helper for AFS search reply. </p>
 <p>This helper is intended to be initiliazed with the reply provided by <em><a class="el" href="classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163" title="Send query to AFS search engine. ">AfsSearchQueryManager::send</a></em>. It allows to manage replies of one of the available replysets, including facets and pager. Connection and query errors are managed in a uniform way to simplify integration. </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="full_example_8php-example.html#_a9">full_example.php</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="full_example_8php-example.html#_a11">full_example.php</a>.</dd>
 </dl></div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a4eb2fbb2a980a75587488bd14a9da284"></a>
+<a class="anchor" id="a7c094872991e49945941bd6140530512"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -161,38 +166,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a>&#160;</td>
-          <td class="paramname"><em>$facet_mgr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype"><a class="el" href="classAfsQuery.html">AfsQuery</a>&#160;</td>
           <td class="paramname"><em>$query</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="interfaceAfsQueryCoderInterface.html">AfsQueryCoderInterface</a>&#160;</td>
-          <td class="paramname"><em>$coder</em> = <code>null</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$format</em> = <code><a class="el" href="classAfsHelperFormat.html#a896b8a062d099cb54681b259342e2399">AfsHelperFormat::ARRAYS</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="interfaceAfsTextVisitorInterface.html">AfsTextVisitorInterface</a>&#160;</td>
-          <td class="paramname"><em>$visitor</em> = <code>null</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="interfaceAfsSpellcheckTextVisitorInterface.html">AfsSpellcheckTextVisitorInterface</a>&#160;</td>
-          <td class="paramname"><em>$spellcheck_visitor</em> = <code>null</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="classAfsHelperConfiguration.html">AfsHelperConfiguration</a>&#160;</td>
+          <td class="paramname"><em>$config</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -206,11 +187,8 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$response</td><td>[in] result from <em><a class="el" href="classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163" title="Send query to AFS search engine. ">AfsSearchQueryManager::send</a></em> call. </td></tr>
-    <tr><td class="paramname">$facet_mgr</td><td>[in] <em><a class="el" href="classAfsFacetManager.html" title="AFS facet manager. ">AfsFacetManager</a></em> used to create appropriate queries. </td></tr>
     <tr><td class="paramname">$query</td><td>[in] query which has produced current reply. </td></tr>
-    <tr><td class="paramname">$coder</td><td>[in] <em><a class="el" href="interfaceAfsQueryCoderInterface.html" title="Interface for encoding/decoding queries. ">AfsQueryCoderInterface</a></em> if set it will be used to create links (default: null). </td></tr>
-    <tr><td class="paramname">$format</td><td>[in] if set to <a class="el" href="classAfsHelperFormat.html#a896b8a062d099cb54681b259342e2399" title="Outputs from response helper and sub-sequent child helpers are array of key/value pairs...">AfsHelperFormat::ARRAYS</a> (default), all underlying helpers will be formatted as array of data, otherwise they are kept as is. See helper_format for more details. </td></tr>
-    <tr><td class="paramname">$visitor</td><td>[in] text visitor implementing <em><a class="el" href="interfaceAfsTextVisitorInterface.html" title="Text visitor interface to be used along with AfsText or one of its derived class. ...">AfsTextVisitorInterface</a></em> used to extract title and abstract contents. If not set, default visitor is used (see <em><a class="el" href="classAfsReplyHelper.html" title="Helper to manager title, abstract and uri of one reply. ">AfsReplyHelper</a></em>).</td></tr>
+    <tr><td class="paramname">$config</td><td>[in] helper configuration object.</td></tr>
   </table>
   </dd>
 </dl>
@@ -446,7 +424,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 15 2014 16:39:17 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

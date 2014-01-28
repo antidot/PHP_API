@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>AfsPagerHelper Class Reference</title>
+<title>Antidot PHP API: AfsPagerHelper Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,6 +22,11 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Antidot PHP API
+   &#160;<span id="projectnumber">version 0.5.0</span>
+   </div>
+  </td>
  </tr>
  </tbody>
 </table>
@@ -102,9 +107,9 @@ Inheritance diagram for AfsPagerHelper:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0a140ac07ea3e1473d409b5c75e7b76e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsPagerHelper.html#a0a140ac07ea3e1473d409b5c75e7b76e">__construct</a> ($pager, <a class="el" href="classAfsQuery.html">AfsQuery</a> $query, <a class="el" href="interfaceAfsQueryCoderInterface.html">AfsQueryCoderInterface</a> $coder=null)</td></tr>
-<tr class="memdesc:a0a140ac07ea3e1473d409b5c75e7b76e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct helper with pager and current query.  <a href="#a0a140ac07ea3e1473d409b5c75e7b76e">More...</a><br/></td></tr>
-<tr class="separator:a0a140ac07ea3e1473d409b5c75e7b76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2df5d38e4ddcca958e3d9abf075651b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsPagerHelper.html#ae2df5d38e4ddcca958e3d9abf075651b">__construct</a> ($pager, <a class="el" href="classAfsQuery.html">AfsQuery</a> $query, <a class="el" href="classAfsHelperConfiguration.html">AfsHelperConfiguration</a> $config)</td></tr>
+<tr class="memdesc:ae2df5d38e4ddcca958e3d9abf075651b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct helper with pager and current query.  <a href="#ae2df5d38e4ddcca958e3d9abf075651b">More...</a><br/></td></tr>
+<tr class="separator:ae2df5d38e4ddcca958e3d9abf075651b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a460eab97d7f45178ec01bff9f3472d29"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsPagerHelper.html#a460eab97d7f45178ec01bff9f3472d29">get_pages</a> ()</td></tr>
 <tr class="memdesc:a460eab97d7f45178ec01bff9f3472d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve all pages.  <a href="#a460eab97d7f45178ec01bff9f3472d29">More...</a><br/></td></tr>
 <tr class="separator:a460eab97d7f45178ec01bff9f3472d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,7 +139,7 @@ Public Member Functions</h2></td></tr>
 <li><code>numbered</code> pages. </li>
 </ul>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a0a140ac07ea3e1473d409b5c75e7b76e"></a>
+<a class="anchor" id="ae2df5d38e4ddcca958e3d9abf075651b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -153,8 +158,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="interfaceAfsQueryCoderInterface.html">AfsQueryCoderInterface</a>&#160;</td>
-          <td class="paramname"><em>$coder</em> = <code>null</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="classAfsHelperConfiguration.html">AfsHelperConfiguration</a>&#160;</td>
+          <td class="paramname"><em>$config</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -169,7 +174,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">$pager</td><td>[in] pager retrieved from reply. </td></tr>
     <tr><td class="paramname">$query</td><td>[in] current <em><a class="el" href="classAfsQuery.html" title="Represent an AFS query. ">AfsQuery</a></em> which will be used to generate appropriate queries (see bellow <em>get_pages</em>, <em>get_previous</em> and <em>get_next</em>). </td></tr>
-    <tr><td class="paramname">$coder</td><td>[in] <em><a class="el" href="interfaceAfsQueryCoderInterface.html" title="Interface for encoding/decoding queries. ">AfsQueryCoderInterface</a></em> if set it will be used to create links instead of queries (default: null).</td></tr>
+    <tr><td class="paramname">$config</td><td>[in] helper ocnfiguration object.</td></tr>
   </table>
   </dd>
 </dl>
@@ -296,7 +301,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 15 2014 16:39:17 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

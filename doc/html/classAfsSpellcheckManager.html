@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>AfsSpellcheckManager Class Reference</title>
+<title>Antidot PHP API: AfsSpellcheckManager Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,6 +22,11 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Antidot PHP API
+   &#160;<span id="projectnumber">version 0.5.0</span>
+   </div>
+  </td>
  </tr>
  </tbody>
 </table>
@@ -102,9 +107,9 @@ Inheritance diagram for AfsSpellcheckManager:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0dc21cfd3f43483cd3ea8f65d3b77817"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSpellcheckManager.html#a0dc21cfd3f43483cd3ea8f65d3b77817">__construct</a> (<a class="el" href="classAfsQuery.html">AfsQuery</a> $query, <a class="el" href="interfaceAfsQueryCoderInterface.html">AfsQueryCoderInterface</a> $coder=null, <a class="el" href="interfaceAfsSpellcheckTextVisitorInterface.html">AfsSpellcheckTextVisitorInterface</a> $visitor=null)</td></tr>
-<tr class="memdesc:a0dc21cfd3f43483cd3ea8f65d3b77817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new manager instance.  <a href="#a0dc21cfd3f43483cd3ea8f65d3b77817">More...</a><br/></td></tr>
-<tr class="separator:a0dc21cfd3f43483cd3ea8f65d3b77817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf6f7e4d9ea6a819d9ec538642bbd7be"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSpellcheckManager.html#acf6f7e4d9ea6a819d9ec538642bbd7be">__construct</a> (<a class="el" href="classAfsQuery.html">AfsQuery</a> $query, <a class="el" href="classAfsHelperConfiguration.html">AfsHelperConfiguration</a> $config)</td></tr>
+<tr class="memdesc:acf6f7e4d9ea6a819d9ec538642bbd7be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new manager instance.  <a href="#acf6f7e4d9ea6a819d9ec538642bbd7be">More...</a><br/></td></tr>
+<tr class="separator:acf6f7e4d9ea6a819d9ec538642bbd7be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af07f7e3f576c139d9e12f44af1e94d9a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSpellcheckManager.html#af07f7e3f576c139d9e12f44af1e94d9a">add_spellcheck</a> ($replyset)</td></tr>
 <tr class="memdesc:af07f7e3f576c139d9e12f44af1e94d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add new spellcheck reply to spellcheck manager.  <a href="#af07f7e3f576c139d9e12f44af1e94d9a">More...</a><br/></td></tr>
 <tr class="separator:af07f7e3f576c139d9e12f44af1e94d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -125,7 +130,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages one or more spellcheck reply. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a0dc21cfd3f43483cd3ea8f65d3b77817"></a>
+<a class="anchor" id="acf6f7e4d9ea6a819d9ec538642bbd7be"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -138,14 +143,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="interfaceAfsQueryCoderInterface.html">AfsQueryCoderInterface</a>&#160;</td>
-          <td class="paramname"><em>$coder</em> = <code>null</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="interfaceAfsSpellcheckTextVisitorInterface.html">AfsSpellcheckTextVisitorInterface</a>&#160;</td>
-          <td class="paramname"><em>$visitor</em> = <code>null</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="classAfsHelperConfiguration.html">AfsHelperConfiguration</a>&#160;</td>
+          <td class="paramname"><em>$config</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -159,8 +158,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$query</td><td>[in] the query which has generated current reply. </td></tr>
-    <tr><td class="paramname">$coder</td><td>[in] query coder. It is used to generate appropriate links when spellcheck produces replies. Default value is <code>null</code>, so link can not be generated. </td></tr>
-    <tr><td class="paramname">$visitor</td><td>[in] visitor used to format spellcheck result. Default value is <code>null</code>, when not specified default visitor is instanced. </td></tr>
+    <tr><td class="paramname">$config</td><td>[in] helper configuration. </td></tr>
   </table>
   </dd>
 </dl>
@@ -276,7 +274,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 15 2014 16:39:17 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

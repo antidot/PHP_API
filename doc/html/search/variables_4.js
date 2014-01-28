@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['helpers',['HELPERS',['../classAfsHelperFormat.html#afe8b0b488d0cdf90d6dd285e8622bc57',1,'AfsHelperFormat']]]
+  ['date_5ftype',['DATE_TYPE',['../classAfsFacetType.html#a47b8a55a235f1ee53640b2f64cc9cc99',1,'AfsFacetType']]]
 ];

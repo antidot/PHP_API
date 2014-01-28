@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>AfsJsonClientDataHelper Class Reference</title>
+<title>Antidot PHP API: AfsJsonClientDataHelper Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,6 +22,11 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Antidot PHP API
+   &#160;<span id="projectnumber">version 0.5.0</span>
+   </div>
+  </td>
  </tr>
  </tbody>
 </table>
@@ -107,9 +112,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a11a69db643868cafc91c724896668470"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsJsonClientDataHelper.html#a11a69db643868cafc91c724896668470">__construct</a> ($client_data)</td></tr>
 <tr class="memdesc:a11a69db643868cafc91c724896668470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new instance of JSON helper.  <a href="#a11a69db643868cafc91c724896668470">More...</a><br/></td></tr>
 <tr class="separator:a11a69db643868cafc91c724896668470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae591726d0d330ad8554edff062153eb6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsJsonClientDataHelper.html#ae591726d0d330ad8554edff062153eb6">get_text</a> ($name=null, $unused=array(), $visitor=null)</td></tr>
-<tr class="memdesc:ae591726d0d330ad8554edff062153eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves text from JSON content.  <a href="#ae591726d0d330ad8554edff062153eb6">More...</a><br/></td></tr>
-<tr class="separator:ae591726d0d330ad8554edff062153eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a983d1b2c90f5490149653a26c4531a5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsJsonClientDataHelper.html#a983d1b2c90f5490149653a26c4531a5b">get_value</a> ($name=null, $unused=array(), $visitor=null)</td></tr>
+<tr class="memdesc:a983d1b2c90f5490149653a26c4531a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves text from JSON content.  <a href="#a983d1b2c90f5490149653a26c4531a5b">More...</a><br/></td></tr>
+<tr class="separator:a983d1b2c90f5490149653a26c4531a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0719e57ff8b8000e761fd64c3db26516"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsJsonClientDataHelper.html#a0719e57ff8b8000e761fd64c3db26516">get_values</a> ($name=null, $unused=array(), $visitor=null)</td></tr>
+<tr class="memdesc:a0719e57ff8b8000e761fd64c3db26516"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same result as <em>get_value</em> method.  <a href="#a0719e57ff8b8000e761fd64c3db26516">More...</a><br/></td></tr>
+<tr class="separator:a0719e57ff8b8000e761fd64c3db26516"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86d3d731abb89083c30a1f8ca0d45cb3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsJsonClientDataHelper.html#a86d3d731abb89083c30a1f8ca0d45cb3">get_mime_type</a> ()</td></tr>
 <tr class="memdesc:a86d3d731abb89083c30a1f8ca0d45cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve client data's mime type.  <a href="#a86d3d731abb89083c30a1f8ca0d45cb3">More...</a><br/></td></tr>
 <tr class="separator:a86d3d731abb89083c30a1f8ca0d45cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,12 +181,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae591726d0d330ad8554edff062153eb6"></a>
+<a class="anchor" id="a983d1b2c90f5490149653a26c4531a5b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">get_text </td>
+          <td class="memname">get_value </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$name</em> = <code>null</code>, </td>
@@ -250,14 +258,65 @@ Public Member Functions</h2></td></tr>
 }
 </pre> Call to <code>get_text('')</code> will return <pre class="fragment">some text </pre>. </dd></dl>
 
-<p>Implements <a class="el" href="interfaceAfsClientDataHelperInterface.html#ad27ecf7d7249fafa52a6e876ca7f8bf5">AfsClientDataHelperInterface</a>.</p>
+<p>Implements <a class="el" href="interfaceAfsClientDataHelperInterface.html#af6154cf03dcabc93323c9cae5042b5ce">AfsClientDataHelperInterface</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0719e57ff8b8000e761fd64c3db26516"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_values </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$name</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$unused</em> = <code>array()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$visitor</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Same result as <em>get_value</em> method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$name</td><td>[in] name of the first element to retrieve (default=null, all JSON content is returned as text). Empty string allows to retrieve text content correctly formatted when highlight is activated. </td></tr>
+    <tr><td class="paramname">$unused</td><td>Hum... </td></tr>
+    <tr><td class="paramname">$visitor</td><td>[in] instance of <em><a class="el" href="interfaceAfsTextVisitorInterface.html" title="Text visitor interface to be used along with AfsText or one of its derived class. ...">AfsTextVisitorInterface</a></em> used to format appropriately text content when highlight has been activated (default=null, <em><a class="el" href="classAfsTextVisitor.html" title="Default implementation for text visitor. ">AfsTextVisitor</a></em> is used).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>formatted text.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classAfsNoResultException.html" title="Exception raised when provided path query has no result. ">AfsNoResultException</a></td><td>when required JSON element is not defined. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="interfaceAfsClientDataHelperInterface.html#aa9cba842bde9577ee15d95958d189035">AfsClientDataHelperInterface</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 15 2014 16:39:17 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

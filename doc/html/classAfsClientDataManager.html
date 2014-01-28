@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>AfsClientDataManager Class Reference</title>
+<title>Antidot PHP API: AfsClientDataManager Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,6 +22,11 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Antidot PHP API
+   &#160;<span id="projectnumber">version 0.5.0</span>
+   </div>
+  </td>
  </tr>
  </tbody>
 </table>
@@ -99,9 +104,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af8979df57ad08cb3fc615096b02d1f3f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsClientDataManager.html#af8979df57ad08cb3fc615096b02d1f3f">get_clientdata</a> ($id='main')</td></tr>
 <tr class="memdesc:af8979df57ad08cb3fc615096b02d1f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves client data helper.  <a href="#af8979df57ad08cb3fc615096b02d1f3f">More...</a><br/></td></tr>
 <tr class="separator:af8979df57ad08cb3fc615096b02d1f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a355c103bf6a845dbf4b65080349941d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsClientDataManager.html#a355c103bf6a845dbf4b65080349941d5">get_text</a> ($id, $name=null, $context=array(), $formatter=null)</td></tr>
-<tr class="memdesc:a355c103bf6a845dbf4b65080349941d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve text from the appropriate client data.  <a href="#a355c103bf6a845dbf4b65080349941d5">More...</a><br/></td></tr>
-<tr class="separator:a355c103bf6a845dbf4b65080349941d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ba9549eb134564963cddd9cd0d10cdb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsClientDataManager.html#a9ba9549eb134564963cddd9cd0d10cdb">get_value</a> ($id, $name=null, $context=array(), $formatter=null)</td></tr>
+<tr class="memdesc:a9ba9549eb134564963cddd9cd0d10cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves value from the appropriate client data.  <a href="#a9ba9549eb134564963cddd9cd0d10cdb">More...</a><br/></td></tr>
+<tr class="separator:a9ba9549eb134564963cddd9cd0d10cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7bc3b75f5e79b2c588bc4686413de55"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsClientDataManager.html#ab7bc3b75f5e79b2c588bc4686413de55">get_values</a> ($id, $name=null, $context=array(), $formatter=null)</td></tr>
+<tr class="memdesc:ab7bc3b75f5e79b2c588bc4686413de55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves value(s) from the appropriate client data.  <a href="#ab7bc3b75f5e79b2c588bc4686413de55">More...</a><br/></td></tr>
+<tr class="separator:ab7bc3b75f5e79b2c588bc4686413de55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manage client data. </p>
@@ -164,12 +172,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a355c103bf6a845dbf4b65080349941d5"></a>
+<a class="anchor" id="a9ba9549eb134564963cddd9cd0d10cdb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">get_text </td>
+          <td class="memname">get_value </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>$id</em>, </td>
@@ -200,11 +208,61 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieve text from the appropriate client data. </p>
+<p>Retrieves value from the appropriate client data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$id</td><td>[in] client data id. </td></tr>
-    <tr><td class="paramname">$name</td><td>[in] name or XPath of the required element for JSON respectively XML clent data. </td></tr>
+    <tr><td class="paramname">$name</td><td>[in] name or XPath of the required element for JSON respectively XML client data. </td></tr>
+    <tr><td class="paramname">$context</td><td>[in] context used to look for text with specified name. </td></tr>
+    <tr><td class="paramname">$formatter</td><td>[in] used for highlighted content (default=null, appropriate formatter is instanced for JSON and XML).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>client data as text. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab7bc3b75f5e79b2c588bc4686413de55"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_values </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$name</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$context</em> = <code>array()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$formatter</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves value(s) from the appropriate client data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$id</td><td>[in] client data id. </td></tr>
+    <tr><td class="paramname">$name</td><td>[in] name or XPath of the required element for JSON respectively XML client data. </td></tr>
     <tr><td class="paramname">$context</td><td>[in] context used to look for text with specified name. </td></tr>
     <tr><td class="paramname">$formatter</td><td>[in] used for highlighted content (default=null, appropriate formatter is instanced for JSON and XML).</td></tr>
   </table>
@@ -217,7 +275,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 15 2014 16:39:17 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

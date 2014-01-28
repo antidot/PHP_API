@@ -1,7 +1,10 @@
 var searchData=
 [
+  ['check_5ffacet',['check_facet',['../classAfsFacetManager.html#ac9ca08235137f0a2a66dd6f25a1dad68',1,'AfsFacetManager']]],
+  ['check_5for_5fadd_5ffacet',['check_or_add_facet',['../classAfsFacetManager.html#a5431a0eb5b5d14c8d7c47643cede92a2',1,'AfsFacetManager']]],
   ['check_5funicity',['check_unicity',['../classAfsCoderBase.html#a6438a7ee07869af4f765c9419133f5c1',1,'AfsCoderBase']]],
+  ['check_5fvalue',['check_value',['../classBasicEnum.html#a17fcbb019da0d5c4605962b913f9441f',1,'BasicEnum']]],
   ['create',['create',['../classAfsClientDataHelperFactory.html#af90dd0670cd108f120129827761e7414',1,'AfsClientDataHelperFactory\create()'],['../classAfsReplyHelperFactory.html#a7368ed4a3f4879904c91db054f238140',1,'AfsReplyHelperFactory\create()']]],
-  ['create_5felements',['create_elements',['../classAfsFacetElementBuilder.html#a2f7aef4c40e8238a1cde226277281b82',1,'AfsFacetElementBuilder']]],
+  ['create_5felements',['create_elements',['../classAfsFacetElementBuilder.html#a90959429cf1ed259a00086b902f773f9',1,'AfsFacetElementBuilder']]],
   ['create_5ffrom_5fparameters',['create_from_parameters',['../classAfsQuery.html#a233968501372f4c3569e206bae2b69b4',1,'AfsQuery']]]
 ];
