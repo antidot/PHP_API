@@ -40,13 +40,14 @@ class AfsResponseHelper extends AfsHelperBase
     {
         $this->config = $config;
         $this->header = new AfsHeaderHelper($response->header);
-        $query->update_user_and_session_id($this->header->get_user_id(),
-            $this->header->get_session_id());
-
-        $this->spellchecks = new AfsSpellcheckManager($query, $config);
-        $this->concepts = new AfsConceptManager();
 
         if (property_exists($response, 'replySet')) {
+            $query->update_user_and_session_id($this->header->get_user_id(),
+                $this->header->get_session_id());
+
+            $this->spellchecks = new AfsSpellcheckManager($query, $config);
+            $this->concepts = new AfsConceptManager();
+
             $this->initialize_replysets($response->replySet, $query, $config);
         } elseif ($this->header->in_error()) {
             $this->error = $this->header->get_error();
@@ -189,9 +190,13 @@ class AfsResponseHelper extends AfsHelperBase
      */
     public function format()
     {
-        return array('duration' => $this->get_duration(),
-                     'replysets' => $this->get_replysets(),
-                     'spellchecks' => $this->get_spellchecks());
+        if ($this->in_error()) {
+            return array('error' => $this->get_error_msg());
+        } else {
+            return array('duration' => $this->get_duration(),
+                'replysets' => $this->get_replysets(),
+                'spellchecks' => $this->get_spellchecks());
+        }
     }
 
     /** @brief Check whether an error has been raised.
