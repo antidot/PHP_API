@@ -98,11 +98,13 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
     private function get_http_header()
     {
         $header = array();
-        if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
-            $header[] = 'X-Forwarded-For: ' . $_SERVER['HTTP_X_FORWARDED_FOR']
-                    . ', ' . $_SERVER['REMOTE_ADDR'];
-        } else {
-            $header[] = 'X-Forwarded-For: ' . $_SERVER['REMOTE_ADDR'];
+        if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+            if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+                $header[] = 'X-Forwarded-For: ' . $_SERVER['HTTP_X_FORWARDED_FOR']
+                        . ', ' . $_SERVER['REMOTE_ADDR'];
+            } else {
+                $header[] = 'X-Forwarded-For: ' . $_SERVER['REMOTE_ADDR'];
+            }
         }
 
         if (array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
