@@ -4,6 +4,8 @@
 # AFS © Antidot 2013
 #
 #*******************************************************************************
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 function vercomp () {
 	if [[ $1 == $2 ]]
 	then
@@ -51,4 +53,9 @@ then
     echo "[WARNING] You should consider to use a more recent version of doxygen.[0m"
 fi
 
-doxygen afs_lib.doxygen
+DOX_FILE="${DIR}/../afs_lib.doxygen"
+if [ -f "${DOX_FILE}" ]
+then
+    sed -i -e "s/^\(PROJECT_NUMBER.*=[[:space:]]*\).*$/\1\"version $(${DIR}/print_version.sh)\"/" "${DOX_FILE}"
+    doxygen "${DOX_FILE}"
+fi
