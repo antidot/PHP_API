@@ -28,7 +28,7 @@ class AfsPafConnector extends AfsConnectorBase
      * @exception InvalidArgumentException invalid scheme parameter provided.
      */
     public function __construct($host, AfsService $service, $paf_name,
-        AfsAuthentication &$authentication, $scheme=AFS_SCHEME_HTTP)
+        AfsAuthentication $authentication, $scheme=AFS_SCHEME_HTTP)
     {
         if ($scheme != AFS_SCHEME_HTTP && $scheme != AFS_SCHEME_HTTPS) {
             throw InvalidArgumentException('PaF connector support only HTTP '
@@ -38,7 +38,7 @@ class AfsPafConnector extends AfsConnectorBase
         $this->host = $host;
         $this->service = $service;
         $this->paf_name = $paf_name;
-        $this->authentication = &$authentication;
+        $this->authentication = $authentication;
     }
 
     /** @brief Upload one document to the PaF.

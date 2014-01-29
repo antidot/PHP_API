@@ -78,7 +78,8 @@ class SearchConnectorTest extends PHPUnit_Framework_TestCase
         $connector = new Connector('foo', new AfsService(42));
         $query = new AfsQuery();
         $url = $connector->build_url($query->get_parameters());
-        $this->assertFalse(strpos($url, urlencode(get_api_version())) === False);
+        $this->assertFalse(strpos($url, urlencode(get_api_version())) === False,
+            '"'.urlencode(get_api_version()).'" should be in: '.$url);
     }
 
     public function testNoUserAgent()

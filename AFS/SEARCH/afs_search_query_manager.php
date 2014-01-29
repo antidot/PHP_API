@@ -16,10 +16,10 @@ class AfsSearchQueryManager
      *        appropriate @a AfsFacet defined.
      */
     public function __construct(AfsConnectorInterface $connector,
-        AfsFacetManager &$facet_mgr)
+        AfsFacetManager $facet_mgr)
     {
         $this->connector = $connector;
-        $this->facet_mgr = &$facet_mgr;
+        $this->facet_mgr = $facet_mgr;
     }
 
     /** @brief Send query to AFS search engine.
