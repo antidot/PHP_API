@@ -17,4 +17,4 @@ abstract class AfsFacetLayout extends BasicEnum
     const INTERVAL = 'INTERVAL';
 }
 
-?>
+

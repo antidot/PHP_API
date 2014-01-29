@@ -100,4 +100,4 @@ class AfsQueryCoder implements AfsQueryCoderInterface
     }
 }
 
-?>
+

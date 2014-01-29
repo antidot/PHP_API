@@ -79,4 +79,4 @@ class textVisitorTest extends PHPUnit_Framework_TestCase
     }
 }
 
-?>
+

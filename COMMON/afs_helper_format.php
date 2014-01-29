@@ -18,4 +18,4 @@ abstract class AfsHelperFormat extends BasicEnum
     const ARRAYS = 1;
 }
 
-?>
+

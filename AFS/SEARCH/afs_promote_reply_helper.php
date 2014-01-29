@@ -75,4 +75,4 @@ class AfsPromoteReplyHelper extends AfsBaseReplyHelper
     }
 }
 
-?>
+

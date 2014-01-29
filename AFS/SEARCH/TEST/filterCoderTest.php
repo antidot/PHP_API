@@ -183,5 +183,5 @@ class FilterCoderTest extends PHPUnit_Framework_TestCase
     }
 }
 
-?>
+
 

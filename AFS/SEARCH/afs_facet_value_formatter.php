@@ -38,4 +38,4 @@ class AfsQuoteFacetValueIdFormatter implements AfsFacetValueIdFormatter
     }
 }
 
-?>
+

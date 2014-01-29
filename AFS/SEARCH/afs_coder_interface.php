@@ -28,4 +28,4 @@ interface AfsCoderInterface
     public function decode($parameters);
 }
 
-?>
+

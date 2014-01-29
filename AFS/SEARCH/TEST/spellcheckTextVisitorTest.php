@@ -66,4 +66,4 @@ class spellcheckTextVisitorTest extends PHPUnit_Framework_TestCase
     }
 }
 
-?>
+

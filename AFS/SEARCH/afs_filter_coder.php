@@ -90,4 +90,4 @@ class AfsFilterCoder extends AfsCoderBase implements AfsCoderInterface
             . '|' . preg_quote($this->escape) . ')', '$1', $value);
     }
 }
-?>
+

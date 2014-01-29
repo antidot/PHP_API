@@ -128,4 +128,4 @@ class FacetTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($facet->is_similar_to($other));
     }
 }
-?>
+

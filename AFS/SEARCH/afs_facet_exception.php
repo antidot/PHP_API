@@ -12,4 +12,4 @@ class AfsUndefinedFacetException extends AfsFacetException
 class AfsInvalidFacetParameterException extends AfsFacetException
 { }
 
-?>
+

@@ -72,4 +72,4 @@ class AfsUserSessionManager
     }
 }
 
-?>
+

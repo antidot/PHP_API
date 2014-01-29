@@ -19,4 +19,4 @@ abstract class AfsFacetType extends BasicEnum
     const BOOL_TYPE = 'BOOL';
 }
 
-?>
+

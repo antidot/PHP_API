@@ -14,4 +14,4 @@ abstract class AfsFacetCombination extends BasicEnum
     const AND_MODE = 'and';
 }
 
-?>
+

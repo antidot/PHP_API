@@ -43,4 +43,4 @@ interface AfsQueryCoderInterface
     public function build_query(array $params);
 }
 
-?>
+

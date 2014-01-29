@@ -120,4 +120,4 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
     }
 }
 
-?>
+

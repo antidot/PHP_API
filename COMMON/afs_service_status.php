@@ -20,4 +20,4 @@ abstract class AfsServiceStatus extends BasicEnum
     const ARCHIVE = 'archive';
 }
 
-?>
+

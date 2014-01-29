@@ -21,4 +21,4 @@ abstract class AfsHelperBase
     }
 }
 
-?>
+

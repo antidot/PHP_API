@@ -84,4 +84,4 @@ class AfsBaseReplyHelper extends AfsHelperBase
 
 }
 
-?>
+

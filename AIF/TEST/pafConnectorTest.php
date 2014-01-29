@@ -17,4 +17,4 @@ class PafConnectorTest extends PHPUnit_Framework_TestCase
     }
 }
 
-?>
+

@@ -144,4 +144,4 @@ class FeedCoderTest extends PHPUnit_Framework_TestCase
     }
 }
 
-?>
+

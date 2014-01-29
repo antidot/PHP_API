@@ -12,4 +12,4 @@ interface AfsConnectorInterface
     public function send(array $parameters);
 }
 
-?>
+

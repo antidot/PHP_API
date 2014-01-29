@@ -18,4 +18,4 @@ abstract class AfsFacetMode extends BasicEnum
     const ADD = 'add';
 }
 
-?>
+

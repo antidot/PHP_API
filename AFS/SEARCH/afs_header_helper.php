@@ -74,4 +74,4 @@ class AfsHeaderHelper extends AfsHelperBase
     }
 }
 
-?>
+

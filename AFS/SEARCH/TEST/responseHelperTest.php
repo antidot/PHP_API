@@ -310,4 +310,4 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
     }
 }
 
-?>
+

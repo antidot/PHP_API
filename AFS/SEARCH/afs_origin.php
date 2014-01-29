@@ -46,4 +46,4 @@ abstract class AfsOrigin extends BasicEnum
     const PROMOTE = 'PROMOTE';
 }
 
-?>
+

@@ -15,5 +15,5 @@ abstract class AfsFacetStickyness extends BasicEnum
     const NON_STICKY = 'non sticky';
 }
 
-?>
+
 

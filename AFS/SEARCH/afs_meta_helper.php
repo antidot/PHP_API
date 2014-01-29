@@ -71,4 +71,4 @@ class AfsMetaHelper extends AfsHelperBase
     }
 }
 
-?>
+

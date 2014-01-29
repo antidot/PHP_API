@@ -24,4 +24,4 @@ class AfsPromoteReplysetHelper extends AfsBaseReplysetHelper
     }
 }
 
-?>
+

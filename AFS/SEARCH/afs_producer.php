@@ -23,4 +23,4 @@ abstract class AfsProducer extends BasicEnum
   const SEARCH_SLAVE = 'SEARCH_SLAVE';
 }
 
-?>
+

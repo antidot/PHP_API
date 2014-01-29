@@ -27,4 +27,4 @@ class AfsSpellcheckTextVisitor implements AfsSpellcheckTextVisitorInterface
     }
 }
 
-?>
+

@@ -43,4 +43,4 @@ class DocumentManagerTest extends PHPUnit_Framework_TestCase
     }
 }
 
-?>
+

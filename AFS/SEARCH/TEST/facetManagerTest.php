@@ -121,4 +121,4 @@ class FacetManagerTest extends PHPUnit_Framework_TestCase
     }
 }
 
-?>
+

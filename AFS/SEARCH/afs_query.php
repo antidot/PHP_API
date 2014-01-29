@@ -679,4 +679,4 @@ class AfsQuery
     /**  @} */
 }
 
-?>
+

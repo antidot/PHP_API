@@ -212,4 +212,4 @@ class AfsSpellcheckHelper extends AfsHelperBase
     }
 }
 
-?>
+

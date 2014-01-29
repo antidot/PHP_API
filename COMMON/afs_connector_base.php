@@ -40,4 +40,4 @@ abstract class AfsConnectorBase
     }
 }
 
-?>
+

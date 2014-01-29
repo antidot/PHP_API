@@ -36,4 +36,4 @@ class AfsTextVisitor implements AfsTextVisitorInterface
     }
 }
 
-?>
+
