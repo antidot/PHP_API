@@ -222,6 +222,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('The <b>title</b> 81', $replies[1]->title);
         // and so on...
         
+        $this->assertTrue($helper->has_pager());
         $pager = $helper->get_pager();
         $this->assertEquals($pager->get_next()->get_page(), '3');
         $this->assertEquals($pager->get_previous()->get_page(), '1');
@@ -449,6 +450,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('The <b>title</b> 81', $replies[1]->title);
         // and so on...
         
+        $this->assertTrue($helper->has_pager());
         $pager = $helper->get_pager();
         $this->assertEquals($pager->get_next(), 'foo.php?replies=2&page=3&query=title');
         $this->assertEquals($pager->get_previous(), 'foo.php?replies=2&query=title');
@@ -675,10 +677,133 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('The <b>title</b> 81', $replies[1]['title']);
         // and so on...
         
+        $this->assertTrue($helper->has_pager());
         $pager = $helper->get_pager();
         $this->assertEquals($pager['pages']['next'], 'foo.php?replies=2&page=3&query=title');
         $this->assertEquals($pager['pages']['previous'], 'foo.php?replies=2&query=title');
         // and so on...
+    }
+
+    public function testSimpleReplyWithoutPagerWithoutFacet()
+    {
+        $input = json_decode('{
+            "header": {
+                "query": {
+                    "userId": "afd070b6-4315-40cc-975d-747e28bf132a",
+                    "sessionId": "5bf5642d-a262-4608-9901-45aa6e87325d",
+                    "date": "2013-10-02T15:48:41+0200",
+                    "queryParam": [
+                        {
+                            "name": "afs:service",
+                            "value": "42"
+                        }
+                    ],
+                    "mainCtx": {
+                        "textQuery": "title"
+                    },
+                    "textQuery": "title"
+                },
+                "user": {
+                    "requestMethod": "GET",
+                    "agent": "Mozilla/5.0 (X11; Linux x86_64; rv:23.0) Gecko/20100101 Firefox/23.0 Iceweasel/23.0",
+                    "address": "127.0.0.1",
+                    "output": {
+                        "format": "JSON",
+                        "encoding": "gzip",
+                        "charset": "UTF-8"
+                    }
+                },
+                "performance": {
+                    "durationMs": 666
+                },
+                "info": { }
+            },
+            "replySet": [
+                {
+                    "meta": {
+                        "uri": "Test",
+                        "totalItems": 200,
+                        "totalItemsIsExact": true,
+                        "pageItems": 2,
+                        "firstPageItem": 3,
+                        "lastPageItem": 4,
+                        "durationMs": 42,
+                        "firstPaFId": 1,
+                        "lastPaFId": 1,
+                        "producer": "SEARCH"
+                    },
+                    "content": {
+                        "reply": [
+                            {
+                                "docId": 198,
+                                "uri": "http://foo.bar.baz/116",
+                                "title": [
+                                    {
+                                        "afs:t": "KwicString",
+                                            "text": "The "
+                                    },
+                                    {
+                                        "afs:t": "KwicMatch",
+                                            "match": "title"
+                                    },
+                                    {
+                                        "afs:t": "KwicString",
+                                            "text": " 116"
+                                    }
+                                ],
+                                "abstract": [
+                                    {
+                                        "afs:t": "KwicString",
+                                        "text": "viens de tomber a monté d\'un nouveau cran dans l\'étrangeté. Jamais dans l\'Histoire de l\'humanité il n\'a existé de civilisation sans enfants. Je tente d\'en imaginer les conséquences. George, qui m\'a deviné, énumère: - Comme nous ne nous reproduisons pas, la moitié féminine de l\'humanité"
+                                    },
+                                    {
+                                        "afs:t": "KwicTruncate"
+                                    }
+                                ],
+                                "relevance": {
+                                    "rank": 3
+                                },
+                                "clientData": [
+                                    {
+                                        "contents": "<clientdata>{&quot;data&quot;: [{&quot;data1&quot;: &quot;data 0&quot;}, {&quot;data1&quot;: &quot;data 1&quot;}, {&quot;m1&quot;: &quot;m 1&quot;, &quot;m0&quot;: &quot;m 0&quot;, &quot;m3&quot;: &quot;m 3&quot;, &quot;m2&quot;: &quot;m 2&quot;}]}</clientdata>",
+                                        "id": "main",
+                                        "mimeType": "text/xml"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
+
+        $facet_mgr = $config->get_facet_manager();
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
+
+        $query = new AfsQuery();
+        $query = $query->set_query('title');
+        $query = $query->set_replies(1);
+        $query = $query->set_page(3);
+
+        $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
+
+        $meta = $helper->get_meta();
+        $this->assertEquals('Test', $meta->get_feed());
+        $this->assertEquals('200', $meta->get_total_replies());
+        $this->assertEquals('42', $meta->get_duration());
+        $this->assertEquals('SEARCH', $meta->get_producer());
+
+        $this->assertFalse($helper->has_facet());
+
+        $this->assertEquals(1, $helper->get_nb_replies());
+        $replies = $helper->get_replies();
+        $this->assertEquals('The <b>title</b> 116', $replies[0]->title);
+        // and so on...
+        
+        $this->assertFalse($helper->has_pager());
     }
 }
 

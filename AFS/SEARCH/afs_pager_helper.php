@@ -14,6 +14,9 @@ class AfsPagerHelper extends AfsHelperBase
     private $pager = null;
     private $query = null;
     private $config = null;
+    const PREVIOUS_NAME = 'previousPage';
+    const NEXT_NAME = 'nextPage';
+    const CURRENT_NAME = 'currentPage';
 
     /** @brief Construct helper with pager and current query.
      *
@@ -28,7 +31,7 @@ class AfsPagerHelper extends AfsHelperBase
     public function __construct($pager, AfsQuery $query,
         AfsHelperConfiguration $config)
     {
-        if (! property_exists($pager, 'currentPage')) {
+        if (! property_exists($pager, AfsPagerHelper::CURRENT_NAME)) {
             throw new InvalidArgumentException('Pager is of the wrong type.');
         }
         $this->pager = $pager;
@@ -36,12 +39,12 @@ class AfsPagerHelper extends AfsHelperBase
         $this->config = $config;
     }
 
-    /** @brief Retrieve all pages.
+    /** @brief Retrieves all numbered pages.
      *
-     * List all pages in ascending order. A query or a link is associated with
+     * List all pages in ascending order. A query or a URL is associated with
      * each page depending whether no coder or valid one has been provided.
      *
-     * @return array of page => query or link.
+     * @return array of page => query or URL.
      */
     public function get_pages()
     {
@@ -55,7 +58,7 @@ class AfsPagerHelper extends AfsHelperBase
         return $result;
     }
 
-    /** @brief Retrieve current page number.
+    /** @brief Retrieves current page number.
      * @return Current page number.
      */
     public function get_current_no()
@@ -63,47 +66,90 @@ class AfsPagerHelper extends AfsHelperBase
         return $this->pager->currentPage;
     }
 
-    /** @brief Retrieve query for previous page.
+    /** @brief Checks whether previous page is present in the pager.
+     * @return @c True when previous page exists, @c false otherwise.
+     */
+    public function has_previous()
+    {
+        if (property_exists($this->pager, AfsPagerHelper::PREVIOUS_NAME)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /** @brief Retrieves query for previous page.
      * @return query for previous page.
      * @exception OutOfBoundsException when there is no previous page.
      */
     public function get_previous()
     {
-        return $this->get_typed('previousPage');
+        return $this->get_typed(AfsPagerHelper::PREVIOUS_NAME);
     }
 
-    /** @brief Retrieve query for next page.
+    /** @brief Checks whether next page is present in the pager.
+     * @return @c True when next page exists, @c false otherwise.
+     */
+    public function has_next()
+    {
+        if (property_exists($this->pager, AfsPagerHelper::NEXT_NAME)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /** @brief Retrieves query for next page.
      * @return query for next page.
      * @exception OutOfBoundsException when there is no next page.
      */
     public function get_next()
     {
-        return $this->get_typed('nextPage');
+        return $this->get_typed(AfsPagerHelper::NEXT_NAME);
     }
 
-    /** @brief Retrieve pages as array.
+    /** @brief Retrieves pages as a simple array with key/value pairs.
      *
-     * All data are store in <tt>key => value</tt> format:
-     * @li <tt>&lt;page number></tt>: query or link associated to this page
-     * number,
-     * @li @c next: query or link for the next page (if it exists),
-     * @li @c previous: query or link for the previous page (if it exists),
-     * @li @c current: current page number.
+     * This include @c previous and @c next pages if they are present in AFS
+     * search engine reply.
+     *
+     * All data are stored in <tt>key => value</tt> format:
+     * <ul>
+     *   <li><tt>previous</tt>: (if present) query or URL to previous page,</li>
+     *   <li><tt>&lt;page number></tt>: query or URL for each page number,</li>
+     *   <li><tt>next</tt>: (if present) query or URL to next page,</li>
+     * </ul>
+     *
+     * @return 
+     */
+    public function get_all_pages()
+    {
+        $pages = array();
+        if ($this->has_previous()) {
+            $pages['previous'] = $this->get_previous();
+        }
+        $pages += $this->get_pages();
+        if ($this->has_next()) {
+            $pages['next'] = $this->get_next();
+        }
+        return $pages;
+    }
+
+    /** @brief Retrieves pages as array.
+     *
+     * All data are stored in <tt>key => value</tt> format:
+     * <ul>
+     *   <li><tt>pages</tt>: list of pages (see AfsPagerHelper::get_pages 
+     *       for details on the format)</li>
+     *   <li><tt>current</tt>: current page number.</li>
+     * </ul>
+     *
+     * Query is returned for each page when no query coder has been provided,
+     * otherwise query coder is used to produce appropriate URL.
      *
      * @return array filled with key and values.
      */
     public function format()
     {
-        $pages = array();
-        try {
-            $pages['previous'] = $this->get_previous();
-        } catch (OutOfBoundsException $e) { }
-        $pages += $this->get_pages();
-        try {
-            $pages['next'] = $this->get_next();
-        } catch (OutOfBoundsException $e) { }
-
-        return array('pages' => $pages,
+        return array('pages' => $this->get_all_pages(),
                      'current' => $this->get_current_no());
     }
 

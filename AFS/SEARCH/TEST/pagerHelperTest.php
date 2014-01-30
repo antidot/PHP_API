@@ -152,6 +152,131 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($format['pages'][3], 'foo.php?replies=10&page=3');
         $this->assertEquals($format['current'], 2);
     }
+
+    public function testRetrieveAllPagesWithoutPreviousAndNext()
+    {
+        $input = json_decode('{
+            "pager": {
+                "currentPage": 111,
+                "page": [
+                    1,
+                    2
+                ]
+            }
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_query_coder(new AfsQueryCoder('foo.php'));
+        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
+        $this->assertEquals(111, $helper->get_current_no());
+
+        $pages = $helper->get_all_pages();
+        $this->assertEquals(2, count($pages));
+        $key_value = each($pages);
+        $this->assertEquals('1', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10', $key_value['value']);
+        $key_value = each($pages);
+        $this->assertEquals('2', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10&page=2', $key_value['value']);
+    }
+
+    public function testRetrieveAllPagesWithPreviousWithoutNext()
+    {
+        $input = json_decode('{
+            "pager": {
+                "previousPage": 42,
+                "currentPage": 111,
+                "page": [
+                    1,
+                    2
+                ]
+            }
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_query_coder(new AfsQueryCoder('foo.php'));
+        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
+        $this->assertEquals(111, $helper->get_current_no());
+
+        $pages = $helper->get_all_pages();
+        $this->assertEquals(3, count($pages));
+        $key_value = each($pages);
+        $this->assertEquals('previous', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10&page=42', $key_value['value']);
+        $key_value = each($pages);
+        $this->assertEquals('1', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10', $key_value['value']);
+        $key_value = each($pages);
+        $this->assertEquals('2', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10&page=2', $key_value['value']);
+    }
+
+    public function testRetrieveAllPagesWithoutPreviousWithNext()
+    {
+        $input = json_decode('{
+            "pager": {
+                "nextPage": 666,
+                "currentPage": 111,
+                "page": [
+                    1,
+                    2
+                ]
+            }
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_query_coder(new AfsQueryCoder('foo.php'));
+        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
+        $this->assertEquals(111, $helper->get_current_no());
+
+        $pages = $helper->get_all_pages();
+        $this->assertEquals(3, count($pages));
+        $key_value = each($pages);
+        $this->assertEquals('1', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10', $key_value['value']);
+        $key_value = each($pages);
+        $this->assertEquals('2', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10&page=2', $key_value['value']);
+        $key_value = each($pages);
+        $this->assertEquals('next', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10&page=666', $key_value['value']);
+    }
+
+    public function testRetrieveAllPagesWithPreviousAndNext()
+    {
+        $input = json_decode('{
+            "pager": {
+                "previousPage": 42,
+                "nextPage": 666,
+                "currentPage": 111,
+                "page": [
+                    1,
+                    2
+                ]
+            }
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_query_coder(new AfsQueryCoder('foo.php'));
+        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
+        $this->assertEquals(111, $helper->get_current_no());
+
+        $pages = $helper->get_all_pages();
+        $this->assertEquals(4, count($pages));
+        $key_value = each($pages);
+        $this->assertEquals('previous', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10&page=42', $key_value['value']);
+        $key_value = each($pages);
+        $this->assertEquals('1', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10', $key_value['value']);
+        $key_value = each($pages);
+        $this->assertEquals('2', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10&page=2', $key_value['value']);
+        $key_value = each($pages);
+        $this->assertEquals('next', $key_value['key']);
+        $this->assertEquals('foo.php?replies=10&page=666', $key_value['value']);
+    }
+
 }
 
 

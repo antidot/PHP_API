@@ -53,7 +53,7 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
 
 
     /** @brief Check whether facets are defined.
-     * @return true when at least one facet is defined, false otherwise.
+     * @return @c True when at least one facet is defined, @c false otherwise.
      */
     public function has_facet()
     {
@@ -67,7 +67,18 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
         return $this->facets;
     }
 
-    /** @brief Retrieve pager object.
+    /** @brief Checks whether pager is defined.
+     * @return @c True when pager exists, @c false otherwise.
+     */
+    public function has_pager()
+    {
+        if (is_null($this->pager)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    /** @brief Retrieves pager object.
      * @return instance of @a AfsPagerHelper.
      */
     public function get_pager()
