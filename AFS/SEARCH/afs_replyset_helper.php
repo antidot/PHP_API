@@ -21,8 +21,6 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
     /** @brief Construct new replyset helper instance.
      *
      * @param $reply_set [in] one reply from decoded json reply.
-     * @param $facet_mgr [in] @a AfsFacetManager used to create appropriate
-     *        queries.
      * @param $query [in] query which has produced current reply.
      * @param $config [in] helper configuration object.
      */

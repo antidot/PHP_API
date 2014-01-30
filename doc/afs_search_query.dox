@@ -48,7 +48,7 @@
  *
  * \section asq_facet_manager Facets management
  *
- * Facets must be declared and configured by instantiating @a AfsFacet. The two
+ * Facets can be declared and configured by instantiating @a AfsFacet. The two
  * most important parameters are the facet id and the facet type. These
  * parameters should correspond to the ones provided in the @c feed description
  * file on the PaF side.

@@ -1,0 +1,64 @@
+/** \page detailled_integration_example_with_template Detailled integration example with PHP template engine
+ *
+ * \tableofcontents
+ *
+ * \section ie_prerequisite Prerequisites
+ *
+ * In order to test this example, some components are required. Details are
+ * provided in following link: @ref template_prerequisites
+ *
+ *
+ * \section ie_example Set up example step by step
+ *
+ * Most of the steps to set up this example are detailed in @ref
+ * afs_search_coder, @ref afs_search_query and @ref afs_search_reply.
+ *
+ * Here focus is given on missing steps in order to make the example fully
+ * functional.
+ *
+ *
+ * \subsection ie_example_init Initialization
+ *
+ * It should be the first step. Antidot PHP API should be loaded from PHP
+ * example script. It is not necessary to load each PHP script as one main
+ * script does it for you:
+ * @snippet full_example.php Include lib
+ *
+ * Then Twig should also be loaded and initialized. Depending on your
+ * installation choices, following example may be modified to reflect your
+ * installation paths:
+ * @snippet full_example.php Twig init
+ *
+ *
+ * \subsection ie_example_final Generate HTML page
+ *
+ * This is the last step.<br/>
+ * Main Twig template is loaded with appropriate parameters and then rendered:
+ * @snippet full_example.php Twig template
+ * This code brevity is obtained thanks to special array formatting of reply
+ * helpers (see @a AfsHelperFormat::ARRAYS).
+ *
+ *
+ * \subsection ie_example_full Full example
+ *
+ * The full example is also available here: @ref full_example.php
+ *
+ *
+ * \section ie_templates PHP template examples
+ *
+ * Various templates are detailled in following link:
+ * @ref templates_in_details
+ *
+ *
+ * \section ie_conclusion Example conclusion
+ *
+ * Provided example is composed of about 28 lines of PHP code. About third of
+ * these lines are related to facet configuration. So in few PHP code lines
+ * and some PHP templates, you can get a fully functional Web interface for your
+ * Antidot search service.
+ *
+ *
+ * \section ie_further Go further
+ *
+ * Modify this example and templates then test on your own service!
+ */

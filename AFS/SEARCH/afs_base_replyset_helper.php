@@ -4,6 +4,7 @@ require_once 'AFS/SEARCH/afs_producer.php';
 require_once 'COMMON/afs_helper_base.php';
 require_once 'COMMON/afs_helper_format.php';
 
+/** @brief Base class for replyset helpers. */
 class AfsBaseReplysetHelper extends AfsHelperBase
 {
     protected $meta = null;

@@ -1,0 +1,47 @@
+/** \page template_prerequisites Prerequisites for integration examples with PHP template engine
+ *
+ * \tableofcontents
+ *
+ * \section tp_http_server HTTP server
+ *
+ * Operationnal HTTP server with PHP support is mandatory. Supported PHP version
+ * should be at least 5.2.13
+ *
+ *
+ * \section tp_twig Twig template engine
+ *
+ * Twig is a flexible, fast, and secure template engine for PHP. It is used here
+ * to simplify integration example.
+ *
+ * It can be downloaded from
+ * http://pear.twig-project.org/get/Twig-1.14.1.tgz
+ *
+ * On GNU/Linux, necessary files can be uncompressed in
+ * <tt>/var/www/php-example/</tt>.
+ *
+ *
+ * \section tp_bootstrap Bootstrap (optional)
+ *
+ * Bootstrap is a front-end framework. It is used to generate pretty HTML pages
+ * with little effort.
+ *
+ * Necessary files can be downloaded and put to appropriate place. Then
+ * <tt>meta_template.html</tt> should be updated accordingly.
+ *
+ * Or, you can keep files unchanged and still point to external location.
+ *
+ *
+ * \section tp_php_api Antidot PHP API
+ *
+ * Yes, you need it! You can grab it from https://github.com/antidot/API.
+ *
+ * On GNU/Linux you can probably copy everything in
+ * <tt>/var/www/php-example/</tt>.
+ *
+ *
+ * \section tp_antidot_service Antidot search service
+ *
+ * For purpose of the examples you can refer free available service with id @c
+ * 70000 at http://eval.partners.antidot.net (with status set to @c stable).
+ *
+ */

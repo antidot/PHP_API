@@ -1,0 +1,12 @@
+/** \page raw_integration_example Integration example without PHP template engine
+ *
+ * Here is an example which is similar to other provided examples except that
+ * it does not rely on any PHP template engine.
+ *
+ * This example shows most of the available @em helpers to help you build web
+ * interface.<br/>
+ * You are encouraged to look at the file @ref raw_example.php which
+ * is included below.
+ *
+ * @include raw_example.php
+ */

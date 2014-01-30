@@ -2,6 +2,7 @@
 require_once "COMMON/afs_helper_base.php";
 require_once "AFS/SEARCH/afs_text_helper.php";
 
+/** @brief Base class for reply helpers. */
 class AfsBaseReplyHelper extends AfsHelperBase
 {
     protected $reply = null;

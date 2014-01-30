@@ -1,0 +1,65 @@
+/** \page templates_in_details PHP templates in details
+ *
+ * They are available here:
+ * https://github.com/antidot/API/tree/master/PHP/doc/data/templates. But for
+ * convenience, content of each template file is given below.
+ *
+ * On GNU/Linux, these templates can be copied in
+ * <tt>/var/www/php-example/templates</tt>.
+ *
+ * Templates will not be detaillled. If necessary, more documentation is
+ * available at Twig website.
+ *
+ *
+ * \section lid_template_main Main template
+ *
+ * This template is called to render the HTML page.
+ *
+ * @em meta_template.html
+ * @include meta_template.html
+ * It first refers to  spellcheck template in order to display suggestions
+ * provided by Antidot search engine. Then three other templates are called
+ * in a loop to display results of each replyset. All of these templates are
+ * described below.
+ *
+ *
+ * \section lid_template_spellcheck Spellcheck template
+ *
+ * @em spellcheck_template.html
+ * @include spellcheck_template.html
+ *
+ * A loop is used to display a list of all spellcheck values for each feed
+ * with suggestions.
+ *
+ *
+ * \section lid_template_facet Facet template
+ *
+ * @em facet_template.html
+ * @include facet_template.html
+ * It  is quite easy to find the loop which allows to set up all facets. Then,
+ * in turn, this template refers specific template for facet values.
+ *
+ * @em facet_values_template.html
+ * @include facet_values_template.html
+ * Here again, the loop allows to set up all values for each facet.
+ *
+ *
+ * \section lid_template_result Result template
+ *
+ * This template allows to render URI, title and abstract of each result. As
+ * discussed previously some additional work is necessary if you want to get
+ * access to client data.
+ *
+ * @em result_template.html
+ * @include result_template.html
+ *
+ *
+ * \section lid_template_pager Pager template
+ *
+ * This template generates simple pager at the bottom of the reply set. There is
+ * really no difficulty here.
+ *
+ * @em pager_template.html
+ * @include pager_template.html
+ *
+ */

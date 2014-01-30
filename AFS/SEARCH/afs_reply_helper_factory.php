@@ -20,7 +20,6 @@ class AfsReplyHelperFactory
      *
      * @param $feed [in] name of the feed reply.
      * @param $reply [in] JSON decoded reply used to initialize the helper.
-     * @param $visitor [in] visitor used to format title and client data texts.
      *
      * @return standard or Promote reply helper.
      */

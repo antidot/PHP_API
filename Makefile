@@ -5,6 +5,9 @@
 #*******************************************************************************
 ROOT_PATH=$(CURDIR)
 
+.PHONY: default tag_list tag doc
+
+
 default: all_tests
 
 tag_list:
@@ -12,5 +15,8 @@ tag_list:
 
 tag:
 	@git tag -a "v$$(./scripts/print_version.sh)"
+
+doc:
+	@./scripts/gen_doc.sh
 
 -include $(ROOT_PATH)/rules.mk

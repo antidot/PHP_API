@@ -1,0 +1,64 @@
+/** \page lightweight_integration_example_with_template Lightweight integration example with PHP template engine
+ *
+ * \tableofcontents
+ *
+ * \section lie_prerequisite Prerequisites
+ *
+ * In order to test this example, some components are required. Details are
+ * provided in following link: @ref template_prerequisites
+ *
+ *
+ * \section lie_example Set up example step by step
+ *
+ * Most of the few steps to set up this example are detailed in @ref
+ * afs_search.
+ *
+ * Here focus is given on missing steps in order to make the example fully
+ * functional.
+ *
+ *
+ * \subsection lie_example_init Initialization
+ *
+ * It should be the first step. Antidot PHP API should be loaded from PHP
+ * example script. It is not necessary to load each PHP script as one main
+ * script does it for you:
+ * @snippet full_lightweight_example.php Include lib
+ *
+ * Then Twig should also be loaded and initialized. Depending on your
+ * installation choices, following example may be modified to reflect your
+ * installation paths:
+ * @snippet full_lightweight_example.php Twig init
+ *
+ *
+ * \subsection lie_example_final Generate HTML page
+ *
+ * This is the last step.<br/>
+ * Main Twig template is loaded with appropriate parameters and then rendered:
+ * @snippet full_lightweight_example.php Twig template
+ * This code brevity is obtained thanks to special array formatting of reply
+ * helpers (see @a AfsHelperFormat::ARRAYS).
+ *
+ *
+ * \subsection lie_example_full Full example
+ *
+ * The full example is also available here: @ref full_lightweight_example.php
+ *
+ *
+ * \section lie_templates PHP template examples
+ *
+ * Necessary templates are detailled in following link:
+ * @ref templates_in_details
+ *
+ *
+ * \section lie_conclusion Example conclusion
+ *
+ * Provided example is composed of about 10 lines of PHP code. About half of
+ * these lines are related to Twig template engine. So in few PHP code lines
+ * and some PHP templates, you can get a fully functional Web interface for your
+ * Antidot search service.
+ *
+ *
+ * \section lie_further Go further
+ *
+ * Modify this example and templates then test on your own service!
+ */

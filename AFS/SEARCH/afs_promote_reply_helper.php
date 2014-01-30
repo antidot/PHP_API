@@ -33,7 +33,7 @@ class AfsPromoteReplyHelper extends AfsBaseReplyHelper
      * @param $key [in] Identifier of the custom resource. When not specified
      *        custom data are returned as key/value pairs.
      * @return value(s) associated to specified key or all key/value pairs.
-     * @execption Exception no custom data has been defined.
+     * @exception Exception no custom data has been defined.
      */
     public function get_custom_data($key=null)
     {

@@ -101,6 +101,10 @@
  * of @a AfsResponseHelper. This format greatly simplifies usage of PHP template
  * engine such as Twig (see @ref full_example.php).
  *
+ * Main drawback of this format is that it does not allow to access all data
+ * which are available by using helper format. This is mainly due to client
+ * data which are freely formatted and cannot be translated in key-value pairs.
+ *
  *
  * \section asr_specific_helpers Specific helpers
  *
@@ -137,6 +141,29 @@
  *
  * \section asr_end Next step
  *
- * Full example detailled: @ref integration_example
+ * \subsection asr_end_full_template Full detailled example with template
+ *
+ * You are going to find in following link detailled example using PHP template
+ * engine. This example explains how to use this API and configure it in order
+ * to set up a fully functional integration. But you are advised to consider
+ * looking forward and see a more lightweight example in next section.
+ *
+ * Detailled example with PHP template engine:
+ * @ref detailled_integration_example_with_template
+ *
+ *
+ * \subsection asr_end_lightweight_template Lightweight example with template
+ *
+ * If you compare this example with previous one you will nocite that the number
+ * of required configuration lines has been greatly reduced. However, same
+ * functionnalities are available and there is no difference in produced HTML
+ * pages.
+ *
+ * Detailled lightweight example with PHP template engine:
+ * @ref lightweight_integration_example_with_template
+ *
+ *
+ * \subsection asr_end_full Full detailled example without template
+ *
  * Alternate example without template engine is also available: @ref raw_integration_example
  */

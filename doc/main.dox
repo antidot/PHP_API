@@ -31,11 +31,13 @@
  *
  * \subsection afs_search_coder_intro AFS search query coder/decoder API
  *
- * This API is used to encode and decode queries. Queries are encoded so that
- * they can be used as URL parameters in a way far more simpler than standard
- * AFS search engine query parameters.
+ * This API is optional.
  *
- * Links generated from encoded queries can be easilly decoded to build the
+ * It is used to encode and decode queries. Encoded queries can be used as URL
+ * parameters. Such URL can be used to access your web site, filtering on
+ * various parameters.
+ *
+ * URLs generated from encoded queries can be easilly decoded to build the
  * original query. This original query is used to produce new queries using
  * previous parameters, adding new ones or removing existing ones.
  *
@@ -62,9 +64,11 @@
  * \li @a AfsSearchQueryManager: @em combines instances of all previous classes
  * to send appropriate query to AFS search engine and return a @c json_decoded
  * reply.
+ * \li @a AfsSearch: this is a facade for previous classes except AfsQuery.
  *
  * For detailled description of this feature, refer to @ref
- * afs_search_query.
+ * afs_search_query. If you prefer less details, then choose @ref afs_search
+ * instead.
  *
  *
  * \subsection afs_search_reply_intro AFS search reply API
