@@ -52,7 +52,7 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
             $result = $this->build_error('Cannot initialize connexion', $this->url);
         } else {
             curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($request, CURLOPT_FAILONERROR, true);
+            //curl_setopt($request, CURLOPT_FAILONERROR, true);
             curl_setopt($request, CURLOPT_HTTPHEADER, $this->get_http_header());
 
             $result = curl_exec($request);
