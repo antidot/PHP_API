@@ -167,8 +167,8 @@ class AfsClientDataHelperFactory
 class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClientDataHelperInterface
 {
     private $client_data = null;
-    private $has_highlight = false;
     private $doc = null;
+    private $need_callbacks = false;
     private static $afs_ns = 'http://ref.antidot.net/v7/afs#';
 
     /** @brief Construct new instance of XML helper.
@@ -181,14 +181,17 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         $this->client_data = $client_data;
         // Client data content is not XML valid when highlight is activated for
         // client data and a match occurs: no afs namespace prefix is defined!
+        // No namespace declared for truncated client data...
         // So check whether afs prefix namespace is used
-        if (strpos($client_data->contents, '<afs:match>') === false) {
-            $contents = $client_data->contents;
-        } else {
+        $has_trunc = false;
+        if (strpos($client_data->contents, '<afs:match>') !== false
+                || strpos($client_data->contents, '<afs:trunc/>') !== false) {
             $contents = str_replace_first('>',
                 ' xmlns:afs="' . AfsXmlClientDataHelper::$afs_ns . '">',
                 $client_data->contents);
-            $this->has_highlight = true;
+            $this->need_callbacks = true;
+        } else {
+            $contents = $client_data->contents;
         }
         $this->doc = new DOMDocument();
         $this->doc->loadXML($contents);
@@ -196,53 +199,59 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
 
     /** @brief Retrieves text from XML node.
      *
+     * @remark @c afs prefix should never be used in provided XPath.
+     *
      * @param $path [in] XPath to apply (default=null, retrieve all content as
      *        text).
      * @param $nsmap [in] prefix/uri mapping to use along with provided XPath.
-     * @param $highlight_callback [in] callback to emphase text when highlight of
-     *        client data is activated. It should be of @a FilterNode type
-     *        (default=null, instance of @a FilterNode is used).
+     * @param $callbacks [in] list of callbacks to emphase text when highlight
+     *        of client data is activated or when client data text is truncated.
+     *        It should be list of @a FilterNode type
+     *        (default=null, default instances of @a FilterNode are used).
      *
      * @return text of first specific node(s) depending on parameters.
      *
      * @exception AfsInvalidQueryException when provided XPath is invalid.
      * @exception AfsNoResultException when provided XPath returns no value/node.
      */
-    public function get_value($path=null, $nsmap=array(), $highlight_callback=null)
+    public function get_value($path=null, $nsmap=array(), $callbacks=array())
     {
         if (is_null($path)) {
             return $this->client_data->contents;
         } else {
             $items = $this->apply_xpath($path, $nsmap);
-            $callbacks = $this->init_highlight_callbacks($highlight_callback);
-            return DOMNodeHelper::get_text($items->item(0), $callbacks);
+            $named_callbacks = $this->init_callbacks($callbacks);
+            return DOMNodeHelper::get_text($items->item(0), $named_callbacks);
         }
     }
 
     /** @brief Retrieves array of texts from XML node.
      *
+     * @remark @c afs prefix should never be used in provided XPath.
+     *
      * @param $path [in] XPath to apply (default=null, retrieve all content as
      *        text).
      * @param $nsmap [in] prefix/uri mapping to use along with provided XPath.
-     * @param $highlight_callback [in] callback to emphase text when highlight of
-     *        client data is activated. It should be of @a FilterNode type
-     *        (default=null, instance of @a FilterNode is used).
+     * @param $callbacks [in] list of callbacks to emphase text when highlight
+     *        of client data is activated or when client data text is truncated.
+     *        It should be list of @a FilterNode type
+     *        (default=null, default instances of @a FilterNode are used).
      *
      * @return text of first specific node(s) depending on parameters.
      *
      * @exception AfsInvalidQueryException when provided XPath is invalid.
      * @exception AfsNoResultException when provided XPath returns no value/node.
      */
-    public function get_values($path=null, $nsmap=array(), $highlight_callback=null)
+    public function get_values($path=null, $nsmap=array(), $callbacks=array())
     {
         if (is_null($path)) {
             return array($this->client_data->contents);
         } else {
             $items = $this->apply_xpath($path, $nsmap);
-            $callbacks = $this->init_highlight_callbacks($highlight_callback);
+            $named_callbacks = $this->init_callbacks($callbacks);
             $result = array();
             foreach ($items as $item) {
-                $result[] = DOMNodeHelper::get_text($item, $callbacks);
+                $result[] = DOMNodeHelper::get_text($item, $named_callbacks);
             }
             return $result;
         }
@@ -286,14 +295,17 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         return 'application/xml';
     }
 
-    private function init_highlight_callbacks($callback)
+    private function init_callbacks($callbacks)
     {
-        if ($this->has_highlight) {
-            if (is_null($callback)) {
-                $callback = new BoldFilterNode('match',
+        if ($this->need_callbacks) {
+            if (empty($callbacks)) {
+                $callbacks = array();
+                $callbacks[] = new BoldFilterNode('match',
+                    AfsXmlClientDataHelper::$afs_ns);
+                $callbacks[] = new TruncatedFilterNode('trunc',
                     AfsXmlClientDataHelper::$afs_ns);
             }
-            return array(XML_ELEMENT_NODE => $callback);
+            return array(XML_ELEMENT_NODE => $callbacks);
         } else {
             return array();
         }

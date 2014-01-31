@@ -269,6 +269,24 @@ class BoldFilterNode extends FilterNode
     }
 }
 
+/** @brief Filters node and returns three dots. */
+class TruncatedFilterNode extends FilterNode
+{
+    public function __construct($local_name, $ns_uri=null)
+    {
+        parent::__construct($local_name, $ns_uri);
+    }
+
+    /** @brief Replace tag by three dots.
+     * @param $text [in] ignored
+     * @return @c ...
+     */
+    final public function format_text($text)
+    {
+        return '...';
+    }
+}
+
 
 /** @brief Base class for pseudo enumerators.
  *

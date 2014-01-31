@@ -135,6 +135,23 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('data <b>0</b>', 'data <b>1</b> foo'), $helper->get_values('/clientdata/data/data1'));
     }
 
+    public function testRetrieveXmlClientDataWithTruncatedText()
+    {
+        $input = json_decode('{
+            "clientData": [
+              {
+            "contents": "<clientdata><data><data1>data 0<afs:trunc/></data1><data1>data 1 foo<afs:trunc/></data1></data></clientdata>",
+                "id": "foo",
+                "mimeType": "text/xml"
+              }
+            ]
+          }');
+        $helper = AfsClientDataHelperFactory::create($input->clientData[0]);
+        $this->assertEquals($helper->get_value('/clientdata/data/data1[1]'), 'data 0...');
+        $this->assertEquals($helper->get_value('/clientdata/data/data1[2]'), 'data 1 foo...');
+        $this->assertEquals(array('data 0...', 'data 1 foo...'), $helper->get_values('/clientdata/data/data1'));
+    }
+
     public function testRetrieveJSONDataAsText()
     {
         $input = json_decode('{
