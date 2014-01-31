@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.5.0</span>
+   &#160;<span id="projectnumber">version 0.5.3</span>
    </div>
   </td>
  </tr>
@@ -101,7 +101,7 @@ Inheritance diagram for AfsReplyHelper:</div>
  <div class="center">
   <img src="classAfsReplyHelper.png" usemap="#AfsReplyHelper_map" alt=""/>
   <map id="AfsReplyHelper_map" name="AfsReplyHelper_map">
-<area href="classAfsBaseReplyHelper.html" alt="AfsBaseReplyHelper" shape="rect" coords="0,56,129,80"/>
+<area href="classAfsBaseReplyHelper.html" title="Base class for reply helpers. " alt="AfsBaseReplyHelper" shape="rect" coords="0,56,129,80"/>
 <area href="classAfsHelperBase.html" title="Add magic so that getter methods can be called the same way as properties. " alt="AfsHelperBase" shape="rect" coords="0,0,129,24"/>
 </map>
  </div></div>
@@ -111,6 +111,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af916f6fb4f12e487789e977f097014cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsReplyHelper.html#af916f6fb4f12e487789e977f097014cc">__construct</a> ($reply, <a class="el" href="interfaceAfsTextVisitorInterface.html">AfsTextVisitorInterface</a> $visitor=null)</td></tr>
 <tr class="memdesc:af916f6fb4f12e487789e977f097014cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new instance.  <a href="#af916f6fb4f12e487789e977f097014cc">More...</a><br/></td></tr>
 <tr class="separator:af916f6fb4f12e487789e977f097014cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a830d45021b3c5c8d949fc2408c5f0b3a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsReplyHelper.html#a830d45021b3c5c8d949fc2408c5f0b3a">has_clientdata</a> ()</td></tr>
+<tr class="memdesc:a830d45021b3c5c8d949fc2408c5f0b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether at least one client data is defined.  <a href="#a830d45021b3c5c8d949fc2408c5f0b3a">More...</a><br/></td></tr>
+<tr class="separator:a830d45021b3c5c8d949fc2408c5f0b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad9652938d6db77030edf7284b87a1d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsReplyHelper.html#aad9652938d6db77030edf7284b87a1d0">get_clientdatas</a> ()</td></tr>
 <tr class="memdesc:aad9652938d6db77030edf7284b87a1d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves client data manager.  <a href="#aad9652938d6db77030edf7284b87a1d0">More...</a><br/></td></tr>
 <tr class="separator:aad9652938d6db77030edf7284b87a1d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,7 +228,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieves client data manager. </p>
-<dl class="section return"><dt>Returns</dt><dd>Manager of client data (see <a class="el" href="classAfsClientDataManager.html" title="Manage client data. ">AfsClientDataManager</a>).</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Manager of client data (see <a class="el" href="classAfsClientDataManager.html" title="Manage client data. ">AfsClientDataManager</a>). </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">Exception</td><td>when no client data is available. </td></tr>
@@ -235,10 +238,28 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a830d45021b3c5c8d949fc2408c5f0b3a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">has_clientdata </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether at least one client data is defined. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> when one or more clientdatas are available, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 31 2014 14:08:52 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

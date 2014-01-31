@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pafconnectortest',['PafConnectorTest',['../classPafConnectorTest.html',1,'']]]
+  ['idgenerator',['IdGenerator',['../classIdGenerator.html',1,'']]]
 ];

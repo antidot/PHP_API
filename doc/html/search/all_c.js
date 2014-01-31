@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['or_5fmode',['OR_MODE',['../classAfsFacetCombination.html#af5e70a01eaaa6fe84e0cbd211e04464b',1,'AfsFacetCombination']]]
+  ['match',['match',['../classFilterNode.html#aee18195e6e043e540b028e334f5d6e79',1,'FilterNode']]]
 ];

@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.5.0</span>
+   &#160;<span id="projectnumber">version 0.5.3</span>
    </div>
   </td>
  </tr>
@@ -91,7 +91,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li class="level1"><a href="#asr_specific_helpers">Specific helpers</a><ul><li class="level2"><a href="#asr_clientdata_helpers">Client data helpers</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#asr_end">Next step</a></li>
+<li class="level1"><a href="#asr_end">Next step</a><ul><li class="level2"><a href="#asr_end_full_template">Full detailled example with template</a></li>
+<li class="level2"><a href="#asr_end_lightweight_template">Lightweight example with template</a></li>
+<li class="level2"><a href="#asr_end_full">Full detailled example without template</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="textblock"><h1><a class="anchor" id="asr_introduction"></a>
@@ -149,6 +153,7 @@ Helper formats</h2>
 }</pre></li>
 </ul>
 <p>Array format is the <em>default</em> format generated when initializing instance of <em><a class="el" href="classAfsResponseHelper.html" title="Main helper for AFS search reply. ">AfsResponseHelper</a></em>. This format greatly simplifies usage of PHP template engine such as Twig (see <a class="el" href="full_example_8php-example.html">full_example.php</a>).</p>
+<p>Main drawback of this format is that it does not allow to access all data which are available by using helper format. This is mainly due to client data which are freely formatted and cannot be translated in key-value pairs.</p>
 <h1><a class="anchor" id="asr_specific_helpers"></a>
 Specific helpers</h1>
 <p>Here some specific helpers are presented. They are not instanciated directly or indirectly by <em><a class="el" href="classAfsResponseHelper.html" title="Main helper for AFS search reply. ">AfsResponseHelper</a></em> but they can be really usefull.</p>
@@ -165,11 +170,21 @@ Client data helpers</h2>
 <p>Main common feature of these helpers is that they both manage highlight in client data. Default callbacks are used for highlighted text but specific ones can be defined.</p>
 <h1><a class="anchor" id="asr_end"></a>
 Next step</h1>
-<p>Full example detailled: <a class="el" href="integration_example.html">Integration example with PHP template engine</a> Alternate example without template engine is also available: raw_integration_example </p>
+<h2><a class="anchor" id="asr_end_full_template"></a>
+Full detailled example with template</h2>
+<p>You are going to find in following link detailled example using PHP template engine. This example explains how to use this API and configure it in order to set up a fully functional integration. But you are advised to consider looking forward and see a more lightweight example in next section.</p>
+<p>Detailled example with PHP template engine: <a class="el" href="detailled_integration_example_with_template.html">Detailled integration example with PHP template engine</a></p>
+<h2><a class="anchor" id="asr_end_lightweight_template"></a>
+Lightweight example with template</h2>
+<p>If you compare this example with previous one you will nocite that the number of required configuration lines has been greatly reduced. However, same functionnalities are available and there is no difference in produced HTML pages.</p>
+<p>Detailled lightweight example with PHP template engine: <a class="el" href="lightweight_integration_example_with_template.html">Lightweight integration example with PHP template engine</a></p>
+<h2><a class="anchor" id="asr_end_full"></a>
+Full detailled example without template</h2>
+<p>Alternate example without template engine is also available: <a class="el" href="raw_integration_example.html">Integration example without PHP template engine</a> </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 31 2014 14:08:52 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -7,12 +7,12 @@
 
 var indexSectionsWithContent =
 {
-  0: "$_abcdefghinoprstuv",
-  1: "abdf",
-  2: "_abcdefghirsuv",
+  0: "$_abcdefghilmnoprstuv",
+  1: "abdfit",
+  2: "_abcdefghimrsuv",
   3: "$abcdfhinoprst",
   4: "acs",
-  5: "aip"
+  5: "adilp"
 };
 
 var indexSectionNames =

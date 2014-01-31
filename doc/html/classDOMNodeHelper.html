@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.5.0</span>
+   &#160;<span id="projectnumber">version 0.5.3</span>
    </div>
   </td>
  </tr>
@@ -141,7 +141,7 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$node</td><td>[in] base node from which XML text nodes are looked for. </td></tr>
-    <tr><td class="paramname">$callbacks</td><td>[in] array of callbacks (default: empty array). Array keys should correspond to XML node types, array values are <code>callbacks</code> to be called for specific node types. These callbacks should accept a <em>DOMNode</em> as first parameter.</td></tr>
+    <tr><td class="paramname">$callbacks</td><td>[in] array of callbacks (default: empty array). Array keys should correspond to XML node types, array values are <code>callbacks</code> to be called for specific node names. These callbacks should accept a <em>DOMNode</em> as first parameter.</td></tr>
   </table>
   </dd>
 </dl>
@@ -158,16 +158,21 @@ Static Public Member Functions</h2></td></tr>
 &lt;/root&gt;
 </pre> Let's suppor <em>node</em> variable points to <em>DOMElement</em> <em>child_2</em>. You can extract text content of <em>child_2</em> node and its child <em>match</em> by calling: <div class="fragment"><div class="line">$filter = <span class="keyword">new</span> <a class="code" href="classFilterNode.html">FilterNode</a>(<span class="stringliteral">&#39;match&#39;</span>);</div>
 <div class="line">assert(<a class="code" href="classDOMNodeHelper.html#a706eaa18a5d515dbc1f4a452ccf16e0b">DOMNodeHelper::get_text</a>($node, array(XML_ELEMENT_NODE =&gt; $filter)) == <span class="stringliteral">&#39;other specific content&#39;</span>);</div>
-</div><!-- fragment --> If you want some formatting you can define you own <em><a class="el" href="classFilterNode.html" title="Filter node and retrieve node text contents. ">FilterNode</a></em> class or use provided one: <div class="fragment"><div class="line">$filter = <span class="keyword">new</span> <a class="code" href="classBoldFilterNode.html">BoldFilterNode</a>(<span class="stringliteral">&#39;match&#39;</span>);</div>
+</div><!-- fragment --></dd></dl>
+<p>If you want some formatting you can define you own <em><a class="el" href="classFilterNode.html" title="Filter node and retrieve node text contents. ">FilterNode</a></em> class or use provided one: </p>
+<div class="fragment"><div class="line">$filter = <span class="keyword">new</span> <a class="code" href="classBoldFilterNode.html">BoldFilterNode</a>(<span class="stringliteral">&#39;match&#39;</span>);</div>
 <div class="line">assert(<a class="code" href="classDOMNodeHelper.html#a706eaa18a5d515dbc1f4a452ccf16e0b">DOMNodeHelper::get_text</a>($node, array(XML_ELEMENT_NODE =&gt; $filter)) == <span class="stringliteral">&#39;other &lt;b&gt;specific&lt;/b&gt; content&#39;</span>);</div>
-</div><!-- fragment --> </dd></dl>
-
+</div><!-- fragment --><p>If you want different filters, each for different node name, you can provide array of filter instead of just one filter. For example: </p>
+<div class="fragment"><div class="line">$func_filter = <span class="keyword">new</span> <a class="code" href="classFilterNode.html">FilterNode</a>(<span class="stringliteral">&#39;func&#39;</span>);</div>
+<div class="line">$match_filter = <span class="keyword">new</span> <a class="code" href="classBoldFilterNode.html">BoldFilterNode</a>(<span class="stringliteral">&#39;match&#39;</span>);</div>
+<div class="line"><a class="code" href="classDOMNodeHelper.html#a706eaa18a5d515dbc1f4a452ccf16e0b">DOMNodeHelper::get_text</a>($node, array(XML_ELEMENT_NODE =&gt; array($func_filter, $match_filter)));</div>
+</div><!-- fragment --> 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 31 2014 14:08:52 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

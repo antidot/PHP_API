@@ -2,6 +2,7 @@ var searchData=
 [
   ['accept',['accept',['../classAfsSpellcheckBaseText.html#aecc64f58b32d4365967b1f070580dc8f',1,'AfsSpellcheckBaseText\accept()'],['../classAfsText.html#a374b85f6e99701e01e2b477eb5c1a359',1,'AfsText\accept()']]],
   ['add',['ADD',['../classAfsFacetMode.html#a329418a40817d60a6853c5e9547ca3a7',1,'AfsFacetMode']]],
+  ['add_5fcallbacks',['add_callbacks',['../classFilterNodeManager.html#a2b77c74b0d06aecc185f5d5e42e101bb',1,'FilterNodeManager']]],
   ['add_5fconcept',['add_concept',['../classAfsConceptManager.html#a5d9ecd4562b2d9ea481353b68f2e50db',1,'AfsConceptManager']]],
   ['add_5fdocument',['add_document',['../classAfsDocumentManager.html#a4d264a60d6688fab5bc0fc3b27ae29a2',1,'AfsDocumentManager']]],
   ['add_5ffacet',['add_facet',['../classAfsFacetManager.html#af6f6f4e7f73fc402a0fc18d3b3f42c5d',1,'AfsFacetManager\add_facet()'],['../classAfsSearch.html#af6f6f4e7f73fc402a0fc18d3b3f42c5d',1,'AfsSearch\add_facet()']]],
@@ -17,6 +18,7 @@ var searchData=
   ['antidot_20paf_20upload',['Antidot PaF upload',['../afs_paf_upload.html',1,'']]],
   ['afs_5fscheme_5fhttp',['AFS_SCHEME_HTTP',['../group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91',1,'afs_connector_base.php']]],
   ['afs_5fscheme_5fhttps',['AFS_SCHEME_HTTPS',['../group__uri__scheme.html#ga64b6aa6fa45e8a3646d57d994ffd9740',1,'afs_connector_base.php']]],
+  ['afs_20search_20api',['AFS search API',['../afs_search.html',1,'']]],
   ['afs_20search_20query_20coder_2fdecoder_20api',['AFS search query coder/decoder API',['../afs_search_coder.html',1,'']]],
   ['afs_20search_20query_20api',['AFS search query API',['../afs_search_query.html',1,'']]],
   ['afs_20search_20reply_20api',['AFS search reply API',['../afs_search_reply.html',1,'']]],
@@ -104,6 +106,7 @@ var searchData=
   ['afsxmlclientdatahelper',['AfsXmlClientDataHelper',['../classAfsXmlClientDataHelper.html',1,'']]],
   ['alpha',['ALPHA',['../classAfsServiceStatus.html#a6bb7987358cd3de8e7c775094597e631',1,'AfsServiceStatus']]],
   ['and_5fmode',['AND_MODE',['../classAfsFacetCombination.html#aedde9cb7f1297cb7db6d09d51731563d',1,'AfsFacetCombination']]],
+  ['apply_5ffilter',['apply_filter',['../classFilterNodeManager.html#af3b16ffbf39d978f01849b330860a460',1,'FilterNodeManager']]],
   ['archive',['ARCHIVE',['../classAfsServiceStatus.html#aac403b04f6adb9de257400787caf3ef8',1,'AfsServiceStatus']]],
   ['arrays',['ARRAYS',['../classAfsHelperFormat.html#a896b8a062d099cb54681b259342e2399',1,'AfsHelperFormat']]],
   ['authentication_20authorities',['Authentication authorities',['../group__auth__authorities.html',1,'']]],

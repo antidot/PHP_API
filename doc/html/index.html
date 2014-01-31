@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.5.0</span>
+   &#160;<span id="projectnumber">version 0.5.3</span>
    </div>
   </td>
  </tr>
@@ -105,8 +105,9 @@ AFS search API</h1>
 <p>It is split in three main functions detailled below. Each of these functions can be used separately but it is highly recommended to combine them to simplify your integration steps.</p>
 <h2><a class="anchor" id="afs_search_coder_intro"></a>
 AFS search query coder/decoder API</h2>
-<p>This API is used to encode and decode queries. Queries are encoded so that they can be used as URL parameters in a way far more simpler than standard AFS search engine query parameters.</p>
-<p>Links generated from encoded queries can be easilly decoded to build the original query. This original query is used to produce new queries using previous parameters, adding new ones or removing existing ones.</p>
+<p>This API is optional.</p>
+<p>It is used to encode and decode queries. Encoded queries can be used as URL parameters. Such URL can be used to access your web site, filtering on various parameters.</p>
+<p>URLs generated from encoded queries can be easilly decoded to build the original query. This original query is used to produce new queries using previous parameters, adding new ones or removing existing ones.</p>
 <p>Main classes involved in this feature are: </p>
 <ul>
 <li><em><a class="el" href="interfaceAfsQueryCoderInterface.html" title="Interface for encoding/decoding queries. ">AfsQueryCoderInterface</a>:</em> interface for the coder/decoder. </li>
@@ -122,9 +123,10 @@ AFS search query API</h2>
 <li><em><a class="el" href="classAfsSearchConnector.html" title="AFS search connector. ">AfsSearchConnector</a>:</em> <em>configures</em> AFS search engine connection and <em>sends</em> query with specific parameters to AFS search engine. </li>
 <li><em><a class="el" href="classAfsFacetManager.html" title="AFS facet manager. ">AfsFacetManager</a>:</em> <em>manages</em> all configured facets. </li>
 <li><em><a class="el" href="classAfsQuery.html" title="Represent an AFS query. ">AfsQuery</a>:</em> <em>represents</em> a valid AFS query. It only stores query parameters and manages addition or suppression of parameter values. </li>
-<li><em><a class="el" href="classAfsSearchQueryManager.html" title="Manage search query. ">AfsSearchQueryManager</a>:</em> <em>combines</em> instances of all previous classes to send appropriate query to AFS search engine and return a <code>json_decoded</code> reply.</li>
+<li><em><a class="el" href="classAfsSearchQueryManager.html" title="Manage search query. ">AfsSearchQueryManager</a>:</em> <em>combines</em> instances of all previous classes to send appropriate query to AFS search engine and return a <code>json_decoded</code> reply. </li>
+<li><em><a class="el" href="classAfsSearch.html" title="Facade for AFS search engine query. ">AfsSearch</a>:</em> this is a facade for previous classes except <a class="el" href="classAfsQuery.html" title="Represent an AFS query. ">AfsQuery</a>.</li>
 </ul>
-<p>For detailled description of this feature, refer to <a class="el" href="afs_search_query.html">AFS search query API</a>.</p>
+<p>For detailled description of this feature, refer to <a class="el" href="afs_search_query.html">AFS search query API</a>. If you prefer less details, then choose <a class="el" href="afs_search.html">AFS search API</a> instead.</p>
 <h2><a class="anchor" id="afs_search_reply_intro"></a>
 AFS search reply API</h2>
 <p>Even if result from previous API is JSON decoded, helpers are provided to access most usefull data in simplest way.</p>
@@ -154,7 +156,7 @@ Upload data to Antidot PaF</h2>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 28 2014 15:07:28 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 31 2014 14:08:52 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

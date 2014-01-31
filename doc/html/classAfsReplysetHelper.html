@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.5.0</span>
+   &#160;<span id="projectnumber">version 0.5.3</span>
    </div>
   </td>
  </tr>
@@ -101,7 +101,7 @@ Inheritance diagram for AfsReplysetHelper:</div>
  <div class="center">
   <img src="classAfsReplysetHelper.png" usemap="#AfsReplysetHelper_map" alt=""/>
   <map id="AfsReplysetHelper_map" name="AfsReplysetHelper_map">
-<area href="classAfsBaseReplysetHelper.html" alt="AfsBaseReplysetHelper" shape="rect" coords="0,56,145,80"/>
+<area href="classAfsBaseReplysetHelper.html" title="Base class for replyset helpers. " alt="AfsBaseReplysetHelper" shape="rect" coords="0,56,145,80"/>
 <area href="classAfsHelperBase.html" title="Add magic so that getter methods can be called the same way as properties. " alt="AfsHelperBase" shape="rect" coords="0,0,145,24"/>
 </map>
  </div></div>
@@ -117,8 +117,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aed41d87808e7a0118657d893a9831eca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsReplysetHelper.html#aed41d87808e7a0118657d893a9831eca">get_facets</a> ()</td></tr>
 <tr class="memdesc:aed41d87808e7a0118657d893a9831eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of facets.  <a href="#aed41d87808e7a0118657d893a9831eca">More...</a><br/></td></tr>
 <tr class="separator:aed41d87808e7a0118657d893a9831eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6315241cf08cafb541e32d597aa3a00c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsReplysetHelper.html#a6315241cf08cafb541e32d597aa3a00c">has_pager</a> ()</td></tr>
+<tr class="memdesc:a6315241cf08cafb541e32d597aa3a00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether pager is defined.  <a href="#a6315241cf08cafb541e32d597aa3a00c">More...</a><br/></td></tr>
+<tr class="separator:a6315241cf08cafb541e32d597aa3a00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaee39cad9f2bfc0df539854a587b12f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsReplysetHelper.html#acaee39cad9f2bfc0df539854a587b12f">get_pager</a> ()</td></tr>
-<tr class="memdesc:acaee39cad9f2bfc0df539854a587b12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve pager object.  <a href="#acaee39cad9f2bfc0df539854a587b12f">More...</a><br/></td></tr>
+<tr class="memdesc:acaee39cad9f2bfc0df539854a587b12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves pager object.  <a href="#acaee39cad9f2bfc0df539854a587b12f">More...</a><br/></td></tr>
 <tr class="separator:acaee39cad9f2bfc0df539854a587b12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe083716d50b3fb4057e519961b9235c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsReplysetHelper.html#afe083716d50b3fb4057e519961b9235c">format</a> ()</td></tr>
 <tr class="memdesc:afe083716d50b3fb4057e519961b9235c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve replyset as array.  <a href="#afe083716d50b3fb4057e519961b9235c">More...</a><br/></td></tr>
@@ -185,7 +188,6 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$reply_set</td><td>[in] one reply from decoded json reply. </td></tr>
-    <tr><td class="paramname">$facet_mgr</td><td>[in] <em><a class="el" href="classAfsFacetManager.html" title="AFS facet manager. ">AfsFacetManager</a></em> used to create appropriate queries. </td></tr>
     <tr><td class="paramname">$query</td><td>[in] query which has produced current reply. </td></tr>
     <tr><td class="paramname">$config</td><td>[in] helper configuration object. </td></tr>
   </table>
@@ -215,7 +217,7 @@ Public Member Functions</h2></td></tr>
 <li><code>nb_replies:</code> number of replies on the current page. </li>
 <li><code>replies:</code> standard or Promote reply. </li>
 <li><code>facets:</code> array of facets (<em><a class="el" href="classAfsFacetHelper.html#afe083716d50b3fb4057e519961b9235c" title="Retrieve facet as array. ">AfsFacetHelper::format</a></em>), </li>
-<li><code>pager:</code> array of pages (<em><a class="el" href="classAfsPagerHelper.html#afe083716d50b3fb4057e519961b9235c" title="Retrieve pages as array. ">AfsPagerHelper::format</a></em>),</li>
+<li><code>pager:</code> array of pages (<em><a class="el" href="classAfsPagerHelper.html#afe083716d50b3fb4057e519961b9235c" title="Retrieves pages as array. ">AfsPagerHelper::format</a></em>),</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>array filled with key and values. </dd></dl>
 
@@ -252,7 +254,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retrieve pager object. </p>
+<p>Retrieves pager object. </p>
 <dl class="section return"><dt>Returns</dt><dd>instance of <em><a class="el" href="classAfsPagerHelper.html" title="Helper for pager. ">AfsPagerHelper</a></em>. </dd></dl>
 
 </div>
@@ -271,14 +273,32 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check whether facets are defined. </p>
-<dl class="section return"><dt>Returns</dt><dd>true when at least one facet is defined, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> when at least one facet is defined, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6315241cf08cafb541e32d597aa3a00c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">has_pager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether pager is defined. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> when pager exists, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 31 2014 14:08:52 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

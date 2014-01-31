@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.5.0</span>
+   &#160;<span id="projectnumber">version 0.5.3</span>
    </div>
   </td>
  </tr>
@@ -112,12 +112,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a11a69db643868cafc91c724896668470"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsXmlClientDataHelper.html#a11a69db643868cafc91c724896668470">__construct</a> ($client_data)</td></tr>
 <tr class="memdesc:a11a69db643868cafc91c724896668470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new instance of XML helper.  <a href="#a11a69db643868cafc91c724896668470">More...</a><br/></td></tr>
 <tr class="separator:a11a69db643868cafc91c724896668470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af19e7c699cb5fa16a26e986a3cb02658"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsXmlClientDataHelper.html#af19e7c699cb5fa16a26e986a3cb02658">get_value</a> ($path=null, $nsmap=array(), $highlight_callback=null)</td></tr>
-<tr class="memdesc:af19e7c699cb5fa16a26e986a3cb02658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves text from XML node.  <a href="#af19e7c699cb5fa16a26e986a3cb02658">More...</a><br/></td></tr>
-<tr class="separator:af19e7c699cb5fa16a26e986a3cb02658"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7c327356f646fa0d2990dac2b8d869d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsXmlClientDataHelper.html#ad7c327356f646fa0d2990dac2b8d869d">get_values</a> ($path=null, $nsmap=array(), $highlight_callback=null)</td></tr>
-<tr class="memdesc:ad7c327356f646fa0d2990dac2b8d869d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves array of texts from XML node.  <a href="#ad7c327356f646fa0d2990dac2b8d869d">More...</a><br/></td></tr>
-<tr class="separator:ad7c327356f646fa0d2990dac2b8d869d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5a6aaad8fcc8ec7cc9fd26d76e8dced"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsXmlClientDataHelper.html#aa5a6aaad8fcc8ec7cc9fd26d76e8dced">get_value</a> ($path=null, $nsmap=array(), $callbacks=array())</td></tr>
+<tr class="memdesc:aa5a6aaad8fcc8ec7cc9fd26d76e8dced"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves text from XML node.  <a href="#aa5a6aaad8fcc8ec7cc9fd26d76e8dced">More...</a><br/></td></tr>
+<tr class="separator:aa5a6aaad8fcc8ec7cc9fd26d76e8dced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a66d85ea28ddce58164cdf20be4377"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsXmlClientDataHelper.html#a40a66d85ea28ddce58164cdf20be4377">get_values</a> ($path=null, $nsmap=array(), $callbacks=array())</td></tr>
+<tr class="memdesc:a40a66d85ea28ddce58164cdf20be4377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves array of texts from XML node.  <a href="#a40a66d85ea28ddce58164cdf20be4377">More...</a><br/></td></tr>
+<tr class="separator:a40a66d85ea28ddce58164cdf20be4377"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86d3d731abb89083c30a1f8ca0d45cb3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsXmlClientDataHelper.html#a86d3d731abb89083c30a1f8ca0d45cb3">get_mime_type</a> ()</td></tr>
 <tr class="memdesc:a86d3d731abb89083c30a1f8ca0d45cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve client data's mime type.  <a href="#a86d3d731abb89083c30a1f8ca0d45cb3">More...</a><br/></td></tr>
 <tr class="separator:a86d3d731abb89083c30a1f8ca0d45cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,7 +181,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af19e7c699cb5fa16a26e986a3cb02658"></a>
+<a class="anchor" id="aa5a6aaad8fcc8ec7cc9fd26d76e8dced"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -201,7 +201,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$highlight_callback</em> = <code>null</code>&#160;</td>
+          <td class="paramname"><em>$callbacks</em> = <code>array()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -212,11 +212,12 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieves text from XML node. </p>
+<dl class="section remark"><dt>Remarks</dt><dd><code>afs</code> prefix should never be used in provided XPath.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$path</td><td>[in] XPath to apply (default=null, retrieve all content as text). </td></tr>
     <tr><td class="paramname">$nsmap</td><td>[in] prefix/uri mapping to use along with provided XPath. </td></tr>
-    <tr><td class="paramname">$highlight_callback</td><td>[in] callback to emphase text when highlight of client data is activated. It should be of <em><a class="el" href="classFilterNode.html" title="Filter node and retrieve node text contents. ">FilterNode</a></em> type (default=null, instance of <em><a class="el" href="classFilterNode.html" title="Filter node and retrieve node text contents. ">FilterNode</a></em> is used).</td></tr>
+    <tr><td class="paramname">$callbacks</td><td>[in] list of callbacks to emphase text when highlight of client data is activated or when client data text is truncated. It should be list of <em><a class="el" href="classFilterNode.html" title="Filter node and retrieve node text contents. ">FilterNode</a></em> type (default=null, default instances of <em><a class="el" href="classFilterNode.html" title="Filter node and retrieve node text contents. ">FilterNode</a></em> are used).</td></tr>
   </table>
   </dd>
 </dl>
@@ -233,7 +234,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad7c327356f646fa0d2990dac2b8d869d"></a>
+<a class="anchor" id="a40a66d85ea28ddce58164cdf20be4377"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -253,7 +254,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$highlight_callback</em> = <code>null</code>&#160;</td>
+          <td class="paramname"><em>$callbacks</em> = <code>array()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -264,11 +265,12 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieves array of texts from XML node. </p>
+<dl class="section remark"><dt>Remarks</dt><dd><code>afs</code> prefix should never be used in provided XPath.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$path</td><td>[in] XPath to apply (default=null, retrieve all content as text). </td></tr>
     <tr><td class="paramname">$nsmap</td><td>[in] prefix/uri mapping to use along with provided XPath. </td></tr>
-    <tr><td class="paramname">$highlight_callback</td><td>[in] callback to emphase text when highlight of client data is activated. It should be of <em><a class="el" href="classFilterNode.html" title="Filter node and retrieve node text contents. ">FilterNode</a></em> type (default=null, instance of <em><a class="el" href="classFilterNode.html" title="Filter node and retrieve node text contents. ">FilterNode</a></em> is used).</td></tr>
+    <tr><td class="paramname">$callbacks</td><td>[in] list of callbacks to emphase text when highlight of client data is activated or when client data text is truncated. It should be list of <em><a class="el" href="classFilterNode.html" title="Filter node and retrieve node text contents. ">FilterNode</a></em> type (default=null, default instances of <em><a class="el" href="classFilterNode.html" title="Filter node and retrieve node text contents. ">FilterNode</a></em> are used).</td></tr>
   </table>
   </dd>
 </dl>
@@ -288,7 +290,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 28 2014 15:07:27 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 31 2014 14:08:52 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
