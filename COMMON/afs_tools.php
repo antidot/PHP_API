@@ -33,7 +33,7 @@ class DOMNodeHelper
      * @param $node [in] base node from which XML text nodes are looked for.
      * @param $callbacks [in] array of callbacks (default: empty array). Array
      *        keys should correspond to XML node types, array values are
-     *        @c callbacks to be called for specific node types. These callbacks
+     *        @c callbacks to be called for specific node names. These callbacks
      *        should accept a @a DOMNode as first parameter.
      *
      * @return merged text from various text nodes.
@@ -67,27 +67,129 @@ class DOMNodeHelper
      * $filter = new FilterNode('match');
      * assert(DOMNodeHelper::get_text($node, array(XML_ELEMENT_NODE => $filter)) == 'other specific content');
      * @endcode
+     *
      * If you want some formatting you can define you own @a FilterNode class or
      * use provided one:
      * @code
      * $filter = new BoldFilterNode('match');
      * assert(DOMNodeHelper::get_text($node, array(XML_ELEMENT_NODE => $filter)) == 'other <b>specific</b> content');
      * @endcode
+     *
+     * If you want different filters, each for different node name, you can
+     * provide array of filter instead of just one filter. For example:
+     * @code
+     * $func_filter = new FilterNode('func');
+     * $match_filter = new BoldFilterNode('match');
+     * DOMNodeHelper::get_text($node, array(XML_ELEMENT_NODE => array($func_filter, $match_filter)));
+     * @endcode
      */
     public static function get_text(DOMNode $node, array $callbacks=array())
     {
+        $filter_mgr = new FilterNodeManager();
+        $filter_mgr->add_callbacks($callbacks);
+
         $result = '';
         $children = $node->childNodes;
         for ($i = 0; $i < $children->length; $i++) {
             $child = $children->item($i);
             $type = $child->nodeType;
-            if (array_key_exists($type, $callbacks)) {
-                $result .= call_user_func($callbacks[$type], $child);
+            if ($filter_mgr->is_managed_type($type)) {
+                $result .= $filter_mgr->apply_filter($child);
             } elseif ($type == XML_TEXT_NODE) {
                 $result .= $child->textContent;
             }
         }
         return $result;
+    }
+}
+
+
+/** @brief Generate node identifier. */
+class IdGenerator
+{
+    /** @brief Generates identifier from XML DOM element.
+     * @param $node [in] node for which identifier should be generated.
+     * @return node identifier.
+     */
+    public static function from_node($node)
+    {
+        return IdGenerator::from_values($node->localName, $node->namespaceURI);
+    }
+
+    /** @brief Generates identifier from provided parameters.
+     * @param $name [in] local node name.
+     * @param $ns_uri [in] XML namespace URI.
+     * @return identifier.
+     */
+    public static function from_values($name, $ns_uri)
+    {
+        return $name . '{' . $ns_uri . '}';
+    }
+}
+
+/** @brief Filter node callback manager. */
+class FilterNodeManager
+{
+    private $callbacks = array();
+
+    /** @brief Adds one or more callbacks.
+     *
+     * This override any existing callback with same identifier.
+     * @param $callbacks [in] one callback or array filled with one or more
+     *        callbacks of type FilterNode or one of its subclass.
+     */
+    public function add_callbacks(array $callbacks)
+    {
+        foreach ($callbacks as $node_type => $callback) {
+            $this->callbacks[$node_type] = $this->get_callbacks_with_id($callback);
+        }
+    }
+
+    /** @brief Checks whether provided node type is managed.
+     * @param $node_type [in] node type to check.
+     * @return @c True when given node type is managed, @c false otherwise.
+     */
+    public function is_managed_type($node_type)
+    {
+        if (array_key_exists($node_type, $this->callbacks)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /** @brief Applies registered callback for given node
+     * @param $node [in] node to work on.
+     * @return transformed node text or empty string when given node
+     *         does not match any registered callback.
+     */
+    public function apply_filter($node)
+    {
+        if ($this->is_managed_type($node->nodeType)) {
+            foreach ($this->callbacks[$node->nodeType] as $id => $callback) {
+                if ($id == IdGenerator::from_node($node)) {
+                    return $callback->format_text($node->textContent);
+                }
+            }
+        }
+        return '';
+    }
+
+    private function get_callbacks_with_id($callbacks)
+    {
+        $result = array();
+        if (is_array($callbacks)) {
+            foreach ($callbacks as $callback) {
+                $this->update_with_callback($result, $callback);
+            }
+        } else {
+            $this->update_with_callback($result, $callbacks);
+        }
+        return $result;
+    }
+    private function update_with_callback(array& $result, FilterNode $callback)
+    {
+        $result[$callback->get_id()] = $callback;
     }
 }
 
@@ -108,32 +210,30 @@ class FilterNode
         $this->ns_uri = $ns_uri;
     }
 
-    /** @brief Instances of this class (or sub-class) can be called as function.
+    /** @brief Retrieves filter identifier.
      *
-     * See @a get_text for more details.
-     * @param $node [in] @a DOMElement to work on.
-     * @return text content of the provided @a node.
+     * Internal use only.
+     * @return instance identifier.
      */
-    final public function __invoke($node)
+    final public function get_id()
     {
-        return $this->get_text($node);
+        return IdGenerator::from_values($this->local_name, $this->ns_uri);
     }
 
-    /** @brief Retrieve text content of the specified node.
+    /** @brief Checks whether provided node should treated by this filter.
      *
-     * Text content is retrieved from the @a node when local node name and
-     * namespace URI match.
+     * Both local name and namespace must match.
      * @param $node [in] @a DOMElement to test.
-     * @return text content of the @a node or empty string when @a node does not
-     * match requirements.
+     * @return @c True when provided node matches this filter, @c false
+     * otherwise.
      */
-    final public function get_text($node)
+    final public function match($node)
     {
         if ($node->localName == $this->local_name
-            && $node->namespaceURI == $this->ns_uri) {
-            return $this->format_text(DOMNodeHelper::get_text($node));
+                && $node->namespaceURI == $this->ns_uri) {
+            return true;
         } else {
-            return '';
+            return false;
         }
     }
 
@@ -144,7 +244,7 @@ class FilterNode
      * @param $text [in] text node content.
      * @return @a text as is.
      */
-    protected function format_text($text)
+    public function format_text($text)
     {
         return $text;
     }
@@ -163,7 +263,7 @@ class BoldFilterNode extends FilterNode
      * @param $text [in] text node content.
      * @return @verbatim'<b>' . $text . '</b>'@endverbatim
      */
-    final protected function format_text($text)
+    final public function format_text($text)
     {
         return '<b>' . $text . '</b>';
     }

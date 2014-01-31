@@ -38,13 +38,6 @@ class ToolsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(DOMNodeHelper::get_text($doc->documentElement), 'foo  baz');
     }
 
-    public function testGetTextFromDOMNodeAndChildren()
-    {
-        $doc = new DOMDocument();
-        $doc->loadXML('<r>foo <u>bar</u> <u>baz</u> zoo <a>arf</a> final</r>');
-        $this->assertEquals(DOMNodeHelper::get_text($doc->documentElement, array(XML_ELEMENT_NODE => 'DOMNodeHelper::get_text')), 'foo bar baz zoo arf final');
-    }
-
     public function testGetTextFromDOMNodeAndSpecificChildren()
     {
         $doc = new DOMDocument();
@@ -59,6 +52,16 @@ class ToolsTest extends PHPUnit_Framework_TestCase
         $doc->loadXML('<r>foo <u>bar</u> <u>baz</u> zoo <a>arf</a> final</r>');
         $filter = new BoldFilterNode('u');
         $this->assertEquals(DOMNodeHelper::get_text($doc->documentElement, array(XML_ELEMENT_NODE => $filter)), 'foo <b>bar</b> <b>baz</b> zoo  final');
+    }
+
+    public function testGetTextFromDOMNodeWithMultipleCallbacks()
+    {
+        $doc = new DOMDocument();
+        $doc->loadXML('<r>foo <u>bar</u> <u>baz</u> zoo <a>arf</a> final</r>');
+        $filter1 = new BoldFilterNode('u');
+        $filter2 = new FilterNode('a');
+        $this->assertEquals('foo <b>bar</b> <b>baz</b> zoo arf final',
+            DOMNodeHelper::get_text($doc->documentElement, array(XML_ELEMENT_NODE => array($filter1, $filter2))));
     }
 
     public function testValidEnumValue()
