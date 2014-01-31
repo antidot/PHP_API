@@ -37,18 +37,15 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
     {
         if (property_exists($reply_set, 'facets') && property_exists($reply_set->facets, 'facet')) {
             foreach ($reply_set->facets->facet as $facet) {
-                $facet_helper = new AfsFacetHelper($facet, $query, $config);
-                $this->facets[] = $config->is_array_format() ? $facet_helper->format() : $facet_helper;
+                $this->facets[] = new AfsFacetHelper($facet, $query, $config);
             }
         }
     }
 
     protected function initialize_pager($reply_set, $query, $config)
     {
-        if (property_exists($reply_set, 'pager')) {
-            $pager_helper = new AfsPagerHelper($reply_set->pager, $query, $config);
-            $this->pager = $config->is_array_format() ? $pager_helper->format() : $pager_helper;
-        }
+        if (property_exists($reply_set, 'pager'))
+            $this->pager = new AfsPagerHelper($reply_set->pager, $query, $config);
     }
 
 
@@ -72,11 +69,10 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
      */
     public function has_pager()
     {
-        if (is_null($this->pager)) {
+        if (is_null($this->pager))
             return false;
-        } else {
+        else
             return true;
-        }
     }
     /** @brief Retrieves pager object.
      * @return instance of @a AfsPagerHelper.
@@ -100,8 +96,14 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
     public function format()
     {
         $result = parent::format();
-        $result['facets'] = $this->get_facets();
-        $result['pager'] = $this->get_pager();
+        if ($this->has_facet()) {
+            $result['facets'] = array();
+            foreach ($this->get_facets() as $facet_id => $facet) {
+                $result['facets'][$facet_id] = $facet->format();
+            }
+        }
+        if ($this->has_pager())
+            $result['pager'] = $this->get_pager()->format();
         return $result;
     }
 }

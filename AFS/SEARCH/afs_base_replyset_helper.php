@@ -24,23 +24,13 @@ class AfsBaseReplysetHelper extends AfsHelperBase
 
     protected function initialize_meta($reply_set, AfsHelperConfiguration $config)
     {
-        $meta_helper = new AfsMetaHelper($reply_set->meta);
-        if ($config->is_array_format()) {
-            $this->meta = $meta_helper->format();
-        } else {
-            $this->meta = $meta_helper;
-        }
+        $this->meta = new AfsMetaHelper($reply_set->meta);
     }
 
     protected function initialize_content($reply_set, AfsHelperConfiguration $config, $factory)
     {
         if (property_exists($reply_set, 'content') && property_exists($reply_set->content, 'reply')) {
-            // Remove this horrible thing!
-            if ($config->is_array_format()) {
-                $feed = $this->meta['feed'];
-            } else {
-                $feed = $this->meta->get_feed();
-            }
+            $feed = $this->meta->get_feed();
             foreach ($reply_set->content->reply as $reply) {
                 $reply_helper = $factory->create($feed, $reply);
                 if ($config->is_array_format()) {
@@ -105,7 +95,7 @@ class AfsBaseReplysetHelper extends AfsHelperBase
      */
     public function format()
     {
-        return array('meta' => $this->get_meta(),
+        return array('meta' => $this->get_meta()->format(),
                      'nb_replies' => $this->get_nb_replies(),
                      'replies' => $this->get_replies());
     }

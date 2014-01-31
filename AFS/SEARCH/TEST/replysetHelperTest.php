@@ -653,7 +653,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
 
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
 
-        $meta = $helper->get_meta();
+        $meta = $helper->get_meta()->format();
         $this->assertEquals('Test', $meta['feed']);
         $this->assertEquals('200', $meta['total_replies']);
         $this->assertEquals('42', $meta['duration']);
@@ -662,8 +662,8 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($helper->has_facet());
         $facets = $helper->get_facets();
         $this->assertEquals(1, count($facets));
-        $this->assertEquals('Boolean facet', $facets[0]['label']);
-        $elems = $facets[0]['values'];
+        $this->assertEquals('Boolean facet', $facets[0]->get_label());
+        $elems = $facets[0]->get_elements();
         $this->assertEquals(2, count($elems));
         $this->assertEquals('BAD', $elems[0]['label']);
         $this->assertTrue($elems[0]['link'] != null);
@@ -678,7 +678,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         // and so on...
         
         $this->assertTrue($helper->has_pager());
-        $pager = $helper->get_pager();
+        $pager = $helper->get_pager()->format();
         $this->assertEquals($pager['pages']['next'], 'foo.php?replies=2&page=3&query=title');
         $this->assertEquals($pager['pages']['previous'], 'foo.php?replies=2&query=title');
         // and so on...

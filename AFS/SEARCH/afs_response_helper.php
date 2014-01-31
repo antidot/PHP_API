@@ -21,7 +21,7 @@ class AfsResponseHelper extends AfsHelperBase
     private $config = null;
     private $header = null;
     private $replysets = array();
-    private $spellchecks = null;
+    private $spellcheck_mgr = null;
     private $promote = null;
     private $concepts = null;
     private $error = null;
@@ -45,7 +45,7 @@ class AfsResponseHelper extends AfsHelperBase
             $query->update_user_and_session_id($this->header->get_user_id(),
                 $this->header->get_session_id());
 
-            $this->spellchecks = new AfsSpellcheckManager($query, $config);
+            $this->spellcheck_mgr = new AfsSpellcheckManager($query, $config);
             $this->concepts = new AfsConceptManager();
 
             $this->initialize_replysets($response->replySet, $query, $config);
@@ -68,35 +68,37 @@ class AfsResponseHelper extends AfsHelperBase
                         $this->promote = new AfsPromoteReplysetHelper($replyset, $config);
                     } else {
                         $replyset_helper = new AfsReplysetHelper($replyset, $query, $config);
+                        $feed = $replyset_helper->get_meta()->get_feed();
                         if ($config->is_array_format()) {
-                            $this->replysets[] = $replyset_helper->format();
+                            $this->replysets[$feed] = $replyset_helper->format();
                         } else {
-                            $this->replysets[] = $replyset_helper;
+                            $this->replysets[$feed] = $replyset_helper;
                         }
                     }
                 } elseif ($producer == AfsProducer::SPELLCHECK) {
-                    $this->spellchecks->add_spellcheck($replyset);
+                    $this->spellcheck_mgr->add_spellcheck($replyset);
                 } elseif ($producer == AfsProducer::CONCEPT) {
                     $this->concepts->add_concept($replyset);
                 }
             }
         }
         if ($config->is_array_format()) {
-            $this->spellchecks = $this->spellchecks->format();
             if (! is_null($this->promote)) {
                 $this->promote = $this->promote->format();
             }
         }
     }
 
+    /** @name Replies
+     * @{ */
+
     /** @brief Check whether reponse has a reply.
      * @return true when a reply is available, false otherwise.
      */
     public function has_replyset()
     {
-        return ! empty($this->replysets);
+        return (! $this->in_error()) && (! empty($this->replysets));
     }
-
     /** @brief Retrieves all replysets.
      * @return all defined reply sets.
      */
@@ -104,7 +106,6 @@ class AfsResponseHelper extends AfsHelperBase
     {
         return $this->replysets;
     }
-
     /** @brief Retrieves replyset from the @a response.
      *
      * @param $feed [in] name of the feed to filter on
@@ -116,36 +117,61 @@ class AfsResponseHelper extends AfsHelperBase
     {
         if (is_null($feed)) {
             if ($this->has_replyset()) {
-                return $this->replysets[0];
+                return reset($this->replysets);
             }
-        } else {
-            foreach ($this->replysets as $replyset) {
-                $meta = $replyset->get_meta();
-                if ($meta->get_feed() == $feed
-                    && AfsProducer::SEARCH == $meta->get_producer()) {
-                        return $replyset;
-                }
-            }
+        } elseif (array_key_exists($feed, $this->replysets)) {
+            return $this->replysets[$feed];
         }
         throw new OutOfBoundsException('No reply set '
             . (is_null($feed) ? '' : 'named \'' . $feed . '\' '). 'available');
     }
+    /** @} */
 
+    /** @name Spellcheck
+     * @{ */
+
+    /** @brief Checks whether at least one spellcheck is defined.
+     * @return @c True when one or more spellchecks are defined, @c false
+     * otherwise.
+     */
+    public function has_spellcheck()
+    {
+        return (! $this->in_error()) and $this->spellcheck_mgr->has_spellcheck();
+    }
     /** @brief Retrieves spellchecks from the @a response.
-     * @return @a AfsSpellcheckManager or formatted spellcheck depending on
-     * parameter initialization.
+     * @return list of @a AfsSpellcheckHelper or formatted spellcheck depending
+     * on parameter initialization.
      */
     public function get_spellchecks()
     {
-        return $this->spellchecks;
+        return $this->spellcheck_mgr->get_spellchecks();
     }
+    /** @brief Retrieves default, available or specified spellcheck.
+     * @param $feed [in] Feed for which spellcheck should be retrieved. Default
+     *        value is <tt>null</tt>, two cases can occur:
+     *        - there is only one spellcheck reply which is returned,
+     *        - there is multiple spellcheck replies and one corresponds to
+     *          default spellcheck reply (AFS_DEFAULT_SPELLCHECK); this one is
+     *          returned.
+     * @return spellcheck helper (see @a AfsSpellcheckHelper).
+     * @exception OutOfBoundsException when required feed has not produced any
+     *            spellcheck reply.
+     */
+    public function get_spellcheck($feed=null)
+    {
+        return $this->spellcheck_mgr->get_spellcheck($feed);
+    }
+    /** @} */
+
+    /** @name Concept
+     * @{ */
 
     /** @brief Checks whether at least one concept is available.
      * @return @c True when one or more concepts is available, @c false otherwise.
      */
     public function has_concept()
     {
-      return $this->concepts->has_concept();
+      return (! $this->in_error()) and $this->concepts->has_concept();
     }
     /** @brief Retrieves all concept helpers.
      * @return concept replies.
@@ -167,6 +193,10 @@ class AfsResponseHelper extends AfsHelperBase
     {
       return $this->concepts->get_concept($feed);
     }
+    /** @} */
+
+    /** @name Miscellaneaous
+     * @{ */
 
     /** @brief Retrieves AFS search engine computation duration.
      *
@@ -182,6 +212,8 @@ class AfsResponseHelper extends AfsHelperBase
 
     /** @brief Retrieve reply data as array.
      *
+     * This method is intended for internal use only.
+     *
      * All data are store in <tt>key => value</tt> format:
      * @li @c replysets: replies per feed,
      * @li @c spellchecks: spellcheck replies per feed.
@@ -193,11 +225,18 @@ class AfsResponseHelper extends AfsHelperBase
         if ($this->in_error()) {
             return array('error' => $this->get_error_msg());
         } else {
-            return array('duration' => $this->get_duration(),
-                'replysets' => $this->get_replysets(),
-                'spellchecks' => $this->get_spellchecks());
+            $result = array('duration' => $this->get_duration());
+            if ($this->has_replyset())
+                $result['replysets'] = $this->get_replysets();
+            if ($this->spellcheck_mgr->has_spellcheck())
+                $result['spellchecks'] = $this->spellcheck_mgr->format();
+            return $result;
         }
     }
+    /** @} */
+
+    /** @name Error
+     * @{ */
 
     /** @brief Check whether an error has been raised.
      * @return True on error, false otherwise.
@@ -214,6 +253,7 @@ class AfsResponseHelper extends AfsHelperBase
     {
         return $this->error;
     }
+    /** @} */
 }
 
 

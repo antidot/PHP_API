@@ -30,15 +30,25 @@ class AfsReplyHelper extends AfsBaseReplyHelper
         parent::__construct($reply, is_null($visitor) ? new AfsTextVisitor() : $visitor);
     }
 
+    /** @brief Checks whether at least one client data is defined.
+     * @return @c True when one or more clientdatas are available, @c false
+     * otherwise.
+     */
+    public function has_clientdata()
+    {
+      if (array_key_exists('clientData', $this->reply)) {
+          return true;
+      } else {
+          return false;
+      }
+    }
     /** @brief Retrieves client data manager.
-     *
      * @return Manager of client data (see AfsClientDataManager).
-     *
      * @exception Exception when no client data is available.
      */
     public function get_clientdatas()
     {
-      if (array_key_exists('clientData', $this->reply)) {
+      if ($this->has_clientdata()) {
           return new AfsClientDataManager($this->reply->clientData);
       } else {
           throw new Exception('No client data available!');

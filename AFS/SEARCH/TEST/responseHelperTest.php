@@ -156,6 +156,8 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Catalog', $replyset->get_meta()->get_feed());
         $this->assertEquals(AfsProducer::SEARCH, $replyset->get_meta()->get_producer());
         $this->assertEquals(42, $replyset->get_meta()->get_total_replies());
+
+        $this->assertTrue($response->has_spellcheck());
     }
 
     public function testRetrieveUnreachableReplyset()
@@ -307,6 +309,92 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
         $item = each($concept_item->get_data());
         $this->assertEquals('foo', $item['value']);
         $this->assertEquals('lnf:taxo#QI-thm2009862', $item['key']);
+    }
+
+    public function testArraysFormat()
+    {
+        $input = json_decode('{
+                "header": {
+                    "query": {
+                        "userId": "foo",
+                        "sessionId": "bar"
+                    },
+                    "user": { },
+                    "performance": {
+                        "durationMs": 211
+                    },
+                    "info": { }
+                },
+                "replySet": [
+                    {
+                        "meta": {
+                            "uri": "Country",
+                            "totalItems": 5,
+                            "totalItemsIsExact": true,
+                            "pageItems": 5,
+                            "firstPageItem": 1,
+                            "lastPageItem": 5,
+                            "durationMs": 4,
+                            "firstPaFId": 1,
+                            "lastPaFId": 1,
+                            "producer": "SEARCH"
+                        }
+                    },
+                    {
+                        "meta": {
+                            "uri": "Catalog",
+                            "totalItems": 666,
+                            "totalItemsIsExact": true,
+                            "pageItems": 5,
+                            "firstPageItem": 1,
+                            "lastPageItem": 5,
+                            "durationMs": 4,
+                            "firstPaFId": 1,
+                            "lastPaFId": 1,
+                            "producer": "SPELLCHECK"
+                        },
+                        "content": {
+                            "reply": [
+                                {
+                                    "uri": "Catalog",
+                                    "suggestion": [ { "items": [ { "match": { "text": "FOO" } } ] } ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "meta": {
+                            "uri": "Catalog",
+                            "totalItems": 42,
+                            "totalItemsIsExact": true,
+                            "pageItems": 5,
+                            "firstPageItem": 1,
+                            "lastPageItem": 5,
+                            "durationMs": 4,
+                            "firstPaFId": 1,
+                            "lastPaFId": 1,
+                            "producer": "SEARCH"
+                        }
+                    }
+                ]
+            }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::ARRAYS);
+        $query = new AfsQuery();
+        $response = new AfsResponseHelper($input, $query, $config);
+        $response = $response->format();
+
+        $this->assertTrue(array_key_exists('replysets', $response));
+        $replyset = $response['replysets']['Catalog'];
+        $this->assertEquals('Catalog', $replyset['meta']['feed']);
+
+        $this->assertTrue(array_key_exists('spellchecks', $response));
+        $spellcheck = $response['spellchecks'];
+        $this->assertTrue(array_key_exists('Catalog', $spellcheck));
+        $res = $spellcheck['Catalog'];
+        $this->assertEquals(1, count($res));
+        $this->assertEquals('FOO', $res[0]['raw']);
     }
 }
 

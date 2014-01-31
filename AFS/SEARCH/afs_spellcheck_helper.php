@@ -45,6 +45,17 @@ class AfsSpellcheckManager extends AfsHelperBase
         }
     }
 
+    /** @brief Checks whether at least one spellcheck is defined.
+     * @return @c True when one or more spellcheck is defined, @c false
+     * otherwise.
+     */
+    public function has_spellcheck()
+    {
+        if (count($this->spellchecks) > 0)
+            return true;
+        else
+            return false;
+    }
     /** @brief Retrieves default, available or specified spellcheck.
      * @param $feed [in] Feed for which spellcheck should be retrieved. Default
      *        value is <tt>null</tt>, two cases can occur:
