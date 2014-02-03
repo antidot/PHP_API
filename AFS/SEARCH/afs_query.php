@@ -1,6 +1,8 @@
 <?php
-require_once "COMMON/afs_language.php";
-require_once "AFS/SEARCH/afs_origin.php";
+require_once 'COMMON/afs_language.php';
+require_once 'AFS/SEARCH/afs_origin.php';
+require_once 'AFS/SEARCH/afs_sort_order.php';
+require_once 'AFS/SEARCH/afs_sort_builtins.php';
 
 /** @brief Represent an AFS query.
  *
@@ -29,7 +31,7 @@ class AfsQuery
     private $page = 1;          // afs:page
     private $replies = 10;      // afs:replies
     private $lang = null;       // afs:lang
-    private $sort = null;       // afs:sort
+    private $sort = array();    // afs:sort
     private $from = null;       // afs:from : query origin
     private $userId = null;     // afs:userId
     private $sessionId = null;  // afs:sessionId
@@ -375,55 +377,102 @@ class AfsQuery
     /** @name Sort order management
      * @{ */
 
-    /** @brief Check whether sort parameter is set.
+    /** @brief Checks whether sort parameter is set.
      * @return true when sort parameter is set, false otherwise.
      */
     public function has_sort()
     {
-        return $this->sort != null;
+        return ! empty($this->sort);
     }
-    /** @brief Reset sort order to AFS default sort order.
+    /** @brief Resets sort order to AFS default sort order.
      */
     public function reset_sort()
     {
         return $this->set_sort(null);
     }
-    /** @brief Define new sort order.
+    /** @brief Defines new sort order.
      *
-     * Provided sort order must conform following syntax:
-     * <tt>facet1,ORDER;facet2,ORDER;...</tt>
-     * where:
-     * - @c facetX: should be a built-in facet like: @c afs:weight,
-     *              @c afs:relevance, @c afs:words ... or user defined facet
-     * - @c ORDER: should be @c ASC or @c DESC for ascending and descending
-     *             order respectively. Order can be omitted.
+     * Provided sort parameter should be a built-in facet like: @c afs:weight,
+     * @c afs:relevance, @c afs:words ... or user defined facet
      *
-     * @param $sort_order [in] new sort order. When set to emty string or null,
-     *        this call to this method is equivalent to call to @a reset_sort.
+     * @param $sort_param [in] new sort parameter. When set to emty string or
+     *        null, this call to this method is equivalent to call to
+     *        @a reset_sort.
+     * @param $order [in] order applied to the given parameter. Allowed values
+     *        are AfsSortOrder::DESC (default) or AfsSortOrder:ASC.
      *
-     * @exception Exception when provided sort order do not conform to required
-     * syntax.
-     *
-     * @internal
-     * We can provide a simplest interface to define sort parameter.
+     * @exception Exception when provided sort parameter does not conform to
+     * required syntax.
      */
-    public function set_sort($sort_order)
+    public function set_sort($sort_param, $order=AfsSortOrder::DESC)
     {
-        if ($sort_order == '')
-        {
-            $sort_order = null;
-        }
-        $copy = $this->copy();
-        $copy->reset_page();
-        $copy->sort = $sort_order;
-        return $copy;
+        return $this->internal_add_sort(null, $sort_param, $order);
     }
-    /** @brief Retrieve sort order.
-     * @return sort order.
+    /** @brief Defines additional sort order.
+     *
+     * Provided sort parameter should be a built-in facet like: @c afs:weight,
+     * @c afs:relevance, @c afs:words (see AfsSortBuiltins)... or user defined
+     * facet.
+     *
+     * @param $sort_param [in] new sort parameter. When set to emty string or
+     *        null, this call to this method is equivalent to call to
+     *        @a reset_sort.
+     * @param $order [in] order applied to the given parameter. Allowed values
+     *        are AfsSortOrder::DESC (default) or AfsSortOrder:ASC.
+     *
+     * @exception Exception when provided sort parameter does not conform to
+     * required syntax.
+     */
+    public function add_sort($sort_param, $order=AfsSortOrder::DESC)
+    {
+        return $this->internal_add_sort($this->sort, $sort_param, $order);
+    }
+    /** @brief Retrieves sort order.
+     * @return sort order as string.
      */
     public function get_sort()
     {
-        return $this->sort;
+        $result = '';
+        $sorts = array();
+        foreach ($this->sort as $k => $v) {
+            $sorts[] = $k . ',' . $v;
+        }
+        if (! empty($sorts)) {
+            $result = implode(';', $sorts);
+        }
+        return $result;
+    }
+    /** @brief Adds new sort parameter or substitutes existing one.
+     *
+     * @param $current_value [in] current sort order value.
+     * @param $sort_param [in] new sort parameter
+     * @param $order [in] sort order
+     *
+     * @return copy of current query.
+     */
+    private function internal_add_sort($current_value, $sort_param, $order)
+    {
+        if ($sort_param == '') {
+            $sort_param = null;
+        }
+        if (! is_null($sort_param)) {
+            if (strncmp('afs:', $sort_param, 4) == 0) {
+                AfsSortBuiltins::check_value($sort_param, 'Invalid sort parameter: ');
+            } elseif (1 != preg_match('/^[a-zA-Z][a-zA-Z0-9_-]*$/', $sort_param)) {
+                throw new Exception('Invalid sort parameter provided: ' . $sort_param);
+            }
+            AfsSortOrder::check_value($order, 'Invalid sort order provided: ');
+
+            $new_value = $current_value;
+            $new_value[$sort_param] = $order;
+        } else {
+            $new_value = array();
+        }
+
+        $copy = $this->copy();
+        $copy->reset_page();
+        $copy->sort = $new_value;
+        return $copy;
     }
     /**  @} */
 
@@ -629,6 +678,10 @@ class AfsQuery
                     foreach ($filter_values as $value) {
                         $result = $result->add_filter($filter, $value);
                     }
+                }
+            } elseif ($param == 'sort') {
+                foreach ($values as $key => $value) {
+                    $result = $result->$adder($key, $value);
                 }
             } elseif (method_exists($result, $adder)) {
                 foreach ($values as $value) {

@@ -323,41 +323,33 @@ class QueryTest extends PHPUnit_Framework_TestCase
     public function testSetSortOrder()
     {
         $query = new AfsQuery();
-        $this->assertTrue($query->get_sort() == null);
+        $this->assertEquals('', $query->get_sort());
+        $this->assertFalse($query->has_sort());
         $query = $query->set_sort('afs:relevance');
-        $this->assertTrue($query->get_sort() == 'afs:relevance');
+        $this->assertTrue($query->has_sort());
+        $this->assertEquals('afs:relevance,DESC', $query->get_sort());
     }
     public function testResetSortOrder()
     {
         $query = new AfsQuery();
-        $query = $query->set_sort('afs:relevance,DESC;afs:words,ASC;afs:foo');
-        $this->assertTrue($query->get_sort() == 'afs:relevance,DESC;afs:words,ASC;afs:foo');
+        $query = $query->set_sort('afs:relevance', AfsSortOrder::DESC)
+            ->add_sort('afs:words', AfsSortOrder::ASC)
+            ->add_sort('foo');
+        $this->assertEquals('afs:relevance,DESC;afs:words,ASC;foo,DESC', $query->get_sort());
         $query = $query->reset_sort();
-        $this->assertTrue($query->get_sort() == null);
+        $this->assertFalse($query->has_sort());
     }
     public function testCustomSortOrderFacet()
     {
         $query = new AfsQuery();
         $query = $query->set_sort('relevance');
-        $this->assertTrue($query->get_sort() == 'relevance');
+        $this->assertTrue($query->get_sort() == 'relevance,DESC');
     }
     public function testInvalidSortOrderOrder()
     {
-        return; // TODO activate it when sort order has been updated
         $query = new AfsQuery();
         try {
-            $query = $query->set_sort('afs:relevance,DES');
-        } catch (Exception $e) {
-            return;
-        }
-        $this->fail('Invalid sort order parameter should have raised an exception!');
-    }
-    public function testInvalidSortOrderSeparator()
-    {
-        return; // TODO activate it when sort order has been updated
-        $query = new AfsQuery();
-        try {
-            $query = $query->set_sort('afs:relevance,DESC:afs:relevance');
+            $query = $query->set_sort('afs:relevance', 'DES');
         } catch (Exception $e) {
             return;
         }
@@ -507,19 +499,21 @@ class QueryTest extends PHPUnit_Framework_TestCase
     public function testCloneQuery()
     {
         $query = new AfsQuery();
-        $query = $query->set_query('query');
-        $query = $query->add_filter('foo', 'bar');
-        $query = $query->add_filter('foo', 'baz');
-        $query = $query->add_filter('fox', 'bat');
-        $query = $query->add_filter('fox', 'bas');
-        $query = $query->add_feed('feed');
-        $query = $query->add_feed('food');
-        $query = $query->set_replies(666);
-        $query = $query->set_lang('en');
-        $query = $query->set_sort('afs:weight,ASC;afs:foo;afs:BAR,DESC');
-        $query = $query->set_page(42);
-        $query = $query->set_from(AfsOrigin::SEARCHBOX);
-        $query = $query->add_log('loggy');
+        $query = $query->set_query('query')
+                       ->add_filter('foo', 'bar')
+                       ->add_filter('foo', 'baz')
+                       ->add_filter('fox', 'bat')
+                       ->add_filter('fox', 'bas')
+                       ->add_feed('feed')
+                       ->add_feed('food')
+                       ->set_replies(666)
+                       ->set_lang('en')
+                       ->set_sort(AfsSortBuiltins::WEIGHT, AfsSortOrder::ASC)
+                       ->add_sort('foo')
+                       ->add_sort('BAR')
+                       ->set_page(42)
+                       ->set_from(AfsOrigin::SEARCHBOX)
+                       ->add_log('loggy');
         $clone = new AfsQuery($query);
         $this->assertTrue($clone->get_query('query') == 'query');
         $this->assertTrue($clone->has_filter('foo', 'bar'));
@@ -531,7 +525,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($clone->get_page() == 42);
         $this->assertTrue($clone->get_replies() == 666);
         $this->assertTrue($clone->get_lang() == 'en');
-        $this->assertTrue($clone->get_sort() == 'afs:weight,ASC;afs:foo;afs:BAR,DESC');
+        $this->assertEquals('afs:weight,ASC;foo,DESC;BAR,DESC', $clone->get_sort());
         $this->assertEquals(AfsOrigin::SEARCHBOX, $clone->get_from());
         $logs = $clone->get_logs();
         $this->assertEquals(1, count($logs));
@@ -555,7 +549,9 @@ class QueryTest extends PHPUnit_Framework_TestCase
 
         $query = $query->set_lang('en');
 
-        $query = $query->set_sort('afs:weight,ASC;afs:foo;afs:BAR,DESC');
+        $query = $query->set_sort(AfsSortBuiltins::WEIGHT, AfsSortOrder::ASC)
+                       ->add_sort('foo')
+                       ->add_sort('BAR');
 
         $query = $query->set_page(42);
 
@@ -587,7 +583,15 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result['lang'] == 'en');
 
         $this->assertTrue(array_key_exists('sort', $result));
-        $this->assertTrue($result['sort'] == 'afs:weight,ASC;afs:foo;afs:BAR,DESC');
+        $kv = each($result['sort']);
+        $this->assertEquals('afs:weight', $kv[0]);
+        $this->assertEquals('ASC', $kv[1]);
+        $kv = each($result['sort']);
+        $this->assertEquals('foo', $kv[0]);
+        $this->assertEquals('DESC', $kv[1]);
+        $kv = each($result['sort']);
+        $this->assertEquals('BAR', $kv[0]);
+        $this->assertEquals('DESC', $kv[1]);
 
         $this->assertTrue(array_key_exists('page', $result));
         $this->assertTrue($result['page'] == 42);
@@ -610,7 +614,9 @@ class QueryTest extends PHPUnit_Framework_TestCase
             'feed' => array('feed', 'food'),
             'replies' => 666,
             'lang' => 'en',
-            'sort' => 'afs:weight,ASC;afs:foo;afs:BAR,DESC',
+            'sort' => array('afs:weight' => 'ASC',
+                            'foo' => 'DESC',
+                            'BAR' => 'DESC'),
             'from' => 'PAGER',
             'log' => array('loggy', 'loggo')));
 
@@ -635,7 +641,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($query->get_lang() == 'en');
 
         $this->assertTrue($query->has_sort());
-        $this->assertTrue($query->get_sort() == 'afs:weight,ASC;afs:foo;afs:BAR,DESC');
+        $this->assertEquals('afs:weight,ASC;foo,DESC;BAR,DESC', $query->get_sort());
 
         $this->assertTrue($query->has_page());
         $this->assertTrue($query->get_page() == 42);
