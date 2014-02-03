@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once "AFS/SEARCH/afs_text_helper.php";
 
 class Visitor implements AfsTextVisitorInterface

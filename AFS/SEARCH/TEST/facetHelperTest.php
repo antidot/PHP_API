@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once "AFS/SEARCH/afs_facet_helper.php";
 require_once "AFS/SEARCH/afs_query.php";
 require_once "AFS/SEARCH/afs_response_helper.php";

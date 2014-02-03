@@ -1,7 +1,8 @@
-<?php
-require_once "COMMON/afs_connector_interface.php";
-require_once "AFS/SEARCH/afs_search_query_manager.php";
-require_once "AFS/SEARCH/afs_query.php";
+<?php ob_start();
+require_once 'COMMON/afs_connector_interface.php';
+require_once 'AFS/SEARCH/afs_search_query_manager.php';
+require_once 'AFS/SEARCH/afs_query.php';
+require_once 'AFS/SEARCH/afs_helper_configuration.php';
 
 class ConnectorMock implements AfsConnectorInterface
 {
@@ -24,8 +25,9 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->connector = new ConnectorMock();
-        $this->facet_mgr = new AfsFacetManager();
-        $this->qm = new AfsSearchQueryManager($this->connector, $this->facet_mgr);
+        $this->config = new AfsHelperConfiguration();
+        $this->facet_mgr = $this->config->get_facet_manager();
+        $this->qm = new AfsSearchQueryManager($this->connector, $this->config);
     }
 
     private function checkOneFacetValue($facet_id, $facet_value)

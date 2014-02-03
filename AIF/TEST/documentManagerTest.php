@@ -1,5 +1,5 @@
-<?php
-require_once "AIF/afs_document_manager.php";
+<?php ob_start();
+require_once 'AIF/afs_document_manager.php';
 
 class DocumentManagerTest extends PHPUnit_Framework_TestCase
 {

@@ -7,11 +7,16 @@
  *
  * Default cookie names are used but they can be overloaded while instanciating
  * this class.
+ * <br/>
+ * User identifier never expires whereas session identifier expires after 30
+ * minutes (default). Session identifier timeout can be modified by calling
+ * AfsUserSessionManager::set_session_timeout method.
  */
 class AfsUserSessionManager
 {
     private $user_id_cookie = null;
     private $session_id_cookie = null;
+    private $session_timeout_sec = 1800;
 
     /** @brief Constructs new instance of the manager.
      *
@@ -68,7 +73,15 @@ class AfsUserSessionManager
      */
     public function set_session_id($value)
     {
-        setcookie($this->session_id_cookie, $value);
+        setcookie($this->session_id_cookie, $value, time() + $this->session_timeout_sec);
+    }
+
+    /** @brief Defines session timeout (seconds)
+     * @param $seconds [in] session timeout in seconds since last access.
+     */
+    public function set_session_timeout($seconds)
+    {
+        $this->session_timeout_sec = $seconds;
     }
 }
 

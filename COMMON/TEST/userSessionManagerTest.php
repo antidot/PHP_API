@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once "COMMON/afs_user_session_manager.php";
 
 class UserSessionTest extends PHPUnit_Framework_TestCase

@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once "AFS/SEARCH/afs_facet_manager.php";
 
 class FacetManagerTest extends PHPUnit_Framework_TestCase

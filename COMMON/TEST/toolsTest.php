@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once "COMMON/afs_tools.php";
 
 

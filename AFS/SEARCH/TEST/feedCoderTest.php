@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once "AFS/SEARCH/afs_feed_coder.php";
 
 class FeedCoderTest extends PHPUnit_Framework_TestCase

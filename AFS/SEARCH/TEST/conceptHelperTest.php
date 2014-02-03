@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once "AFS/SEARCH/afs_concept_helper.php";
 
 class ConceptHelperTest extends PHPUnit_Framework_TestCase

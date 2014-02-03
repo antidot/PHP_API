@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once "AFS/SEARCH/afs_promote_reply_helper.php";
 
 class PromoteReplyHelperTest extends PHPUnit_Framework_TestCase

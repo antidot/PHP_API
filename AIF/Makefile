@@ -3,6 +3,7 @@
 # AFS © Antidot 2014
 #
 #*******************************************************************************
-ROOT_PATH=$(CURDIR)/../../
+ROOT_PATH=$(CURDIR)/..
 
 -include $(ROOT_PATH)/rules.mk
+

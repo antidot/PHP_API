@@ -1,5 +1,5 @@
-<?php
-require_once "AIF/afs_authentication.php";
+<?php ob_start();
+require_once 'AIF/afs_authentication.php';
 
 class AuthenticationTest extends PHPUnit_Framework_TestCase
 {

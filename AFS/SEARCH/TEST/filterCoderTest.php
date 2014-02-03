@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once "AFS/SEARCH/afs_filter_coder.php";
 
 class FilterCoderTest extends PHPUnit_Framework_TestCase

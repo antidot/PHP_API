@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once 'AFS/SEARCH/afs_search.php';
 
 class SearchTest extends PHPUnit_Framework_TestCase

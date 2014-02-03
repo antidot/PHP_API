@@ -1,5 +1,6 @@
 <?php
 require_once 'COMMON/afs_language.php';
+require_once 'COMMON/afs_user_session_manager.php';
 require_once 'AFS/SEARCH/afs_origin.php';
 require_once 'AFS/SEARCH/afs_sort_order.php';
 require_once 'AFS/SEARCH/afs_sort_builtins.php';
@@ -61,6 +62,8 @@ class AfsQuery
             $this->key = $afs_query->key;
         } else {
             $this->lang = new AfsLanguage(null);
+            $this->userId = uniqid('user_');
+            $this->sessionId = uniqid('session_');
         }
     }
 
@@ -516,25 +519,22 @@ class AfsQuery
      * @{ */
 
     /** @brief Defines user id.
-     * @remark Session id is reset as soon as new value is defined for user id.
      * @remark Page value is preserved when this method is called.
      * @param $user_id [in] User id to set.
      * @return current instance.
      */
     public function set_user_id($user_id)
     {
-        if ($this->userId != $user_id) {
-            $this->userId = $user_id;
-            $this->set_session_id(null);
-        }
+        $this->userId = $user_id;
         return $this;
     }
     /** @brief Checks whether user id is set.
+     * @deprecated This method always return @c true and will be removed soon.
      * @return @c True when user id is set, @c false otherwise.
      */
     public function has_user_id()
     {
-        return ! is_null($this->userId);
+        return true;
     }
     /** @brief Retrieves user identifier.
      * @return user identifier or null if unset.
@@ -555,11 +555,12 @@ class AfsQuery
         return $this;
     }
     /** @brief Checks whether session id is set.
+     * @deprecated This method always return @c true and will be removed soon.
      * @return @c True when session id is set, @c false otherwise.
      */
     public function has_session_id()
     {
-        return ! is_null($this->sessionId);
+        return true;
     }
     /** @brief Retrieves session id.
      * @return the session id or null if unset.
@@ -572,17 +573,30 @@ class AfsQuery
     /** @brief Initializes user id and session id.
      *
      * These identifiers are initialized thanks to specific manager. Refers to
-     * @a AfsUserSessionManager for more details.
+     * @a AfsUserSessionManager for more details. User and session identifiers
+     * are updated with identifiers available from AfsUserSessionManager when
+     * they are available. Otherwise, query identifiers are not modified.
      *
      * @param $mgr [in] Instance of @a AfsUserSessionManager.
+     *
+     * @return current instance.
      */
     public function initialize_user_and_session_id(AfsUserSessionManager $mgr)
     {
-        $this->set_user_id($mgr->get_user_id());
-        $this->set_session_id($mgr->get_session_id());
+        $user_id = $mgr->get_user_id();
+        if (! empty($user_id))
+            $this->set_user_id($user_id);
+
+        $session_id = $mgr->get_session_id();
+        if (! empty($session_id))
+            $this->set_session_id($session_id);
+
+        return $this;
     }
 
-    /** @brief Update user and session identifiers.
+    /** @brief Updates user and session identifiers.
+     *
+     * @deprecated Nothing happens since identifiers are always initialized.
      *
      * These identifiers are updated only if they are not yet defined.
      * @remark Page value is preserved when this method is called.

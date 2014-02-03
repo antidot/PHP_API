@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 require_once "AFS/SEARCH/afs_spellcheck_text_visitor.php";
 
 class SpellcheckVisitor implements AfsSpellcheckTextVisitorInterface

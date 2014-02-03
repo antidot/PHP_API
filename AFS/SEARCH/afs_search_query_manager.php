@@ -8,18 +8,18 @@ require_once "AFS/SEARCH/afs_facet_manager.php";
 class AfsSearchQueryManager
 {
     private $connector = null;
-    private $facet_mgr = null;
+    private $config = null;
 
     /** @brief Construct new search query connector.
      * @param $connector [in] Connector used to submit a query to AFS search engine.
-     * @param $facet_mgr [in] reference to @a AfsFacetManager instance with
-     *        appropriate @a AfsFacet defined.
+     * @param $config [in] reference to @a AfsHelperConfiguration instance with
+     *        appropriate @a AfsFacetManager defined.
      */
     public function __construct(AfsConnectorInterface $connector,
-        AfsFacetManager $facet_mgr)
+        AfsHelperConfiguration $config)
     {
         $this->connector = $connector;
-        $this->facet_mgr = $facet_mgr;
+        $this->config = $config;
     }
 
     /** @brief Send query to AFS search engine.
@@ -29,6 +29,7 @@ class AfsSearchQueryManager
      */
     public function send(AfsQuery $query)
     {
+        $query->initialize_user_and_session_id($this->config->get_user_session_manager());
         $params = $this->convert_to_param($query);
         $this->add_facet_options($params);
         return $this->connector->send($params);
@@ -44,7 +45,7 @@ class AfsSearchQueryManager
      */
     private function add_facet_options(&$params)
     {
-        foreach ($this->facet_mgr->get_facets() as $name => $facet) {
+        foreach ($this->config->get_facet_manager()->get_facets() as $name => $facet) {
             if ($facet->is_sticky()) {
                 if (empty($params['afs:facet'])) {
                     $params['afs:facet'] = array();
@@ -117,7 +118,7 @@ class AfsSearchQueryManager
      */
     private function format_filter($name, $values)
     {
-        $facets = $this->facet_mgr->get_facets();
+        $facets = $this->config->get_facet_manager()->get_facets();
         if (empty($facets[$name])) {
             if (count($values) > 1) {
                 error_log('No facet named "' . $name . '" is currently registered. Only first facet value will be used to query AFS search engine');

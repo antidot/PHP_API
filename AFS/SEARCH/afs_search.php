@@ -100,7 +100,7 @@ class AfsSearch
     public function execute($format=AfsHelperFormat::ARRAYS)
     {
         $this->config->set_helper_format($format);
-        $query_mgr = new AfsSearchQueryManager($this->connector, $this->config->get_facet_manager());
+        $query_mgr = new AfsSearchQueryManager($this->connector, $this->config);
         $reply = $query_mgr->send($this->query);
         $helper = new AfsResponseHelper($reply, $this->query, $this->config);
         if (AfsHelperFormat::ARRAYS == $format) {

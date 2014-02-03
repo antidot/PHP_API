@@ -1,5 +1,5 @@
-<?php
-require_once "AIF/afs_document.php";
+<?php ob_start();
+require_once 'AIF/afs_document.php';
 
 class DocumentTest extends PHPUnit_Framework_TestCase
 {

@@ -14,6 +14,7 @@ class AfsHelperConfiguration
     private $query_coder = null;
     private $reply_text_visitor = null;
     private $spellcheck_text_visitor = null;
+    private $user_session_mgr = null;
 
     /** @brief Constructs new configuration class with default parameters set.
      */
@@ -23,6 +24,7 @@ class AfsHelperConfiguration
         $this->facet_mgr = new AfsFacetManager();
         $this->reply_text_visitor = new AfsTextVisitor();
         $this->spellcheck_text_visitor = new AfsSpellcheckTextVisitor();
+        $this->user_session_mgr = new AfsUserSessionManager();
     }
 
     /** @name Helper format
@@ -160,6 +162,27 @@ class AfsHelperConfiguration
     public function set_spellcheck_text_visitor(AfsSpellcheckTextVisitorInterface $visitor)
     {
         $this->spellcheck_text_visitor = $visitor;
+        return $this;
+    }
+    /** @} */
+
+    /** @name User and Session identifiers
+     * @{ */
+
+    /** @brief Restrievs user and session id manager.
+     * @return Manager for user and session id.
+     */
+    public function get_user_session_manager()
+    {
+        return $this->user_session_mgr;
+    }
+    /** @brief Defines new user and session id manager.
+     * @param $user_session_mgr [in] new manager for user and session id.
+     * @return current instance.
+     */
+    public function set_user_sessionmanager(AfsUserSessionManager $user_session_mgr)
+    {
+        $this->user_session_mgr = $user_session_mgr;
         return $this;
     }
     /** @} */
