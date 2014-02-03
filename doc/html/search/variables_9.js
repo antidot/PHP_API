@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['or_5fmode',['OR_MODE',['../classAfsFacetCombination.html#af5e70a01eaaa6fe84e0cbd211e04464b',1,'AfsFacetCombination']]]
+  ['non_5fsticky',['NON_STICKY',['../classAfsFacetStickyness.html#ad9220a791291a2348bc0ebfed675e5da',1,'AfsFacetStickyness']]]
 ];

@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.5.3</span>
+   &#160;<span id="projectnumber">version 0.6.1</span>
    </div>
   </td>
  </tr>
@@ -98,9 +98,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a26885b1c1f1ff427a463a196f89b69bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSearchQueryManager.html#a26885b1c1f1ff427a463a196f89b69bb">__construct</a> (<a class="el" href="interfaceAfsConnectorInterface.html">AfsConnectorInterface</a> $connector, <a class="el" href="classAfsFacetManager.html">AfsFacetManager</a> $facet_mgr)</td></tr>
-<tr class="memdesc:a26885b1c1f1ff427a463a196f89b69bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new search query connector.  <a href="#a26885b1c1f1ff427a463a196f89b69bb">More...</a><br/></td></tr>
-<tr class="separator:a26885b1c1f1ff427a463a196f89b69bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ca076c88797598343df5bd52f6e3c64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSearchQueryManager.html#a1ca076c88797598343df5bd52f6e3c64">__construct</a> (<a class="el" href="interfaceAfsConnectorInterface.html">AfsConnectorInterface</a> $connector, <a class="el" href="classAfsHelperConfiguration.html">AfsHelperConfiguration</a> $config)</td></tr>
+<tr class="memdesc:a1ca076c88797598343df5bd52f6e3c64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new search query connector.  <a href="#a1ca076c88797598343df5bd52f6e3c64">More...</a><br/></td></tr>
+<tr class="separator:a1ca076c88797598343df5bd52f6e3c64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f0f607c931a468d4bdca47745508163"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163">send</a> (<a class="el" href="classAfsQuery.html">AfsQuery</a> $query)</td></tr>
 <tr class="memdesc:a0f0f607c931a468d4bdca47745508163"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send query to AFS search engine.  <a href="#a0f0f607c931a468d4bdca47745508163">More...</a><br/></td></tr>
 <tr class="separator:a0f0f607c931a468d4bdca47745508163"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,7 +110,7 @@ Public Member Functions</h2></td></tr>
 <p>Manage configured facets and set up adequate query to provide it to AFS search engine. </p>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="full_example_8php-example.html#_a10">full_example.php</a>.</dd>
 </dl></div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a26885b1c1f1ff427a463a196f89b69bb"></a>
+<a class="anchor" id="a1ca076c88797598343df5bd52f6e3c64"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -123,8 +123,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a>&#160;</td>
-          <td class="paramname"><em>$facet_mgr</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="classAfsHelperConfiguration.html">AfsHelperConfiguration</a>&#160;</td>
+          <td class="paramname"><em>$config</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -138,7 +138,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$connector</td><td>[in] Connector used to submit a query to AFS search engine. </td></tr>
-    <tr><td class="paramname">$facet_mgr</td><td>[in] reference to <em><a class="el" href="classAfsFacetManager.html" title="AFS facet manager. ">AfsFacetManager</a></em> instance with appropriate <em><a class="el" href="classAfsFacet.html" title="Configuration class for AFS facets. ">AfsFacet</a></em> defined. </td></tr>
+    <tr><td class="paramname">$config</td><td>[in] reference to <em><a class="el" href="classAfsHelperConfiguration.html" title="Configuration class for AFS helper classes. ">AfsHelperConfiguration</a></em> instance with appropriate <em><a class="el" href="classAfsFacetManager.html" title="AFS facet manager. ">AfsFacetManager</a></em> defined. </td></tr>
   </table>
   </dd>
 </dl>
@@ -174,7 +174,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 31 2014 14:08:52 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2014 16:20:32 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -9,6 +9,7 @@ var searchData=
   ['add_5ffilter',['add_filter',['../classAfsQuery.html#a783993ea5fd131053be6c97e38ffcc1c',1,'AfsQuery']]],
   ['add_5fitem',['add_item',['../classAfsConceptHelper.html#a258462d4b46c2261e6847c249efa8a1b',1,'AfsConceptHelper']]],
   ['add_5flog',['add_log',['../classAfsQuery.html#a335694a8bc8b3d62e33eafdd716db453',1,'AfsQuery']]],
+  ['add_5fsort',['add_sort',['../classAfsQuery.html#a909bb76d6f5569df0e6f309aeeffe40a',1,'AfsQuery']]],
   ['add_5fspellcheck',['add_spellcheck',['../classAfsSpellcheckManager.html#af07f7e3f576c139d9e12f44af1e94d9a',1,'AfsSpellcheckManager']]],
   ['apply_5ffilter',['apply_filter',['../classFilterNodeManager.html#af3b16ffbf39d978f01849b330860a460',1,'FilterNodeManager']]]
 ];

@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.5.3</span>
+   &#160;<span id="projectnumber">version 0.6.1</span>
    </div>
   </td>
  </tr>
@@ -113,11 +113,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aab1f6e88dff8c0a75dbb50736386cb1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsUserSessionManager.html#aab1f6e88dff8c0a75dbb50736386cb1d">set_session_id</a> ($value)</td></tr>
 <tr class="memdesc:aab1f6e88dff8c0a75dbb50736386cb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines session id cookie.  <a href="#aab1f6e88dff8c0a75dbb50736386cb1d">More...</a><br/></td></tr>
 <tr class="separator:aab1f6e88dff8c0a75dbb50736386cb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3263db366a871a83de6abb3d8cfd07a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsUserSessionManager.html#ad3263db366a871a83de6abb3d8cfd07a">set_session_timeout</a> ($seconds)</td></tr>
+<tr class="memdesc:ad3263db366a871a83de6abb3d8cfd07a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines session timeout (seconds)  <a href="#ad3263db366a871a83de6abb3d8cfd07a">More...</a><br/></td></tr>
+<tr class="separator:ad3263db366a871a83de6abb3d8cfd07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages user and session identifiers. </p>
 <p>These identifiers are stored in cookies which are sent to the client and read from client queries.</p>
-<p>Default cookie names are used but they can be overloaded while instanciating this class. </p>
+<p>Default cookie names are used but they can be overloaded while instanciating this class. <br/>
+ User identifier never expires whereas session identifier expires after 30 minutes (default). Session identifier timeout can be modified by calling <a class="el" href="classAfsUserSessionManager.html#ad3263db366a871a83de6abb3d8cfd07a" title="Defines session timeout (seconds) ">AfsUserSessionManager::set_session_timeout</a> method. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a4666071c36a68880b48ed74991ebade9"></a>
 <div class="memitem">
@@ -216,6 +220,30 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad3263db366a871a83de6abb3d8cfd07a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">set_session_timeout </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$seconds</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines session timeout (seconds) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$seconds</td><td>[in] session timeout in seconds since last access. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a88b8063362eddd3d3e33a4d8133e2426"></a>
 <div class="memitem">
 <div class="memproto">
@@ -244,7 +272,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 31 2014 14:08:52 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2014 16:20:32 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

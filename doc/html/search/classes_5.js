@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['truncatedfilternode',['TruncatedFilterNode',['../classTruncatedFilterNode.html',1,'']]]
+  ['idgenerator',['IdGenerator',['../classIdGenerator.html',1,'']]]
 ];

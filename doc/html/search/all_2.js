@@ -10,6 +10,7 @@ var searchData=
   ['add_5ffilter',['add_filter',['../classAfsQuery.html#a783993ea5fd131053be6c97e38ffcc1c',1,'AfsQuery']]],
   ['add_5fitem',['add_item',['../classAfsConceptHelper.html#a258462d4b46c2261e6847c249efa8a1b',1,'AfsConceptHelper']]],
   ['add_5flog',['add_log',['../classAfsQuery.html#a335694a8bc8b3d62e33eafdd716db453',1,'AfsQuery']]],
+  ['add_5fsort',['add_sort',['../classAfsQuery.html#a909bb76d6f5569df0e6f309aeeffe40a',1,'AfsQuery']]],
   ['add_5fspellcheck',['add_spellcheck',['../classAfsSpellcheckManager.html#af07f7e3f576c139d9e12f44af1e94d9a',1,'AfsSpellcheckManager']]],
   ['afs_5fauth_5fbows',['AFS_AUTH_BOWS',['../group__auth__authorities.html#ga6b529d8d9c41fdee2a5f45358385b56e',1,'afs_authentication.php']]],
   ['afs_5fauth_5fldap',['AFS_AUTH_LDAP',['../group__auth__authorities.html#gab371b4ee919c2aee2444c4b5085a9612',1,'afs_authentication.php']]],
@@ -87,6 +88,8 @@ var searchData=
   ['afssearchquerymanager',['AfsSearchQueryManager',['../classAfsSearchQueryManager.html',1,'']]],
   ['afsservice',['AfsService',['../classAfsService.html',1,'']]],
   ['afsservicestatus',['AfsServiceStatus',['../classAfsServiceStatus.html',1,'']]],
+  ['afssortbuiltins',['AfsSortBuiltins',['../classAfsSortBuiltins.html',1,'']]],
+  ['afssortorder',['AfsSortOrder',['../classAfsSortOrder.html',1,'']]],
   ['afsspellcheckbasetext',['AfsSpellcheckBaseText',['../classAfsSpellcheckBaseText.html',1,'']]],
   ['afsspellcheckhelper',['AfsSpellcheckHelper',['../classAfsSpellcheckHelper.html',1,'']]],
   ['afsspellcheckmanager',['AfsSpellcheckManager',['../classAfsSpellcheckManager.html',1,'']]],
@@ -109,6 +112,7 @@ var searchData=
   ['apply_5ffilter',['apply_filter',['../classFilterNodeManager.html#af3b16ffbf39d978f01849b330860a460',1,'FilterNodeManager']]],
   ['archive',['ARCHIVE',['../classAfsServiceStatus.html#aac403b04f6adb9de257400787caf3ef8',1,'AfsServiceStatus']]],
   ['arrays',['ARRAYS',['../classAfsHelperFormat.html#a896b8a062d099cb54681b259342e2399',1,'AfsHelperFormat']]],
+  ['asc',['ASC',['../classAfsSortOrder.html#a32bea9cb6a1769ec537f6acdfe4618a8',1,'AfsSortOrder']]],
   ['authentication_20authorities',['Authentication authorities',['../group__auth__authorities.html',1,'']]],
   ['antidot_20php_20api_20documentation',['Antidot PHP API documentation',['../index.html',1,'']]]
 ];

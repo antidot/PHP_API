@@ -65,6 +65,8 @@ var searchData=
   ['afssearchquerymanager',['AfsSearchQueryManager',['../classAfsSearchQueryManager.html',1,'']]],
   ['afsservice',['AfsService',['../classAfsService.html',1,'']]],
   ['afsservicestatus',['AfsServiceStatus',['../classAfsServiceStatus.html',1,'']]],
+  ['afssortbuiltins',['AfsSortBuiltins',['../classAfsSortBuiltins.html',1,'']]],
+  ['afssortorder',['AfsSortOrder',['../classAfsSortOrder.html',1,'']]],
   ['afsspellcheckbasetext',['AfsSpellcheckBaseText',['../classAfsSpellcheckBaseText.html',1,'']]],
   ['afsspellcheckhelper',['AfsSpellcheckHelper',['../classAfsSpellcheckHelper.html',1,'']]],
   ['afsspellcheckmanager',['AfsSpellcheckManager',['../classAfsSpellcheckManager.html',1,'']]],

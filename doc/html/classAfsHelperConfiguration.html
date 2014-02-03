@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.5.3</span>
+   &#160;<span id="projectnumber">version 0.6.1</span>
    </div>
   </td>
  </tr>
@@ -146,6 +146,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af1f8804eacc09391f9598a01dbbe93e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#af1f8804eacc09391f9598a01dbbe93e3">set_spellcheck_text_visitor</a> (<a class="el" href="interfaceAfsSpellcheckTextVisitorInterface.html">AfsSpellcheckTextVisitorInterface</a> $visitor)</td></tr>
 <tr class="memdesc:af1f8804eacc09391f9598a01dbbe93e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new spellcheck text visitor.  <a href="#af1f8804eacc09391f9598a01dbbe93e3">More...</a><br/></td></tr>
 <tr class="separator:af1f8804eacc09391f9598a01dbbe93e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">User and Session identifiers</div></td></tr>
+<tr class="memitem:a698452e3958b5aadf28eb82bd398400e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a698452e3958b5aadf28eb82bd398400e">get_user_session_manager</a> ()</td></tr>
+<tr class="memdesc:a698452e3958b5aadf28eb82bd398400e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restrievs user and session id manager.  <a href="#a698452e3958b5aadf28eb82bd398400e">More...</a><br/></td></tr>
+<tr class="separator:a698452e3958b5aadf28eb82bd398400e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97234e4d7ffad9397134c1152c4bc3c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a97234e4d7ffad9397134c1152c4bc3c7">set_user_sessionmanager</a> (<a class="el" href="classAfsUserSessionManager.html">AfsUserSessionManager</a> $user_session_mgr)</td></tr>
+<tr class="memdesc:a97234e4d7ffad9397134c1152c4bc3c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new user and session id manager.  <a href="#a97234e4d7ffad9397134c1152c4bc3c7">More...</a><br/></td></tr>
+<tr class="separator:a97234e4d7ffad9397134c1152c4bc3c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Configuration class for AFS helper classes. </p>
@@ -239,6 +246,24 @@ Public Member Functions</h2></td></tr>
 
 <p>Retrieves spellcheck text visitor. </p>
 <dl class="section return"><dt>Returns</dt><dd>spellcheck text visitor (see <a class="el" href="interfaceAfsSpellcheckTextVisitorInterface.html" title="Spellcheck text visitor interface to be used along with AfsSpellcheckBaseText or nie of its derived c...">AfsSpellcheckTextVisitorInterface</a>). </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a698452e3958b5aadf28eb82bd398400e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_user_session_manager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Restrievs user and session id manager. </p>
+<dl class="section return"><dt>Returns</dt><dd>Manager for user and session id. </dd></dl>
 
 </div>
 </div>
@@ -427,10 +452,35 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a97234e4d7ffad9397134c1152c4bc3c7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">set_user_sessionmanager </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classAfsUserSessionManager.html">AfsUserSessionManager</a>&#160;</td>
+          <td class="paramname"><em>$user_session_mgr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines new user and session id manager. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$user_session_mgr</td><td>[in] new manager for user and session id. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>current instance. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 31 2014 14:08:52 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 3 2014 16:20:32 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

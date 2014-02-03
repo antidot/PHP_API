@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['sandbox',['SANDBOX',['../classAfsServiceStatus.html#a0bda8698e06a60ea5d2db01f4c0cd488',1,'AfsServiceStatus']]],
-  ['search',['SEARCH',['../classAfsProducer.html#a501262d491262075e63207f41679eceb',1,'AfsProducer']]],
-  ['search_5fmaster',['SEARCH_MASTER',['../classAfsProducer.html#af437bf31f39e711f80524391b66d8afb',1,'AfsProducer']]],
-  ['search_5fslave',['SEARCH_SLAVE',['../classAfsProducer.html#ae62cb6ad1b7b0dc997d8b7820f47c6e9',1,'AfsProducer']]],
-  ['searchbox',['SEARCHBOX',['../classAfsOrigin.html#a1033c59aec85379c95bf8f474cbafc3a',1,'AfsOrigin']]],
-  ['spellcheck',['SPELLCHECK',['../classAfsOrigin.html#a7b5a0e547af8b93af9e4260c4ac987c1',1,'AfsOrigin\SPELLCHECK()'],['../classAfsProducer.html#a7b5a0e547af8b93af9e4260c4ac987c1',1,'AfsProducer\SPELLCHECK()']]],
-  ['stable',['STABLE',['../classAfsServiceStatus.html#aee0f82f7e54d98e7632482563a1be168',1,'AfsServiceStatus']]],
-  ['sticky',['STICKY',['../classAfsFacetStickyness.html#af5b67973a86dc4a8331c2a14b780a61c',1,'AfsFacetStickyness']]],
-  ['string_5ftype',['STRING_TYPE',['../classAfsFacetType.html#a8f9407ce6f57b891a8bd3dc9a2614cb5',1,'AfsFacetType']]]
+  ['rc',['RC',['../classAfsServiceStatus.html#a4cf44764ee6cbe97cc357b4d91a5b147',1,'AfsServiceStatus']]],
+  ['real_5ftype',['REAL_TYPE',['../classAfsFacetType.html#a1d2783c6fe0bf848882bf885bbc8e807',1,'AfsFacetType']]],
+  ['relevance',['RELEVANCE',['../classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17',1,'AfsSortBuiltins']]],
+  ['replace',['REPLACE',['../classAfsFacetMode.html#a4223a719e1c916bf302beb9b827fc632',1,'AfsFacetMode']]],
+  ['rte',['RTE',['../classAfsOrigin.html#a2b658a238339199caf06652184c768da',1,'AfsOrigin']]]
 ];
