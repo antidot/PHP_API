@@ -587,4 +587,41 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($elem->query->has_filter('BOOL', 'false'));
         $this->assertEquals(count($elem->values), 0);
     }
+
+    public function testFacetWithoutLabel()
+    {
+        $input = json_decode('{
+            "afs:t": "FacetTree",
+            "node": [
+                {
+                    "key": "false",
+                    "labels": [
+                        {
+                            "label": "BAD"
+                        }
+                    ],
+                    "items": 67
+                },
+                {
+                    "key": "true",
+                    "labels": [
+                        {
+                            "label": "GOOD"
+                        }
+                    ],
+                    "items": 133
+                }
+            ],
+            "layout": "TREE",
+            "type": "BOOL",
+            "id": "BOOOOL"
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
+        $query = new AfsQuery();
+        $facet = new AfsFacetHelper($input, $query, $config);
+
+        $this->assertEquals('BOOOOL', $facet->get_label());
+    }
 }

@@ -22,7 +22,12 @@ class AfsFacetHelper extends AfsHelperBase
     public function __construct($facet, AfsQuery $query, AfsHelperConfiguration $config)
     {
         $this->id = $facet->id;
-        $this->label = $facet->labels[0]->label;
+        if (property_exists($facet, 'labels') && ! empty($facet->labels)
+                && property_exists($facet->labels[0], 'label')) {
+            $this->label = $facet->labels[0]->label;
+        } else {
+            $this->label = $this->id;
+        }
         $this->layout = $facet->layout;
         $this->type = $facet->type;
         if (property_exists($facet, 'sticky')
