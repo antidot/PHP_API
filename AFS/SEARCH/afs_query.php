@@ -381,7 +381,7 @@ class AfsQuery
      * @{ */
 
     /** @brief Checks whether sort parameter is set.
-     * @param name [in] check this specific parameter name (default=null:
+     * @param $name [in] check this specific parameter name (default=null:
      *        checks whether at least one sort parameter is set).
      * @return true when sort parameter is set, false otherwise.
      */
