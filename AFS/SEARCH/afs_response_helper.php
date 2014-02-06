@@ -164,6 +164,37 @@ class AfsResponseHelper extends AfsHelperBase
     }
     /** @} */
 
+    /** @name Promote
+     * @{ */
+
+    /** @brief Checks whether at least one promote is available.
+     * @return @c True when one or more promotes is available, @c false otherwise.
+     */
+    public function has_promote()
+    {
+        return (! $this->in_error()) and (! is_null($this->promote))
+            and $this->promote->has_reply();
+    }
+    /** @brief Retrieves all promote helpers.
+     * @return promote replies.
+     */
+    public function get_promotes()
+    {
+      return $this->promote->get_replies();
+    }
+    /** @brief Retrieves promote replyset helper.
+     *
+     * This allows to retrieve metadata of the promote.
+     * For more details see @a AfsPromoteReplysetHelper.
+     *
+     * @return promote replyset helper.
+     */
+    public function get_promote()
+    {
+      return $this->promote;
+    }
+    /** @} */
+
     /** @name Concept
      * @{ */
 

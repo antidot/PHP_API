@@ -47,6 +47,34 @@ $helper = $search->execute(AfsHelperFormat::HELPERS);
     </div>
 
 <?php
+if ($helper->has_promote()) {
+    echo '
+    <div class="row">
+      <div class="col-md-3"></div>';
+    foreach ($helper->get_promotes() as $promote) {
+        echo '
+          <div class="col-md-2">
+            <h4><span class="label label-danger">' . $promote->get_title() . '</span></h4>
+            <p>' . $promote->get_abstract() . '</p>
+            <ul>Some custom data:
+              <li>tag: ' . $promote->get_custom_data('tag') . '</li>
+              <li>identifier: ' . $promote->get_custom_data('id') . '</li>
+            </ul>
+            <ul>Or loop on custom data:';
+        foreach ($promote->get_custom_data() as $key => $value) {
+            echo '
+              <li><strong>' . $key . '</strong>: ' . $value . '</li>';
+        }
+        echo '
+            </ul>
+          </div>';
+    }
+    echo '
+      </div>
+    </div>';
+} ?>
+
+<?php
 // checks whether there is at least one replyset
 if ($helper->has_replyset()) {
     $replyset = $helper->get_replyset(); // Retrieves only first replyset
