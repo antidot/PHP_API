@@ -96,6 +96,12 @@ class AfsSearchQueryManager
                                                                        $ids);
                     }
                 }
+            } elseif ($param == 'sort') {
+                if (! empty($values)) {
+                    foreach ($values as $name => $order) {
+                        $params['afs:sort'][] = $this->format_sort($name, $order);
+                    }
+                }
             } else {
                 $params['afs:' . $param] = $values;
             }
@@ -127,6 +133,11 @@ class AfsSearchQueryManager
         } else {
             return $facets[$name]->join_values($values);
         }
+    }
+
+    private function format_sort($name, $order)
+    {
+        return $name . ',' . $order;
     }
 }
 

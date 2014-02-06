@@ -98,6 +98,26 @@ foreach ($facet->get_elements() as $value) {
     <h2>Results <span class="label label-success"><?php echo $replyset->get_meta()->get_total_replies() ?></span></h2>
       <h4><span class="label label-info">Duration <?php echo $replyset->get_meta()->get_duration() ?> ms</span></h4>
     </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+<?php
+    $query = $search->get_query();
+    if ($query->has_sort(AfsSortBuiltins::RELEVANCE)) {
+        if ($query->get_sort_order(AfsSortBuiltins::RELEVANCE) == AfsSortOrder::ASC) {
+            $relevance_icon = 'glyphicon-arrow-up';
+            $relevance_query = $query->add_sort(AfsSortBuiltins::RELEVANCE, AfsSortOrder::DESC);
+        } else {
+            $relevance_icon = 'glyphicon-arrow-down';
+            $relevance_query = $query->add_sort(AfsSortBuiltins::RELEVANCE, AfsSortOrder::ASC);
+        }
+    } else {
+        $relevance_query = $query->add_sort(AfsSortBuiltins::RELEVANCE, AfsSortOrder::ASC);
+        $relevance_icon = 'glyphicon-arrow-down';
+    }
+    $relevance_link = $search->get_helpers_configuration()->get_query_coder()->generate_link($relevance_query);
+?>
+    <a href="<?php echo $relevance_link ?>" class="btn btn-default btn-lg active" role="button"><span class="glyphicon <?php echo $relevance_icon; ?>"></span> Relevance</a>
+    </div>
   </div>
   <ul class="list-unstyled">
 <?php

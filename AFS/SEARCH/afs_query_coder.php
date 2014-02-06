@@ -2,6 +2,7 @@
 require_once 'AFS/SEARCH/afs_query_coder_interface.php';
 require_once 'AFS/SEARCH/afs_filter_coder.php';
 require_once 'AFS/SEARCH/afs_feed_coder.php';
+require_once 'AFS/SEARCH/afs_sort_coder.php';
 require_once 'AFS/SEARCH/afs_query.php';
 
 /** @brief Default query coder implementation. */
@@ -10,6 +11,7 @@ class AfsQueryCoder implements AfsQueryCoderInterface
     private $path = null;
     private $feed_coder = null;
     private $filter_coder = null;
+    private $sort_coder = null;
 
     /** @brief Construct new instance.
      * @param $path [in] base path used to generate appropriate link (see
@@ -19,22 +21,24 @@ class AfsQueryCoder implements AfsQueryCoderInterface
      *        implementation is used (see @a AfsFeedCoder).
      * @param $filter_coder [in] (optional) filter coder. If not set, default
      *        implementation is used (see @a AfsFilterCoder).
+     * @param $sort_coder [in] (optional) sort parameters coder. If not set,
+     *        default implementation is used (see @a AfsSortCoder).
      */
     public function __construct($path=null, AfsCoderInterface $feed_coder=null,
-        AfsCoderInterface $filter_coder=null)
+        AfsCoderInterface $filter_coder=null, AfsCoderInterface $sort_coder=null)
     {
-        if (is_null($path)) {
+        if (is_null($path))
             $path = $_SERVER['PHP_SELF'];
-        }
-        if (is_null($feed_coder)) {
+        if (is_null($feed_coder))
             $feed_coder = new AfsFeedCoder();
-        }
-        if (is_null($filter_coder)) {
+        if (is_null($filter_coder))
             $filter_coder = new AfsFilterCoder();
-        }
+        if (is_null($sort_coder))
+            $sort_coder = new AfsSortCoder();
         $this->path = $path;
         $this->feed_coder = $feed_coder;
         $this->filter_coder = $filter_coder;
+        $this->sort_coder = $sort_coder;
     }
 
     /** @brief Generate URL parameters from @a AfsQuery.

@@ -323,11 +323,12 @@ class QueryTest extends PHPUnit_Framework_TestCase
     public function testSetSortOrder()
     {
         $query = new AfsQuery();
-        $this->assertEquals('', $query->get_sort());
         $this->assertFalse($query->has_sort());
+        $this->assertFalse($query->has_sort('foo'));
         $query = $query->set_sort('afs:relevance');
         $this->assertTrue($query->has_sort());
-        $this->assertEquals('afs:relevance,DESC', $query->get_sort());
+        $this->assertTrue($query->has_sort('afs:relevance'));
+        $this->assertEquals(AfsSortOrder::DESC, $query->get_sort_order('afs:relevance'));
     }
     public function testResetSortOrder()
     {
@@ -335,7 +336,12 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->set_sort('afs:relevance', AfsSortOrder::DESC)
             ->add_sort('afs:words', AfsSortOrder::ASC)
             ->add_sort('foo');
-        $this->assertEquals('afs:relevance,DESC;afs:words,ASC;foo,DESC', $query->get_sort());
+        $this->assertTrue($query->has_sort('afs:relevance'));
+        $this->assertEquals(AfsSortOrder::DESC, $query->get_sort_order('afs:relevance'));
+        $this->assertTrue($query->has_sort('afs:words'));
+        $this->assertEquals(AfsSortOrder::ASC, $query->get_sort_order('afs:words'));
+        $this->assertTrue($query->has_sort('foo'));
+        $this->assertEquals(AfsSortOrder::DESC, $query->get_sort_order('foo'));
         $query = $query->reset_sort();
         $this->assertFalse($query->has_sort());
     }
@@ -343,7 +349,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
     {
         $query = new AfsQuery();
         $query = $query->set_sort('relevance');
-        $this->assertTrue($query->get_sort() == 'relevance,DESC');
+        $this->assertTrue($query->has_sort('relevance'));
+        $this->assertEquals(AfsSortOrder::DESC, $query->get_sort_order('relevance'));
     }
     public function testInvalidSortOrderOrder()
     {
@@ -508,7 +515,12 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($clone->get_page() == 42);
         $this->assertTrue($clone->get_replies() == 666);
         $this->assertTrue($clone->get_lang() == 'en');
-        $this->assertEquals('afs:weight,ASC;foo,DESC;BAR,DESC', $clone->get_sort());
+        $this->assertEquals(AfsSortOrder::ASC, $clone->get_sort_order('afs:weight'));
+        $this->assertTrue($clone->has_sort('foo'));
+        $this->assertEquals(AfsSortOrder::DESC, $clone->get_sort_order('foo'));
+        $this->assertTrue($clone->has_sort('BAR'));
+        $this->assertEquals(AfsSortOrder::DESC, $clone->get_sort_order('BAR'));
+
         $this->assertEquals(AfsOrigin::SEARCHBOX, $clone->get_from());
         $logs = $clone->get_logs();
         $this->assertEquals(1, count($logs));
@@ -624,7 +636,12 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($query->get_lang() == 'en');
 
         $this->assertTrue($query->has_sort());
-        $this->assertEquals('afs:weight,ASC;foo,DESC;BAR,DESC', $query->get_sort());
+        $this->assertTrue($query->has_sort('afs:weight'));
+        $this->assertEquals(AfsSortOrder::ASC, $query->get_sort_order('afs:weight'));
+        $this->assertTrue($query->has_sort('foo'));
+        $this->assertEquals(AfsSortOrder::DESC, $query->get_sort_order('foo'));
+        $this->assertTrue($query->has_sort('BAR'));
+        $this->assertEquals(AfsSortOrder::DESC, $query->get_sort_order('BAR'));
 
         $this->assertTrue($query->has_page());
         $this->assertTrue($query->get_page() == 42);

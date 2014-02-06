@@ -381,11 +381,17 @@ class AfsQuery
      * @{ */
 
     /** @brief Checks whether sort parameter is set.
+     * @param name [in] check this specific parameter name (default=null:
+     *        checks whether at least one sort parameter is set).
      * @return true when sort parameter is set, false otherwise.
      */
-    public function has_sort()
+    public function has_sort($name=null)
     {
-        return ! empty($this->sort);
+        if (is_null($name)) {
+            return ! empty($this->sort);
+        } else {
+            return array_key_exists($name, $this->sort);
+        }
     }
     /** @brief Resets sort order to AFS default sort order.
      */
@@ -431,6 +437,7 @@ class AfsQuery
         return $this->internal_add_sort($this->sort, $sort_param, $order);
     }
     /** @brief Retrieves sort order.
+     * @deprecated This method will be removed soon!
      * @return sort order as string.
      */
     public function get_sort()
@@ -444,6 +451,20 @@ class AfsQuery
             $result = implode(';', $sorts);
         }
         return $result;
+    }
+    /** @brief Retrieves sort order of the specified parameter.
+     * @param $name [in] parameter name to check.
+     * @return AfsSortOrder::ASC or AfsSortOrder::DESC.
+     * @exception OutOfBoundsException when required sort parameter is not
+     *            defined.
+     */
+    public function get_sort_order($name)
+    {
+        if (array_key_exists($name, $this->sort)) {
+            return $this->sort[$name];
+        } else {
+            throw new OutOfBoundsException('Unknown sort parameter: ' . $name);
+        }
     }
     /** @brief Adds new sort parameter or substitutes existing one.
      *
@@ -724,12 +745,11 @@ class AfsQuery
      */
     public function get_parameters($all=true)
     {
-        $parameters = array('feed', 'query', 'filter', 'sort');
+        $parameters = array('replies', 'feed', 'query', 'filter', 'sort');
         if ($all) {
             array_push($parameters, 'from', 'userId', 'sessionId', 'facetDefault', 'log', 'key');
         }
 
-        $result = array('replies' => $this->replies);
         if ($this->page != 1) {
             $result['page'] = $this->page;
         }
