@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.1</span>
+   &#160;<span id="projectnumber">version 0.6.3</span>
    </div>
   </td>
  </tr>
@@ -107,9 +107,9 @@ Inheritance diagram for AfsQueryCoder:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a623d1f62a2fc4ffd5b4bd5b973dd4f51"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryCoder.html#a623d1f62a2fc4ffd5b4bd5b973dd4f51">__construct</a> ($path=null, <a class="el" href="interfaceAfsCoderInterface.html">AfsCoderInterface</a> $feed_coder=null, <a class="el" href="interfaceAfsCoderInterface.html">AfsCoderInterface</a> $filter_coder=null)</td></tr>
-<tr class="memdesc:a623d1f62a2fc4ffd5b4bd5b973dd4f51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new instance.  <a href="#a623d1f62a2fc4ffd5b4bd5b973dd4f51">More...</a><br/></td></tr>
-<tr class="separator:a623d1f62a2fc4ffd5b4bd5b973dd4f51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b1ee4741d2c9bae69c15ac3acced988"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryCoder.html#a5b1ee4741d2c9bae69c15ac3acced988">__construct</a> ($path=null, <a class="el" href="interfaceAfsCoderInterface.html">AfsCoderInterface</a> $feed_coder=null, <a class="el" href="interfaceAfsCoderInterface.html">AfsCoderInterface</a> $filter_coder=null, <a class="el" href="interfaceAfsCoderInterface.html">AfsCoderInterface</a> $sort_coder=null)</td></tr>
+<tr class="memdesc:a5b1ee4741d2c9bae69c15ac3acced988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new instance.  <a href="#a5b1ee4741d2c9bae69c15ac3acced988">More...</a><br/></td></tr>
+<tr class="separator:a5b1ee4741d2c9bae69c15ac3acced988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4ced4e2a662420052f4ff40ebff9690"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryCoder.html#af4ced4e2a662420052f4ff40ebff9690">generate_parameters</a> (<a class="el" href="classAfsQuery.html">AfsQuery</a> $query)</td></tr>
 <tr class="memdesc:af4ced4e2a662420052f4ff40ebff9690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate URL parameters from <em><a class="el" href="classAfsQuery.html" title="Represent an AFS query. ">AfsQuery</a></em>.  <a href="#af4ced4e2a662420052f4ff40ebff9690">More...</a><br/></td></tr>
 <tr class="separator:af4ced4e2a662420052f4ff40ebff9690"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,7 +124,7 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Default query coder implementation. </p>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="full_example_8php-example.html#_a0">full_example.php</a>.</dd>
 </dl></div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a623d1f62a2fc4ffd5b4bd5b973dd4f51"></a>
+<a class="anchor" id="a5b1ee4741d2c9bae69c15ac3acced988"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -144,7 +144,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="interfaceAfsCoderInterface.html">AfsCoderInterface</a>&#160;</td>
-          <td class="paramname"><em>$filter_coder</em> = <code>null</code>&#160;</td>
+          <td class="paramname"><em>$filter_coder</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="interfaceAfsCoderInterface.html">AfsCoderInterface</a>&#160;</td>
+          <td class="paramname"><em>$sort_coder</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -160,6 +166,7 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">$path</td><td>[in] base path used to generate appropriate link (see <em>generate_link</em> method). If this parameter is not provided, value of $_SERVER['PHP_SELF'] is used as default value. </td></tr>
     <tr><td class="paramname">$feed_coder</td><td>[in] (optional) feed coder. If not set, default implementation is used (see <em><a class="el" href="classAfsFeedCoder.html" title="Default feed coder implementation. ">AfsFeedCoder</a></em>). </td></tr>
     <tr><td class="paramname">$filter_coder</td><td>[in] (optional) filter coder. If not set, default implementation is used (see <em><a class="el" href="classAfsFilterCoder.html" title="Default filter coder implementation. ">AfsFilterCoder</a></em>). </td></tr>
+    <tr><td class="paramname">$sort_coder</td><td>[in] (optional) sort parameters coder. If not set, default implementation is used (see <em><a class="el" href="classAfsSortCoder.html" title="Default sort coder implementation. ">AfsSortCoder</a></em>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -252,7 +259,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2014 16:20:32 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 6 2014 14:34:23 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

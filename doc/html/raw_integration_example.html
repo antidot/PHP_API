@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.1</span>
+   &#160;<span id="projectnumber">version 0.6.3</span>
    </div>
   </td>
  </tr>
@@ -130,6 +130,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    &lt;/div&gt;</div>
 <div class="line"></div>
 <div class="line">&lt;?php</div>
+<div class="line"><span class="keywordflow">if</span> ($helper-&gt;has_promote()) {</div>
+<div class="line">    echo <span class="stringliteral">&#39;</span></div>
+<div class="line"><span class="stringliteral">    &lt;div class=&quot;row&quot;&gt;</span></div>
+<div class="line"><span class="stringliteral">      &lt;div class=&quot;col-md-3&quot;&gt;&lt;/div&gt;&#39;</span>;</div>
+<div class="line">    <span class="keywordflow">foreach</span> ($helper-&gt;get_promotes() as $promote) {</div>
+<div class="line">        echo <span class="stringliteral">&#39;</span></div>
+<div class="line"><span class="stringliteral">          &lt;div class=&quot;col-md-2&quot;&gt;</span></div>
+<div class="line"><span class="stringliteral">            &lt;h4&gt;&lt;span class=&quot;label label-danger&quot;&gt;&#39;</span> . $promote-&gt;get_title() . <span class="stringliteral">&#39;&lt;/span&gt;&lt;/h4&gt;</span></div>
+<div class="line"><span class="stringliteral">            &lt;p&gt;&#39;</span> . $promote-&gt;get_abstract() . <span class="stringliteral">&#39;&lt;/p&gt;</span></div>
+<div class="line"><span class="stringliteral">            &lt;ul&gt;Some custom data:</span></div>
+<div class="line"><span class="stringliteral">              &lt;li&gt;tag: &#39;</span> . $promote-&gt;get_custom_data(<span class="stringliteral">&#39;tag&#39;</span>) . <span class="stringliteral">&#39;&lt;/li&gt;</span></div>
+<div class="line"><span class="stringliteral">              &lt;li&gt;identifier: &#39;</span> . $promote-&gt;get_custom_data(<span class="stringliteral">&#39;id&#39;</span>) . <span class="stringliteral">&#39;&lt;/li&gt;</span></div>
+<div class="line"><span class="stringliteral">            &lt;/ul&gt;</span></div>
+<div class="line"><span class="stringliteral">            &lt;ul&gt;Or loop on custom data:&#39;</span>;</div>
+<div class="line">        <span class="keywordflow">foreach</span> ($promote-&gt;get_custom_data() as $key =&gt; $value) {</div>
+<div class="line">            echo <span class="stringliteral">&#39;</span></div>
+<div class="line"><span class="stringliteral">              &lt;li&gt;&lt;strong&gt;&#39;</span> . $key . <span class="stringliteral">&#39;&lt;/strong&gt;: &#39;</span> . $value . <span class="stringliteral">&#39;&lt;/li&gt;&#39;</span>;</div>
+<div class="line">        }</div>
+<div class="line">        echo <span class="stringliteral">&#39;</span></div>
+<div class="line"><span class="stringliteral">            &lt;/ul&gt;</span></div>
+<div class="line"><span class="stringliteral">          &lt;/div&gt;&#39;</span>;</div>
+<div class="line">    }</div>
+<div class="line">    echo <span class="stringliteral">&#39;</span></div>
+<div class="line"><span class="stringliteral">      &lt;/div&gt;</span></div>
+<div class="line"><span class="stringliteral">    &lt;/div&gt;&#39;</span>;</div>
+<div class="line">} ?&gt;</div>
+<div class="line"></div>
+<div class="line">&lt;?php</div>
 <div class="line"><span class="comment">// checks whether there is at least one replyset</span></div>
 <div class="line"><span class="keywordflow">if</span> ($helper-&gt;has_replyset()) {</div>
 <div class="line">    $replyset = $helper-&gt;get_replyset(); <span class="comment">// Retrieves only first replyset</span></div>
@@ -180,6 +208,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;col-md-4&quot;</span>&gt;</div>
 <div class="line">    &lt;h2&gt;Results &lt;span <span class="keyword">class</span>=<span class="stringliteral">&quot;label label-success&quot;</span>&gt;&lt;?php echo $replyset-&gt;get_meta()-&gt;get_total_replies() ?&gt;&lt;/span&gt;&lt;/h2&gt;</div>
 <div class="line">      &lt;h4&gt;&lt;span <span class="keyword">class</span>=<span class="stringliteral">&quot;label label-info&quot;</span>&gt;Duration &lt;?php echo $replyset-&gt;get_meta()-&gt;get_duration() ?&gt; ms&lt;/span&gt;&lt;/h4&gt;</div>
+<div class="line">    &lt;/div&gt;</div>
+<div class="line">    &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;col-md-1&quot;</span>&gt;&lt;/div&gt;</div>
+<div class="line">    &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;col-md-2&quot;</span>&gt;</div>
+<div class="line">&lt;?php</div>
+<div class="line">    $query = $search-&gt;get_query();</div>
+<div class="line">    <span class="keywordflow">if</span> ($query-&gt;has_sort(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>)) {</div>
+<div class="line">        <span class="keywordflow">if</span> ($query-&gt;get_sort_order(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>) == <a class="code" href="classAfsSortOrder.html#a32bea9cb6a1769ec537f6acdfe4618a8">AfsSortOrder::ASC</a>) {</div>
+<div class="line">            $relevance_icon = <span class="stringliteral">&#39;glyphicon-arrow-up&#39;</span>;</div>
+<div class="line">            $relevance_query = $query-&gt;add_sort(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>, <a class="code" href="classAfsSortOrder.html#a34abf23cff3df464425b7cedf58e2939">AfsSortOrder::DESC</a>);</div>
+<div class="line">        } <span class="keywordflow">else</span> {</div>
+<div class="line">            $relevance_icon = <span class="stringliteral">&#39;glyphicon-arrow-down&#39;</span>;</div>
+<div class="line">            $relevance_query = $query-&gt;add_sort(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>, <a class="code" href="classAfsSortOrder.html#a32bea9cb6a1769ec537f6acdfe4618a8">AfsSortOrder::ASC</a>);</div>
+<div class="line">        }</div>
+<div class="line">    } <span class="keywordflow">else</span> {</div>
+<div class="line">        $relevance_query = $query-&gt;add_sort(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>, <a class="code" href="classAfsSortOrder.html#a32bea9cb6a1769ec537f6acdfe4618a8">AfsSortOrder::ASC</a>);</div>
+<div class="line">        $relevance_icon = <span class="stringliteral">&#39;glyphicon-arrow-down&#39;</span>;</div>
+<div class="line">    }</div>
+<div class="line">    $relevance_link = $search-&gt;get_helpers_configuration()-&gt;get_query_coder()-&gt;generate_link($relevance_query);</div>
+<div class="line">?&gt;</div>
+<div class="line">    &lt;a href=<span class="stringliteral">&quot;&lt;?php echo $relevance_link ?&gt;&quot;</span> <span class="keyword">class</span>=<span class="stringliteral">&quot;btn btn-default btn-lg active&quot;</span> role=<span class="stringliteral">&quot;button&quot;</span>&gt;&lt;span <span class="keyword">class</span>=<span class="stringliteral">&quot;glyphicon &lt;?php echo $relevance_icon; ?&gt;&quot;</span>&gt;&lt;/span&gt; Relevance&lt;/a&gt;</div>
 <div class="line">    &lt;/div&gt;</div>
 <div class="line">  &lt;/div&gt;</div>
 <div class="line">  &lt;ul <span class="keyword">class</span>=<span class="stringliteral">&quot;list-unstyled&quot;</span>&gt;</div>
@@ -297,7 +345,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2014 16:20:32 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 6 2014 14:34:22 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

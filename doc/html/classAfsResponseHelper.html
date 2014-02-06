@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.1</span>
+   &#160;<span id="projectnumber">version 0.6.3</span>
    </div>
   </td>
  </tr>
@@ -130,6 +130,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adb934a794c8dd6c201e7837343bf50c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsResponseHelper.html#adb934a794c8dd6c201e7837343bf50c8">get_spellcheck</a> ($feed=null)</td></tr>
 <tr class="memdesc:adb934a794c8dd6c201e7837343bf50c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves default, available or specified spellcheck.  <a href="#adb934a794c8dd6c201e7837343bf50c8">More...</a><br/></td></tr>
 <tr class="separator:adb934a794c8dd6c201e7837343bf50c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Promote</div></td></tr>
+<tr class="memitem:a5802208a2368d3713677fbe1af63ac93"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsResponseHelper.html#a5802208a2368d3713677fbe1af63ac93">has_promote</a> ()</td></tr>
+<tr class="memdesc:a5802208a2368d3713677fbe1af63ac93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether at least one promote is available.  <a href="#a5802208a2368d3713677fbe1af63ac93">More...</a><br/></td></tr>
+<tr class="separator:a5802208a2368d3713677fbe1af63ac93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cbc9adad60c34176e53130d32a39fef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsResponseHelper.html#a8cbc9adad60c34176e53130d32a39fef">get_promotes</a> ()</td></tr>
+<tr class="memdesc:a8cbc9adad60c34176e53130d32a39fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all promote helpers.  <a href="#a8cbc9adad60c34176e53130d32a39fef">More...</a><br/></td></tr>
+<tr class="separator:a8cbc9adad60c34176e53130d32a39fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c6d2c1f16a34a9b16ca431d3e734d90"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsResponseHelper.html#a2c6d2c1f16a34a9b16ca431d3e734d90">get_promote</a> ()</td></tr>
+<tr class="memdesc:a2c6d2c1f16a34a9b16ca431d3e734d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves promote replyset helper.  <a href="#a2c6d2c1f16a34a9b16ca431d3e734d90">More...</a><br/></td></tr>
+<tr class="separator:a2c6d2c1f16a34a9b16ca431d3e734d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Concept</div></td></tr>
 <tr class="memitem:ae7a57c7e323d89d0e35398911dbb7d86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsResponseHelper.html#ae7a57c7e323d89d0e35398911dbb7d86">has_concept</a> ()</td></tr>
 <tr class="memdesc:ae7a57c7e323d89d0e35398911dbb7d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether at least one concept is available.  <a href="#ae7a57c7e323d89d0e35398911dbb7d86">More...</a><br/></td></tr>
@@ -318,6 +328,43 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a2c6d2c1f16a34a9b16ca431d3e734d90"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_promote </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves promote replyset helper. </p>
+<p>This allows to retrieve metadata of the promote. For more details see <em><a class="el" href="classAfsPromoteReplysetHelper.html" title="Helper for Promote replies. ">AfsPromoteReplysetHelper</a></em>.</p>
+<dl class="section return"><dt>Returns</dt><dd>promote replyset helper. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8cbc9adad60c34176e53130d32a39fef"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_promotes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves all promote helpers. </p>
+<dl class="section return"><dt>Returns</dt><dd>promote replies. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ab2161125b83b0e42d07b7a4167e11327"></a>
 <div class="memitem">
 <div class="memproto">
@@ -432,6 +479,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a5802208a2368d3713677fbe1af63ac93"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">has_promote </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether at least one promote is available. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> when one or more promotes is available, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a5f3780f5cea9b8536c402e7306bf6af8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -489,7 +554,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2014 16:20:32 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 6 2014 14:34:23 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

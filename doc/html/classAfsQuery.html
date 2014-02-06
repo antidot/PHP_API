@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.1</span>
+   &#160;<span id="projectnumber">version 0.6.3</span>
    </div>
   </td>
  </tr>
@@ -237,9 +237,9 @@ Page management</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Sort order management</h2></td></tr>
-<tr class="memitem:a5bd5bc975561b4c156436a830ae8e507"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a5bd5bc975561b4c156436a830ae8e507">has_sort</a> ()</td></tr>
-<tr class="memdesc:a5bd5bc975561b4c156436a830ae8e507"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether sort parameter is set.  <a href="#a5bd5bc975561b4c156436a830ae8e507">More...</a><br/></td></tr>
-<tr class="separator:a5bd5bc975561b4c156436a830ae8e507"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceea970b6434a392f23a543e57a98f22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#aceea970b6434a392f23a543e57a98f22">has_sort</a> ($name=null)</td></tr>
+<tr class="memdesc:aceea970b6434a392f23a543e57a98f22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether sort parameter is set.  <a href="#aceea970b6434a392f23a543e57a98f22">More...</a><br/></td></tr>
+<tr class="separator:aceea970b6434a392f23a543e57a98f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1f1c07836b387df0d0ac3a5047de7c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af1f1c07836b387df0d0ac3a5047de7c3"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#af1f1c07836b387df0d0ac3a5047de7c3">reset_sort</a> ()</td></tr>
 <tr class="memdesc:af1f1c07836b387df0d0ac3a5047de7c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets sort order to AFS default sort order. <br/></td></tr>
@@ -253,6 +253,9 @@ Sort order management</h2></td></tr>
 <tr class="memitem:a0550fcddc1e114a2e979739c489e58d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a0550fcddc1e114a2e979739c489e58d4">get_sort</a> ()</td></tr>
 <tr class="memdesc:a0550fcddc1e114a2e979739c489e58d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves sort order.  <a href="#a0550fcddc1e114a2e979739c489e58d4">More...</a><br/></td></tr>
 <tr class="separator:a0550fcddc1e114a2e979739c489e58d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acefd6823592ac1614980c01bd99895d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#acefd6823592ac1614980c01bd99895d2">get_sort_order</a> ($name)</td></tr>
+<tr class="memdesc:acefd6823592ac1614980c01bd99895d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves sort order of the specified parameter.  <a href="#acefd6823592ac1614980c01bd99895d2">More...</a><br/></td></tr>
+<tr class="separator:acefd6823592ac1614980c01bd99895d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Full configuration through array of parameters</h2></td></tr>
@@ -709,7 +712,39 @@ Full configuration through array of parameters</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieves sort order. </p>
-<dl class="section return"><dt>Returns</dt><dd>sort order as string. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>This method will be removed soon! <dl class="section return"><dt>Returns</dt><dd>sort order as string. </dd></dl>
+</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acefd6823592ac1614980c01bd99895d2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_sort_order </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves sort order of the specified parameter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$name</td><td>[in] parameter name to check. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classAfsSortOrder.html#a32bea9cb6a1769ec537f6acdfe4618a8" title="Sort in ascending order. ">AfsSortOrder::ASC</a> or <a class="el" href="classAfsSortOrder.html#a34abf23cff3df464425b7cedf58e2939" title="Sort in descending order. ">AfsSortOrder::DESC</a>. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">OutOfBoundsException</td><td>when required sort parameter is not defined. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -889,25 +924,32 @@ Full configuration through array of parameters</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Checks whether session id is set. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>This method always return <code>true</code> and will be removed soon. <dl class="section return"><dt>Returns</dt><dd><code>True</code> when session id is set, <code>false</code> otherwise. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>This method always return <code>true</code> and will be removed soon. <dl class="section return"><dt>Returns</dt><dd><code>True</code> when session id is set, <code>false</code> otherwise. </dd></dl>
 </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a5bd5bc975561b4c156436a830ae8e507"></a>
+<a class="anchor" id="aceea970b6434a392f23a543e57a98f22"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">has_sort </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$name</em> = <code>null</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Checks whether sort parameter is set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$name</td><td>[in] check this specific parameter name (default=null: checks whether at least one sort parameter is set). </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>true when sort parameter is set, false otherwise. </dd></dl>
 
 </div>
@@ -926,7 +968,7 @@ Full configuration through array of parameters</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Checks whether user id is set. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>This method always return <code>true</code> and will be removed soon. <dl class="section return"><dt>Returns</dt><dd><code>True</code> when user id is set, <code>false</code> otherwise. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>This method always return <code>true</code> and will be removed soon. <dl class="section return"><dt>Returns</dt><dd><code>True</code> when user id is set, <code>false</code> otherwise. </dd></dl>
 </dd></dl>
 
 </div>
@@ -1375,7 +1417,7 @@ Full configuration through array of parameters</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Updates user and session identifiers. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>Nothing happens since identifiers are always initialized.</dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000004">Deprecated:</a></b></dt><dd>Nothing happens since identifiers are always initialized.</dd></dl>
 <p>These identifiers are updated only if they are not yet defined. </p>
 <dl class="section remark"><dt>Remarks</dt><dd>Page value is preserved when this method is called.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1392,7 +1434,7 @@ Full configuration through array of parameters</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2014 16:20:32 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Feb 6 2014 14:34:23 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

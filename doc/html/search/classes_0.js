@@ -66,6 +66,7 @@ var searchData=
   ['afsservice',['AfsService',['../classAfsService.html',1,'']]],
   ['afsservicestatus',['AfsServiceStatus',['../classAfsServiceStatus.html',1,'']]],
   ['afssortbuiltins',['AfsSortBuiltins',['../classAfsSortBuiltins.html',1,'']]],
+  ['afssortcoder',['AfsSortCoder',['../classAfsSortCoder.html',1,'']]],
   ['afssortorder',['AfsSortOrder',['../classAfsSortOrder.html',1,'']]],
   ['afsspellcheckbasetext',['AfsSpellcheckBaseText',['../classAfsSpellcheckBaseText.html',1,'']]],
   ['afsspellcheckhelper',['AfsSpellcheckHelper',['../classAfsSpellcheckHelper.html',1,'']]],
