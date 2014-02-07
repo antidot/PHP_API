@@ -355,6 +355,7 @@ class AfsQuery
     /** @brief Define new language.
      *
      * See @a AfsLanguage for more details on valid values.
+     * @remark Page value is preserved when this method is called.
      *
      * @param $lang [in] New language to filter on. Empty string or null value
      *        resets current language filter.
@@ -364,7 +365,6 @@ class AfsQuery
     {
         $lang = new AfsLanguage($lang);
         $copy = $this->copy();
-        $copy->reset_page();
         $copy->lang = $lang;
         return $copy;
     }
