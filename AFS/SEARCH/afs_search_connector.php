@@ -56,6 +56,7 @@ class AfsSearchConnector extends AfsConnectorBase implements AfsConnectorInterfa
             curl_setopt($request, CURLOPT_HTTPHEADER, $this->get_http_header());
 
             $result = curl_exec($request);
+            curl_close($request);
             try {
                 if ($result == false)
                     throw new ExecutionFailedException();
