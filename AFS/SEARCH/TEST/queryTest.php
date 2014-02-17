@@ -262,11 +262,10 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = new AfsQuery();
         $query = $query->set_page(42);
         $query = $query->set_lang('fr');
-        $this->assertTrue($query->get_page() == 1);
+        $this->assertEquals(42, $query->get_page());
 
-        $query = $query->set_page(42);
         $query = $query->reset_lang();
-        $this->assertTrue($query->get_page() == 1);
+        $this->assertEquals(42, $query->get_page());
     }
 
     public function testDefaultRepliesPerPage()
