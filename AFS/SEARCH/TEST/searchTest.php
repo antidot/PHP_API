@@ -69,7 +69,6 @@ class SearchTest extends PHPUnit_Framework_TestCase
         $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
         $this->assertFalse($facet_mgr->get_facets_stickyness());
     }
-
     public function testDefaultFacetOptionSticky()
     {
         $search = new AfsSearch('127.0.0.1', 42);
@@ -77,7 +76,6 @@ class SearchTest extends PHPUnit_Framework_TestCase
         $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
         $this->assertTrue($facet_mgr->get_facets_stickyness());
     }
-
     public function testFacetNonSticky()
     {
         $search = new AfsSearch('127.0.0.1', 42);
@@ -87,7 +85,6 @@ class SearchTest extends PHPUnit_Framework_TestCase
         $facet = $facet_mgr->get_facet('FOO');
         $this->assertFalse($facet->is_sticky());
     }
-
     public function testFacetSticky()
     {
         $search = new AfsSearch('127.0.0.1', 42);
@@ -96,5 +93,17 @@ class SearchTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($facet_mgr->has_facet('FOO'));
         $facet = $facet_mgr->get_facet('FOO');
         $this->assertTrue($facet->is_sticky());
+    }
+
+    public function testSmoothFacetSortOrder()
+    {
+        $search = new AfsSearch('127.0.0.1', 42);
+        $this->assertFalse($search->get_helpers_configuration()->get_facet_manager()->is_facet_sort_order_strict());
+    }
+    public function testStrictFacetSortOrder()
+    {
+        $search = new AfsSearch('127.0.0.1', 42);
+        $search->set_facet_sort_order(array('foo', 'bar'), AfsFacetSort::STRICT);
+        $this->assertTrue($search->get_helpers_configuration()->get_facet_manager()->is_facet_sort_order_strict());
     }
 }

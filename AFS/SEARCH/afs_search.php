@@ -64,6 +64,14 @@ class AfsSearch
     /** @name Facet configuration
      * @{ */
 
+    /** @brief Defines facet sort order.
+     * @param $ids [in] List of facet identifiers in the right sort order.
+     * @param $mode [in] Sort order mode (see AfsFacetSort for more details).
+     */
+    public function set_facet_sort_order(array $ids, $mode)
+    {
+        $this->config->get_facet_manager()->set_facet_sort_order($ids, $mode);
+    }
     /** @brief Defines stickyness for all facets.
      *
      * By default, facets are not sticky.
