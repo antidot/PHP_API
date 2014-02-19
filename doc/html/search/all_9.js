@@ -5,6 +5,7 @@ var searchData=
   ['has_5fconcept',['has_concept',['../classAfsConceptManager.html#ae7a57c7e323d89d0e35398911dbb7d86',1,'AfsConceptManager\has_concept()'],['../classAfsConceptItem.html#ae7a57c7e323d89d0e35398911dbb7d86',1,'AfsConceptItem\has_concept()'],['../classAfsResponseHelper.html#ae7a57c7e323d89d0e35398911dbb7d86',1,'AfsResponseHelper\has_concept()']]],
   ['has_5fdocument',['has_document',['../classAfsDocumentManager.html#a80957600652c103e76226cc78e687d23',1,'AfsDocumentManager']]],
   ['has_5ffacet',['has_facet',['../classAfsFacetManager.html#aa7d71d423fcfb845a3da40533afca959',1,'AfsFacetManager\has_facet()'],['../classAfsReplysetHelper.html#a598db9954428428b057f51f0973d1a45',1,'AfsReplysetHelper\has_facet()']]],
+  ['has_5ffacets',['has_facets',['../classAfsFacetManager.html#a80874bdb6aabb8ff2735bad88fe61ab7',1,'AfsFacetManager']]],
   ['has_5ffeed',['has_feed',['../classAfsQuery.html#a1ac5cc8209b2e7bd995bffca4417f6d8',1,'AfsQuery']]],
   ['has_5ffilter',['has_filter',['../classAfsQuery.html#a329f19d5fd0d1c553be8a33a16eaad5d',1,'AfsQuery']]],
   ['has_5fkey',['has_key',['../classAfsQuery.html#a299012df2852d183881da23655560cd8',1,'AfsQuery']]],

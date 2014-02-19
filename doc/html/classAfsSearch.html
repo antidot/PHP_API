@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.4</span>
+   &#160;<span id="projectnumber">version 0.6.7</span>
    </div>
   </td>
  </tr>
@@ -111,6 +111,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae6bbac41ea5672d62fb5d871f476178d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds query using URL parameters.  <a href="#ae6bbac41ea5672d62fb5d871f476178d">More...</a><br/></td></tr>
 <tr class="separator:ae6bbac41ea5672d62fb5d871f476178d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Facet configuration</div></td></tr>
+<tr class="memitem:aa27ceb3a03085587208865be59839b57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSearch.html#aa27ceb3a03085587208865be59839b57">set_facets_stickyness</a> ($state=true)</td></tr>
+<tr class="memdesc:aa27ceb3a03085587208865be59839b57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines stickyness for all facets.  <a href="#aa27ceb3a03085587208865be59839b57">More...</a><br/></td></tr>
+<tr class="separator:aa27ceb3a03085587208865be59839b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90ed598becee6e83812a6cde94a20be0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSearch.html#a90ed598becee6e83812a6cde94a20be0">set_facet_stickyness</a> ($id, $state=true)</td></tr>
+<tr class="memdesc:a90ed598becee6e83812a6cde94a20be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines stickyness for specific facet.  <a href="#a90ed598becee6e83812a6cde94a20be0">More...</a><br/></td></tr>
+<tr class="separator:a90ed598becee6e83812a6cde94a20be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6f6f4e7f73fc402a0fc18d3b3f42c5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsSearch.html#af6f6f4e7f73fc402a0fc18d3b3f42c5d">add_facet</a> (<a class="el" href="classAfsFacet.html">AfsFacet</a> $facet)</td></tr>
 <tr class="memdesc:af6f6f4e7f73fc402a0fc18d3b3f42c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures specific facet.  <a href="#af6f6f4e7f73fc402a0fc18d3b3f42c5d">More...</a><br/></td></tr>
 <tr class="separator:af6f6f4e7f73fc402a0fc18d3b3f42c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -346,6 +352,66 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a90ed598becee6e83812a6cde94a20be0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">set_facet_stickyness </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$state</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines stickyness for specific facet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$id</td><td>[in] Identifier of the facet. </td></tr>
+    <tr><td class="paramname">$state</td><td>[in] <code>true</code> (default) to set facet sticky, <code>false</code> otherwise. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aa27ceb3a03085587208865be59839b57"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">set_facets_stickyness </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$state</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines stickyness for all facets. </p>
+<p>By default, facets are not sticky.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$state</td><td>[in] stickyness state: <code>true</code> (default) to set all facets sticky, <code>false</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="ae09979047904e6ec293dd1385cdda42d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -397,7 +463,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 7 2014 10:08:02 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 19 2014 09:37:02 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

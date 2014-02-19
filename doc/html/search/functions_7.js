@@ -21,6 +21,7 @@ var searchData=
   ['get_5ffacet',['get_facet',['../classAfsFacetManager.html#a178d0af5094d386f9e63b15301ffc9f1',1,'AfsFacetManager']]],
   ['get_5ffacet_5fmanager',['get_facet_manager',['../classAfsHelperConfiguration.html#a24008364ec473bb14b46e59caf53057a',1,'AfsHelperConfiguration']]],
   ['get_5ffacets',['get_facets',['../classAfsFacetManager.html#aed41d87808e7a0118657d893a9831eca',1,'AfsFacetManager\get_facets()'],['../classAfsReplysetHelper.html#aed41d87808e7a0118657d893a9831eca',1,'AfsReplysetHelper\get_facets()']]],
+  ['get_5ffacets_5fstickyness',['get_facets_stickyness',['../classAfsFacetManager.html#a6578f52dadc8b6dd3c8ed376d207fc12',1,'AfsFacetManager']]],
   ['get_5ffeed',['get_feed',['../classAfsConceptHelper.html#a4498b71b9ef0a9aef6efcb9570daf193',1,'AfsConceptHelper\get_feed()'],['../classAfsMetaHelper.html#a4498b71b9ef0a9aef6efcb9570daf193',1,'AfsMetaHelper\get_feed()']]],
   ['get_5ffeeds',['get_feeds',['../classAfsQuery.html#a4fda687b0bf4ade97e13160a2910f5da',1,'AfsQuery']]],
   ['get_5ffilename',['get_filename',['../classAfsDocument.html#a87b7ac3bae6584ca7b201ca518c23ecb',1,'AfsDocument']]],

@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.4</span>
+   &#160;<span id="projectnumber">version 0.6.7</span>
    </div>
   </td>
  </tr>
@@ -91,6 +91,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="comment">$query = $search-&gt;get_query();</span></div>
 <div class="line"><span class="comment">$search-&gt;set_query($query-&gt;set_lang(&#39;fr&#39;));  // language is set manually in order to get spellcheck results</span></div>
 <div class="line"><span class="comment">*/</span></div>
+<div class="line"><span class="comment">//$search-&gt;set_facet_stickyness(&#39;afs:lang&#39;);</span></div>
+<div class="line"><span class="comment">//$search-&gt;set_facets_stickyness();</span></div>
 <div class="line">$helper = $search-&gt;execute(<a name="a1"></a><a class="code" href="classAfsHelperFormat.html#afe8b0b488d0cdf90d6dd285e8622bc57">AfsHelperFormat::HELPERS</a>);</div>
 <div class="line"></div>
 <div class="line">?&gt;</div>
@@ -110,6 +112,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    &lt;![endif]--&gt;</div>
 <div class="line">  &lt;/head&gt;</div>
 <div class="line">  &lt;body&gt;</div>
+<div class="line">    &lt;div&gt;</div>
+<div class="line">&lt;?php echo $search-&gt;get_generated_url() ?&gt;</div>
+<div class="line">    &lt;/div&gt;</div>
 <div class="line">    &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;page-header&quot;</span>&gt;</div>
 <div class="line">      &lt;h1&gt;Raw example &lt;small&gt;based on the Antidot PHP API&lt;/small&gt;&lt;/h1&gt;</div>
 <div class="line">    &lt;/div&gt;</div>
@@ -342,7 +347,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 7 2014 10:08:01 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 19 2014 09:37:02 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
