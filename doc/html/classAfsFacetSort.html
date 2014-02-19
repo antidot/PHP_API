@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>Antidot PHP API: AfsFacetCombination Class Reference</title>
+<title>Antidot PHP API: AfsFacetSort Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,34 +87,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="classAfsFacetCombination-members.html">List of all members</a>  </div>
+<a href="classAfsFacetSort-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">AfsFacetCombination Class Reference</div>  </div>
+<div class="title">AfsFacetSort Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Combination of the facets' values.  
- <a href="classAfsFacetCombination.html#details">More...</a></p>
+<p>Sort mode of the facets.  
+ <a href="classAfsFacetSort.html#details">More...</a></p>
 <div class="dynheader">
-Inheritance diagram for AfsFacetCombination:</div>
+Inheritance diagram for AfsFacetSort:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classAfsFacetCombination.png" usemap="#AfsFacetCombination_map" alt=""/>
-  <map id="AfsFacetCombination_map" name="AfsFacetCombination_map">
-<area href="classBasicEnum.html" title="Base class for pseudo enumerators. " alt="BasicEnum" shape="rect" coords="0,0,132,24"/>
+  <img src="classAfsFacetSort.png" usemap="#AfsFacetSort_map" alt=""/>
+  <map id="AfsFacetSort_map" name="AfsFacetSort_map">
+<area href="classBasicEnum.html" title="Base class for pseudo enumerators. " alt="BasicEnum" shape="rect" coords="0,0,86,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:af5e70a01eaaa6fe84e0cbd211e04464b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af5e70a01eaaa6fe84e0cbd211e04464b"></a>
-const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetCombination.html#af5e70a01eaaa6fe84e0cbd211e04464b">OR_MODE</a> = 'or'</td></tr>
-<tr class="memdesc:af5e70a01eaaa6fe84e0cbd211e04464b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Values of the facets are OR-combined. <br/></td></tr>
-<tr class="separator:af5e70a01eaaa6fe84e0cbd211e04464b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedde9cb7f1297cb7db6d09d51731563d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aedde9cb7f1297cb7db6d09d51731563d"></a>
-const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetCombination.html#aedde9cb7f1297cb7db6d09d51731563d">AND_MODE</a> = 'and'</td></tr>
-<tr class="memdesc:aedde9cb7f1297cb7db6d09d51731563d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Values of the facets are AND-combined. <br/></td></tr>
-<tr class="separator:aedde9cb7f1297cb7db6d09d51731563d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a824c9148f2e4e2b8ee362a7876bd74cf"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetSort.html#a824c9148f2e4e2b8ee362a7876bd74cf">STRICT</a> = 'STRICT'</td></tr>
+<tr class="memdesc:a824c9148f2e4e2b8ee362a7876bd74cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strict mode.  <a href="#a824c9148f2e4e2b8ee362a7876bd74cf">More...</a><br/></td></tr>
+<tr class="separator:a824c9148f2e4e2b8ee362a7876bd74cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26166309cbdc232371b9ba04ba7e997"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetSort.html#ae26166309cbdc232371b9ba04ba7e997">SMOOTH</a> = 'SMOOTH'</td></tr>
+<tr class="memdesc:ae26166309cbdc232371b9ba04ba7e997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smooth mode.  <a href="#ae26166309cbdc232371b9ba04ba7e997">More...</a><br/></td></tr>
+<tr class="separator:ae26166309cbdc232371b9ba04ba7e997"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -130,9 +128,40 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a17fcbb019da0d5c4605962b913f9441f inherit pub_static_methods_classBasicEnum"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Combination of the facets' values. </p>
-<p>Specify whether results of each filter should be summed up or instersected to build final result. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Sort mode of the facets. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="ae26166309cbdc232371b9ba04ba7e997"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const SMOOTH = 'SMOOTH'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Smooth mode. </p>
+<p>Facets are sorted at <a class="el" href="classAfsReplysetHelper.html" title="Helper for replies from one feed. ">AfsReplysetHelper</a> level. This allows to retrieve all facets. First facets are sorted according to provided sort order list, other ones follow as they appear in AFS search engine reply. </p>
+
+</div>
+</div>
+<a class="anchor" id="a824c9148f2e4e2b8ee362a7876bd74cf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const STRICT = 'STRICT'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Strict mode. </p>
+<p>All facets are sorted according to provided sort order list. Facets not present in the list are removed from reply. </p>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="raw_example_8php-example.html#a1">raw_example.php</a>.</dd>
+</dl>
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated on Wed Feb 19 2014 16:01:24 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">

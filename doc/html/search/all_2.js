@@ -48,6 +48,7 @@ var searchData=
   ['afsfacetlayout',['AfsFacetLayout',['../classAfsFacetLayout.html',1,'']]],
   ['afsfacetmanager',['AfsFacetManager',['../classAfsFacetManager.html',1,'']]],
   ['afsfacetmode',['AfsFacetMode',['../classAfsFacetMode.html',1,'']]],
+  ['afsfacetsort',['AfsFacetSort',['../classAfsFacetSort.html',1,'']]],
   ['afsfacetstickyness',['AfsFacetStickyness',['../classAfsFacetStickyness.html',1,'']]],
   ['afsfacettype',['AfsFacetType',['../classAfsFacetType.html',1,'']]],
   ['afsfacetvaluehelper',['AfsFacetValueHelper',['../classAfsFacetValueHelper.html',1,'']]],
