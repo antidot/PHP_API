@@ -39,6 +39,7 @@ class AfsQuery
     private $facetDefault = array(); // afs:facetDefault
     private $log = array();     // afs:log
     private $key = null;
+    private $auto_set_from = false;
 
     /**
      * @brief Construct new AFS query object.
@@ -60,6 +61,7 @@ class AfsQuery
             $this->sessionId = $afs_query->sessionId;
             $this->log = $afs_query->log;
             $this->key = $afs_query->key;
+            $this->auto_set_from = $afs_query->auto_set_from;
         } else {
             $this->lang = new AfsLanguage(null);
             $this->userId = uniqid('user_');
@@ -151,7 +153,7 @@ class AfsQuery
         $copy = $this->copy();
         $copy->reset_page();
         $copy->query = $new_query;
-        return $copy->set_from(AfsOrigin::SEARCHBOX);
+        return $this->auto_set_from ? $copy->set_from(AfsOrigin::SEARCHBOX) : $copy;
     }
     /**  @} */
 
@@ -168,7 +170,7 @@ class AfsQuery
         $copy = $this->copy();
         $copy->reset_page();
         $copy->filter[$facet_id] = array($value);
-        return $copy->set_from(AfsOrigin::FACET);
+        return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
     /** @brief Assign new value to specific facet.
      * @param $facet_id [in] id of the facet for which new @a value should be
@@ -185,7 +187,7 @@ class AfsQuery
             $copy->filter[$facet_id] = array();
         }
         $copy->filter[$facet_id][] = $value;
-        return $copy->set_from(AfsOrigin::FACET);
+        return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
     /** @brief Remove existing value from specific facet.
      * @remark No error is reported when the removed @a value is not already set.
@@ -207,7 +209,7 @@ class AfsQuery
                 unset($copy->filter[$facet_id]);
             }
         }
-        return $copy->set_from(AfsOrigin::FACET);
+        return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
     /** @brief Check whether instance has a @a value associated with specified
      * facet id.
@@ -281,7 +283,7 @@ class AfsQuery
         }
         $copy = $this->copy();
         $copy->page = $page;
-        return $copy->set_from(AfsOrigin::PAGER);
+        return $this->auto_set_from ? $copy->set_from(AfsOrigin::PAGER) : $copy;
     }
     /** @brief Retrieve current reply page.
      * @remark For a new query, this vaue is reset to 1.
@@ -504,6 +506,16 @@ class AfsQuery
     /** @name Origine of the query.
      * @{ */
 
+    /** @brief Defines whether @c from parameter should be auto set when possible.
+     * @param $auto_set [in] auto set status (default = @c true).
+     * @return copy of the query with appropriate auto set parameter.
+     */
+    public function auto_set_from($auto_set=true)
+    {
+        $copy = $this->copy();
+        $copy->auto_set_from = $auto_set;
+        return $copy;
+    }
     /** @brief Defines the origin of the query.
      *
      * @remark Page value is preserved when this method is called.

@@ -38,6 +38,7 @@ class AfsResponseHelper extends AfsHelperBase
     public function __construct($response, AfsQuery $query,
         AfsHelperConfiguration $config)
     {
+        $query = $query->auto_set_from();
         $this->config = $config;
         $this->header = new AfsHeaderHelper($response->header);
 

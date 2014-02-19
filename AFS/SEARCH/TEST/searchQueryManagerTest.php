@@ -191,8 +191,9 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
-        $query = $query->add_filter('foo', '4');
-        $query = $query->add_filter('foo', '2');
+        $query = $query->auto_set_from()
+                       ->add_filter('foo', '4')
+                       ->add_filter('foo', '2');
         $this->qm->send($query);
         $this->checkFromValue(AfsOrigin::FACET);
     }

@@ -396,6 +396,111 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($res));
         $this->assertEquals('FOO', $res[0]['raw']);
     }
+
+    public function testFromParameterIsSetForHelpers()
+    {
+        $input = json_decode('{
+            "header": {
+                "query": {
+                    "userId": "afd070b6-4315-40cc-975d-747e28bf132a",
+                    "sessionId": "5bf5642d-a262-4608-9901-45aa6e87325d"
+                },
+                "performance": {
+                    "durationMs": 666
+                }
+            },
+            "replySet": [
+                {
+                    "meta": {
+                        "uri": "Test",
+                        "totalItems": 200,
+                        "totalItemsIsExact": true,
+                        "pageItems": 2,
+                        "firstPageItem": 3,
+                        "lastPageItem": 4,
+                        "durationMs": 42,
+                        "firstPaFId": 1,
+                        "lastPaFId": 1,
+                        "producer": "SEARCH"
+                    },
+                    "facets": {
+                        "facet": [
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[0 .. 3]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "REAL",
+                                "id": "Foo"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "meta": {
+                        "uri": "Catalog",
+                        "totalItems": 2,
+                        "totalItemsIsExact": true,
+                        "pageItems": 2,
+                        "firstPageItem": 1,
+                        "lastPageItem": 1,
+                        "durationMs": 4,
+                        "firstPaFId": 1,
+                        "lastPaFId": 1,
+                        "producer": "SPELLCHECK"
+                    },
+                    "content": {
+                        "reply": [
+                            {
+                                "docId": 1,
+                                "uri": "Catalog",
+                                "title": [
+                                    {
+                                        "afs:t": "KwicMatch",
+                                        "match": "LIGNE"
+                                    }
+                                ],
+                                "abstract": [
+                                    {
+                                        "afs:t": "KwicString",
+                                        "text": "LIGNE"
+                                    }
+                                ],
+                                "suggestion": [ { "items": [ { "match": { "text": "LIGNE" } } ] } ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
+        $query = new AfsQuery();
+        $response = new AfsResponseHelper($input, $query, $config);
+
+        $this->assertTrue($response->has_spellcheck());
+        $spellchecks = $response->get_spellchecks();
+        $this->assertFalse(empty($spellchecks));
+        $spellcheck_helper = $spellchecks['Catalog'][0];
+        $query = $spellcheck_helper->get_query();
+        $this->assertEquals(AfsOrigin::SPELLCHECK, $query->get_from());
+
+        $this->assertTrue($response->has_replyset());
+        $replysets = $response->get_replysets();
+        $replyset_helper = $replysets['Test'];
+        $this->assertTrue($replyset_helper->has_facet());
+        $facets = $replyset_helper->get_facets();
+        $this->assertFalse(empty($facets));
+        $elements = $facets[0]->get_elements();
+        $this->assertFalse(empty($elements));
+        $this->assertEquals(AfsOrigin::FACET, $elements[0]->query->get_from());
+
+    }
 }
 
 

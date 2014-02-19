@@ -386,20 +386,26 @@ class QueryTest extends PHPUnit_Framework_TestCase
     public function testOriginAutoSetForQuery()
     {
         $query = new AfsQuery();
-        $query = $query->set_query('foo');
+        $query = $query->auto_set_from()->set_query('foo');
         $this->assertEquals(AfsOrigin::SEARCHBOX, $query->get_from());
     }
     public function testOriginAutoSetForFilters()
     {
         $query = new AfsQuery();
-        $query = $query->set_filter('foo', 'bar');
+        $query = $query->auto_set_from()->set_filter('foo', 'bar');
         $this->assertEquals(AfsOrigin::FACET, $query->get_from());
     }
     public function testOriginAutoSetForPager()
     {
         $query = new AfsQuery();
-        $query = $query->set_page(42);
+        $query = $query->auto_set_from()->set_page(42);
         $this->assertEquals(AfsOrigin::PAGER, $query->get_from());
+    }
+    public function testOriginNotAutoSet()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_query('query');
+        $this->assertTrue(is_null($query->get_from()));
     }
 
     public function testNoUserId()
@@ -502,7 +508,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
                        ->add_sort('BAR')
                        ->set_page(42)
                        ->set_from(AfsOrigin::SEARCHBOX)
-                       ->add_log('loggy');
+                       ->add_log('loggy')
+                       ->auto_set_from();
         $clone = new AfsQuery($query);
         $this->assertTrue($clone->get_query('query') == 'query');
         $this->assertTrue($clone->has_filter('foo', 'bar'));
@@ -524,6 +531,10 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $logs = $clone->get_logs();
         $this->assertEquals(1, count($logs));
         $this->assertEquals('loggy', $logs[0]);
+
+        // Need to call specific method to check that auto set from is active
+        $clone = $clone->add_filter('youhou', 'bloublou');
+        $this->assertEquals(AfsOrigin::FACET, $clone->get_from());
     }
 
     public function testRetrieveParametersArray()
