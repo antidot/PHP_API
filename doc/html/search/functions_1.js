@@ -11,5 +11,6 @@ var searchData=
   ['add_5flog',['add_log',['../classAfsQuery.html#a335694a8bc8b3d62e33eafdd716db453',1,'AfsQuery']]],
   ['add_5fsort',['add_sort',['../classAfsQuery.html#a909bb76d6f5569df0e6f309aeeffe40a',1,'AfsQuery']]],
   ['add_5fspellcheck',['add_spellcheck',['../classAfsSpellcheckManager.html#af07f7e3f576c139d9e12f44af1e94d9a',1,'AfsSpellcheckManager']]],
-  ['apply_5ffilter',['apply_filter',['../classFilterNodeManager.html#af3b16ffbf39d978f01849b330860a460',1,'FilterNodeManager']]]
+  ['apply_5ffilter',['apply_filter',['../classFilterNodeManager.html#af3b16ffbf39d978f01849b330860a460',1,'FilterNodeManager']]],
+  ['auto_5fset_5ffrom',['auto_set_from',['../classAfsQuery.html#a711b71b3729257ee7dcc09306d5be643',1,'AfsQuery']]]
 ];
