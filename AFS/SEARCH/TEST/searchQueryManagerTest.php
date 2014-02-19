@@ -67,12 +67,33 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($origin, $params['afs:from']);
     }
 
+    private function checkFacetDefaultValues($values)
+    {
+        $params = $this->connector->get_parameters();
+        $this->assertTrue(array_key_exists('afs:facetDefault', $params));
+        foreach ($values as $value)
+            $this->assertTrue(in_array($value, $params['afs:facetDefault']));
+    }
+
+    private function checkFacetOptions($facet_id, $option)
+    {
+        $params = $this->connector->get_parameters();
+        $this->assertTrue(array_key_exists('afs:facet', $params), 'No facet option available');
+        $facet_options = array();
+        foreach ($params['afs:facet'] as $facet_option) {
+            $res = explode(',', $facet_option);
+            $facet_options[$res[0]] = $res[1];
+        }
+        $this->assertTrue(array_key_exists($facet_id, $facet_options), 'No facet option available for facet: ' . $facet_id);
+        $this->assertEquals($option, $facet_options[$facet_id]);
+    }
+
+
     public function testNoParameterProvided()
     {
         $query = new AfsQuery();
         $this->qm->send($query);
-        $params = $this->connector->get_parameters();
-        $this->assertTrue(array_key_exists('afs:facetDefault', $params));
+        $this->checkFacetDefaultValues(array('replies=1000'));
     }
 
     public function testUnregisteredFacet()
@@ -174,5 +195,36 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $query = $query->add_filter('foo', '2');
         $this->qm->send($query);
         $this->checkFromValue(AfsOrigin::FACET);
+    }
+
+    public function testFacetDefaultNonSticky()
+    {
+        $query = new AfsQuery();
+        $this->qm->send($query);
+        $this->checkFacetDefaultValues(array('sticky=false'));
+    }
+
+    public function testFacetDefaultSticky()
+    {
+        $query = new AfsQuery();
+        $this->facet_mgr->set_facets_stickyness();
+        $this->qm->send($query);
+        $this->checkFacetDefaultValues(array('sticky=true'));
+    }
+
+    public function testFacetNonSticky()
+    {
+        $query = new AfsQuery();
+        $this->facet_mgr->set_facet_stickyness('FOO', false);
+        $this->qm->send($query);
+        $this->checkFacetOptions('FOO', 'sticky=false');
+    }
+
+    public function testFacetSticky()
+    {
+        $query = new AfsQuery();
+        $this->facet_mgr->set_facet_stickyness('FOO', true);
+        $this->qm->send($query);
+        $this->checkFacetOptions('FOO', 'sticky=true');
     }
 }

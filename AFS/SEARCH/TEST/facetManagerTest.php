@@ -44,7 +44,9 @@ class FacetManagerTest extends PHPUnit_Framework_TestCase
     public function testHasDefinedFacet()
     {
         $mgr = new AfsFacetManager();
+        $this->assertFalse($mgr->has_facets());
         $mgr->add_facet(new AfsFacet('foo', AfsFacetType::STRING_TYPE));
+        $this->assertTrue($mgr->has_facets());
         $this->assertTrue($mgr->has_facet('foo'));
     }
     public function testHasNotFacet()

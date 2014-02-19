@@ -36,7 +36,7 @@ class AfsQuery
     private $from = null;       // afs:from : query origin
     private $userId = null;     // afs:userId
     private $sessionId = null;  // afs:sessionId
-    private $facetDefault = 'replies=1000'; // afs:facetDefault
+    private $facetDefault = array(); // afs:facetDefault
     private $log = array();     // afs:log
     private $key = null;
 
@@ -64,6 +64,7 @@ class AfsQuery
             $this->lang = new AfsLanguage(null);
             $this->userId = uniqid('user_');
             $this->sessionId = uniqid('session_');
+            $this->facetDefault[] = 'replies=1000';
         }
     }
 

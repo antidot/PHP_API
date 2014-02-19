@@ -39,19 +39,22 @@ class AfsSearchQueryManager
      * @brief Add options specific to facets
      *
      * Currently managed options are:
-     * - <tt>afs:facet stickyness</tt> to defined dynamically sticky facets.
+     * - <tt>afs:facet stickyness</tt> to defined dynamically sticky facets
+     *   individually or globally.
      *
      * @param $params [in-out] array of parameter to update with facet options.
      */
     private function add_facet_options(&$params)
     {
-        foreach ($this->config->get_facet_manager()->get_facets() as $name => $facet) {
-            if ($facet->is_sticky()) {
-                if (empty($params['afs:facet'])) {
-                    $params['afs:facet'] = array();
-                }
-                $params['afs:facet'][] = $name . ',sticky=true';
-            }
+        $facet_manager = $this->config->get_facet_manager();
+        if (! array_key_exists('afs:facetDefault', $params))
+            $params['afs:facetDefault'] = array();
+        $params['afs:facetDefault'][] = 'sticky=' . ($facet_manager->get_facets_stickyness() ? 'true' : 'false');
+
+        if ($facet_manager->has_facets() && empty($params['afs:facet']))
+            $params['afs:facet'] = array();
+        foreach ($facet_manager->get_facets() as $name => $facet) {
+            $params['afs:facet'][] = $name . ',sticky=' . ($facet->is_sticky() ? 'true' : 'false');
         }
     }
 

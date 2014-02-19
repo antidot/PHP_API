@@ -17,6 +17,8 @@ abstract class AfsFacetType extends BasicEnum
     const DATE_TYPE = 'DATE';
     /** @brief Facet values of type boolean. */
     const BOOL_TYPE = 'BOOL';
+    /** @brief Unknown facet type. */
+    const UNKNOWN_TYPE = 'UNKNOWN';
 }
 
 

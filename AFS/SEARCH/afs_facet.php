@@ -44,15 +44,14 @@ class AfsFacet
         $mode=AfsFacetMode::REPLACE, $combination=AfsFacetCombination::OR_MODE,
         $sticky=AfsFacetStickyness::NON_STICKY)
     {
-        AfsFacetType::check_value($type, 'Invalid facet type parameter: ');
         AfsFacetLayout::check_value($layout, 'Invalid facet layout parameter: ');
         AfsFacetMode::check_value($mode, 'Invalid facet mode parameter: ');
         AfsFacetCombination::check_value($combination,
             'Invalid facet combination mode parameter: ');
         AfsFacetStickyness::check_value($sticky, 'Invalid facet stickyness parameter: ');
 
+        $this->set_type($type);
         $this->id = $id;
-        $this->type = $type;
         $this->layout = $layout;
         $this->mode = $mode;
         $this->combination = $combination;
@@ -70,6 +69,14 @@ class AfsFacet
     public function get_id()
     {
         return $this->id;
+    }
+    /** @brief Redefines facet type.
+     * @param $type [in] new type of the facet to set.
+     */
+    public function set_type($type)
+    {
+        AfsFacetType::check_value($type, 'Invalid facet type parameter: ');
+        $this->type = $type;
     }
     /** @brief Retrieves facet type.
      * @return type of the facet.
@@ -113,6 +120,15 @@ class AfsFacet
     {
         return $this->combination;
     }
+
+    /** @brief Defines stickyness of the facet.
+     * @param $state [in] @c true (default) to set facet sticky, @c false
+     *        otherwise.
+     */
+    public function set_sticky($state=true)
+    {
+        $this->sticky = ($state) ? AfsFacetStickyness::STICKY : AfsFacetStickyness::NON_STICKY;
+    }
     /** @brief Retrieve facet stickyness.
      * @return true when the facet is sticky, false otherwise.
      */
@@ -125,7 +141,7 @@ class AfsFacet
      *
      * Two instances are considered similar when following values are equals:
      * - facet identifier,
-     * - facet type,
+     * - facet type (or one is of unknown type),
      * - facet layout.
      * Other facet parameters are not taken into account.
      *
@@ -134,14 +150,38 @@ class AfsFacet
      */
     public function is_similar_to(AfsFacet $other)
     {
-        if ($this->id == $other->get_id()
-                && $this->type == $other->get_type()
-                && $this->layout == $other->get_layout()) {
+        if ($this->id == $other->get_id() && $this->layout == $other->get_layout()
+                && ($this->type == $other->get_type()
+                    || $this->type == AfsFacetType::UNKNOWN_TYPE
+                    || $other->get_type() == AfsFacetType::UNKNOWN_TYPE)) {
             return true;
         } else {
             return false;
         }
     }
+
+    /** @brief Updates current instance with parameters from other instance.
+     *
+     * First, both instance are compared then when they are enough similar
+     * current instance is updated.<br/>
+     * This can be usefull internally when facets are partially declared.
+     *
+     * @param $other [in] other instance to compare with and use as source to
+     *        update.
+     *
+     * @return @c true when everything goes right, @c false otherwise (instances
+     * are not similar).
+     */
+    public function update(AfsFacet $other)
+    {
+        if (! $this->is_similar_to($other))
+            return false;
+
+        if ($this->type == AfsFacetType::UNKNOWN_TYPE)
+            $this->type = $other->get_type();
+        return true;
+    }
+
     /** @internal
      * @brief Join all provided @a values and format them appropriately.
      * @param $values [in] array of values to be joined.

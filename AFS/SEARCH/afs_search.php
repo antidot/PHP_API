@@ -64,6 +64,26 @@ class AfsSearch
     /** @name Facet configuration
      * @{ */
 
+    /** @brief Defines stickyness for all facets.
+     *
+     * By default, facets are not sticky.
+     *
+     * @param $state [in] stickyness state: @c true (default) to set all facets
+     *        sticky, @c false
+     */
+    public function set_facets_stickyness($state=true)
+    {
+        $this->config->get_facet_manager()->set_facets_stickyness($state);
+    }
+    /** @brief Defines stickyness for specific facet.
+     * @param $id [in] Identifier of the facet.
+     * @param $state [in] @c true (default) to set facet sticky, @c false
+     *        otherwise.
+     */
+    public function set_facet_stickyness($id, $state=true)
+    {
+        $this->config->get_facet_manager()->set_facet_stickyness($id, $state);
+    }
     /** @brief Configures specific facet.
      * @param $facet [in] New facet to configure.
      */

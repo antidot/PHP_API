@@ -11,7 +11,48 @@ require_once 'AFS/SEARCH/afs_facet_exception.php';
 class AfsFacetManager
 {
     private $facets = array();
+    private $stickyness = false;
 
+    /** @name Global facet management
+     * @{ */
+
+    /** @brief Defines stickyness for all facets.
+     *
+     * By default, facets are not sticky.
+     *
+     * @param $state [in] stickyness state: @c true (default) to set all facets
+     *        sticky, @c false
+     */
+    public function set_facets_stickyness($state=true)
+    {
+        $this->stickyness = $state;
+    }
+
+    /** @brief Retrieves facet stickyness for all facets
+     * @return @c true when facets should be sticky by default, @c false
+     * otherwise.
+     */
+    public function get_facets_stickyness()
+    {
+        return $this->stickyness;
+    }
+    /** @} */
+
+    /** @name Fine grained facet management
+     * @{ */
+
+    /** @brief Defines stickyness for specific facet.
+     * @param $id [in] Identifier of the facet.
+     * @param $state [in] @c true (default) to set facet sticky, @c false
+     *        otherwise.
+     */
+    public function set_facet_stickyness($id, $state=true)
+    {
+        if (! array_key_exists($id, $this->facets))
+            $this->facets[$id] = new AfsFacet($id, AfsFacetType::UNKNOWN_TYPE);
+        $facet = $this->facets[$id];
+        $facet->set_sticky($state);
+    }
     /** @brief Adds new facet configuration to manager.
      *
      * The order of added facets influences the order of the facets in AFS
@@ -31,6 +72,10 @@ class AfsFacetManager
         $this->facets[$id] = $facet;
     }
     /** @brief Checks whether provided facet exists and has right parameters.
+     *
+     * Currently configured facet is updated with parameters from given facet
+     * when it is necessary (update facet stkickyness, facet type...)
+     *
      * @param $facet [in] Facet to test.
      * @exception AfsUndefinedFacetException provided facet is not currently
      *            managed.
@@ -44,7 +89,7 @@ class AfsFacetManager
                 . $facet->get_id() . '\' currently managed');
         }
         $configured = $this->get_facet($facet->get_id());
-        if (! $facet->is_similar_to($configured)) {
+        if (! $configured->update($facet)) {
             throw new AfsInvalidFacetParameterException('Provided facet is not '
                 . 'similar to registered one: ' . $facet . ' =/= ' . $configured);
         }
@@ -67,6 +112,13 @@ class AfsFacetManager
         } catch (AfsUndefinedFacetException $e) {
             $this->add_facet($facet);
         }
+    }
+    /** @brief Checks whether at least one facet is defined.
+     * @return @c true when one or more facet is defined, @c false otherwise.
+     */
+    public function has_facets()
+    {
+        return count($this->facets) > 0;
     }
     /** @brief Retrieves all facets.
      * @return all managed facets.
@@ -102,6 +154,7 @@ class AfsFacetManager
         }
         return $this->facets[$name];
     }
+    /**  @} */
 }
 
 

@@ -61,4 +61,40 @@ class SearchTest extends PHPUnit_Framework_TestCase
         $search->add_facet(new AfsFacet('FOO', AfsFacetType::STRING_TYPE, AfsFacetLayout::INTERVAL));
         $this->assertTrue($facet_mgr->has_facet('FOO'));
     }
+
+    public function testDefaultFacetOptionNonSticky()
+    {
+        $search = new AfsSearch('127.0.0.1', 42);
+        $search->set_facets_stickyness(false);
+        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
+        $this->assertFalse($facet_mgr->get_facets_stickyness());
+    }
+
+    public function testDefaultFacetOptionSticky()
+    {
+        $search = new AfsSearch('127.0.0.1', 42);
+        $search->set_facets_stickyness(true);
+        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
+        $this->assertTrue($facet_mgr->get_facets_stickyness());
+    }
+
+    public function testFacetNonSticky()
+    {
+        $search = new AfsSearch('127.0.0.1', 42);
+        $search->set_facet_stickyness('FOO', false);
+        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
+        $this->assertTrue($facet_mgr->has_facet('FOO'));
+        $facet = $facet_mgr->get_facet('FOO');
+        $this->assertFalse($facet->is_sticky());
+    }
+
+    public function testFacetSticky()
+    {
+        $search = new AfsSearch('127.0.0.1', 42);
+        $search->set_facet_stickyness('FOO', true);
+        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
+        $this->assertTrue($facet_mgr->has_facet('FOO'));
+        $facet = $facet_mgr->get_facet('FOO');
+        $this->assertTrue($facet->is_sticky());
+    }
 }
