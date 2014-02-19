@@ -1,6 +1,7 @@
 <?php
 require_once 'AFS/SEARCH/afs_facet.php';
 require_once 'AFS/SEARCH/afs_facet_exception.php';
+require_once 'COMMON/afs_tools.php';
 
 /** @brief AFS facet manager.
  *
@@ -35,6 +36,14 @@ class AfsFacetManager
     public function get_facets_stickyness()
     {
         return $this->stickyness;
+    }
+
+    /** @brief Defines facet ordering.
+     * @param $ids [in] List of facet identifiers in the right order.
+     */
+    public function set_facet_order(array $ids)
+    {
+        sort_array_by_key($ids, $this->facets, "simple_facet_creator");
     }
     /** @} */
 
@@ -158,3 +167,14 @@ class AfsFacetManager
 }
 
 
+/** @brief Creates AfsFacet object with facet id only.
+ *
+ * This function is present ofr internal use only!
+ *
+ * @param $id [in] Identifier of the facet to create.
+ * @return newly created facet.
+ */
+function simple_facet_creator($id)
+{
+    return new AfsFacet($id, AfsFacetType::UNKNOWN_TYPE);
+}

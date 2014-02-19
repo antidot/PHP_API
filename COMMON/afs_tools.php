@@ -339,3 +339,38 @@ abstract class BasicEnum {
 }
 
 
+
+/** @brief Sort elements from @a data according to provide keys.
+ *
+ * Sort key-value pairs of $data according to $ordered_keys. Different cases can
+ * occur:
+ * - $data may contain elements which are not declared in $ordered_keys. These
+ *   elements are kept as is in the same order.
+ * - $data may not contain element which are declared in $ordered_keys.
+ *   Depending on $creator value, new elements are created for missing keys or
+ *   these keys are skipped.
+ *
+ * @param $ordered_keys [in] List of keys which can be available in $data.
+ * @param $data [in-out] Array to sort. It should be a map of key-value pairs.
+ * @param $creator [in] Called to create new entry in $data when this array does
+ *        not contain appropriate key. This creator should accept one parameter
+ *        corresponding to the undefined key. No entry is added to $data when it
+ *        is set to @c null (default).
+ */
+function sort_array_by_key(array $ordered_keys, array &$data, $creator=null)
+{
+    $ordered = array();
+    foreach ($ordered_keys as $key) {
+        if (array_key_exists($key, $data)) {
+            $ordered[$key] = $data[$key];
+            unset($data[$key]);
+        } elseif (! is_null($creator)) {
+            $ordered[$key] = $creator($key);
+        }
+    }
+    if (count($data) > 0)
+        $ordered = array_merge($ordered, $data);
+    $data = $ordered;
+}
+
+

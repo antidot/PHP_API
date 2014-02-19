@@ -6,6 +6,7 @@ require_once 'AFS/SEARCH/afs_producer.php';
 require_once 'AFS/SEARCH/afs_base_replyset_helper.php';
 require_once 'AFS/SEARCH/afs_reply_helper_factory.php';
 require_once 'AFS/SEARCH/afs_response_helper.php';
+require_once 'COMMON/afs_tools.php';
 
 
 /** @brief Helper for replies from one feed.
@@ -33,11 +34,17 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
 
     protected function initialize_facet($reply_set, $query, $config)
     {
+        $facets = array();
         if (property_exists($reply_set, 'facets') && property_exists($reply_set->facets, 'facet')) {
             foreach ($reply_set->facets->facet as $facet) {
-                $this->facets[] = new AfsFacetHelper($facet, $query, $config);
+                $helper = new AfsFacetHelper($facet, $query, $config);
+                $facets[$helper->get_id()] = $helper;
             }
         }
+        $facet_mgr = $config->get_facet_manager();
+        if ($facet_mgr->has_facets())
+            sort_array_by_key(array_keys($facet_mgr->get_facets()), $facets);
+        $this->facets = array_values($facets); // preserve compatibility
     }
 
     protected function initialize_pager($reply_set, $query, $config)

@@ -1009,6 +1009,280 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
         $this->assertEquals(AfsFacetType::REAL_TYPE, $facet_mgr->get_facet('Foo')->get_type());
     }
+
+    public function testLazyFacetOrderingAllFacetsDeclared()
+    {
+        $input = json_decode('{
+            "header": {
+                "query": {
+                    "userId": "afd070b6-4315-40cc-975d-747e28bf132a",
+                    "sessionId": "5bf5642d-a262-4608-9901-45aa6e87325d"
+                },
+                "performance": {
+                    "durationMs": 666
+                }
+            },
+            "replySet": [
+                {
+                    "meta": {
+                        "uri": "Test",
+                        "totalItems": 200,
+                        "totalItemsIsExact": true,
+                        "pageItems": 2,
+                        "firstPageItem": 3,
+                        "lastPageItem": 4,
+                        "durationMs": 42,
+                        "firstPaFId": 1,
+                        "lastPaFId": 1,
+                        "producer": "SEARCH"
+                    },
+                    "facets": {
+                        "facet": [
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[3 .. 6]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "INTEGER",
+                                "id": "Bar"
+                            },
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[0 .. 3]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "REAL",
+                                "id": "Foo"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
+
+        $facet_mgr = $config->get_facet_manager();
+        $facet_mgr->set_facet_order(array('Foo', 'Bar'));
+        $this->assertTrue($facet_mgr->has_facet('Foo'));
+        $this->assertTrue($facet_mgr->has_facet('Bar'));
+
+        $query = new AfsQuery();
+        $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
+        $this->assertEquals(AfsFacetType::REAL_TYPE, $facet_mgr->get_facet('Foo')->get_type());
+        $this->assertEquals(AfsFacetType::INTEGER_TYPE, $facet_mgr->get_facet('Bar')->get_type());
+
+        $facets = $helper->get_facets();
+        $this->assertEquals(2, count($facets));
+        $this->assertEquals('Foo', $facets[0]->get_id());
+        $this->assertEquals('Bar', $facets[1]->get_id());
+    }
+
+    public function testLazyFacetOrderingSomeFacetsDeclared()
+    {
+        $input = json_decode('{
+            "header": {
+                "query": {
+                    "userId": "afd070b6-4315-40cc-975d-747e28bf132a",
+                    "sessionId": "5bf5642d-a262-4608-9901-45aa6e87325d"
+                },
+                "performance": {
+                    "durationMs": 666
+                }
+            },
+            "replySet": [
+                {
+                    "meta": {
+                        "uri": "Test",
+                        "totalItems": 200,
+                        "totalItemsIsExact": true,
+                        "pageItems": 2,
+                        "firstPageItem": 3,
+                        "lastPageItem": 4,
+                        "durationMs": 42,
+                        "firstPaFId": 1,
+                        "lastPaFId": 1,
+                        "producer": "SEARCH"
+                    },
+                    "facets": {
+                        "facet": [
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[\"3\" .. \"6\"]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "STRING",
+                                "id": "Bat"
+                            },
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[3 .. 6]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "DATE",
+                                "id": "Baz"
+                            },
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[3 .. 6]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "INTEGER",
+                                "id": "Bar"
+                            },
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[0 .. 3]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "REAL",
+                                "id": "Foo"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
+
+        $facet_mgr = $config->get_facet_manager();
+        $facet_mgr->set_facet_order(array('Foo', 'Bar'));
+        $this->assertTrue($facet_mgr->has_facet('Foo'));
+        $this->assertTrue($facet_mgr->has_facet('Bar'));
+        $this->assertFalse($facet_mgr->has_facet('Baz'));
+        $this->assertFalse($facet_mgr->has_facet('Bat'));
+
+        $query = new AfsQuery();
+        $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
+        $this->assertEquals(AfsFacetType::REAL_TYPE, $facet_mgr->get_facet('Foo')->get_type());
+        $this->assertEquals(AfsFacetType::INTEGER_TYPE, $facet_mgr->get_facet('Bar')->get_type());
+
+        $facets = $helper->get_facets();
+        $this->assertEquals(4, count($facets));
+        $this->assertEquals('Foo', $facets[0]->get_id());
+        $this->assertEquals('Bar', $facets[1]->get_id());
+        $this->assertEquals('Bat', $facets[2]->get_id());
+        $this->assertEquals('Baz', $facets[3]->get_id());
+    }
+
+    public function testLazyFacetOrderingMoreFacetsDeclaredThanPresentInReply()
+    {
+        $input = json_decode('{
+            "header": {
+                "query": {
+                    "userId": "afd070b6-4315-40cc-975d-747e28bf132a",
+                    "sessionId": "5bf5642d-a262-4608-9901-45aa6e87325d"
+                },
+                "performance": {
+                    "durationMs": 666
+                }
+            },
+            "replySet": [
+                {
+                    "meta": {
+                        "uri": "Test",
+                        "totalItems": 200,
+                        "totalItemsIsExact": true,
+                        "pageItems": 2,
+                        "firstPageItem": 3,
+                        "lastPageItem": 4,
+                        "durationMs": 42,
+                        "firstPaFId": 1,
+                        "lastPaFId": 1,
+                        "producer": "SEARCH"
+                    },
+                    "facets": {
+                        "facet": [
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[3 .. 6]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "DATE",
+                                "id": "Baz"
+                            },
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[3 .. 6]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "INTEGER",
+                                "id": "Bar"
+                            },
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[0 .. 3]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "REAL",
+                                "id": "Foo"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
+
+        $facet_mgr = $config->get_facet_manager();
+        $facet_mgr->set_facet_order(array('Foo', 'Bal', 'Bar'));
+        $this->assertTrue($facet_mgr->has_facet('Foo'));
+        $this->assertTrue($facet_mgr->has_facet('Bal'));
+        $this->assertTrue($facet_mgr->has_facet('Bar'));
+        $this->assertFalse($facet_mgr->has_facet('Baz'));
+
+        $query = new AfsQuery();
+        $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
+        $this->assertEquals(AfsFacetType::REAL_TYPE, $facet_mgr->get_facet('Foo')->get_type());
+        $this->assertEquals(AfsFacetType::INTEGER_TYPE, $facet_mgr->get_facet('Bar')->get_type());
+
+        $facets = $helper->get_facets();
+        $this->assertEquals(3, count($facets));
+        $this->assertEquals('Foo', $facets[0]->get_id());
+        $this->assertEquals('Bar', $facets[1]->get_id());
+        $this->assertEquals('Baz', $facets[2]->get_id());
+    }
 }
 
 
