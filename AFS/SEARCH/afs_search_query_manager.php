@@ -46,15 +46,19 @@ class AfsSearchQueryManager
      */
     private function add_facet_options(&$params)
     {
-        $facet_manager = $this->config->get_facet_manager();
+        $facet_mgr = $this->config->get_facet_manager();
         if (! array_key_exists('afs:facetDefault', $params))
             $params['afs:facetDefault'] = array();
-        $params['afs:facetDefault'][] = 'sticky=' . ($facet_manager->get_facets_stickyness() ? 'true' : 'false');
+        $params['afs:facetDefault'][] = 'sticky=' . ($facet_mgr->get_facets_stickyness() ? 'true' : 'false');
 
-        if ($facet_manager->has_facets() && empty($params['afs:facet']))
-            $params['afs:facet'] = array();
-        foreach ($facet_manager->get_facets() as $name => $facet) {
-            $params['afs:facet'][] = $name . ',sticky=' . ($facet->is_sticky() ? 'true' : 'false');
+        if ($facet_mgr->has_facets()) {
+            if (empty($params['afs:facet']))
+                $params['afs:facet'] = array();
+            foreach ($facet_mgr->get_facets() as $name => $facet)
+                $params['afs:facet'][] = $name . ',sticky=' . ($facet->is_sticky() ? 'true' : 'false');
+
+            if ($facet_mgr->is_facet_sort_order_strict())
+                $params['afs:facetOrder'] = implode(',', array_keys($facet_mgr->get_facets()));
         }
     }
 

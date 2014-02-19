@@ -1,6 +1,7 @@
 <?php
 require_once 'AFS/SEARCH/afs_facet.php';
 require_once 'AFS/SEARCH/afs_facet_exception.php';
+require_once 'AFS/SEARCH/afs_facet_order.php';
 require_once 'COMMON/afs_tools.php';
 
 /** @brief AFS facet manager.
@@ -13,6 +14,7 @@ class AfsFacetManager
 {
     private $facets = array();
     private $stickyness = false;
+    private $facet_sort_mode = null;
 
     /** @name Global facet management
      * @{ */
@@ -38,12 +40,21 @@ class AfsFacetManager
         return $this->stickyness;
     }
 
-    /** @brief Defines facet ordering.
-     * @param $ids [in] List of facet identifiers in the right order.
+    /** @brief Defines facet sort order.
+     * @param $ids [in] List of facet identifiers in the right sort order.
+     * @param $mode [in] Sort order mode (see AfsFacetSort for more details).
      */
-    public function set_facet_order(array $ids)
+    public function set_facet_sort_order(array $ids, $mode)
     {
         sort_array_by_key($ids, $this->facets, "simple_facet_creator");
+        $this->facet_sort_mode = $mode;
+    }
+    /** @brief Checks whether facet sort order is set to strict mode.
+     * @return @c true when facet sort order mode is strict, @c false otherwise.
+     */
+    public function is_facet_sort_order_strict()
+    {
+        return AfsFacetSort::STRICT == $this->facet_sort_mode;
     }
     /** @} */
 

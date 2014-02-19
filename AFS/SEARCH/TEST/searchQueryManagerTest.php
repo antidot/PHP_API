@@ -203,7 +203,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->qm->send($query);
         $this->checkFacetDefaultValues(array('sticky=false'));
     }
-
     public function testFacetDefaultSticky()
     {
         $query = new AfsQuery();
@@ -211,7 +210,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->qm->send($query);
         $this->checkFacetDefaultValues(array('sticky=true'));
     }
-
     public function testFacetNonSticky()
     {
         $query = new AfsQuery();
@@ -219,12 +217,30 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->qm->send($query);
         $this->checkFacetOptions('FOO', 'sticky=false');
     }
-
     public function testFacetSticky()
     {
         $query = new AfsQuery();
         $this->facet_mgr->set_facet_stickyness('FOO', true);
         $this->qm->send($query);
         $this->checkFacetOptions('FOO', 'sticky=true');
+    }
+
+    public function testFacetNonStrictOrder()
+    {
+        $query = new AfsQuery();
+        $this->facet_mgr->set_facet_sort_order(array('FOO', 'BAR'), AfsFacetSort::SMOOTH);
+        $this->qm->send($query);
+        $params = $this->connector->get_parameters();
+        $this->assertFalse(array_key_exists('afs:facetOrder', $params));
+    }
+    public function testFacetStrictOrder()
+    {
+        $query = new AfsQuery();
+        $sort = array('FOO', 'BAR');
+        $this->facet_mgr->set_facet_sort_order($sort, AfsFacetSort::STRICT);
+        $this->qm->send($query);
+        $params = $this->connector->get_parameters();
+        $this->assertTrue(array_key_exists('afs:facetOrder', $params));
+        $this->assertEquals(implode(',', $sort), $params['afs:facetOrder']);
     }
 }
