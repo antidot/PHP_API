@@ -142,7 +142,7 @@ class AfsFacet
      * Two instances are considered similar when following values are equals:
      * - facet identifier,
      * - facet type (or one is of unknown type),
-     * - facet layout.
+     * - facet layout (or one is of unknown layout).
      * Other facet parameters are not taken into account.
      *
      * @param $other [in] instance to compare with.
@@ -150,10 +150,13 @@ class AfsFacet
      */
     public function is_similar_to(AfsFacet $other)
     {
-        if ($this->id == $other->get_id() && $this->layout == $other->get_layout()
+        if ($this->id == $other->get_id()
                 && ($this->type == $other->get_type()
                     || $this->type == AfsFacetType::UNKNOWN_TYPE
-                    || $other->get_type() == AfsFacetType::UNKNOWN_TYPE)) {
+                    || $other->get_type() == AfsFacetType::UNKNOWN_TYPE)
+                && ($this->layout == $other->get_layout()
+                    || $this->type == AfsFacetLayout::UNKNOWN
+                    || $other->get_layout() == AfsFacetLayout::UNKNOWN)) {
             return true;
         } else {
             return false;
@@ -179,6 +182,8 @@ class AfsFacet
 
         if ($this->type == AfsFacetType::UNKNOWN_TYPE)
             $this->type = $other->get_type();
+        if ($this->layout == AfsFacetLayout::UNKNOWN)
+            $this->layout = $other->get_layout();
         return true;
     }
 

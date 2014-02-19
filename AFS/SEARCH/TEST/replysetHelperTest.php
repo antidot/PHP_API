@@ -912,6 +912,103 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
         $this->assertEquals(AfsFacetType::BOOL_TYPE, $facet_mgr->get_facet('BOOL')->get_type());
     }
+
+    public function testRetrieveIntervalFacetFromReplyWhereasItAsNotBeenFullyDeclared()
+    {
+        $input = json_decode('{
+            "header": {
+                "query": {
+                    "userId": "afd070b6-4315-40cc-975d-747e28bf132a",
+                    "sessionId": "5bf5642d-a262-4608-9901-45aa6e87325d",
+                    "date": "2013-10-02T15:48:41+0200",
+                    "queryParam": [],
+                    "mainCtx": { },
+                    "textQuery": "title"
+                },
+                "user": { },
+                "performance": {
+                    "durationMs": 666
+                },
+                "info": { }
+            },
+            "replySet": [
+                {
+                    "meta": {
+                        "uri": "Test",
+                        "totalItems": 200,
+                        "totalItemsIsExact": true,
+                        "pageItems": 2,
+                        "firstPageItem": 3,
+                        "lastPageItem": 4,
+                        "durationMs": 42,
+                        "firstPaFId": 1,
+                        "lastPaFId": 1,
+                        "producer": "SEARCH"
+                    },
+                    "facets": {
+                        "facet": [
+                            {
+                                "afs:t": "FacetInterval",
+                                "interval": [
+                                    {
+                                        "key": "[0 .. 3]",
+                                        "items": 1
+                                    },
+                                    {
+                                        "key": "[3 .. 6]",
+                                        "items": 1
+                                    }
+                                ],
+                                "layout": "INTERVAL",
+                                "type": "REAL",
+                                "id": "Foo",
+                                "labels": [
+                                    {
+                                        "label": "Real facet"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "content": {
+                        "reply": [
+                            {
+                                "docId": 198,
+                                "uri": "http://foo.bar.baz/116",
+                                "title": [
+                                    {
+                                        "afs:t": "KwicString",
+                                        "text": "Foo"
+                                    }
+                                ],
+                                "abstract": [
+                                    {
+                                        "afs:t": "KwicString",
+                                        "text": "Bar"
+                                    }
+                                ],
+                                "relevance": {
+                                    "rank": 3
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
+
+        $facet_mgr = $config->get_facet_manager();
+        $facet_mgr->set_facet_stickyness('Foo');
+        $this->assertTrue($facet_mgr->has_facet('Foo'));
+        $this->assertEquals(AfsFacetType::UNKNOWN_TYPE, $facet_mgr->get_facet('Foo')->get_type());
+
+        $query = new AfsQuery();
+        $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
+        $this->assertEquals(AfsFacetType::REAL_TYPE, $facet_mgr->get_facet('Foo')->get_type());
+    }
 }
 
 

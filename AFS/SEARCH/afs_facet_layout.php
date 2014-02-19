@@ -15,6 +15,10 @@ abstract class AfsFacetLayout extends BasicEnum
      *
      * This layout is used for interval of values such as prices. */
     const INTERVAL = 'INTERVAL';
+    /** @brief Unknown layout used for not fully declared facets.
+     *
+     * This is intended for internal use only. */
+    const UNKNOWN = 'UNKNOWN';
 }
 
 
