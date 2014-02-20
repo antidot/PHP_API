@@ -1,10 +1,11 @@
 <?php
+require_once 'COMMON/afs_tools.php';
 
 /** @brief Layout of the facets
  *
  * Specify the layout of the facets.
  */
-abstract class AfsFacetLayout
+abstract class AfsFacetLayout extends BasicEnum
 {
     /** @brief Tree layout.
      *

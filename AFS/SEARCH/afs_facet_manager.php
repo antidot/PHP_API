@@ -46,7 +46,6 @@ class AfsFacetManager
      */
     public function set_facet_sort_order(array $ids, $mode)
     {
-        EnumChecker::check_value(AfsFacetSort, $mode, 'Invalid facet sort order mode: ');
         sort_array_by_key($ids, $this->facets, "simple_facet_creator");
         $this->facet_sort_mode = $mode;
     }

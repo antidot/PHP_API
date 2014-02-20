@@ -1,7 +1,8 @@
 <?php
+require_once 'COMMON/afs_tools.php';
 
 /** @brief Sort mode of the facets. */
-abstract class AfsFacetSort
+abstract class AfsFacetSort extends BasicEnum
 {
     /** @brief Strict mode.
      *

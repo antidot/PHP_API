@@ -1,10 +1,11 @@
 <?php
+require_once "COMMON/afs_tools.php";
 
 /** @brief Defines AFS search replies' producers.
  *
  * Specifies which agent produces reply set.
  */
-abstract class AfsProducer
+abstract class AfsProducer extends BasicEnum
 {
   /** @brief Reply set result of check query. */
   const CHECK = 'CHECK';

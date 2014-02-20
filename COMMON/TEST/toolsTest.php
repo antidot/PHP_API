@@ -2,7 +2,7 @@
 require_once "COMMON/afs_tools.php";
 
 
-abstract class MyEnum
+abstract class MyEnum extends BasicEnum
 {
     const FOO = 'foo';
     const BAR = 'bar';
@@ -66,29 +66,28 @@ class ToolsTest extends PHPUnit_Framework_TestCase
 
     public function testValidEnumValue()
     {
-        $this->assertTrue(EnumChecker::is_valid(MyEnum, MyEnum::FOO));
-        $this->assertTrue(EnumChecker::is_valid(MyEnum, MyEnum::FOO));
-        $this->assertTrue(EnumChecker::is_valid(MyEnum, 'foo'));
-        $this->assertTrue(EnumChecker::is_valid(MyEnum, MyEnum::BAR));
-        $this->assertTrue(EnumChecker::is_valid(MyEnum, 'bar'));
+        $this->assertTrue(MyEnum::is_valid_value(MyEnum::FOO));
+        $this->assertTrue(MyEnum::is_valid_value('foo'));
+        $this->assertTrue(MyEnum::is_valid_value(MyEnum::BAR));
+        $this->assertTrue(MyEnum::is_valid_value('bar'));
     }
 
     public function testInvalidEnumValue()
     {
-        $this->assertFalse(EnumChecker::is_valid(MyEnum, 'FOO'));
-        $this->assertFalse(EnumChecker::is_valid(MyEnum, 'Foo'));
+        $this->assertFalse(MyEnum::is_valid_value('FOO'));
+        $this->assertFalse(MyEnum::is_valid_value('Foo'));
     }
 
     public function testCheckValidValue()
     {
         try
         {
-            EnumChecker::check_value(MyEnum, MyEnum::FOO);
-            EnumChecker::check_value(MyEnum, 'foo');
-            EnumChecker::check_value(MyEnum, MyEnum::BAR);
-            EnumChecker::check_value(MyEnum, 'bar');
+            $this->assertTrue(MyEnum::is_valid_value(MyEnum::FOO));
+            $this->assertTrue(MyEnum::is_valid_value('foo'));
+            $this->assertTrue(MyEnum::is_valid_value(MyEnum::BAR));
+            $this->assertTrue(MyEnum::is_valid_value('bar'));
         } catch (Exception $e) {
-            $this->fail('Should not have raised any exception! ' . $e);
+            $this->fail('Should not have raise any exception!');
         }
     }
 
@@ -96,7 +95,7 @@ class ToolsTest extends PHPUnit_Framework_TestCase
     {
         try
         {
-            EnumChecker::check_value(MyEnum, 'Foo');
+            MyEnum::check_value('Foo');
             $this->fail('Invalid checked value should have raised an exception!');
         } catch (InvalidArgumentException $e) { }
     }

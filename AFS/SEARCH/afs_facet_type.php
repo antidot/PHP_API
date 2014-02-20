@@ -1,10 +1,11 @@
 <?php
+require_once 'COMMON/afs_tools.php';
 
 /** @brief Type of the facets
  *
  * Specify the type of the facets.
  */
-abstract class AfsFacetType
+abstract class AfsFacetType extends BasicEnum
 {
     /** @brief Facet values of type integer. */
     const INTEGER_TYPE = 'INTEGER';

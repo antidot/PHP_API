@@ -288,57 +288,47 @@ class TruncatedFilterNode extends FilterNode
 }
 
 
-/** @brief Simple helper function to check whether a value is not @c null.
- * It can be used to filter out values from arrays.
- * @param $value [in] value to check.
- * @return @c True when @a $value is not @c null, @c false otherwise.
- */
-function is_not_null($value)
-{
-    return isset($value);
-}
+/** @brief Base class for pseudo enumerators.
+ *
+ * You whould derive from this class to create your own pseudo enum. */
+abstract class BasicEnum {
 
-/** @internal
- */
-function page_compare($left_param, $right_param)
-{
-    return $left_param == 'page' ? 1 : 0;
-}
-
-
-/** @brief Allows to check values of pseudo enum classes. */
-abstract class EnumChecker
-{
-    private static $enums = array();
-
-    /** @brief Checks enum value.
-     *
-     * @param $enum [in] pseudo enum class.
-     * @param $value [in] value to check.
-     *
-     * @return @c True when provided @a $value is defined for the given pseudo
-     *         @a $enum class, @c false otherwise.
-     */
-    public static function is_valid($enum, $value)
+    private static function get_constants()
     {
-        if (! array_key_exists($enum, self::$enums)) {
-            $reflect = new ReflectionClass($enum);
-            self::$enums[$enum] = $reflect->getConstants();
-        }
-        return in_array($value, self::$enums[$enum]);
+        $reflect = new ReflectionClass(get_called_class());
+        return $reflect->getConstants();
+    }
+
+    /** @brief Checks whether provided variable name is valid.
+     * @param $name [in] variable name to test.
+     * @return @c True on valid name, @c false otherwise.
+     */
+    public static function is_valid_name($name)
+    {
+        $constants = self::get_constants();
+        return array_key_exists($name, $constants);
+    }
+
+    /** @brief Checks whether provided variable value is valid.
+     * @param $value [in] variable value to test.
+     * @return @c True on valid value, @c false otherwise.
+     */
+    public static function is_valid_value($value)
+    {
+        $values = array_values(self::get_constants());
+        return in_array($value, $values, $strict=true);
     }
 
     /** @brief Checks whether the value is valid.
      *
-     * @param $enum [in] pseudo enum class.
      * @param $value [in] value to test.
      * @param $msg [in] message of the launched exception on failling test.
      *
      * @exception InvalidArgumentException when provided value is invalid.
      */
-    public static function check_value($enum, $value, $msg=null)
+    public static function check_value($value, $msg=null)
     {
-        if (! self::is_valid($enum, $value)) {
+        if (! self::is_valid_value($value)) {
             if (is_null($msg)) {
                 $msg = 'Invalid value: ';
             }
