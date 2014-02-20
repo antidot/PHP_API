@@ -229,7 +229,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testFacetNonStrictOrder()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_facet_sort_order(array('FOO', 'BAR'), AfsFacetSort::SMOOTH);
+        $this->facet_mgr->set_facet_sort_order(array('FOO', 'BAR'), AfsFacetSort::LAX);
         $this->qm->send($query);
         $params = $this->connector->get_parameters();
         $this->assertFalse(array_key_exists('afs:facetOrder', $params));

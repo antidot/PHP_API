@@ -1,7 +1,7 @@
 <?php
 require_once 'AFS/SEARCH/afs_facet.php';
 require_once 'AFS/SEARCH/afs_facet_exception.php';
-require_once 'AFS/SEARCH/afs_facet_order.php';
+require_once 'AFS/SEARCH/afs_facet_sort.php';
 require_once 'COMMON/afs_tools.php';
 
 /** @brief AFS facet manager.

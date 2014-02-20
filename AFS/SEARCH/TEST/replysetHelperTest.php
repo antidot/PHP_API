@@ -1072,7 +1072,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $config->set_helper_format(AfsHelperFormat::HELPERS);
 
         $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->set_facet_sort_order(array('Foo', 'Bar'), AfsFacetSort::SMOOTH);
+        $facet_mgr->set_facet_sort_order(array('Foo', 'Bar'), AfsFacetSort::LAX);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
         $this->assertTrue($facet_mgr->has_facet('Bar'));
 
@@ -1173,7 +1173,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $config->set_helper_format(AfsHelperFormat::HELPERS);
 
         $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->set_facet_sort_order(array('Foo', 'Bar'), AfsFacetSort::SMOOTH);
+        $facet_mgr->set_facet_sort_order(array('Foo', 'Bar'), AfsFacetSort::LAX);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
         $this->assertTrue($facet_mgr->has_facet('Bar'));
         $this->assertFalse($facet_mgr->has_facet('Baz'));
@@ -1266,7 +1266,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $config->set_helper_format(AfsHelperFormat::HELPERS);
 
         $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->set_facet_sort_order(array('Foo', 'Bal', 'Bar'), AfsFacetSort::SMOOTH);
+        $facet_mgr->set_facet_sort_order(array('Foo', 'Bal', 'Bar'), AfsFacetSort::LAX);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
         $this->assertTrue($facet_mgr->has_facet('Bal'));
         $this->assertTrue($facet_mgr->has_facet('Bar'));
