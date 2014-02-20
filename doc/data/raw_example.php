@@ -11,6 +11,7 @@ $search->build_query_from_url_parameters();
 $query = $search->get_query();
 $search->set_query($query->set_lang('fr'));  // language is set manually in order to get spellcheck results
 */
+$search->set_facet_sort_order(array('price_eur', 'marketing'), AfsFacetSort:: LAX);
 $helper = $search->execute(AfsHelperFormat::HELPERS);
 
 ?>
