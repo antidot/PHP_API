@@ -1,8 +1,7 @@
 <?php
-require_once 'COMMON/afs_tools.php';
 
 /** @brief Sort order pseudo-enumerator. */
-class AfsSortOrder extends BasicEnum
+abstract class AfsSortOrder
 {
     /** @brief Sort in descending order. */
     const DESC = 'DESC';

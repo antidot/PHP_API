@@ -58,10 +58,7 @@ class AfsHelperConfiguration
      */
     public function set_helper_format($format)
     {
-        if (! AfsHelperFormat::is_valid_value($format)) {
-            throw new InvalidArgumentException('Invalid helper format: '
-                . $format);
-        }
+        EnumChecker::check_value(AfsHelperFormat, $format, 'Invalid helper format: ');
         $this->helper_format = $format;
         return $this;
     }

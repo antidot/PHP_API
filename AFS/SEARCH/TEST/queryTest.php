@@ -143,10 +143,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = new AfsQuery();
         try {
             $values = $query->get_filter_values('foo');
-        } catch (Exception $e) {
-            return;
-        }
-        $this->fail('Getting values from unexisting filter should raise exception!');
+            $this->fail('Getting values from unexisting filter should raise exception!');
+        } catch (OutOfBoundsException $e) { }
     }
     public function testGetListOfFilterValues()
     {

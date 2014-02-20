@@ -1,12 +1,11 @@
 <?php
-require_once 'COMMON/afs_tools.php';
 
 /** @brief Mode of the facets
  *
  * Specify the mode of the facets. Modes allow to combine or replace values of
  * the facets.
  */
-abstract class AfsFacetMode extends BasicEnum
+abstract class AfsFacetMode
 {
     /** @brief Replace mode.
      *

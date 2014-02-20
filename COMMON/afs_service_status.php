@@ -1,10 +1,9 @@
 <?php
-require_once 'COMMON/afs_tools.php';
 
 /** @brief PaF statuses
  *
  * Available status of the PaF and service. */
-abstract class AfsServiceStatus extends BasicEnum
+abstract class AfsServiceStatus
 {
     /** @brief Stable: production */
     const STABLE = 'stable';

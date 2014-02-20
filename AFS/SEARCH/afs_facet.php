@@ -4,6 +4,7 @@ require_once 'AFS/SEARCH/afs_facet_layout.php';
 require_once 'AFS/SEARCH/afs_facet_mode.php';
 require_once 'AFS/SEARCH/afs_facet_combination.php';
 require_once 'AFS/SEARCH/afs_facet_stickyness.php';
+require_once 'COMMON/afs_tools.php';
 
 
 /** @brief Configuration class for AFS facets.
@@ -44,11 +45,11 @@ class AfsFacet
         $mode=AfsFacetMode::REPLACE, $combination=AfsFacetCombination::OR_MODE,
         $sticky=AfsFacetStickyness::NON_STICKY)
     {
-        AfsFacetLayout::check_value($layout, 'Invalid facet layout parameter: ');
-        AfsFacetMode::check_value($mode, 'Invalid facet mode parameter: ');
-        AfsFacetCombination::check_value($combination,
+        EnumChecker::check_value(AfsFacetLayout, $layout, 'Invalid facet layout parameter: ');
+        EnumChecker::check_value(AfsFacetMode, $mode, 'Invalid facet mode parameter: ');
+        EnumChecker::check_value(AfsFacetCombination, $combination,
             'Invalid facet combination mode parameter: ');
-        AfsFacetStickyness::check_value($sticky, 'Invalid facet stickyness parameter: ');
+        EnumChecker::check_value(AfsFacetStickyness, $sticky, 'Invalid facet stickyness parameter: ');
 
         $this->set_type($type);
         $this->id = $id;
@@ -75,7 +76,7 @@ class AfsFacet
      */
     public function set_type($type)
     {
-        AfsFacetType::check_value($type, 'Invalid facet type parameter: ');
+        EnumChecker::check_value(AfsFacetType, $type, 'Invalid facet type parameter: ');
         $this->type = $type;
     }
     /** @brief Retrieves facet type.

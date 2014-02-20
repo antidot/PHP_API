@@ -2,6 +2,7 @@
 require_once 'AFS/SEARCH/afs_facet_manager.php';
 require_once 'COMMON/afs_helper_base.php';
 require_once 'AFS/SEARCH/afs_facet_value_formatter.php';
+require_once 'COMMON/afs_tools.php';
 
 /** @brief Helper to manage facets. */
 class AfsFacetHelper extends AfsHelperBase
@@ -211,9 +212,9 @@ class AfsFacetValueHelper extends AfsHelperBase
      */
     public function format()
     {
-        return array_filter(get_object_vars($this),
-            function ($value) { return ! is_null($value); });
+        return array_filter(get_object_vars($this), is_not_null);
     }
+
 }
 
 

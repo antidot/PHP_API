@@ -1,8 +1,7 @@
 <?php
-require_once 'COMMON/afs_tools.php';
 
 /** @brief List of built-ins sort parameters. */
-class AfsSortBuiltins extends BasicEnum
+abstract class AfsSortBuiltins
 {
     /** @brief Number of the query words found in the document. */
     const WORDS = 'afs:words';

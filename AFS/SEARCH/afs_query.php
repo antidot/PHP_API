@@ -4,6 +4,7 @@ require_once 'COMMON/afs_user_session_manager.php';
 require_once 'AFS/SEARCH/afs_origin.php';
 require_once 'AFS/SEARCH/afs_sort_order.php';
 require_once 'AFS/SEARCH/afs_sort_builtins.php';
+require_once 'COMMON/afs_tools.php';
 
 /** @brief Represent an AFS query.
  *
@@ -242,10 +243,14 @@ class AfsQuery
      * @remark You should ensure that the required @a facet_id is valid.
      * @param $facet_id [in] facet id to consider.
      * @return list of values associated to the given @a facet_id.
+     * @exception OutOfBoundsException when required facet does not exist.
      */
     public function get_filter_values($facet_id)
     {
-        return $this->filter[$facet_id];
+        if (array_key_exists($facet_id, $this->filter))
+            return $this->filter[$facet_id];
+        else
+            throw new OutOfBoundsException('Unknown requested facet: ' . $facet_id);
     }
     /** @brief Retrieve the list of all managed facet ids.
      *
@@ -484,11 +489,11 @@ class AfsQuery
         }
         if (! is_null($sort_param)) {
             if (strncmp('afs:', $sort_param, 4) == 0) {
-                AfsSortBuiltins::check_value($sort_param, 'Invalid sort parameter: ');
+                EnumChecker::check_value(AfsSortBuiltins, $sort_param, 'Invalid sort parameter: ');
             } elseif (1 != preg_match('/^[a-zA-Z][a-zA-Z0-9_-]*$/', $sort_param)) {
                 throw new Exception('Invalid sort parameter provided: ' . $sort_param);
             }
-            AfsSortOrder::check_value($order, 'Invalid sort order provided: ');
+            EnumChecker::check_value(AfsSortOrder, $order, 'Invalid sort order provided: ');
 
             $new_value = $current_value;
             $new_value[$sort_param] = $order;
@@ -528,11 +533,8 @@ class AfsQuery
      */
     public function set_from($from)
     {
-        if (AfsOrigin::is_valid_value($from)) {
-            $this->from = $from;
-        } else {
-            throw new Exception('Invalid query origin: ' . $from);
-        }
+        EnumChecker::check_value(AfsOrigin, $from, 'Invalid query origin: ');
+        $this->from = $from;
         return $this;
     }
     /** @brief Retrieves origin of the query.
@@ -715,7 +717,7 @@ class AfsQuery
      */
     public static function create_from_parameters(array $params)
     {
-        uksort($params, function($a, $b) { return $a == 'page' ? 1 : 0; });
+        uksort($params, page_compare);
 
         $result = new AfsQuery();
         foreach ($params as $param => $values) {
@@ -744,6 +746,7 @@ class AfsQuery
         }
         return $result;
     }
+
 
     /** @brief Retrieves query parameters.
      *

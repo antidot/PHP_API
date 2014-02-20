@@ -1,5 +1,6 @@
 <?php
 require_once 'COMMON/afs_service_status.php';
+require_once 'COMMON/afs_tools.php';
 
 /** @brief Antidot service.
  *
@@ -21,7 +22,7 @@ class AfsService
         if (! is_numeric($id)) {
             throw new InvalidArgumentException('Service id must be integer, invalid value: ' . $id);
         }
-        AfsServiceStatus::check_value($status, 'Invalid service status provided: ');
+        EnumChecker::check_value(AfsServiceStatus, $status, 'Invalid service status provided: ');
         $this->id = $id;
         $this->status = $status;
     }

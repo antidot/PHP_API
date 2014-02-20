@@ -1,7 +1,7 @@
 <?php ob_start();
-require_once "COMMON/afs_user_session_manager.php";
+require_once 'COMMON/afs_user_session_manager.php';
 
-class UserSessionTest extends PHPUnit_Framework_TestCase
+class UserSessionManagerTest extends PHPUnit_Framework_TestCase
 {
     // Cannot test setcookie due to other tests which have already written on
     // the output!
@@ -50,16 +50,16 @@ class UserSessionTest extends PHPUnit_Framework_TestCase
     {
         global $_COOKIE;
         $_COOKIE['AfsSessionId'] = 'youhou';
-        $mgr = new AfsUserSessionManager('myName');
-        $this->assertNull($mgr->get_user_id());
+        $mgr = new AfsUserSessionManager('myName', 'mySession');
+        $this->assertNull($mgr->get_session_id());
     }
     public function testRetrieveSpecificSessionIdName()
     {
         global $_COOKIE;
-        $_COOKIE['AfsSessionId'] = 'youhou';
+        $_COOKIE['mySession'] = 'youhou';
         $_COOKIE['myName'] = 'wouhahaha';
-        $mgr = new AfsUserSessionManager('myName');
-        $this->assertEquals('wouhahaha', $mgr->get_user_id());
+        $mgr = new AfsUserSessionManager('myName', 'mySession');
+        $this->assertEquals('youhou', $mgr->get_session_id());
     }
 
 

@@ -1,17 +1,13 @@
 <?php
 
-require_once "COMMON/afs_tools.php";
-
 /** @brief Defines various query origins.
  *
  * Origin of the query is set automatically by the query itself or various
  * helpers (such as AfsSpellcheckHelper). You are encouraged to set it manually
  * when you do not use queries provided by the different available helpers.
  */
-abstract class AfsOrigin extends BasicEnum
+abstract class AfsOrigin
 {
-    private static $cache = null;
-
     /** @brief Query originates from search box.
      *
      * This value is automatically set when new search words are set to the

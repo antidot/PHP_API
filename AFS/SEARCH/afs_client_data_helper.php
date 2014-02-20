@@ -91,7 +91,7 @@ interface AfsClientDataHelperInterface
      *        appropriate formatter (default=null, default formatter is used).
      * @return first matching client data with specified name as text.
      */
-    public function get_value($name, $context, $formatter);
+    public function get_value($name=null, $context=array(), $formatter=null);
     /** @brief Retrieves client data as array of texts.
      *
      * All client data or sub-tree can be retrieved depending on @a name
@@ -104,7 +104,7 @@ interface AfsClientDataHelperInterface
      *        appropriate formatter (default=null, default formatter is used).
      * @return matching client data as array of texts.
      */
-    public function get_values($name, $context, $formatter);
+    public function get_values($name=null, $context=array(), $formatter=null);
 
     /** @brief Retrieve client data's mime type.
      *
