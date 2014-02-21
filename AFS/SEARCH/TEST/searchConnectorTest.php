@@ -29,7 +29,7 @@ class Connector extends AfsSearchConnector
     }
     public function build_url(array $parameters)
     {
-        return parent::build_url($parameters);
+        return parent::build_url('search', $parameters);
     }
 }
 

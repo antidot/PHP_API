@@ -1,4 +1,6 @@
 <?php
+require_once 'COMMON/afs_service.php';
+require_once 'afs_version.php';
 
 /** @defgroup uri_scheme Connection scheme
  *
@@ -17,26 +19,50 @@ define('AFS_SCHEME_HTTPS', 'https');
  * This class provided usefull methods to manage connection strings. */
 abstract class AfsConnectorBase
 {
+    protected $scheme = null;
+    protected $host = null;
+    protected $service = null;
+
+    /** @brief Constructs new base connector.
+     *
+     * All parameter values should have been provided by Antidot.
+     *
+     * @param $host [in] server hosting the required service.
+     * @param $service [in] Antidot service (see @a AfsService).
+     * @param $scheme [in] Scheme for the connection URL see
+     *        @ref uri_scheme.
+     *
+     * @exception InvalidArgumentException invalid scheme parameter provided.
+     */
+    protected function __construct($host, AfsService $service, $scheme)
+    {
+        if ($scheme != AFS_SCHEME_HTTP && $scheme != AFS_SCHEME_HTTPS)
+            throw InvalidArgumentException('Connector supports only HTTP and HTTPS connections');
+
+        $this->scheme = $scheme;
+        $this->host = $host;
+        $this->service = $service;
+    }
+
+
     protected function format_parameters(array $parameters)
     {
         $string_parameters = array();
-        foreach ($parameters as $name => $values)
-        {
-            if (is_array($values))
-            {
-                foreach ($values as $value)
-                {
-                    $string_parameters[] = urlencode($name) . '='
-                        . urlencode($value);
+        foreach ($parameters as $name => $values) {
+            if (is_array($values)) {
+                foreach ($values as $value) {
+                    $string_parameters[] = $this->encode_param($name, $value);
                 }
-            }
-            else
-            {
-                $string_parameters[] = urlencode($name) . '='
-                    . urlencode($values);
+            } else {
+                $string_parameters[] = $this->encode_param($name, $values);
             }
         }
         return implode('&', $string_parameters);
+    }
+
+    private function encode_param($key, $value)
+    {
+        return urlencode($key) . '=' . urlencode($value);
     }
 }
 

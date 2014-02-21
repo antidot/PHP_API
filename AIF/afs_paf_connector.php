@@ -3,15 +3,11 @@ require_once "AIF/afs_authentication.php";
 require_once "AIF/afs_document_manager.php";
 require_once "AIF/afs_paf_upload_reply.php";
 require_once "COMMON/afs_connector_base.php";
-require_once "COMMON/afs_service.php";
 
 /** @brief AFS PaF connector.
  */
 class AfsPafConnector extends AfsConnectorBase
 {
-    private $scheme;
-    private $host;
-    private $service;
     private $paf_name;
     private $authentication;
 
@@ -30,13 +26,7 @@ class AfsPafConnector extends AfsConnectorBase
     public function __construct($host, AfsService $service, $paf_name,
         AfsAuthentication $authentication, $scheme=AFS_SCHEME_HTTP)
     {
-        if ($scheme != AFS_SCHEME_HTTP && $scheme != AFS_SCHEME_HTTPS) {
-            throw InvalidArgumentException('PaF connector support only HTTP '
-                . 'and HTTPS connections');
-        }
-        $this->scheme = $scheme;
-        $this->host = $host;
-        $this->service = $service;
+        parent::__construct($host, $service, $scheme);
         $this->paf_name = $paf_name;
         $this->authentication = $authentication;
     }

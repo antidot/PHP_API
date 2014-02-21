@@ -112,16 +112,16 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
         $config->set_query_coder(new AfsQueryCoder('foo.php'));
         $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
         $this->assertEquals($helper->get_previous(), 'foo.php?replies=10');
-        $this->assertEquals('foo.php?page=3&replies=10', $helper->get_next());
+        $this->assertEquals('foo.php?replies=10&page=3', $helper->get_next());
 
         $pages = $helper->get_pages();
         $this->assertEquals(count($pages), 3);
         $this->assertTrue(array_key_exists(1, $pages));
         $this->assertEquals($pages[1], 'foo.php?replies=10');
         $this->assertTrue(array_key_exists(2, $pages));
-        $this->assertEquals('foo.php?page=2&replies=10', $pages[2]);
+        $this->assertEquals('foo.php?replies=10&page=2', $pages[2]);
         $this->assertTrue(array_key_exists(3, $pages));
-        $this->assertEquals('foo.php?page=3&replies=10', $pages[3]);
+        $this->assertEquals('foo.php?replies=10&page=3', $pages[3]);
         $this->assertEquals($helper->get_current_no(), 2);
     }
 
@@ -146,10 +146,10 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
         $format = $helper->format();
 
         $this->assertEquals('foo.php?replies=10', $format['pages']['previous']);
-        $this->assertEquals('foo.php?page=3&replies=10', $format['pages']['next']);
+        $this->assertEquals('foo.php?replies=10&page=3', $format['pages']['next']);
         $this->assertEquals('foo.php?replies=10', $format['pages'][1]);
-        $this->assertEquals('foo.php?page=2&replies=10', $format['pages'][2]);
-        $this->assertEquals('foo.php?page=3&replies=10', $format['pages'][3]);
+        $this->assertEquals('foo.php?replies=10&page=2', $format['pages'][2]);
+        $this->assertEquals('foo.php?replies=10&page=3', $format['pages'][3]);
         $this->assertEquals($format['current'], 2);
     }
 
@@ -177,7 +177,7 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo.php?replies=10', $key_value['value']);
         $key_value = each($pages);
         $this->assertEquals('2', $key_value['key']);
-        $this->assertEquals('foo.php?page=2&replies=10', $key_value['value']);
+        $this->assertEquals('foo.php?replies=10&page=2', $key_value['value']);
     }
 
     public function testRetrieveAllPagesWithPreviousWithoutNext()
@@ -202,13 +202,13 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, count($pages));
         $key_value = each($pages);
         $this->assertEquals('previous', $key_value['key']);
-        $this->assertEquals('foo.php?page=42&replies=10', $key_value['value']);
+        $this->assertEquals('foo.php?replies=10&page=42', $key_value['value']);
         $key_value = each($pages);
         $this->assertEquals('1', $key_value['key']);
         $this->assertEquals('foo.php?replies=10', $key_value['value']);
         $key_value = each($pages);
         $this->assertEquals('2', $key_value['key']);
-        $this->assertEquals('foo.php?page=2&replies=10', $key_value['value']);
+        $this->assertEquals('foo.php?replies=10&page=2', $key_value['value']);
     }
 
     public function testRetrieveAllPagesWithoutPreviousWithNext()
@@ -236,10 +236,10 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo.php?replies=10', $key_value['value']);
         $key_value = each($pages);
         $this->assertEquals('2', $key_value['key']);
-        $this->assertEquals('foo.php?page=2&replies=10', $key_value['value']);
+        $this->assertEquals('foo.php?replies=10&page=2', $key_value['value']);
         $key_value = each($pages);
         $this->assertEquals('next', $key_value['key']);
-        $this->assertEquals('foo.php?page=666&replies=10', $key_value['value']);
+        $this->assertEquals('foo.php?replies=10&page=666', $key_value['value']);
     }
 
     public function testRetrieveAllPagesWithPreviousAndNext()
@@ -265,16 +265,16 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4, count($pages));
         $key_value = each($pages);
         $this->assertEquals('previous', $key_value['key']);
-        $this->assertEquals('foo.php?page=42&replies=10', $key_value['value']);
+        $this->assertEquals('foo.php?replies=10&page=42', $key_value['value']);
         $key_value = each($pages);
         $this->assertEquals('1', $key_value['key']);
         $this->assertEquals('foo.php?replies=10', $key_value['value']);
         $key_value = each($pages);
         $this->assertEquals('2', $key_value['key']);
-        $this->assertEquals('foo.php?page=2&replies=10', $key_value['value']);
+        $this->assertEquals('foo.php?replies=10&page=2', $key_value['value']);
         $key_value = each($pages);
         $this->assertEquals('next', $key_value['key']);
-        $this->assertEquals('foo.php?page=666&replies=10', $key_value['value']);
+        $this->assertEquals('foo.php?replies=10&page=666', $key_value['value']);
     }
 
 }

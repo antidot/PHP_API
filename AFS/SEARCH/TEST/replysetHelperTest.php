@@ -452,7 +452,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         
         $this->assertTrue($helper->has_pager());
         $pager = $helper->get_pager();
-        $this->assertEquals('foo.php?page=3&replies=2&query=title', $pager->get_next());
+        $this->assertEquals('foo.php?replies=2&query=title&page=3', $pager->get_next());
         $this->assertEquals('foo.php?replies=2&query=title', $pager->get_previous());
         // and so on...
     }
@@ -679,7 +679,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         
         $this->assertTrue($helper->has_pager());
         $pager = $helper->get_pager()->format();
-        $this->assertEquals('foo.php?page=3&replies=2&query=title', $pager['pages']['next']);
+        $this->assertEquals('foo.php?replies=2&query=title&page=3', $pager['pages']['next']);
         $this->assertEquals('foo.php?replies=2&query=title', $pager['pages']['previous']);
         // and so on...
     }
