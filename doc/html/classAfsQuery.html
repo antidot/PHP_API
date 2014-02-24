@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.0</span>
+   &#160;<span id="projectnumber">version 0.6.2</span>
    </div>
   </td>
  </tr>
@@ -87,6 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classAfsQuery-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">AfsQuery Class Reference</div>  </div>
@@ -95,35 +96,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Represent an AFS query.  
  <a href="classAfsQuery.html#details">More...</a></p>
+<div class="dynheader">
+Inheritance diagram for AfsQuery:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classAfsQuery.png" usemap="#AfsQuery_map" alt=""/>
+  <map id="AfsQuery_map" name="AfsQuery_map">
+<area href="classAfsQueryBase.html" title="Represents an AFS query. " alt="AfsQueryBase" shape="rect" coords="0,0,95,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1110012c6b8b3e5530c0408916bc0228"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a1110012c6b8b3e5530c0408916bc0228">__construct</a> (<a class="el" href="classAfsQuery.html">AfsQuery</a> $afs_query=null)</td></tr>
 <tr class="memdesc:a1110012c6b8b3e5530c0408916bc0228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new AFS query object.  <a href="#a1110012c6b8b3e5530c0408916bc0228">More...</a><br/></td></tr>
 <tr class="separator:a1110012c6b8b3e5530c0408916bc0228"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Feed management</div></td></tr>
-<tr class="memitem:a1ac5cc8209b2e7bd995bffca4417f6d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a1ac5cc8209b2e7bd995bffca4417f6d8">has_feed</a> ()</td></tr>
-<tr class="memdesc:a1ac5cc8209b2e7bd995bffca4417f6d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether feed parameter is set.  <a href="#a1ac5cc8209b2e7bd995bffca4417f6d8">More...</a><br/></td></tr>
-<tr class="separator:a1ac5cc8209b2e7bd995bffca4417f6d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4389621d9c3a935fe05f3b44381d726e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a4389621d9c3a935fe05f3b44381d726e">set_feed</a> ($feed)</td></tr>
-<tr class="memdesc:a4389621d9c3a935fe05f3b44381d726e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign new feed name replacing any existing one.  <a href="#a4389621d9c3a935fe05f3b44381d726e">More...</a><br/></td></tr>
-<tr class="separator:a4389621d9c3a935fe05f3b44381d726e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf2ddc5d95bf5d7537522a10e6289dd7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#abf2ddc5d95bf5d7537522a10e6289dd7">add_feed</a> ($feed)</td></tr>
-<tr class="memdesc:abf2ddc5d95bf5d7537522a10e6289dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign new feed name.  <a href="#abf2ddc5d95bf5d7537522a10e6289dd7">More...</a><br/></td></tr>
-<tr class="separator:abf2ddc5d95bf5d7537522a10e6289dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fda687b0bf4ade97e13160a2910f5da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a4fda687b0bf4ade97e13160a2910f5da">get_feeds</a> ()</td></tr>
-<tr class="memdesc:a4fda687b0bf4ade97e13160a2910f5da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve all defined feeds.  <a href="#a4fda687b0bf4ade97e13160a2910f5da">More...</a><br/></td></tr>
-<tr class="separator:a4fda687b0bf4ade97e13160a2910f5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Query management</div></td></tr>
-<tr class="memitem:ad7ed34dabf83db49f1ad493e027a6df7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#ad7ed34dabf83db49f1ad493e027a6df7">has_query</a> ()</td></tr>
-<tr class="memdesc:ad7ed34dabf83db49f1ad493e027a6df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether current instance has a query.  <a href="#ad7ed34dabf83db49f1ad493e027a6df7">More...</a><br/></td></tr>
-<tr class="separator:ad7ed34dabf83db49f1ad493e027a6df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeca228af56a64dc648c2b98f15bc496a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#aeca228af56a64dc648c2b98f15bc496a">get_query</a> ()</td></tr>
-<tr class="memdesc:aeca228af56a64dc648c2b98f15bc496a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the query.  <a href="#aeca228af56a64dc648c2b98f15bc496a">More...</a><br/></td></tr>
-<tr class="separator:aeca228af56a64dc648c2b98f15bc496a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0406312b3a7b01a30cdc3b31ba03668a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a0406312b3a7b01a30cdc3b31ba03668a">set_query</a> ($new_query)</td></tr>
-<tr class="memdesc:a0406312b3a7b01a30cdc3b31ba03668a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign new query value.  <a href="#a0406312b3a7b01a30cdc3b31ba03668a">More...</a><br/></td></tr>
-<tr class="separator:a0406312b3a7b01a30cdc3b31ba03668a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Filter management</div></td></tr>
 <tr class="memitem:aa8c436cf9389263e980e1c5bbc033f58"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#aa8c436cf9389263e980e1c5bbc033f58">set_filter</a> ($facet_id, $value)</td></tr>
 <tr class="memdesc:aa8c436cf9389263e980e1c5bbc033f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign new value to specific facet replacing any existing one.  <a href="#aa8c436cf9389263e980e1c5bbc033f58">More...</a><br/></td></tr>
@@ -143,16 +130,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1876fc31ac3190e79cb03b65d3ce4b9b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a1876fc31ac3190e79cb03b65d3ce4b9b">get_filters</a> ()</td></tr>
 <tr class="memdesc:a1876fc31ac3190e79cb03b65d3ce4b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the list of all managed facet ids.  <a href="#a1876fc31ac3190e79cb03b65d3ce4b9b">More...</a><br/></td></tr>
 <tr class="separator:a1876fc31ac3190e79cb03b65d3ce4b9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Replies per page management</div></td></tr>
-<tr class="memitem:aa75dd79d6f3dd0a5e9857563df8bdd0a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#aa75dd79d6f3dd0a5e9857563df8bdd0a">has_replies</a> ()</td></tr>
-<tr class="memdesc:aa75dd79d6f3dd0a5e9857563df8bdd0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether replies is set.  <a href="#aa75dd79d6f3dd0a5e9857563df8bdd0a">More...</a><br/></td></tr>
-<tr class="separator:aa75dd79d6f3dd0a5e9857563df8bdd0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a310f630c18f40b8f101d53d6077f4215"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a310f630c18f40b8f101d53d6077f4215">set_replies</a> ($replies_nb)</td></tr>
-<tr class="memdesc:a310f630c18f40b8f101d53d6077f4215"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define new number of reply per page.  <a href="#a310f630c18f40b8f101d53d6077f4215">More...</a><br/></td></tr>
-<tr class="separator:a310f630c18f40b8f101d53d6077f4215"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a156ea3e72b1054e71ddc807b35dacece"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a156ea3e72b1054e71ddc807b35dacece">get_replies</a> ()</td></tr>
-<tr class="memdesc:a156ea3e72b1054e71ddc807b35dacece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of replies per page.  <a href="#a156ea3e72b1054e71ddc807b35dacece">More...</a><br/></td></tr>
-<tr class="separator:a156ea3e72b1054e71ddc807b35dacece"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Language management</div></td></tr>
 <tr class="memitem:ae71a52882ae36cba1b7f840bdc49e8a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#ae71a52882ae36cba1b7f840bdc49e8a9">has_lang</a> ()</td></tr>
 <tr class="memdesc:ae71a52882ae36cba1b7f840bdc49e8a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether language is set.  <a href="#ae71a52882ae36cba1b7f840bdc49e8a9">More...</a><br/></td></tr>
@@ -167,61 +144,107 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac46fbb5b1ab4311816bc820a2f2abc6b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#ac46fbb5b1ab4311816bc820a2f2abc6b">get_lang</a> ()</td></tr>
 <tr class="memdesc:ac46fbb5b1ab4311816bc820a2f2abc6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve current language filter.  <a href="#ac46fbb5b1ab4311816bc820a2f2abc6b">More...</a><br/></td></tr>
 <tr class="separator:ac46fbb5b1ab4311816bc820a2f2abc6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Origine of the query.</div></td></tr>
-<tr class="memitem:a711b71b3729257ee7dcc09306d5be643"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a711b71b3729257ee7dcc09306d5be643">auto_set_from</a> ($auto_set=true)</td></tr>
-<tr class="memdesc:a711b71b3729257ee7dcc09306d5be643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines whether <code>from</code> parameter should be auto set when possible.  <a href="#a711b71b3729257ee7dcc09306d5be643">More...</a><br/></td></tr>
-<tr class="separator:a711b71b3729257ee7dcc09306d5be643"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a553202278aefc16047cb9302c0fb2f89"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a553202278aefc16047cb9302c0fb2f89">set_from</a> ($from)</td></tr>
-<tr class="memdesc:a553202278aefc16047cb9302c0fb2f89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the origin of the query.  <a href="#a553202278aefc16047cb9302c0fb2f89">More...</a><br/></td></tr>
-<tr class="separator:a553202278aefc16047cb9302c0fb2f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8599ba9e6f0070857f626b612c5d7f09"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a8599ba9e6f0070857f626b612c5d7f09">get_from</a> ()</td></tr>
-<tr class="memdesc:a8599ba9e6f0070857f626b612c5d7f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves origin of the query.  <a href="#a8599ba9e6f0070857f626b612c5d7f09">More...</a><br/></td></tr>
-<tr class="separator:a8599ba9e6f0070857f626b612c5d7f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">User and session identifier.</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>These identifiers are used to uniquely identify a user and a corresponding session.</p>
-<p>The value of the session id is reset as soon as new user id is set. </p>
-</div></td></tr>
-<tr class="memitem:adee8448c24ea06b19f64e2b0dfa1f746"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#adee8448c24ea06b19f64e2b0dfa1f746">set_user_id</a> ($user_id)</td></tr>
-<tr class="memdesc:adee8448c24ea06b19f64e2b0dfa1f746"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines user id.  <a href="#adee8448c24ea06b19f64e2b0dfa1f746">More...</a><br/></td></tr>
-<tr class="separator:adee8448c24ea06b19f64e2b0dfa1f746"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7512e177d638d4ff343c8ed16e61045c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a7512e177d638d4ff343c8ed16e61045c">has_user_id</a> ()</td></tr>
-<tr class="memdesc:a7512e177d638d4ff343c8ed16e61045c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether user id is set.  <a href="#a7512e177d638d4ff343c8ed16e61045c">More...</a><br/></td></tr>
-<tr class="separator:a7512e177d638d4ff343c8ed16e61045c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab844873e74fa4e89157311bb3f5a0167"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#ab844873e74fa4e89157311bb3f5a0167">get_user_id</a> ()</td></tr>
-<tr class="memdesc:ab844873e74fa4e89157311bb3f5a0167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves user identifier.  <a href="#ab844873e74fa4e89157311bb3f5a0167">More...</a><br/></td></tr>
-<tr class="separator:ab844873e74fa4e89157311bb3f5a0167"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a407e98af513cfe5384d340c8addf6a9b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a407e98af513cfe5384d340c8addf6a9b">set_session_id</a> ($session_id)</td></tr>
-<tr class="memdesc:a407e98af513cfe5384d340c8addf6a9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines session id.  <a href="#a407e98af513cfe5384d340c8addf6a9b">More...</a><br/></td></tr>
-<tr class="separator:a407e98af513cfe5384d340c8addf6a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c11cd4e09a5be758f96bfe1d4ac365e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a4c11cd4e09a5be758f96bfe1d4ac365e">has_session_id</a> ()</td></tr>
-<tr class="memdesc:a4c11cd4e09a5be758f96bfe1d4ac365e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether session id is set.  <a href="#a4c11cd4e09a5be758f96bfe1d4ac365e">More...</a><br/></td></tr>
-<tr class="separator:a4c11cd4e09a5be758f96bfe1d4ac365e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d5202a840c7df67a07130d265dfdf97"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a3d5202a840c7df67a07130d265dfdf97">get_session_id</a> ()</td></tr>
-<tr class="memdesc:a3d5202a840c7df67a07130d265dfdf97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves session id.  <a href="#a3d5202a840c7df67a07130d265dfdf97">More...</a><br/></td></tr>
-<tr class="separator:a3d5202a840c7df67a07130d265dfdf97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab01adaf6f6e97b073c504bf474c12e2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#ab01adaf6f6e97b073c504bf474c12e2e">initialize_user_and_session_id</a> (<a class="el" href="classAfsUserSessionManager.html">AfsUserSessionManager</a> $mgr)</td></tr>
-<tr class="memdesc:ab01adaf6f6e97b073c504bf474c12e2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes user id and session id.  <a href="#ab01adaf6f6e97b073c504bf474c12e2e">More...</a><br/></td></tr>
-<tr class="separator:ab01adaf6f6e97b073c504bf474c12e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a906f515eb64d114b429c4c3cb5e4c344"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a906f515eb64d114b429c4c3cb5e4c344">update_user_and_session_id</a> ($user_id, $session_id)</td></tr>
-<tr class="memdesc:a906f515eb64d114b429c4c3cb5e4c344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates user and session identifiers.  <a href="#a906f515eb64d114b429c4c3cb5e4c344">More...</a><br/></td></tr>
-<tr class="separator:a906f515eb64d114b429c4c3cb5e4c344"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Logging</div></td></tr>
-<tr class="memitem:a335694a8bc8b3d62e33eafdd716db453"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a335694a8bc8b3d62e33eafdd716db453">add_log</a> ($value)</td></tr>
-<tr class="memdesc:a335694a8bc8b3d62e33eafdd716db453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds new logging information.  <a href="#a335694a8bc8b3d62e33eafdd716db453">More...</a><br/></td></tr>
-<tr class="separator:a335694a8bc8b3d62e33eafdd716db453"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2661f0a9e0bba1517b0902d7dd5b4de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#ac2661f0a9e0bba1517b0902d7dd5b4de">get_logs</a> ()</td></tr>
-<tr class="memdesc:ac2661f0a9e0bba1517b0902d7dd5b4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves current defined logs.  <a href="#ac2661f0a9e0bba1517b0902d7dd5b4de">More...</a><br/></td></tr>
-<tr class="separator:ac2661f0a9e0bba1517b0902d7dd5b4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Key management</div></td></tr>
-<tr class="memitem:a299012df2852d183881da23655560cd8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a299012df2852d183881da23655560cd8">has_key</a> ()</td></tr>
-<tr class="memdesc:a299012df2852d183881da23655560cd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether key parameter is set.  <a href="#a299012df2852d183881da23655560cd8">More...</a><br/></td></tr>
-<tr class="separator:a299012df2852d183881da23655560cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d9f4eebc0842813a61564e8cbbb86b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a0d9f4eebc0842813a61564e8cbbb86b1">set_key</a> ($key_id)</td></tr>
-<tr class="memdesc:a0d9f4eebc0842813a61564e8cbbb86b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines key id.  <a href="#a0d9f4eebc0842813a61564e8cbbb86b1">More...</a><br/></td></tr>
-<tr class="separator:a0d9f4eebc0842813a61564e8cbbb86b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0395526ae8329a45cfee884e817bcaf4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a0395526ae8329a45cfee884e817bcaf4">get_key</a> ()</td></tr>
-<tr class="memdesc:a0395526ae8329a45cfee884e817bcaf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves key value.  <a href="#a0395526ae8329a45cfee884e817bcaf4">More...</a><br/></td></tr>
-<tr class="separator:a0395526ae8329a45cfee884e817bcaf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classAfsQueryBase"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classAfsQueryBase')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classAfsQueryBase.html">AfsQueryBase</a></td></tr>
+<tr class="memitem:a8cb89d0c81bc19b2a390ab1ccdc3c18c inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a8cb89d0c81bc19b2a390ab1ccdc3c18c">__construct</a> (<a class="el" href="classAfsQueryBase.html">AfsQueryBase</a> $afs_query=null)</td></tr>
+<tr class="memdesc:a8cb89d0c81bc19b2a390ab1ccdc3c18c inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new AFS ACP query object.  <a href="#a8cb89d0c81bc19b2a390ab1ccdc3c18c">More...</a><br/></td></tr>
+<tr class="separator:a8cb89d0c81bc19b2a390ab1ccdc3c18c inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03e040f17dcc0ce241d5b8cbb9f91979 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a03e040f17dcc0ce241d5b8cbb9f91979">get_parameters</a> ($all=true)</td></tr>
+<tr class="memdesc:a03e040f17dcc0ce241d5b8cbb9f91979 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves query parameters.  <a href="#a03e040f17dcc0ce241d5b8cbb9f91979">More...</a><br/></td></tr>
+<tr class="separator:a03e040f17dcc0ce241d5b8cbb9f91979 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ac5cc8209b2e7bd995bffca4417f6d8 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a1ac5cc8209b2e7bd995bffca4417f6d8">has_feed</a> ()</td></tr>
+<tr class="memdesc:a1ac5cc8209b2e7bd995bffca4417f6d8 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether feed parameter is set.  <a href="#a1ac5cc8209b2e7bd995bffca4417f6d8">More...</a><br/></td></tr>
+<tr class="separator:a1ac5cc8209b2e7bd995bffca4417f6d8 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4389621d9c3a935fe05f3b44381d726e inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a4389621d9c3a935fe05f3b44381d726e">set_feed</a> ($feed)</td></tr>
+<tr class="memdesc:a4389621d9c3a935fe05f3b44381d726e inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns new feed name replacing any existing one.  <a href="#a4389621d9c3a935fe05f3b44381d726e">More...</a><br/></td></tr>
+<tr class="separator:a4389621d9c3a935fe05f3b44381d726e inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf2ddc5d95bf5d7537522a10e6289dd7 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#abf2ddc5d95bf5d7537522a10e6289dd7">add_feed</a> ($feed)</td></tr>
+<tr class="memdesc:abf2ddc5d95bf5d7537522a10e6289dd7 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns new feed name.  <a href="#abf2ddc5d95bf5d7537522a10e6289dd7">More...</a><br/></td></tr>
+<tr class="separator:abf2ddc5d95bf5d7537522a10e6289dd7 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fda687b0bf4ade97e13160a2910f5da inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a4fda687b0bf4ade97e13160a2910f5da">get_feeds</a> ()</td></tr>
+<tr class="memdesc:a4fda687b0bf4ade97e13160a2910f5da inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all defined feeds.  <a href="#a4fda687b0bf4ade97e13160a2910f5da">More...</a><br/></td></tr>
+<tr class="separator:a4fda687b0bf4ade97e13160a2910f5da inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7ed34dabf83db49f1ad493e027a6df7 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#ad7ed34dabf83db49f1ad493e027a6df7">has_query</a> ()</td></tr>
+<tr class="memdesc:ad7ed34dabf83db49f1ad493e027a6df7 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether current instance has a query.  <a href="#ad7ed34dabf83db49f1ad493e027a6df7">More...</a><br/></td></tr>
+<tr class="separator:ad7ed34dabf83db49f1ad493e027a6df7 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeca228af56a64dc648c2b98f15bc496a inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#aeca228af56a64dc648c2b98f15bc496a">get_query</a> ()</td></tr>
+<tr class="memdesc:aeca228af56a64dc648c2b98f15bc496a inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the query.  <a href="#aeca228af56a64dc648c2b98f15bc496a">More...</a><br/></td></tr>
+<tr class="separator:aeca228af56a64dc648c2b98f15bc496a inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0406312b3a7b01a30cdc3b31ba03668a inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a0406312b3a7b01a30cdc3b31ba03668a">set_query</a> ($new_query)</td></tr>
+<tr class="memdesc:a0406312b3a7b01a30cdc3b31ba03668a inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns new query value.  <a href="#a0406312b3a7b01a30cdc3b31ba03668a">More...</a><br/></td></tr>
+<tr class="separator:a0406312b3a7b01a30cdc3b31ba03668a inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa75dd79d6f3dd0a5e9857563df8bdd0a inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#aa75dd79d6f3dd0a5e9857563df8bdd0a">has_replies</a> ()</td></tr>
+<tr class="memdesc:aa75dd79d6f3dd0a5e9857563df8bdd0a inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether replies is set.  <a href="#aa75dd79d6f3dd0a5e9857563df8bdd0a">More...</a><br/></td></tr>
+<tr class="separator:aa75dd79d6f3dd0a5e9857563df8bdd0a inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a310f630c18f40b8f101d53d6077f4215 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a310f630c18f40b8f101d53d6077f4215">set_replies</a> ($replies_nb)</td></tr>
+<tr class="memdesc:a310f630c18f40b8f101d53d6077f4215 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new number of replies.  <a href="#a310f630c18f40b8f101d53d6077f4215">More...</a><br/></td></tr>
+<tr class="separator:a310f630c18f40b8f101d53d6077f4215 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a156ea3e72b1054e71ddc807b35dacece inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a156ea3e72b1054e71ddc807b35dacece">get_replies</a> ()</td></tr>
+<tr class="memdesc:a156ea3e72b1054e71ddc807b35dacece inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of replies per page.  <a href="#a156ea3e72b1054e71ddc807b35dacece">More...</a><br/></td></tr>
+<tr class="separator:a156ea3e72b1054e71ddc807b35dacece inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a711b71b3729257ee7dcc09306d5be643 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a711b71b3729257ee7dcc09306d5be643">auto_set_from</a> ($auto_set=true)</td></tr>
+<tr class="memdesc:a711b71b3729257ee7dcc09306d5be643 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines whether <code>from</code> parameter should be auto set when possible.  <a href="#a711b71b3729257ee7dcc09306d5be643">More...</a><br/></td></tr>
+<tr class="separator:a711b71b3729257ee7dcc09306d5be643 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a553202278aefc16047cb9302c0fb2f89 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a553202278aefc16047cb9302c0fb2f89">set_from</a> ($from)</td></tr>
+<tr class="memdesc:a553202278aefc16047cb9302c0fb2f89 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the origin of the query.  <a href="#a553202278aefc16047cb9302c0fb2f89">More...</a><br/></td></tr>
+<tr class="separator:a553202278aefc16047cb9302c0fb2f89 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8599ba9e6f0070857f626b612c5d7f09 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a8599ba9e6f0070857f626b612c5d7f09">get_from</a> ()</td></tr>
+<tr class="memdesc:a8599ba9e6f0070857f626b612c5d7f09 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves origin of the query.  <a href="#a8599ba9e6f0070857f626b612c5d7f09">More...</a><br/></td></tr>
+<tr class="separator:a8599ba9e6f0070857f626b612c5d7f09 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adee8448c24ea06b19f64e2b0dfa1f746 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#adee8448c24ea06b19f64e2b0dfa1f746">set_user_id</a> ($user_id)</td></tr>
+<tr class="memdesc:adee8448c24ea06b19f64e2b0dfa1f746 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines user id.  <a href="#adee8448c24ea06b19f64e2b0dfa1f746">More...</a><br/></td></tr>
+<tr class="separator:adee8448c24ea06b19f64e2b0dfa1f746 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7512e177d638d4ff343c8ed16e61045c inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a7512e177d638d4ff343c8ed16e61045c">has_user_id</a> ()</td></tr>
+<tr class="memdesc:a7512e177d638d4ff343c8ed16e61045c inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether user id is set.  <a href="#a7512e177d638d4ff343c8ed16e61045c">More...</a><br/></td></tr>
+<tr class="separator:a7512e177d638d4ff343c8ed16e61045c inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab844873e74fa4e89157311bb3f5a0167 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#ab844873e74fa4e89157311bb3f5a0167">get_user_id</a> ()</td></tr>
+<tr class="memdesc:ab844873e74fa4e89157311bb3f5a0167 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves user identifier.  <a href="#ab844873e74fa4e89157311bb3f5a0167">More...</a><br/></td></tr>
+<tr class="separator:ab844873e74fa4e89157311bb3f5a0167 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a407e98af513cfe5384d340c8addf6a9b inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a407e98af513cfe5384d340c8addf6a9b">set_session_id</a> ($session_id)</td></tr>
+<tr class="memdesc:a407e98af513cfe5384d340c8addf6a9b inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines session id.  <a href="#a407e98af513cfe5384d340c8addf6a9b">More...</a><br/></td></tr>
+<tr class="separator:a407e98af513cfe5384d340c8addf6a9b inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c11cd4e09a5be758f96bfe1d4ac365e inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a4c11cd4e09a5be758f96bfe1d4ac365e">has_session_id</a> ()</td></tr>
+<tr class="memdesc:a4c11cd4e09a5be758f96bfe1d4ac365e inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether session id is set.  <a href="#a4c11cd4e09a5be758f96bfe1d4ac365e">More...</a><br/></td></tr>
+<tr class="separator:a4c11cd4e09a5be758f96bfe1d4ac365e inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d5202a840c7df67a07130d265dfdf97 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a3d5202a840c7df67a07130d265dfdf97">get_session_id</a> ()</td></tr>
+<tr class="memdesc:a3d5202a840c7df67a07130d265dfdf97 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves session id.  <a href="#a3d5202a840c7df67a07130d265dfdf97">More...</a><br/></td></tr>
+<tr class="separator:a3d5202a840c7df67a07130d265dfdf97 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab01adaf6f6e97b073c504bf474c12e2e inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#ab01adaf6f6e97b073c504bf474c12e2e">initialize_user_and_session_id</a> (<a class="el" href="classAfsUserSessionManager.html">AfsUserSessionManager</a> $mgr)</td></tr>
+<tr class="memdesc:ab01adaf6f6e97b073c504bf474c12e2e inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes user id and session id.  <a href="#ab01adaf6f6e97b073c504bf474c12e2e">More...</a><br/></td></tr>
+<tr class="separator:ab01adaf6f6e97b073c504bf474c12e2e inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a906f515eb64d114b429c4c3cb5e4c344 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a906f515eb64d114b429c4c3cb5e4c344">update_user_and_session_id</a> ($user_id, $session_id)</td></tr>
+<tr class="memdesc:a906f515eb64d114b429c4c3cb5e4c344 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates user and session identifiers.  <a href="#a906f515eb64d114b429c4c3cb5e4c344">More...</a><br/></td></tr>
+<tr class="separator:a906f515eb64d114b429c4c3cb5e4c344 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a335694a8bc8b3d62e33eafdd716db453 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a335694a8bc8b3d62e33eafdd716db453">add_log</a> ($value)</td></tr>
+<tr class="memdesc:a335694a8bc8b3d62e33eafdd716db453 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds new logging information.  <a href="#a335694a8bc8b3d62e33eafdd716db453">More...</a><br/></td></tr>
+<tr class="separator:a335694a8bc8b3d62e33eafdd716db453 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2661f0a9e0bba1517b0902d7dd5b4de inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#ac2661f0a9e0bba1517b0902d7dd5b4de">get_logs</a> ()</td></tr>
+<tr class="memdesc:ac2661f0a9e0bba1517b0902d7dd5b4de inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves current defined logs.  <a href="#ac2661f0a9e0bba1517b0902d7dd5b4de">More...</a><br/></td></tr>
+<tr class="separator:ac2661f0a9e0bba1517b0902d7dd5b4de inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a299012df2852d183881da23655560cd8 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a299012df2852d183881da23655560cd8">has_key</a> ()</td></tr>
+<tr class="memdesc:a299012df2852d183881da23655560cd8 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether key parameter is set.  <a href="#a299012df2852d183881da23655560cd8">More...</a><br/></td></tr>
+<tr class="separator:a299012df2852d183881da23655560cd8 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d9f4eebc0842813a61564e8cbbb86b1 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a0d9f4eebc0842813a61564e8cbbb86b1">set_key</a> ($key_id)</td></tr>
+<tr class="memdesc:a0d9f4eebc0842813a61564e8cbbb86b1 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines key id.  <a href="#a0d9f4eebc0842813a61564e8cbbb86b1">More...</a><br/></td></tr>
+<tr class="separator:a0d9f4eebc0842813a61564e8cbbb86b1 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0395526ae8329a45cfee884e817bcaf4 inherit pub_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a0395526ae8329a45cfee884e817bcaf4">get_key</a> ()</td></tr>
+<tr class="memdesc:a0395526ae8329a45cfee884e817bcaf4 inherit pub_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves key value.  <a href="#a0395526ae8329a45cfee884e817bcaf4">More...</a><br/></td></tr>
+<tr class="separator:a0395526ae8329a45cfee884e817bcaf4 inherit pub_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:af36f4251b4875a103ef3d6afa4a57802"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#af36f4251b4875a103ef3d6afa4a57802">on_assignment</a> ()</td></tr>
+<tr class="memdesc:af36f4251b4875a103ef3d6afa4a57802"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action to perform when an assignment occurs.  <a href="#af36f4251b4875a103ef3d6afa4a57802">More...</a><br/></td></tr>
+<tr class="separator:af36f4251b4875a103ef3d6afa4a57802"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classAfsQueryBase"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classAfsQueryBase')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classAfsQueryBase.html">AfsQueryBase</a></td></tr>
+<tr class="memitem:af36f4251b4875a103ef3d6afa4a57802 inherit pro_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#af36f4251b4875a103ef3d6afa4a57802">on_assignment</a> ()</td></tr>
+<tr class="memdesc:af36f4251b4875a103ef3d6afa4a57802 inherit pro_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action to perform when an assignment occurs.  <a href="#af36f4251b4875a103ef3d6afa4a57802">More...</a><br/></td></tr>
+<tr class="separator:af36f4251b4875a103ef3d6afa4a57802 inherit pro_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f4c4f8856ec5bfd57532dc5508deba2 inherit pro_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a4f4c4f8856ec5bfd57532dc5508deba2">get_relevant_parameters</a> ()</td></tr>
+<tr class="memdesc:a4f4c4f8856ec5bfd57532dc5508deba2 inherit pro_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves relevant parameters.  <a href="#a4f4c4f8856ec5bfd57532dc5508deba2">More...</a><br/></td></tr>
+<tr class="separator:a4f4c4f8856ec5bfd57532dc5508deba2 inherit pro_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d7e3c3e6cb2fdd742b8b38d6b0b2a45 inherit pro_methods_classAfsQueryBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQueryBase.html#a9d7e3c3e6cb2fdd742b8b38d6b0b2a45">get_additional_parameters</a> ()</td></tr>
+<tr class="memdesc:a9d7e3c3e6cb2fdd742b8b38d6b0b2a45 inherit pro_methods_classAfsQueryBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves additional parameters.  <a href="#a9d7e3c3e6cb2fdd742b8b38d6b0b2a45">More...</a><br/></td></tr>
+<tr class="separator:a9d7e3c3e6cb2fdd742b8b38d6b0b2a45 inherit pro_methods_classAfsQueryBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Page management</h2></td></tr>
@@ -262,16 +285,19 @@ Sort order management</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Full configuration through array of parameters</h2></td></tr>
-<tr class="memitem:a03e040f17dcc0ce241d5b8cbb9f91979"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a03e040f17dcc0ce241d5b8cbb9f91979">get_parameters</a> ($all=true)</td></tr>
-<tr class="memdesc:a03e040f17dcc0ce241d5b8cbb9f91979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves query parameters.  <a href="#a03e040f17dcc0ce241d5b8cbb9f91979">More...</a><br/></td></tr>
-<tr class="separator:a03e040f17dcc0ce241d5b8cbb9f91979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f4c4f8856ec5bfd57532dc5508deba2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f4c4f8856ec5bfd57532dc5508deba2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>get_relevant_parameters</b> ()</td></tr>
+<tr class="separator:a4f4c4f8856ec5bfd57532dc5508deba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d7e3c3e6cb2fdd742b8b38d6b0b2a45"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d7e3c3e6cb2fdd742b8b38d6b0b2a45"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>get_additional_parameters</b> ()</td></tr>
+<tr class="separator:a9d7e3c3e6cb2fdd742b8b38d6b0b2a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a233968501372f4c3569e206bae2b69b4"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a233968501372f4c3569e206bae2b69b4">create_from_parameters</a> (array $params)</td></tr>
 <tr class="memdesc:a233968501372f4c3569e206bae2b69b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create full query from array of parameters.  <a href="#a233968501372f4c3569e206bae2b69b4">More...</a><br/></td></tr>
 <tr class="separator:a233968501372f4c3569e206bae2b69b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represent an AFS query. </p>
-<p>All instances of this class are immutable: each method call involves creation of new instance copied from current one. The newly created instance is modified according to the called method and returned. So, <b>do not forget</b> to store returned object. </p>
+<p>All instances of this class are immutable: each method call involves creation of new instance copied from current one. Newly created instance is modified according to called method and returned. So, <b>don't forget</b> to store returned object. </p>
 <div class="fragment"><div class="line">$query = <span class="keyword">new</span> <a class="code" href="classAfsQuery.html">AfsQuery</a>();</div>
 <div class="line">$query-&gt;set_query(<span class="stringliteral">&#39;my query&#39;</span>);</div>
 <div class="line"><span class="keywordflow">if</span> (! $query-&gt;has_query())</div>
@@ -304,30 +330,6 @@ Full configuration through array of parameters</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="abf2ddc5d95bf5d7537522a10e6289dd7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">add_feed </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$feed</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Assign new feed name. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$feed</td><td>[in] new feed to filter on. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a783993ea5fd131053be6c97e38ffcc1c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -361,32 +363,6 @@ Full configuration through array of parameters</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new up to date instance. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a335694a8bc8b3d62e33eafdd716db453"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">add_log </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds new logging information. </p>
-<p>This can be used to log your system version or anything else. Version of this API is appended to this list of values. </p>
-<dl class="section remark"><dt>Remarks</dt><dd>Page value is preserved when this method is called. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$value</td><td>[in] appended value. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -432,31 +408,6 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a711b71b3729257ee7dcc09306d5be643"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto_set_from </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$auto_set</em> = <code>true</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defines whether <code>from</code> parameter should be auto set when possible. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$auto_set</td><td>[in] auto set status (default = <code>true</code>). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>copy of the query with appropriate auto set parameter. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a233968501372f4c3569e206bae2b69b4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -487,24 +438,6 @@ Full configuration through array of parameters</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>correctly initialized query. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a4fda687b0bf4ade97e13160a2910f5da"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_feeds </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieve all defined feeds. </p>
-<dl class="section return"><dt>Returns</dt><dd>defined feeds in array or null when no feed is defined. </dd></dl>
 
 </div>
 </div>
@@ -553,42 +486,6 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8599ba9e6f0070857f626b612c5d7f09"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_from </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves origin of the query. </p>
-<dl class="section return"><dt>Returns</dt><dd>origin of the query. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a0395526ae8329a45cfee884e817bcaf4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_key </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves key value. </p>
-<dl class="section return"><dt>Returns</dt><dd>Key value. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="ac46fbb5b1ab4311816bc820a2f2abc6b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -604,25 +501,6 @@ Full configuration through array of parameters</h2></td></tr>
 
 <p>Retrieve current language filter. </p>
 <dl class="section return"><dt>Returns</dt><dd>language filter or null when no language is set. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ac2661f0a9e0bba1517b0902d7dd5b4de"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_logs </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves current defined logs. </p>
-<p>Main purpose of this method is debugging purpose. </p>
-<dl class="section return"><dt>Returns</dt><dd>defined logs. </dd></dl>
 
 </div>
 </div>
@@ -645,87 +523,6 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a03e040f17dcc0ce241d5b8cbb9f91979"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_parameters </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$all</em> = <code>true</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves query parameters. </p>
-<p>Retrieved all or relevant parameters. For example, <code>from</code> parameter is not relevant except for AFS search engine. So, this parameter is not retrieved when <em>all</em> is set to <code>false</code>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$all</td><td>[in] if set to <code>true</code>, all parameters are retrieved, otherwise only relevent parameters are retrieved.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>array of all defined query parameters. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aeca228af56a64dc648c2b98f15bc496a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_query </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieve the query. </p>
-<p>You should have previously tested whether the instance has a defined query by calling <em>has_query</em>. </p>
-<dl class="section return"><dt>Returns</dt><dd>the query. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a156ea3e72b1054e71ddc807b35dacece"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_replies </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get number of replies per page. </p>
-<dl class="section return"><dt>Returns</dt><dd>number of replies per reply page. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a3d5202a840c7df67a07130d265dfdf97"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_session_id </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves session id. </p>
-<dl class="section return"><dt>Returns</dt><dd>the session id or null if unset. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a0550fcddc1e114a2e979739c489e58d4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -740,7 +537,7 @@ Full configuration through array of parameters</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieves sort order. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>This method will be removed soon! <dl class="section return"><dt>Returns</dt><dd>sort order as string. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000004">Deprecated:</a></b></dt><dd>This method will be removed soon! <dl class="section return"><dt>Returns</dt><dd>sort order as string. </dd></dl>
 </dd></dl>
 
 </div>
@@ -773,42 +570,6 @@ Full configuration through array of parameters</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a class="anchor" id="ab844873e74fa4e89157311bb3f5a0167"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_user_id </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves user identifier. </p>
-<dl class="section return"><dt>Returns</dt><dd>user identifier or null if unset. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a1ac5cc8209b2e7bd995bffca4417f6d8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">has_feed </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check whether feed parameter is set. </p>
-<dl class="section return"><dt>Returns</dt><dd>true when at least one feed is defined, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -848,24 +609,6 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a299012df2852d183881da23655560cd8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">has_key </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks whether key parameter is set. </p>
-<dl class="section return"><dt>Returns</dt><dd>True when key parameter is set, false otherwise. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="ae71a52882ae36cba1b7f840bdc49e8a9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -902,61 +645,6 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad7ed34dabf83db49f1ad493e027a6df7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">has_query </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check whether current instance has a query. </p>
-<dl class="section return"><dt>Returns</dt><dd>true when a query is defined, false otherwise. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aa75dd79d6f3dd0a5e9857563df8bdd0a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">has_replies </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Check whether replies is set. </p>
-<dl class="section return"><dt>Returns</dt><dd>always true. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a4c11cd4e09a5be758f96bfe1d4ac365e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">has_session_id </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks whether session id is set. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>This method always return <code>true</code> and will be removed soon. <dl class="section return"><dt>Returns</dt><dd><code>True</code> when session id is set, <code>false</code> otherwise. </dd></dl>
-</dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="aceea970b6434a392f23a543e57a98f22"></a>
 <div class="memitem">
 <div class="memproto">
@@ -982,48 +670,29 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7512e177d638d4ff343c8ed16e61045c"></a>
+<a class="anchor" id="af36f4251b4875a103ef3d6afa4a57802"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">has_user_id </td>
+          <td class="memname">on_assignment </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Checks whether user id is set. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>This method always return <code>true</code> and will be removed soon. <dl class="section return"><dt>Returns</dt><dd><code>True</code> when user id is set, <code>false</code> otherwise. </dd></dl>
-</dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ab01adaf6f6e97b073c504bf474c12e2e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">initialize_user_and_session_id </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classAfsUserSessionManager.html">AfsUserSessionManager</a>&#160;</td>
-          <td class="paramname"><em>$mgr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initializes user id and session id. </p>
-<p>These identifiers are initialized thanks to specific manager. Refers to <em><a class="el" href="classAfsUserSessionManager.html" title="Manages user and session identifiers. ">AfsUserSessionManager</a></em> for more details. User and session identifiers are updated with identifiers available from <a class="el" href="classAfsUserSessionManager.html" title="Manages user and session identifiers. ">AfsUserSessionManager</a> when they are available. Otherwise, query identifiers are not modified.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$mgr</td><td>[in] Instance of <em><a class="el" href="classAfsUserSessionManager.html" title="Manages user and session identifiers. ">AfsUserSessionManager</a></em>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>current instance. </dd></dl>
+<p>Action to perform when an assignment occurs. </p>
+<p>Page number is reset. </p>
 
 </div>
 </div>
@@ -1090,30 +759,6 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4389621d9c3a935fe05f3b44381d726e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set_feed </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$feed</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Assign new feed name replacing any existing one. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$feed</td><td>[in] new feed to filter on. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="aa8c436cf9389263e980e1c5bbc033f58"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1147,63 +792,6 @@ Full configuration through array of parameters</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new up to date instance. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a553202278aefc16047cb9302c0fb2f89"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set_from </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$from</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defines the origin of the query. </p>
-<dl class="section remark"><dt>Remarks</dt><dd>Page value is preserved when this method is called.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$from</td><td>[in] origin of the query. It should be a value defined by <em><a class="el" href="classAfsOrigin.html" title="Defines various query origins. ">AfsOrigin</a></em>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>current instance. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">Exception</td><td>when provided origin value is invalid. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a0d9f4eebc0842813a61564e8cbbb86b1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set_key </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$key_id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defines key id. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$key_id</td><td>[in] Key id to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Current instance. </dd></dl>
 
 </div>
 </div>
@@ -1270,89 +858,6 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0406312b3a7b01a30cdc3b31ba03668a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set_query </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$new_query</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Assign new query value. </p>
-<p>Any previously defined query is replaced by the provided one. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$new_query</td><td>[in] query to assign to the instance. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>new up to date instance. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a310f630c18f40b8f101d53d6077f4215"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set_replies </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$replies_nb</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Define new number of reply per page. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$replies_nb</td><td>[in] requested replies per reply page. It should be greater than or equal to 1. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>new up to date instance. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">Exception</td><td>on invalid replies number provided. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a407e98af513cfe5384d340c8addf6a9b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set_session_id </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$session_id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defines session id. </p>
-<dl class="section remark"><dt>Remarks</dt><dd>Page value is preserved when this method is called. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$session_id</td><td>[in] Session id to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>current instance. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a67ab8b80c928420ea4138a0b48f6fee1"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1395,75 +900,10 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="adee8448c24ea06b19f64e2b0dfa1f746"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set_user_id </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$user_id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defines user id. </p>
-<dl class="section remark"><dt>Remarks</dt><dd>Page value is preserved when this method is called. </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$user_id</td><td>[in] User id to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>current instance. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a906f515eb64d114b429c4c3cb5e4c344"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">update_user_and_session_id </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$user_id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$session_id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates user and session identifiers. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000004">Deprecated:</a></b></dt><dd>Nothing happens since identifiers are always initialized.</dd></dl>
-<p>These identifiers are updated only if they are not yet defined. </p>
-<dl class="section remark"><dt>Remarks</dt><dd>Page value is preserved when this method is called.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$user_id</td><td>[in] user id to set. </td></tr>
-    <tr><td class="paramname">$session_id</td><td>[in] session id to set.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>current instance. </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 19 2014 17:30:44 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 24 2014 14:15:14 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

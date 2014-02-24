@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.0</span>
+   &#160;<span id="projectnumber">version 0.6.2</span>
    </div>
   </td>
  </tr>
@@ -95,6 +95,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Configuration class for AFS helper classes.  
  <a href="classAfsHelperConfiguration.html#details">More...</a></p>
+<div class="dynheader">
+Inheritance diagram for AfsHelperConfiguration:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classAfsHelperConfiguration.png" usemap="#AfsHelperConfiguration_map" alt=""/>
+  <map id="AfsHelperConfiguration_map" name="AfsHelperConfiguration_map">
+<area href="classAfsConfigurationBase.html" title="Configuration base class for AFS configuration classes. " alt="AfsConfigurationBase" shape="rect" coords="0,0,145,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -102,19 +111,6 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a095c5d389db211932136b53f25f39685">__construct</a> ()</td></tr>
 <tr class="memdesc:a095c5d389db211932136b53f25f39685"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new configuration class with default parameters set. <br/></td></tr>
 <tr class="separator:a095c5d389db211932136b53f25f39685"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Helper format</div></td></tr>
-<tr class="memitem:a25f26de39af4875d99f1016721eb604c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a25f26de39af4875d99f1016721eb604c">get_helper_format</a> ()</td></tr>
-<tr class="memdesc:a25f26de39af4875d99f1016721eb604c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves reply helper format.  <a href="#a25f26de39af4875d99f1016721eb604c">More...</a><br/></td></tr>
-<tr class="separator:a25f26de39af4875d99f1016721eb604c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5281f8cd523fbc05cf4770c202ffc6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#ac5281f8cd523fbc05cf4770c202ffc6f">is_array_format</a> ()</td></tr>
-<tr class="memdesc:ac5281f8cd523fbc05cf4770c202ffc6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether helper format is set to ARRAYS.  <a href="#ac5281f8cd523fbc05cf4770c202ffc6f">More...</a><br/></td></tr>
-<tr class="separator:ac5281f8cd523fbc05cf4770c202ffc6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21e07a02eef8cd2849de42ed89a888d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a21e07a02eef8cd2849de42ed89a888d5">is_helper_format</a> ()</td></tr>
-<tr class="memdesc:a21e07a02eef8cd2849de42ed89a888d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether helper format is set to HELPERS.  <a href="#a21e07a02eef8cd2849de42ed89a888d5">More...</a><br/></td></tr>
-<tr class="separator:a21e07a02eef8cd2849de42ed89a888d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab256b8a382e13c983b194d100858430a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#ab256b8a382e13c983b194d100858430a">set_helper_format</a> ($format)</td></tr>
-<tr class="memdesc:ab256b8a382e13c983b194d100858430a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new reply helper format.  <a href="#ab256b8a382e13c983b194d100858430a">More...</a><br/></td></tr>
-<tr class="separator:ab256b8a382e13c983b194d100858430a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Facet manager</div></td></tr>
 <tr class="memitem:a24008364ec473bb14b46e59caf53057a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a24008364ec473bb14b46e59caf53057a">get_facet_manager</a> ()</td></tr>
 <tr class="memdesc:a24008364ec473bb14b46e59caf53057a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves facet manager.  <a href="#a24008364ec473bb14b46e59caf53057a">More...</a><br/></td></tr>
@@ -146,13 +142,29 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af1f8804eacc09391f9598a01dbbe93e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#af1f8804eacc09391f9598a01dbbe93e3">set_spellcheck_text_visitor</a> (<a class="el" href="interfaceAfsSpellcheckTextVisitorInterface.html">AfsSpellcheckTextVisitorInterface</a> $visitor)</td></tr>
 <tr class="memdesc:af1f8804eacc09391f9598a01dbbe93e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new spellcheck text visitor.  <a href="#af1f8804eacc09391f9598a01dbbe93e3">More...</a><br/></td></tr>
 <tr class="separator:af1f8804eacc09391f9598a01dbbe93e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">User and Session identifiers</div></td></tr>
-<tr class="memitem:a698452e3958b5aadf28eb82bd398400e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a698452e3958b5aadf28eb82bd398400e">get_user_session_manager</a> ()</td></tr>
-<tr class="memdesc:a698452e3958b5aadf28eb82bd398400e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restrievs user and session id manager.  <a href="#a698452e3958b5aadf28eb82bd398400e">More...</a><br/></td></tr>
-<tr class="separator:a698452e3958b5aadf28eb82bd398400e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97234e4d7ffad9397134c1152c4bc3c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a97234e4d7ffad9397134c1152c4bc3c7">set_user_sessionmanager</a> (<a class="el" href="classAfsUserSessionManager.html">AfsUserSessionManager</a> $user_session_mgr)</td></tr>
-<tr class="memdesc:a97234e4d7ffad9397134c1152c4bc3c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new user and session id manager.  <a href="#a97234e4d7ffad9397134c1152c4bc3c7">More...</a><br/></td></tr>
-<tr class="separator:a97234e4d7ffad9397134c1152c4bc3c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classAfsConfigurationBase"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classAfsConfigurationBase')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classAfsConfigurationBase.html">AfsConfigurationBase</a></td></tr>
+<tr class="memitem:a095c5d389db211932136b53f25f39685 inherit pub_methods_classAfsConfigurationBase"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a095c5d389db211932136b53f25f39685"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsConfigurationBase.html#a095c5d389db211932136b53f25f39685">__construct</a> ()</td></tr>
+<tr class="memdesc:a095c5d389db211932136b53f25f39685 inherit pub_methods_classAfsConfigurationBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new configuration class with default parameters set. <br/></td></tr>
+<tr class="separator:a095c5d389db211932136b53f25f39685 inherit pub_methods_classAfsConfigurationBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f26de39af4875d99f1016721eb604c inherit pub_methods_classAfsConfigurationBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsConfigurationBase.html#a25f26de39af4875d99f1016721eb604c">get_helper_format</a> ()</td></tr>
+<tr class="memdesc:a25f26de39af4875d99f1016721eb604c inherit pub_methods_classAfsConfigurationBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves reply helper format.  <a href="#a25f26de39af4875d99f1016721eb604c">More...</a><br/></td></tr>
+<tr class="separator:a25f26de39af4875d99f1016721eb604c inherit pub_methods_classAfsConfigurationBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5281f8cd523fbc05cf4770c202ffc6f inherit pub_methods_classAfsConfigurationBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsConfigurationBase.html#ac5281f8cd523fbc05cf4770c202ffc6f">is_array_format</a> ()</td></tr>
+<tr class="memdesc:ac5281f8cd523fbc05cf4770c202ffc6f inherit pub_methods_classAfsConfigurationBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether helper format is set to ARRAYS.  <a href="#ac5281f8cd523fbc05cf4770c202ffc6f">More...</a><br/></td></tr>
+<tr class="separator:ac5281f8cd523fbc05cf4770c202ffc6f inherit pub_methods_classAfsConfigurationBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21e07a02eef8cd2849de42ed89a888d5 inherit pub_methods_classAfsConfigurationBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsConfigurationBase.html#a21e07a02eef8cd2849de42ed89a888d5">is_helper_format</a> ()</td></tr>
+<tr class="memdesc:a21e07a02eef8cd2849de42ed89a888d5 inherit pub_methods_classAfsConfigurationBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether helper format is set to HELPERS.  <a href="#a21e07a02eef8cd2849de42ed89a888d5">More...</a><br/></td></tr>
+<tr class="separator:a21e07a02eef8cd2849de42ed89a888d5 inherit pub_methods_classAfsConfigurationBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab256b8a382e13c983b194d100858430a inherit pub_methods_classAfsConfigurationBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsConfigurationBase.html#ab256b8a382e13c983b194d100858430a">set_helper_format</a> ($format)</td></tr>
+<tr class="memdesc:ab256b8a382e13c983b194d100858430a inherit pub_methods_classAfsConfigurationBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new reply helper format.  <a href="#ab256b8a382e13c983b194d100858430a">More...</a><br/></td></tr>
+<tr class="separator:ab256b8a382e13c983b194d100858430a inherit pub_methods_classAfsConfigurationBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a698452e3958b5aadf28eb82bd398400e inherit pub_methods_classAfsConfigurationBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsConfigurationBase.html#a698452e3958b5aadf28eb82bd398400e">get_user_session_manager</a> ()</td></tr>
+<tr class="memdesc:a698452e3958b5aadf28eb82bd398400e inherit pub_methods_classAfsConfigurationBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restrievs user and session id manager.  <a href="#a698452e3958b5aadf28eb82bd398400e">More...</a><br/></td></tr>
+<tr class="separator:a698452e3958b5aadf28eb82bd398400e inherit pub_methods_classAfsConfigurationBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97234e4d7ffad9397134c1152c4bc3c7 inherit pub_methods_classAfsConfigurationBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsConfigurationBase.html#a97234e4d7ffad9397134c1152c4bc3c7">set_user_sessionmanager</a> (<a class="el" href="classAfsUserSessionManager.html">AfsUserSessionManager</a> $user_session_mgr)</td></tr>
+<tr class="memdesc:a97234e4d7ffad9397134c1152c4bc3c7 inherit pub_methods_classAfsConfigurationBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new user and session id manager.  <a href="#a97234e4d7ffad9397134c1152c4bc3c7">More...</a><br/></td></tr>
+<tr class="separator:a97234e4d7ffad9397134c1152c4bc3c7 inherit pub_methods_classAfsConfigurationBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Configuration class for AFS helper classes. </p>
@@ -173,24 +185,6 @@ Public Member Functions</h2></td></tr>
 
 <p>Retrieves facet manager. </p>
 <dl class="section return"><dt>Returns</dt><dd>facet manager (see <a class="el" href="classAfsFacetManager.html" title="AFS facet manager. ">AfsFacetManager</a>). </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a25f26de39af4875d99f1016721eb604c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_helper_format </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves reply helper format. </p>
-<dl class="section return"><dt>Returns</dt><dd>helper format (<a class="el" href="classAfsHelperFormat.html#a896b8a062d099cb54681b259342e2399" title="Outputs from response helper and sub-sequent child helpers are array of key/value pairs...">AfsHelperFormat::ARRAYS</a> or <a class="el" href="classAfsHelperFormat.html#afe8b0b488d0cdf90d6dd285e8622bc57" title="Outputs from response helper and sub-sequent child helpers are instances of helper classes...">AfsHelperFormat::HELPERS</a>) </dd></dl>
 
 </div>
 </div>
@@ -249,24 +243,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a698452e3958b5aadf28eb82bd398400e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_user_session_manager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Restrievs user and session id manager. </p>
-<dl class="section return"><dt>Returns</dt><dd>Manager for user and session id. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a1512dbe074f880d5636e67ed414a6b7f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -282,42 +258,6 @@ Public Member Functions</h2></td></tr>
 
 <p>Checks whether a query coder has been defined. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>True</code> when a query coder is defined, <code>false</code> otherwise. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ac5281f8cd523fbc05cf4770c202ffc6f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">is_array_format </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks whether helper format is set to ARRAYS. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>True</code> when helper format equals <a class="el" href="classAfsHelperFormat.html#a896b8a062d099cb54681b259342e2399" title="Outputs from response helper and sub-sequent child helpers are array of key/value pairs...">AfsHelperFormat::ARRAYS</a>. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a21e07a02eef8cd2849de42ed89a888d5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">is_helper_format </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks whether helper format is set to HELPERS. </p>
-<dl class="section return"><dt>Returns</dt><dd><code>True</code> when helper format equals <a class="el" href="classAfsHelperFormat.html#afe8b0b488d0cdf90d6dd285e8622bc57" title="Outputs from response helper and sub-sequent child helpers are instances of helper classes...">AfsHelperFormat::HELPERS</a>. </dd></dl>
 
 </div>
 </div>
@@ -343,37 +283,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>current instance. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ab256b8a382e13c983b194d100858430a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set_helper_format </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$format</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defines new reply helper format. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$format</td><td>[in] new format to set (see <a class="el" href="classAfsHelperFormat.html" title="Helper format. ">AfsHelperFormat</a>) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>current instance. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">InvalidArgumentException</td><td>when provided format is invalid. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -452,35 +361,10 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a97234e4d7ffad9397134c1152c4bc3c7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set_user_sessionmanager </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classAfsUserSessionManager.html">AfsUserSessionManager</a>&#160;</td>
-          <td class="paramname"><em>$user_session_mgr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defines new user and session id manager. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$user_session_mgr</td><td>[in] new manager for user and session id. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>current instance. </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 19 2014 17:30:44 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 24 2014 14:15:14 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

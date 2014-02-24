@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.0</span>
+   &#160;<span id="projectnumber">version 0.6.2</span>
    </div>
   </td>
  </tr>
@@ -110,9 +110,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a824c9148f2e4e2b8ee362a7876bd74cf"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetSort.html#a824c9148f2e4e2b8ee362a7876bd74cf">STRICT</a> = 'STRICT'</td></tr>
 <tr class="memdesc:a824c9148f2e4e2b8ee362a7876bd74cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strict mode.  <a href="#a824c9148f2e4e2b8ee362a7876bd74cf">More...</a><br/></td></tr>
 <tr class="separator:a824c9148f2e4e2b8ee362a7876bd74cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae26166309cbdc232371b9ba04ba7e997"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetSort.html#ae26166309cbdc232371b9ba04ba7e997">SMOOTH</a> = 'SMOOTH'</td></tr>
-<tr class="memdesc:ae26166309cbdc232371b9ba04ba7e997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smooth mode.  <a href="#ae26166309cbdc232371b9ba04ba7e997">More...</a><br/></td></tr>
-<tr class="separator:ae26166309cbdc232371b9ba04ba7e997"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac420e1c589683070703ed794a36284ca"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetSort.html#ac420e1c589683070703ed794a36284ca">LAX</a> = 'LAX'</td></tr>
+<tr class="memdesc:ac420e1c589683070703ed794a36284ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lax mode.  <a href="#ac420e1c589683070703ed794a36284ca">More...</a><br/></td></tr>
+<tr class="separator:ac420e1c589683070703ed794a36284ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -130,19 +130,20 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sort mode of the facets. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ae26166309cbdc232371b9ba04ba7e997"></a>
+<a class="anchor" id="ac420e1c589683070703ed794a36284ca"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const SMOOTH = 'SMOOTH'</td>
+          <td class="memname">const LAX = 'LAX'</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Smooth mode. </p>
+<p>Lax mode. </p>
 <p>Facets are sorted at <a class="el" href="classAfsReplysetHelper.html" title="Helper for replies from one feed. ">AfsReplysetHelper</a> level. This allows to retrieve all facets. First facets are sorted according to provided sort order list, other ones follow as they appear in AFS search engine reply. </p>
-
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="raw_example_8php-example.html#a1">raw_example.php</a>.</dd>
+</dl>
 </div>
 </div>
 <a class="anchor" id="a824c9148f2e4e2b8ee362a7876bd74cf"></a>
@@ -157,14 +158,13 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Strict mode. </p>
 <p>All facets are sorted according to provided sort order list. Facets not present in the list are removed from reply. </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="raw_example_8php-example.html#a1">raw_example.php</a>.</dd>
-</dl>
+
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 19 2014 17:30:44 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 24 2014 14:15:14 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.0</span>
+   &#160;<span id="projectnumber">version 0.6.2</span>
    </div>
   </td>
  </tr>
@@ -104,7 +104,7 @@ AFS search connector</h1>
 <div class="fragment"><div class="line">$service = <span class="keyword">new</span> <a class="code" href="classAfsService.html">AfsService</a>(70000, <a class="code" href="classAfsServiceStatus.html#aee0f82f7e54d98e7632482563a1be168">AfsServiceStatus::STABLE</a>);</div>
 <div class="line">$host = <span class="stringliteral">&#39;eval.partners.antidot.net&#39;</span>;</div>
 <div class="line">$connector = <span class="keyword">new</span> <a class="code" href="classAfsSearchConnector.html">AfsSearchConnector</a>($host, $service);</div>
-</div><!-- fragment --><p> Once the connector is initialized, queries can be submitted by calling <a class="el" href="classAfsSearchConnector.html#a03bfab6c450f8e8c50488f99f838a69e" title="Sends a query. ">AfsSearchConnector::send</a> method. This method is generally never called directlty. Instead, call to <a class="el" href="classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163" title="Send query to AFS search engine. ">AfsSearchQueryManager::send</a> (see <a class="el" href="afs_search_query.html#asq_query_manager">Query manager</a>) triggers appropriate call to this method.</p>
+</div><!-- fragment --><p> Once the connector is initialized, queries can be submitted by calling <a class="el" href="classAfsConnector.html#a03bfab6c450f8e8c50488f99f838a69e" title="Sends a query. ">AfsSearchConnector::send</a> method. This method is generally never called directlty. Instead, call to <a class="el" href="classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163" title="Send query to AFS search engine. ">AfsSearchQueryManager::send</a> (see <a class="el" href="afs_search_query.html#asq_query_manager">Query manager</a>) triggers appropriate call to this method.</p>
 <p>An array of parameters should be provided to the method. Array key/value pairs should correspond to valid AFS search engine parameter names with valid associated value (see <code>AFS Integration Guide &gt; AFS WEB SERVICES &gt; search &gt; Parameters</code>). <br/>
  Provided array of parameters is filled with default parameters such as <code>afs:service</code>, <code>afs:status</code> and <code>afs:output</code> before Antidot search engine is queried.</p>
 <h1><a class="anchor" id="asq_facet_manager"></a>
@@ -152,7 +152,7 @@ Next step</h1>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 19 2014 17:30:44 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 24 2014 14:15:14 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

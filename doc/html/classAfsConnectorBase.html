@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.0</span>
+   &#160;<span id="projectnumber">version 0.6.2</span>
    </div>
   </td>
  </tr>
@@ -86,6 +86,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classAfsConnectorBase-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">AfsConnectorBase Class Reference</div>  </div>
@@ -100,17 +101,84 @@ Inheritance diagram for AfsConnectorBase:</div>
  <div class="center">
   <img src="classAfsConnectorBase.png" usemap="#AfsConnectorBase_map" alt=""/>
   <map id="AfsConnectorBase_map" name="AfsConnectorBase_map">
-<area href="classAfsPafConnector.html" title="AFS PaF connector. " alt="AfsPafConnector" shape="rect" coords="0,56,131,80"/>
-<area href="classAfsSearchConnector.html" title="AFS search connector. " alt="AfsSearchConnector" shape="rect" coords="141,56,272,80"/>
+<area href="classAfsConnector.html" title="Base class for all AFS web services. " alt="AfsConnector" shape="rect" coords="70,56,201,80"/>
+<area href="classAfsPafConnector.html" title="AFS PaF connector. " alt="AfsPafConnector" shape="rect" coords="211,56,342,80"/>
+<area href="classAfsAcpConnector.html" title="AFS ACP connector. " alt="AfsAcpConnector" shape="rect" coords="0,112,131,136"/>
+<area href="classAfsSearchConnector.html" title="AFS search connector. " alt="AfsSearchConnector" shape="rect" coords="141,112,272,136"/>
 </map>
  </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a603f64dd079a1c3e34a51808690a4959"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsConnectorBase.html#a603f64dd079a1c3e34a51808690a4959">__construct</a> ($host, <a class="el" href="classAfsService.html">AfsService</a> $service, $scheme)</td></tr>
+<tr class="memdesc:a603f64dd079a1c3e34a51808690a4959"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new base connector.  <a href="#a603f64dd079a1c3e34a51808690a4959">More...</a><br/></td></tr>
+<tr class="separator:a603f64dd079a1c3e34a51808690a4959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for AFS connectors. </p>
 <p>This class provided usefull methods to manage connection strings. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a603f64dd079a1c3e34a51808690a4959"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">__construct </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classAfsService.html">AfsService</a>&#160;</td>
+          <td class="paramname"><em>$service</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$scheme</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs new base connector. </p>
+<p>All parameter values should have been provided by Antidot.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$host</td><td>[in] server hosting the required service. </td></tr>
+    <tr><td class="paramname">$service</td><td>[in] Antidot service (see <em><a class="el" href="classAfsService.html" title="Antidot service. ">AfsService</a></em>). </td></tr>
+    <tr><td class="paramname">$scheme</td><td>[in] Scheme for the connection URL see <a class="el" href="group__uri__scheme.html">Connection scheme</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">InvalidArgumentException</td><td>invalid scheme parameter provided. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 19 2014 17:30:44 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 24 2014 14:15:14 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

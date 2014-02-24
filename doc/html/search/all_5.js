@@ -5,6 +5,7 @@ var searchData=
   ['deprecated_20list',['Deprecated List',['../deprecated.html',1,'']]],
   ['desc',['DESC',['../classAfsSortOrder.html#a34abf23cff3df464425b7cedf58e2939',1,'AfsSortOrder']]],
   ['detailled_20integration_20example_20with_20php_20template_20engine',['Detailled integration example with PHP template engine',['../detailled_integration_example_with_template.html',1,'']]],
+  ['direct',['DIRECT',['../classAfsOrigin.html#a2188966368167ab2977d4cd6f73348ce',1,'AfsOrigin']]],
   ['docid',['DOCID',['../classAfsSortBuiltins.html#ab2515b031257e858586c8577786c36c0',1,'AfsSortBuiltins']]],
   ['doctype',['DOCTYPE',['../classAfsSortBuiltins.html#a1f181b931c1328d8924854f1a3abae0e',1,'AfsSortBuiltins']]],
   ['domnodehelper',['DOMNodeHelper',['../classDOMNodeHelper.html',1,'']]]

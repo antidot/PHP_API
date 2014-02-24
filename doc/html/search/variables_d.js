@@ -6,7 +6,6 @@ var searchData=
   ['search_5fslave',['SEARCH_SLAVE',['../classAfsProducer.html#ae62cb6ad1b7b0dc997d8b7820f47c6e9',1,'AfsProducer']]],
   ['searchbox',['SEARCHBOX',['../classAfsOrigin.html#a1033c59aec85379c95bf8f474cbafc3a',1,'AfsOrigin']]],
   ['size',['SIZE',['../classAfsSortBuiltins.html#a91e807ff725d3b13626ea72f6e9c5965',1,'AfsSortBuiltins']]],
-  ['smooth',['SMOOTH',['../classAfsFacetSort.html#ae26166309cbdc232371b9ba04ba7e997',1,'AfsFacetSort']]],
   ['spellcheck',['SPELLCHECK',['../classAfsOrigin.html#a7b5a0e547af8b93af9e4260c4ac987c1',1,'AfsOrigin\SPELLCHECK()'],['../classAfsProducer.html#a7b5a0e547af8b93af9e4260c4ac987c1',1,'AfsProducer\SPELLCHECK()']]],
   ['stable',['STABLE',['../classAfsServiceStatus.html#aee0f82f7e54d98e7632482563a1be168',1,'AfsServiceStatus']]],
   ['sticky',['STICKY',['../classAfsFacetStickyness.html#af5b67973a86dc4a8331c2a14b780a61c',1,'AfsFacetStickyness']]],

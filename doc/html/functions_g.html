@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.0</span>
+   &#160;<span id="projectnumber">version 0.6.2</span>
    </div>
   </td>
  </tr>
@@ -94,6 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_n.html#index_n"><span>n</span></a></li>
       <li><a href="functions_o.html#index_o"><span>o</span></a></li>
       <li><a href="functions_p.html#index_p"><span>p</span></a></li>
+      <li><a href="functions_q.html#index_q"><span>q</span></a></li>
       <li><a href="functions_r.html#index_r"><span>r</span></a></li>
       <li><a href="functions_s.html#index_s"><span>s</span></a></li>
       <li><a href="functions_t.html#index_t"><span>t</span></a></li>
@@ -132,6 +133,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>get_abstract()
 : <a class="el" href="classAfsBaseReplyHelper.html#a318e0cf28df09450ebaa71881010419d">AfsBaseReplyHelper</a>
 </li>
+<li>get_additional_parameters()
+: <a class="el" href="classAfsQueryBase.html#a9d7e3c3e6cb2fdd742b8b38d6b0b2a45">AfsQueryBase</a>
+</li>
 <li>get_all_pages()
 : <a class="el" href="classAfsPagerHelper.html#af0c09a15b231e541baf594507d1fda0b">AfsPagerHelper</a>
 </li>
@@ -154,7 +158,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classAfsResponseHelper.html#a1fb813301a880b2918b7051e6f1f611f">AfsResponseHelper</a>
 </li>
 <li>get_connector()
-: <a class="el" href="classAfsSearch.html#a86f60d806dd5e45d9a430f74b36d4f5a">AfsSearch</a>
+: <a class="el" href="classAfsAcp.html#a86f60d806dd5e45d9a430f74b36d4f5a">AfsAcp</a>
+, <a class="el" href="classAfsSearch.html#a86f60d806dd5e45d9a430f74b36d4f5a">AfsSearch</a>
 </li>
 <li>get_current_no()
 : <a class="el" href="classAfsPagerHelper.html#a4c3fa564466cf8a30094fa35db458350">AfsPagerHelper</a>
@@ -181,7 +186,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classAfsPafUploadReply.html#a1c0091515372f72e1a87683ca57c74eb">AfsPafUploadReply</a>
 </li>
 <li>get_error_msg()
-: <a class="el" href="classAfsResponseHelper.html#aacbb03775c93bd30bba754824de51711">AfsResponseHelper</a>
+: <a class="el" href="classAfsResponseHelperBase.html#aacbb03775c93bd30bba754824de51711">AfsResponseHelperBase</a>
 </li>
 <li>get_facet()
 : <a class="el" href="classAfsFacetManager.html#a178d0af5094d386f9e63b15301ffc9f1">AfsFacetManager</a>
@@ -197,11 +202,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classAfsFacetManager.html#a6578f52dadc8b6dd3c8ed376d207fc12">AfsFacetManager</a>
 </li>
 <li>get_feed()
-: <a class="el" href="classAfsConceptHelper.html#a4498b71b9ef0a9aef6efcb9570daf193">AfsConceptHelper</a>
+: <a class="el" href="classAfsAcpReplysetHelper.html#a4498b71b9ef0a9aef6efcb9570daf193">AfsAcpReplysetHelper</a>
+, <a class="el" href="classAfsConceptHelper.html#a4498b71b9ef0a9aef6efcb9570daf193">AfsConceptHelper</a>
 , <a class="el" href="classAfsMetaHelper.html#a4498b71b9ef0a9aef6efcb9570daf193">AfsMetaHelper</a>
 </li>
 <li>get_feeds()
-: <a class="el" href="classAfsQuery.html#a4fda687b0bf4ade97e13160a2910f5da">AfsQuery</a>
+: <a class="el" href="classAfsQueryBase.html#a4fda687b0bf4ade97e13160a2910f5da">AfsQueryBase</a>
 </li>
 <li>get_filename()
 : <a class="el" href="classAfsDocument.html#a87b7ac3bae6584ca7b201ca518c23ecb">AfsDocument</a>
@@ -216,17 +222,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classAfsSpellcheckHelper.html#ac82cf94c454721a508f27527caac9a6c">AfsSpellcheckHelper</a>
 </li>
 <li>get_from()
-: <a class="el" href="classAfsQuery.html#a8599ba9e6f0070857f626b612c5d7f09">AfsQuery</a>
+: <a class="el" href="classAfsQueryBase.html#a8599ba9e6f0070857f626b612c5d7f09">AfsQueryBase</a>
 </li>
 <li>get_generated_url()
-: <a class="el" href="classAfsSearch.html#a127af4660b2f52c7c5566b5b263d7a60">AfsSearch</a>
-, <a class="el" href="classAfsSearchConnector.html#a127af4660b2f52c7c5566b5b263d7a60">AfsSearchConnector</a>
+: <a class="el" href="classAfsAcp.html#a127af4660b2f52c7c5566b5b263d7a60">AfsAcp</a>
+, <a class="el" href="classAfsConnector.html#a127af4660b2f52c7c5566b5b263d7a60">AfsConnector</a>
+, <a class="el" href="classAfsSearch.html#a127af4660b2f52c7c5566b5b263d7a60">AfsSearch</a>
 </li>
 <li>get_helper_format()
-: <a class="el" href="classAfsHelperConfiguration.html#a25f26de39af4875d99f1016721eb604c">AfsHelperConfiguration</a>
+: <a class="el" href="classAfsConfigurationBase.html#a25f26de39af4875d99f1016721eb604c">AfsConfigurationBase</a>
 </li>
 <li>get_helpers_configuration()
-: <a class="el" href="classAfsSearch.html#a1d04c2858be0c7e666c0bfb265effb49">AfsSearch</a>
+: <a class="el" href="classAfsAcp.html#a1d04c2858be0c7e666c0bfb265effb49">AfsAcp</a>
+, <a class="el" href="classAfsSearch.html#a1d04c2858be0c7e666c0bfb265effb49">AfsSearch</a>
 </li>
 <li>get_id()
 : <a class="el" href="classAfsClientDataHelperBase.html#a8a94003b9d888b085c68d6eac44be175">AfsClientDataHelperBase</a>
@@ -238,7 +246,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classAfsConceptHelper.html#a63e91ce3cdf2e9c22e1c3c89c5905712">AfsConceptHelper</a>
 </li>
 <li>get_key()
-: <a class="el" href="classAfsQuery.html#a0395526ae8329a45cfee884e817bcaf4">AfsQuery</a>
+: <a class="el" href="classAfsQueryBase.html#a0395526ae8329a45cfee884e817bcaf4">AfsQueryBase</a>
 </li>
 <li>get_label()
 : <a class="el" href="classAfsFacetHelper.html#abdc537eb3d5a2920cd5d5ea317750660">AfsFacetHelper</a>
@@ -254,7 +262,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classAfsSpellcheckHelper.html#a5f51329cee1acb022ccb21efd4b528f7">AfsSpellcheckHelper</a>
 </li>
 <li>get_logs()
-: <a class="el" href="classAfsQuery.html#ac2661f0a9e0bba1517b0902d7dd5b4de">AfsQuery</a>
+: <a class="el" href="classAfsQueryBase.html#ac2661f0a9e0bba1517b0902d7dd5b4de">AfsQueryBase</a>
 </li>
 <li>get_meta()
 : <a class="el" href="classAfsBaseReplysetHelper.html#a83ddce330490a956720d8c3d6bf97372">AfsBaseReplysetHelper</a>
@@ -270,10 +278,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classAfsFacet.html#acae04b87923d21614e3c8ec8f738ca2e">AfsFacet</a>
 </li>
 <li>get_nb_replies()
-: <a class="el" href="classAfsBaseReplysetHelper.html#aacb11ea5370f812d706834025bcf019a">AfsBaseReplysetHelper</a>
+: <a class="el" href="classAfsAcpReplysetHelper.html#aacb11ea5370f812d706834025bcf019a">AfsAcpReplysetHelper</a>
+, <a class="el" href="classAfsBaseReplysetHelper.html#aacb11ea5370f812d706834025bcf019a">AfsBaseReplysetHelper</a>
 </li>
 <li>get_next()
 : <a class="el" href="classAfsPagerHelper.html#aab6af5b6da79ce87868579f2594a3982">AfsPagerHelper</a>
+</li>
+<li>get_option()
+: <a class="el" href="classAfsAcpReplyHelper.html#a29319075ecf946ff534ddc0ac84e4ca9">AfsAcpReplyHelper</a>
+</li>
+<li>get_options()
+: <a class="el" href="classAfsAcpReplyHelper.html#adf12a13e0b8f4032d46e50ccd6e0914e">AfsAcpReplyHelper</a>
 </li>
 <li>get_page()
 : <a class="el" href="classAfsQuery.html#a423dbb0b90b8237501d1cd7f521cd67b">AfsQuery</a>
@@ -285,7 +300,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classAfsPagerHelper.html#a460eab97d7f45178ec01bff9f3472d29">AfsPagerHelper</a>
 </li>
 <li>get_parameters()
-: <a class="el" href="classAfsQuery.html#a03e040f17dcc0ce241d5b8cbb9f91979">AfsQuery</a>
+: <a class="el" href="classAfsQueryBase.html#a03e040f17dcc0ce241d5b8cbb9f91979">AfsQueryBase</a>
 </li>
 <li>get_pre()
 : <a class="el" href="classAfsSpellcheckBaseText.html#a5cc519fe831cedde2b67ec0f51183f78">AfsSpellcheckBaseText</a>
@@ -303,38 +318,54 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classAfsResponseHelper.html#a8cbc9adad60c34176e53130d32a39fef">AfsResponseHelper</a>
 </li>
 <li>get_query()
-: <a class="el" href="classAfsQuery.html#aeca228af56a64dc648c2b98f15bc496a">AfsQuery</a>
+: <a class="el" href="classAfsAcp.html#aeca228af56a64dc648c2b98f15bc496a">AfsAcp</a>
+, <a class="el" href="classAfsQueryBase.html#aeca228af56a64dc648c2b98f15bc496a">AfsQueryBase</a>
 , <a class="el" href="classAfsSearch.html#aeca228af56a64dc648c2b98f15bc496a">AfsSearch</a>
 , <a class="el" href="classAfsSpellcheckHelper.html#aeca228af56a64dc648c2b98f15bc496a">AfsSpellcheckHelper</a>
 </li>
 <li>get_query_coder()
 : <a class="el" href="classAfsHelperConfiguration.html#a2a0f0dc5c1d1fabc359179275c057305">AfsHelperConfiguration</a>
 </li>
+<li>get_query_string()
+: <a class="el" href="classAfsAcpEmptyReplysetException.html#aa7753069a088b1053a8b46bcc2622dd1">AfsAcpEmptyReplysetException</a>
+, <a class="el" href="classAfsAcpReplysetHelper.html#aa7753069a088b1053a8b46bcc2622dd1">AfsAcpReplysetHelper</a>
+, <a class="el" href="classAfsAcpResponseHelper.html#aa7753069a088b1053a8b46bcc2622dd1">AfsAcpResponseHelper</a>
+</li>
 <li>get_raw_text()
 : <a class="el" href="classAfsSpellcheckHelper.html#a4518d24021f0eb010a9ff0bef837332f">AfsSpellcheckHelper</a>
 </li>
+<li>get_relevant_parameters()
+: <a class="el" href="classAfsQueryBase.html#a4f4c4f8856ec5bfd57532dc5508deba2">AfsQueryBase</a>
+</li>
 <li>get_replies()
-: <a class="el" href="classAfsBaseReplysetHelper.html#a156ea3e72b1054e71ddc807b35dacece">AfsBaseReplysetHelper</a>
-, <a class="el" href="classAfsQuery.html#a156ea3e72b1054e71ddc807b35dacece">AfsQuery</a>
+: <a class="el" href="classAfsAcpReplysetHelper.html#a156ea3e72b1054e71ddc807b35dacece">AfsAcpReplysetHelper</a>
+, <a class="el" href="classAfsBaseReplysetHelper.html#a156ea3e72b1054e71ddc807b35dacece">AfsBaseReplysetHelper</a>
+, <a class="el" href="classAfsQueryBase.html#a156ea3e72b1054e71ddc807b35dacece">AfsQueryBase</a>
 </li>
 <li>get_reply_text_visitor()
 : <a class="el" href="classAfsHelperConfiguration.html#a727a7495b3a04d105312b0fb6fbce51a">AfsHelperConfiguration</a>
 </li>
 <li>get_replyset()
-: <a class="el" href="classAfsResponseHelper.html#ab2161125b83b0e42d07b7a4167e11327">AfsResponseHelper</a>
+: <a class="el" href="classAfsAcpResponseHelper.html#a88cbc72e590608bad39139909341df98">AfsAcpResponseHelper</a>
+, <a class="el" href="classAfsResponseHelper.html#ab2161125b83b0e42d07b7a4167e11327">AfsResponseHelper</a>
 </li>
 <li>get_replysets()
-: <a class="el" href="classAfsResponseHelper.html#aa47b950f8dc54f7b06c97d9d12a3f767">AfsResponseHelper</a>
+: <a class="el" href="classAfsAcpResponseHelper.html#aa47b950f8dc54f7b06c97d9d12a3f767">AfsAcpResponseHelper</a>
+, <a class="el" href="classAfsResponseHelper.html#aa47b950f8dc54f7b06c97d9d12a3f767">AfsResponseHelper</a>
 </li>
 <li>get_result()
 : <a class="el" href="classAfsPafUploadReply.html#a1fdd68e1612712fe2ef591ee30bc1c0f">AfsPafUploadReply</a>
 </li>
+<li>get_search_query()
+: <a class="el" href="classAfsAcpReplyHelper.html#a807af35137de263bc38a12d5d9f85a04">AfsAcpReplyHelper</a>
+</li>
 <li>get_service()
-: <a class="el" href="classAfsSearch.html#ac55ba4f4b6faf2110f64e0eaef63fb92">AfsSearch</a>
+: <a class="el" href="classAfsAcp.html#ac55ba4f4b6faf2110f64e0eaef63fb92">AfsAcp</a>
+, <a class="el" href="classAfsSearch.html#ac55ba4f4b6faf2110f64e0eaef63fb92">AfsSearch</a>
 </li>
 <li>get_session_id()
 : <a class="el" href="classAfsHeaderHelper.html#a3d5202a840c7df67a07130d265dfdf97">AfsHeaderHelper</a>
-, <a class="el" href="classAfsQuery.html#a3d5202a840c7df67a07130d265dfdf97">AfsQuery</a>
+, <a class="el" href="classAfsQueryBase.html#a3d5202a840c7df67a07130d265dfdf97">AfsQueryBase</a>
 , <a class="el" href="classAfsUserSessionManager.html#a3d5202a840c7df67a07130d265dfdf97">AfsUserSessionManager</a>
 </li>
 <li>get_sort()
@@ -381,14 +412,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>get_user_id()
 : <a class="el" href="classAfsHeaderHelper.html#ab844873e74fa4e89157311bb3f5a0167">AfsHeaderHelper</a>
-, <a class="el" href="classAfsQuery.html#ab844873e74fa4e89157311bb3f5a0167">AfsQuery</a>
+, <a class="el" href="classAfsQueryBase.html#ab844873e74fa4e89157311bb3f5a0167">AfsQueryBase</a>
 , <a class="el" href="classAfsUserSessionManager.html#ab844873e74fa4e89157311bb3f5a0167">AfsUserSessionManager</a>
 </li>
 <li>get_user_session_manager()
-: <a class="el" href="classAfsHelperConfiguration.html#a698452e3958b5aadf28eb82bd398400e">AfsHelperConfiguration</a>
+: <a class="el" href="classAfsConfigurationBase.html#a698452e3958b5aadf28eb82bd398400e">AfsConfigurationBase</a>
 </li>
 <li>get_value()
-: <a class="el" href="interfaceAfsClientDataHelperInterface.html#af6154cf03dcabc93323c9cae5042b5ce">AfsClientDataHelperInterface</a>
+: <a class="el" href="classAfsAcpReplyHelper.html#a997a43c9857e3bb961b516c581bff4be">AfsAcpReplyHelper</a>
+, <a class="el" href="interfaceAfsClientDataHelperInterface.html#af6154cf03dcabc93323c9cae5042b5ce">AfsClientDataHelperInterface</a>
 , <a class="el" href="classAfsClientDataManager.html#a9ba9549eb134564963cddd9cd0d10cdb">AfsClientDataManager</a>
 , <a class="el" href="classAfsJsonClientDataHelper.html#a983d1b2c90f5490149653a26c4531a5b">AfsJsonClientDataHelper</a>
 , <a class="el" href="classAfsXmlClientDataHelper.html#aa5a6aaad8fcc8ec7cc9fd26d76e8dced">AfsXmlClientDataHelper</a>
@@ -399,11 +431,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classAfsJsonClientDataHelper.html#a0719e57ff8b8000e761fd64c3db26516">AfsJsonClientDataHelper</a>
 , <a class="el" href="classAfsXmlClientDataHelper.html#a40a66d85ea28ddce58164cdf20be4377">AfsXmlClientDataHelper</a>
 </li>
+<li>get_web_service_name()
+: <a class="el" href="classAfsAcpConnector.html#a5ab6e7d91acf152cc2a09340ea1dc8fa">AfsAcpConnector</a>
+, <a class="el" href="classAfsConnector.html#a5ab6e7d91acf152cc2a09340ea1dc8fa">AfsConnector</a>
+, <a class="el" href="classAfsSearchConnector.html#a5ab6e7d91acf152cc2a09340ea1dc8fa">AfsSearchConnector</a>
+</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 19 2014 17:30:44 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Feb 24 2014 14:15:15 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
