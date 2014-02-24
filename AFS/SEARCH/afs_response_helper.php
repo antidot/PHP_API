@@ -1,4 +1,5 @@
 <?php
+require_once 'AFS/afs_response_helper_base.php';
 require_once 'AFS/SEARCH/afs_header_helper.php';
 require_once 'AFS/SEARCH/afs_replyset_helper.php';
 require_once 'AFS/SEARCH/afs_promote_replyset_helper.php';
@@ -6,7 +7,6 @@ require_once 'AFS/SEARCH/afs_spellcheck_helper.php';
 require_once 'AFS/SEARCH/afs_concept_helper.php';
 require_once 'AFS/SEARCH/afs_producer.php';
 require_once 'AFS/SEARCH/afs_helper_configuration.php';
-require_once 'COMMON/afs_helper_base.php';
 require_once 'COMMON/afs_helper_format.php';
 
 /** @brief Main helper for AFS search reply.
@@ -16,7 +16,7 @@ require_once 'COMMON/afs_helper_format.php';
  * available replysets, including facets and pager. Connection and query errors
  * are managed in a uniform way to simplify integration.
  */
-class AfsResponseHelper extends AfsHelperBase
+class AfsResponseHelper extends AfsResponseHelperBase
 {
     private $config = null;
     private $header = null;
@@ -24,7 +24,6 @@ class AfsResponseHelper extends AfsHelperBase
     private $spellcheck_mgr = null;
     private $promote = null;
     private $concepts = null;
-    private $error = null;
 
     /** @brief Construct new response helper instance.
      *
@@ -52,9 +51,9 @@ class AfsResponseHelper extends AfsHelperBase
 
             $this->initialize_replysets($response->replySet, $query, $config);
         } elseif ($this->header->in_error()) {
-            $this->error = $this->header->get_error();
+            $this->set_error_msg($this->header->get_error());
         } else {
-            $this->error = 'Unmanaged error';
+            $this->set_error_msg('Unmanaged error');
         }
     }
 
@@ -243,11 +242,11 @@ class AfsResponseHelper extends AfsHelperBase
         return $this->header->get_duration();
     }
 
-    /** @brief Retrieve reply data as array.
+    /** @brief Retrieves reply data as array.
      *
      * This method is intended for internal use only.
      *
-     * All data are store in <tt>key => value</tt> format:
+     * All data are stored in <tt>key => value</tt> format:
      * @li @c replysets: replies per feed,
      * @li @c spellchecks: spellcheck replies per feed.
      *
@@ -268,25 +267,6 @@ class AfsResponseHelper extends AfsHelperBase
     }
     /** @} */
 
-    /** @name Error
-     * @{ */
-
-    /** @brief Check whether an error has been raised.
-     * @return True on error, false otherwise.
-     */
-    public function in_error()
-    {
-        return ! is_null($this->error);
-    }
-
-    /** @brief Retrieve error message.
-     * @return Error message.
-     */
-    public function get_error_msg()
-    {
-        return $this->error;
-    }
-    /** @} */
 }
 
 
