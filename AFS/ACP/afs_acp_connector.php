@@ -24,4 +24,17 @@ class AfsAcpConnector extends AfsConnector
         return 'acp';
     }
 
+    /** @internal
+     * @brief Overload default implemantation with something easiest to handle 
+     * for ACP.
+     *
+     * @param $message [in] Error message.
+     * @param $details [in] Error details.
+     *
+     * @return Associated array with error and details.
+     */
+    protected function build_error($message, $details)
+    {
+        return array('error' => $message, 'details' => $details);
+    }
 }

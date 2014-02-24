@@ -131,9 +131,10 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
         return $header;
     }
 
-    private function build_error($message, $details)
+    protected function build_error($message, $details)
     {
         //error_log("$message [$details]");
-        return json_decode('{ "header": { "error": { "message": [ "' . $message . '" ] } } }');
+        return json_decode('{ "header": { "error": { "message": [ "' . $message . '" ] } } }',
+                           $this->associative_array);
     }
 }
