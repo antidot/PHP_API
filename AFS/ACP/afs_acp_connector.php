@@ -13,6 +13,7 @@ class AfsAcpConnector extends AfsConnector
         parent::__construct($host, $service, $scheme);
         if ($scheme != AFS_SCHEME_HTTP)
             throw InvalidArgumentException('ACP connector support only HTTP connection');
+        $this->build_reply_as_associative_array();
     }
 
     /** @brief Retrieves web service name.
@@ -23,14 +24,4 @@ class AfsAcpConnector extends AfsConnector
         return 'acp';
     }
 
-    /** @brief Sends an ACP query.
-     *
-     * Query is built using provided @a parameters.
-     * @param $parameters [in] list of parameters used to build the query.
-     * @return JSON decoded reply of the query.
-     */
-    public function send(array $parameters)
-    {
-        # TODO
-    }
 }
