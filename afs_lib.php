@@ -13,3 +13,4 @@ require_once 'AFS/SEARCH/afs_text_visitor.php';
 
 require_once 'AFS/SEARCH/afs_search.php';
 
+require_once 'AFS/ACP/afs_acp.php';
