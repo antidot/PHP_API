@@ -10,6 +10,7 @@ require_once 'AFS/ACP/afs_acp_exception.php';
 class AfsAcpReplysetHelper extends AfsHelperBase
 {
     private $name = null;   ///> Name of the feed which has produced these suggestions.
+    private $query_string = null;
     private $replies = array();
 
     /** @brief Constructs new ACP replyset helper.
@@ -32,10 +33,10 @@ class AfsAcpReplysetHelper extends AfsHelperBase
         if ($size < 2 || $size > 3)
             throw new AfsAcpUnmanagedSuggestionFormatException();
 
-        $query = reset($reply_set);
+        $this->query_string = reset($reply_set);
         $suggestions = next($reply_set);
         if (empty($suggestions))
-            throw new AfsAcpEmptyReplysetException();
+            throw new AfsAcpEmptyReplysetException($this->query_string);
 
         if ($size == 3) {
             $metas = next($reply_set);
@@ -56,6 +57,14 @@ class AfsAcpReplysetHelper extends AfsHelperBase
     public function get_feed()
     {
         return $this->name;
+    }
+
+    /** @brief Retrieves query string.
+     * @return query string.
+     */
+    public function get_query_string()
+    {
+        return $this->query_string;
     }
 
     /** @name Suggestions

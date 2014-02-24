@@ -140,6 +140,8 @@ class AcpResponseHelperTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($response->has_replyset());
         $result = $response->format();
 
+        $this->assertEquals('search', $result['query_string']);
+
         $this->assertTrue(array_key_exists('foo', $result));
         $replyset = $result['foo'];
         $this->assertEquals('foo', $replyset['feed']);

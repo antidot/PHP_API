@@ -13,6 +13,7 @@ require_once 'AFS/afs_response_helper_base.php';
 class AfsAcpResponseHelper extends AfsResponseHelperBase
 {
     private $replysets = array();
+    private $query_string = null;
 
 
     /** @brief Constructs new ACP response helper.
@@ -33,10 +34,24 @@ class AfsAcpResponseHelper extends AfsResponseHelperBase
             try {
                 $replyset = new AfsAcpReplysetHelper($feed, $replies, $config);
                 $this->replysets[$feed] = $replyset;
-            } catch (AfsAcpEmptyReplysetException $e) { }
+            } catch (AfsAcpEmptyReplysetException $e) {
+                $this->query_string = $e->get_query_string();
+            }
+        }
+        if (is_null($this->query_string) && ! empty($this->replysets)) {
+            $replyset = reset($this->replysets);
+            $this->query_string = $replyset->get_query_string();
         }
     }
 
+
+    /** @brief Retrieves query string.
+     * @return query string.
+     */
+    public function get_query_string()
+    {
+        return $this->query_string;
+    }
 
     /** @name Replies
      * @{ */
@@ -100,7 +115,7 @@ class AfsAcpResponseHelper extends AfsResponseHelperBase
         if ($this->in_error()) {
             return array('error' => $this->get_error_msg());
         } else {
-            $result = array();
+            $result = array('query_string' => $this->query_string);
             foreach ($this->replysets as $feed => $replyset)
                 $result[$feed] = $replyset->format();
             return $result;
