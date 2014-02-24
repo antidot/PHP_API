@@ -1,7 +1,7 @@
 <?php
 require_once 'COMMON/afs_user_session_manager.php';
 require_once 'COMMON/afs_exception.php';
-require_once 'AFS/SEARCH/afs_origin.php';
+require_once 'AFS/afs_origin.php';
 
 /** @brief Represents an AFS query.
  *
