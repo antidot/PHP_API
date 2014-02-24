@@ -1,7 +1,8 @@
 <?php
+require_once 'AFS/afs_exception.php';
 
 /** @brief Base exception class for all client data access errors. */
-class AfsClientDataException extends Exception
+abstract class AfsClientDataException extends AfsBaseException
 { }
 
 /** @brief Exception raised on malformed expression or invalid context.

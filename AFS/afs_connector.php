@@ -2,6 +2,7 @@
 require_once 'COMMON/afs_connector_interface.php';
 require_once 'COMMON/afs_connector_base.php';
 require_once 'COMMON/afs_exception.php';
+require_once 'AFS/afs_exception.php';
 
 
 /** @brief Base class for all AFS web services.
@@ -89,11 +90,11 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
             curl_close($request);
             try {
                 if ($result == false)
-                    throw new ExecutionFailedException();
+                    throw new AfsConnectorExecutionFailedException();
                 $result = json_decode($result);
                 if (empty($result))
-                    throw new ExecutionFailedException();
-            } catch (ExecutionFailedException $e) {
+                    throw new AfsConnectorExecutionFailedException();
+            } catch (AfsConnectorExecutionFailedException $e) {
                 $result = $this->build_error('Failed to execute request',  $this->url);
             }
         }

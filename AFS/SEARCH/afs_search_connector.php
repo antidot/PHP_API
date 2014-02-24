@@ -35,6 +35,3 @@ class AfsSearchConnector extends AfsConnector
 }
 
 
-/** @brief Exception class for internal use only. */
-class ExecutionFailedException extends Exception
-{ }

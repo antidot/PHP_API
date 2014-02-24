@@ -1,7 +1,8 @@
 <?php
+require_once 'AFS/afs_exception.php';
 
 /** @brief Base class for all exceptions related to facet errors. */
-class AfsFacetException extends Exception
+abstract class AfsFacetException extends AfsBaseException
 { }
 
 /** @brief Requested facet identifier is unknown. */
