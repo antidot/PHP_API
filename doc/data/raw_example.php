@@ -11,8 +11,9 @@ $search->build_query_from_url_parameters();
 $query = $search->get_query();
 $search->set_query($query->set_lang('fr'));  // language is set manually in order to get spellcheck results
 */
-$search->set_facet_sort_order(array('price_eur', 'marketing'), AfsFacetSort:: LAX);
+$search->set_facet_sort_order(array('price_eur', 'marketing'), AfsFacetSort::LAX);
 $helper = $search->execute(AfsHelperFormat::HELPERS);
+$generated_url = $search->get_generated_url()
 
 ?>
 
@@ -31,6 +32,9 @@ $helper = $search->execute(AfsHelperFormat::HELPERS);
     <![endif]-->
   </head>
   <body>
+    <div>
+    <a href="<?php echo $generated_url; ?>" target="_blank"><?php echo $generated_url; ?></a>
+    </div>
     <div class="page-header">
       <h1>Raw example <small>based on the Antidot PHP API</small></h1>
     </div>
@@ -46,6 +50,27 @@ $helper = $search->execute(AfsHelperFormat::HELPERS);
         </form>
       </div>
     </div>
+
+<?php
+$params = $search->get_query()->get_parameters(false);
+if (array_key_exists('filter', $params) && is_array($params['filter'])) {
+    echo '
+    <div class="row">
+      <div class="col-md-8">';
+    foreach ($params['filter'] as $filter => $values) {
+        echo '
+        <ul>Filter: <strong>' . $filter . '</strong>';
+        foreach ($values as $value) {
+            echo '
+          <li>Value: ' . $value . '</li>';
+        }
+        echo '
+        </ul>';
+    }
+    echo '
+      </div>
+    </div>';
+} ?>
 
 <?php
 if ($helper->has_promote()) {
