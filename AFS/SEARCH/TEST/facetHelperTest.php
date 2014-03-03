@@ -268,7 +268,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $elems = $helper->get_elements();
 
         $this->assertEquals(1, count($elems));
-        $metas = $elems[0]['meta'];
+        $metas = $elems[0]->meta;
         $this->assertEquals(2, count($metas));
         for ($i = 1; $i < 2; $i++) {
             $res = each($metas);

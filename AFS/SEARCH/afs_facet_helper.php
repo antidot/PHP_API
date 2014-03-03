@@ -211,6 +211,12 @@ class AfsFacetValueHelper extends AfsHelperBase
      */
     public function format()
     {
+        if (! empty($this->values)) {
+            $formatted_values = array();
+            foreach ($this->values as $value)
+                $formatted_values[] = $value->format();
+            $this->values = $formatted_values;
+        }
         return array_filter(get_object_vars($this),
             function ($value) { return ! is_null($value); });
     }
@@ -302,9 +308,8 @@ class AfsFacetElementBuilder
             } else {
                 $link = null;
             }
-            $helper = new AfsFacetValueHelper($label, $value_id, $elem->items,
+            $elements[] = new AfsFacetValueHelper($label, $value_id, $elem->items,
                             $meta, $active, $query, $link, $children);
-            $elements[] = $config->is_array_format() ? $helper->format() : $helper;
 
         }
         return $elements;

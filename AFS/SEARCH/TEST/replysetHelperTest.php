@@ -665,9 +665,9 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Boolean facet', $facets[0]->get_label());
         $elems = $facets[0]->get_elements();
         $this->assertEquals(2, count($elems));
-        $this->assertEquals('BAD', $elems[0]['label']);
-        $this->assertTrue($elems[0]['link'] != null);
-        $this->assertEquals($elems[0]['link'], 'foo.php?replies=2&query=title&filter=BOOL_false');
+        $this->assertEquals('BAD', $elems[0]->label);
+        $this->assertTrue($elems[0]->link != null);
+        $this->assertEquals($elems[0]->link, 'foo.php?replies=2&query=title&filter=BOOL_false');
         // You can continue here if you want but unit tests already exists for 
         // facets.
 
