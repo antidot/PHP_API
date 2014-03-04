@@ -30,10 +30,9 @@ class AfsBaseReplysetHelper extends AfsHelperBase
 
     protected function initialize_content($reply_set, AfsHelperConfiguration $config, $factory)
     {
-        if (property_exists($reply_set, 'content') && property_exists($reply_set->content, 'reply')) {
+        if (property_exists($reply_set, 'content')) {
             $feed = $this->meta->get_feed();
-            foreach ($reply_set->content->reply as $reply)
-                $this->replies[] = $factory->create($feed, $reply);
+            $this->replies = $factory->create_replies($feed, $reply_set->content);
         }
     }
 

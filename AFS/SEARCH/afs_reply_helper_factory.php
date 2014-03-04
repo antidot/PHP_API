@@ -31,6 +31,23 @@ class AfsReplyHelperFactory
             return new AfsReplyHelper($reply, $this->visitor);
         }
     }
+
+    /** @brief Creates list of reply helpers.
+     *
+     * @param $feed [in] name of the feed reply.
+     * @param $replies [in] JSON decoded object which may contain replies.
+     *
+     * @return list of reply helpers.
+     */
+    public function create_replies($feed, $replies)
+    {
+        $result = array();
+        if (property_exists($replies, 'reply')) {
+            foreach ($replies->reply as $reply)
+                $result[] = $this->create($feed, $reply);
+        }
+        return $result;
+    }
 }
 
 
