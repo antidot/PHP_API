@@ -32,14 +32,8 @@ class AfsBaseReplysetHelper extends AfsHelperBase
     {
         if (property_exists($reply_set, 'content') && property_exists($reply_set->content, 'reply')) {
             $feed = $this->meta->get_feed();
-            foreach ($reply_set->content->reply as $reply) {
-                $reply_helper = $factory->create($feed, $reply);
-                if ($config->is_array_format()) {
-                    $this->replies[] = $reply_helper->format();
-                } else {
-                    $this->replies[] = $reply_helper;
-                }
-            }
+            foreach ($reply_set->content->reply as $reply)
+                $this->replies[] = $factory->create($feed, $reply);
         }
     }
 
@@ -96,9 +90,13 @@ class AfsBaseReplysetHelper extends AfsHelperBase
      */
     public function format()
     {
+        $formatted_replies = array();
+        foreach ($this->replies as $reply)
+            $formatted_replies[] = $reply->format();
+
         return array('meta' => $this->get_meta()->format(),
                      'nb_replies' => $this->get_nb_replies(),
-                     'replies' => $this->get_replies());
+                     'replies' => $formatted_replies);
     }
 }
 

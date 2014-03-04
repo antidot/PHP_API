@@ -673,8 +673,8 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(2, $helper->get_nb_replies());
         $replies = $helper->get_replies();
-        $this->assertEquals('The <b>title</b> 116', $replies[0]['title']);
-        $this->assertEquals('The <b>title</b> 81', $replies[1]['title']);
+        $this->assertEquals('The <b>title</b> 116', $replies[0]->get_title());
+        $this->assertEquals('The <b>title</b> 81', $replies[1]->get_title());
         // and so on...
         
         $this->assertTrue($helper->has_pager());
