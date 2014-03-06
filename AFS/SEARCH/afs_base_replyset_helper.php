@@ -89,13 +89,16 @@ class AfsBaseReplysetHelper extends AfsHelperBase
      */
     public function format()
     {
-        $formatted_replies = array();
-        foreach ($this->replies as $reply)
-            $formatted_replies[] = $reply->format();
+        $result = array('meta' => $this->get_meta()->format(),
+            'nb_replies' => $this->get_nb_replies());
 
-        return array('meta' => $this->get_meta()->format(),
-                     'nb_replies' => $this->get_nb_replies(),
-                     'replies' => $formatted_replies);
+        if ($this->has_reply()) {
+            $formatted_replies = array();
+            foreach ($this->replies as $reply)
+                $formatted_replies[] = $reply->format();
+            $result['replies'] = $formatted_replies;
+        }
+        return $result;
     }
 }
 
