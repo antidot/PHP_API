@@ -1,8 +1,10 @@
 var searchData=
 [
   ['send',['send',['../classAfsAcpQueryManager.html#aca0f549c0e8aaf76bce0ac0e20e21119',1,'AfsAcpQueryManager\send()'],['../classAfsConnector.html#a03bfab6c450f8e8c50488f99f838a69e',1,'AfsConnector\send()'],['../classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163',1,'AfsSearchQueryManager\send()'],['../interfaceAfsConnectorInterface.html#a03bfab6c450f8e8c50488f99f838a69e',1,'AfsConnectorInterface\send()']]],
+  ['set_5fcluster',['set_cluster',['../classAfsQuery.html#a12869d4d9eecf61e2c5279c9348287d8',1,'AfsQuery']]],
   ['set_5fcontent',['set_content',['../classAfsDocument.html#a4becfacdda94bb872b758af61c99b58a',1,'AfsDocument']]],
   ['set_5fcontent_5ffrom_5ffile',['set_content_from_file',['../classAfsDocument.html#adb6557bdb482c4b405a724a84d204091',1,'AfsDocument']]],
+  ['set_5fcount',['set_count',['../classAfsQuery.html#ad7e8c1c8bb3bfbd11042fa122b63fb17',1,'AfsQuery']]],
   ['set_5ffacet_5fmanager',['set_facet_manager',['../classAfsHelperConfiguration.html#a16403dac4ccebc984466898cee1e2a2b',1,'AfsHelperConfiguration']]],
   ['set_5ffacet_5fsort_5forder',['set_facet_sort_order',['../classAfsFacetManager.html#ae4f445bc7d9f284384555f7871b0c634',1,'AfsFacetManager\set_facet_sort_order()'],['../classAfsSearch.html#ae4f445bc7d9f284384555f7871b0c634',1,'AfsSearch\set_facet_sort_order()']]],
   ['set_5ffacet_5fstickyness',['set_facet_stickyness',['../classAfsFacetManager.html#a90ed598becee6e83812a6cde94a20be0',1,'AfsFacetManager\set_facet_stickyness()'],['../classAfsSearch.html#a90ed598becee6e83812a6cde94a20be0',1,'AfsSearch\set_facet_stickyness()']]],
@@ -13,6 +15,8 @@ var searchData=
   ['set_5fhelper_5fformat',['set_helper_format',['../classAfsConfigurationBase.html#ab256b8a382e13c983b194d100858430a',1,'AfsConfigurationBase']]],
   ['set_5fkey',['set_key',['../classAfsQueryBase.html#a0d9f4eebc0842813a61564e8cbbb86b1',1,'AfsQueryBase']]],
   ['set_5flang',['set_lang',['../classAfsQuery.html#a504821e5076997da4d6d88e7ab622547',1,'AfsQuery']]],
+  ['set_5fmax_5fclusters',['set_max_clusters',['../classAfsQuery.html#a11e7db4074b920870330bb1f82e725ca',1,'AfsQuery']]],
+  ['set_5foverspill',['set_overspill',['../classAfsQuery.html#aebc056a25e8cc7b4e63eb13593d28569',1,'AfsQuery']]],
   ['set_5fpage',['set_page',['../classAfsQuery.html#a4202fc920bd53b48c883b513aaac8c12',1,'AfsQuery']]],
   ['set_5fquery',['set_query',['../classAfsAcp.html#a32de42cdbd8a2a64334733624db0f182',1,'AfsAcp\set_query()'],['../classAfsQueryBase.html#a0406312b3a7b01a30cdc3b31ba03668a',1,'AfsQueryBase\set_query()'],['../classAfsSearch.html#ae09979047904e6ec293dd1385cdda42d',1,'AfsSearch\set_query()']]],
   ['set_5fquery_5fcoder',['set_query_coder',['../classAfsHelperConfiguration.html#a135ab896c4875fe9edaf96e4baefc91b',1,'AfsHelperConfiguration\set_query_coder()'],['../classAfsSearch.html#a135ab896c4875fe9edaf96e4baefc91b',1,'AfsSearch\set_query_coder()']]],

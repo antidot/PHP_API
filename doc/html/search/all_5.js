@@ -8,5 +8,6 @@ var searchData=
   ['direct',['DIRECT',['../classAfsOrigin.html#a2188966368167ab2977d4cd6f73348ce',1,'AfsOrigin']]],
   ['docid',['DOCID',['../classAfsSortBuiltins.html#ab2515b031257e858586c8577786c36c0',1,'AfsSortBuiltins']]],
   ['doctype',['DOCTYPE',['../classAfsSortBuiltins.html#a1f181b931c1328d8924854f1a3abae0e',1,'AfsSortBuiltins']]],
+  ['documents',['DOCUMENTS',['../classAfsCount.html#a1ff3634fb28f76c10ab7f7c007f7027c',1,'AfsCount']]],
   ['domnodehelper',['DOMNodeHelper',['../classDOMNodeHelper.html',1,'']]]
 ];

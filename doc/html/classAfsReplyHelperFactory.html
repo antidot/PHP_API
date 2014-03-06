@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.2</span>
+   &#160;<span id="projectnumber">version 0.7.0</span>
    </div>
   </td>
  </tr>
@@ -104,6 +104,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7368ed4a3f4879904c91db054f238140"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsReplyHelperFactory.html#a7368ed4a3f4879904c91db054f238140">create</a> ($feed, $reply)</td></tr>
 <tr class="memdesc:a7368ed4a3f4879904c91db054f238140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates appropriate reply helper.  <a href="#a7368ed4a3f4879904c91db054f238140">More...</a><br/></td></tr>
 <tr class="separator:a7368ed4a3f4879904c91db054f238140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a039cefa6a0c7a49b221d0a8a5d48457a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsReplyHelperFactory.html#a039cefa6a0c7a49b221d0a8a5d48457a">create_replies</a> ($feed, $replies)</td></tr>
+<tr class="memdesc:a039cefa6a0c7a49b221d0a8a5d48457a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates list of reply helpers.  <a href="#a039cefa6a0c7a49b221d0a8a5d48457a">More...</a><br/></td></tr>
+<tr class="separator:a039cefa6a0c7a49b221d0a8a5d48457a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Factory for reply helper. </p>
@@ -169,10 +172,46 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a039cefa6a0c7a49b221d0a8a5d48457a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">create_replies </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$feed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$replies</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates list of reply helpers. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$feed</td><td>[in] name of the feed reply. </td></tr>
+    <tr><td class="paramname">$replies</td><td>[in] JSON decoded object which may contain replies.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>list of reply helpers. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 24 2014 14:15:14 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 6 2014 07:56:26 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

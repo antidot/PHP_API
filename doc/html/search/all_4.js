@@ -5,10 +5,12 @@ var searchData=
   ['check_5for_5fadd_5ffacet',['check_or_add_facet',['../classAfsFacetManager.html#a5431a0eb5b5d14c8d7c47643cede92a2',1,'AfsFacetManager']]],
   ['check_5funicity',['check_unicity',['../classAfsCoderBase.html#a6438a7ee07869af4f765c9419133f5c1',1,'AfsCoderBase']]],
   ['check_5fvalue',['check_value',['../classBasicEnum.html#a17fcbb019da0d5c4605962b913f9441f',1,'BasicEnum']]],
+  ['clusters',['CLUSTERS',['../classAfsCount.html#a7651b9ade18a0052339365e0a10d66fe',1,'AfsCount']]],
   ['concept',['CONCEPT',['../classAfsOrigin.html#ac5473e22704a2f1cdcb3f50608fdfa14',1,'AfsOrigin\CONCEPT()'],['../classAfsProducer.html#ac5473e22704a2f1cdcb3f50608fdfa14',1,'AfsProducer\CONCEPT()']]],
   ['create',['create',['../classAfsClientDataHelperFactory.html#af90dd0670cd108f120129827761e7414',1,'AfsClientDataHelperFactory\create()'],['../classAfsReplyHelperFactory.html#a7368ed4a3f4879904c91db054f238140',1,'AfsReplyHelperFactory\create()']]],
   ['create_5felements',['create_elements',['../classAfsFacetElementBuilder.html#a90959429cf1ed259a00086b902f773f9',1,'AfsFacetElementBuilder']]],
   ['create_5ffrom_5fparameters',['create_from_parameters',['../classAfsQuery.html#a233968501372f4c3569e206bae2b69b4',1,'AfsQuery']]],
+  ['create_5freplies',['create_replies',['../classAfsReplyHelperFactory.html#a039cefa6a0c7a49b221d0a8a5d48457a',1,'AfsReplyHelperFactory']]],
   ['concept_20names_2e',['Concept names.',['../group__default__concept.html',1,'']]],
   ['connection_20scheme',['Connection scheme',['../group__uri__scheme.html',1,'']]]
 ];

@@ -6,5 +6,6 @@ var searchData=
   ['check_5fvalue',['check_value',['../classBasicEnum.html#a17fcbb019da0d5c4605962b913f9441f',1,'BasicEnum']]],
   ['create',['create',['../classAfsClientDataHelperFactory.html#af90dd0670cd108f120129827761e7414',1,'AfsClientDataHelperFactory\create()'],['../classAfsReplyHelperFactory.html#a7368ed4a3f4879904c91db054f238140',1,'AfsReplyHelperFactory\create()']]],
   ['create_5felements',['create_elements',['../classAfsFacetElementBuilder.html#a90959429cf1ed259a00086b902f773f9',1,'AfsFacetElementBuilder']]],
-  ['create_5ffrom_5fparameters',['create_from_parameters',['../classAfsQuery.html#a233968501372f4c3569e206bae2b69b4',1,'AfsQuery']]]
+  ['create_5ffrom_5fparameters',['create_from_parameters',['../classAfsQuery.html#a233968501372f4c3569e206bae2b69b4',1,'AfsQuery']]],
+  ['create_5freplies',['create_replies',['../classAfsReplyHelperFactory.html#a039cefa6a0c7a49b221d0a8a5d48457a',1,'AfsReplyHelperFactory']]]
 ];

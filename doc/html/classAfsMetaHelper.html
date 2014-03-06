@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.6.2</span>
+   &#160;<span id="projectnumber">version 0.7.0</span>
    </div>
   </td>
  </tr>
@@ -122,6 +122,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa7c7b92bcf099b08921a4f3bbf41e167"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsMetaHelper.html#aa7c7b92bcf099b08921a4f3bbf41e167">get_producer</a> ()</td></tr>
 <tr class="memdesc:aa7c7b92bcf099b08921a4f3bbf41e167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve producer type.  <a href="#aa7c7b92bcf099b08921a4f3bbf41e167">More...</a><br/></td></tr>
 <tr class="separator:aa7c7b92bcf099b08921a4f3bbf41e167"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6918008ecac4c4e32a1e568448a5897a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsMetaHelper.html#a6918008ecac4c4e32a1e568448a5897a">has_cluster</a> ()</td></tr>
+<tr class="memdesc:a6918008ecac4c4e32a1e568448a5897a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether response contains clusters.  <a href="#a6918008ecac4c4e32a1e568448a5897a">More...</a><br/></td></tr>
+<tr class="separator:a6918008ecac4c4e32a1e568448a5897a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdb1f8cdb52d721fe1d21ee8ed7fab80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsMetaHelper.html#acdb1f8cdb52d721fe1d21ee8ed7fab80">get_cluster_id</a> ()</td></tr>
+<tr class="memdesc:acdb1f8cdb52d721fe1d21ee8ed7fab80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves filter identifier used to clusterize.  <a href="#acdb1f8cdb52d721fe1d21ee8ed7fab80">More...</a><br/></td></tr>
+<tr class="separator:acdb1f8cdb52d721fe1d21ee8ed7fab80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9c60351f3e517e5d8defda0debca833"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsMetaHelper.html#af9c60351f3e517e5d8defda0debca833">get_cluster_label</a> ()</td></tr>
+<tr class="memdesc:af9c60351f3e517e5d8defda0debca833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves filter label used to clusterize.  <a href="#af9c60351f3e517e5d8defda0debca833">More...</a><br/></td></tr>
+<tr class="separator:af9c60351f3e517e5d8defda0debca833"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe083716d50b3fb4057e519961b9235c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsMetaHelper.html#afe083716d50b3fb4057e519961b9235c">format</a> ()</td></tr>
 <tr class="memdesc:afe083716d50b3fb4057e519961b9235c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve meta as array.  <a href="#afe083716d50b3fb4057e519961b9235c">More...</a><br/></td></tr>
 <tr class="separator:afe083716d50b3fb4057e519961b9235c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,6 +190,42 @@ Public Member Functions</h2></td></tr>
 <li><code>producer:</code> name of the producer agent.</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>array filled with key/value pairs. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acdb1f8cdb52d721fe1d21ee8ed7fab80"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_cluster_id </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves filter identifier used to clusterize. </p>
+<dl class="section return"><dt>Returns</dt><dd>filter identifier. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af9c60351f3e517e5d8defda0debca833"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_cluster_label </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves filter label used to clusterize. </p>
+<dl class="section return"><dt>Returns</dt><dd>filter label. </dd></dl>
 
 </div>
 </div>
@@ -256,10 +301,28 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a6918008ecac4c4e32a1e568448a5897a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">has_cluster </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether response contains clusters. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> in cluster mode, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 24 2014 14:15:14 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 6 2014 07:56:26 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
