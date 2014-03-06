@@ -1,11 +1,13 @@
 <?php
 require_once 'AFS/SEARCH/afs_pager_helper.php';
+require_once 'AFS/SEARCH/afs_cluster_helper.php';
 require_once 'AFS/SEARCH/afs_facet_helper.php';
 require_once 'AFS/SEARCH/afs_query.php';
 require_once 'AFS/SEARCH/afs_producer.php';
 require_once 'AFS/SEARCH/afs_base_replyset_helper.php';
 require_once 'AFS/SEARCH/afs_reply_helper_factory.php';
 require_once 'AFS/SEARCH/afs_response_helper.php';
+require_once 'AFS/SEARCH/afs_facet_helper_retriever.php';
 require_once 'COMMON/afs_tools.php';
 
 
@@ -16,8 +18,9 @@ require_once 'COMMON/afs_tools.php';
  */
 class AfsReplysetHelper extends AfsBaseReplysetHelper
 {
-    private $facets = array();
+    private $facets = null;
     private $pager = null;
+    private $clusters = array();
 
     /** @brief Construct new replyset helper instance.
      *
@@ -27,8 +30,10 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
      */
     public function __construct($reply_set, AfsQuery $query, AfsHelperConfiguration $config)
     {
-        parent::__construct($reply_set, $config, new AfsReplyHelperFactory($config->get_reply_text_visitor()));
+        $reply_helper_factory = new AfsReplyHelperFactory($config->get_reply_text_visitor());
+        parent::__construct($reply_set, $config, $reply_helper_factory);
         $this->initialize_facet($reply_set, $query, $config);
+        $this->initialize_cluster($reply_set, $query, $config);
         $this->initialize_pager($reply_set, $query, $config);
     }
 
@@ -45,6 +50,25 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
         if ($facet_mgr->has_facets())
             sort_array_by_key(array_keys($facet_mgr->get_facets()), $facets);
         $this->facets = array_values($facets); // preserve compatibility
+    }
+
+    protected function initialize_cluster($reply_set, $query, $config)
+    {
+        if (property_exists($reply_set, 'content') && property_exists($reply_set->content, 'cluster')) {
+            $clustering_id = $this->get_meta()->get_cluster_id();
+            $facet_helper = AfsFacetHelperRetriever::get_helper($clustering_id, $this->facets);
+            $this->update_meta($facet_helper);
+            foreach ($reply_set->content->cluster as $cluster) {
+                $helper = new AfsClusterHelper($cluster, $this->get_meta(), $facet_helper, $query, $config);
+                $this->clusters[$helper->get_id()] = $helper;
+            }
+        }
+    }
+
+    protected function update_meta($facet_helper)
+    {
+        if (! is_null($facet_helper))
+            $this->get_meta()->set_cluster_label($facet_helper->get_label());
     }
 
     protected function initialize_pager($reply_set, $query, $config)
@@ -67,6 +91,45 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
     public function get_facets()
     {
         return $this->facets;
+    }
+
+    /** @brief Check whether clusters are defined.
+     * @return @c True when at least one cluster is defined, @c false otherwise.
+     */
+    public function has_cluster()
+    {
+        return ! empty($this->clusters);
+    }
+    /** @brief Retrieves all cluster replies.
+     * @return cluster replies.
+     */
+    public function get_clusters()
+    {
+        return $this->clusters;
+    }
+    /** @brief Retrieves replies from all clusters.
+     *
+     * Replies from all cluster are merged preserving cluster result order.
+     * @return Merged replies from all clusters.
+     */
+    public function get_cluster_replies()
+    {
+        $replies = array();
+        foreach ($this->clusters as $cluster)
+            $replies = array_merge($replies, $cluster->get_replies());
+        return $replies;
+    }
+    /** @brief Retrieves replies from all clusters and overspill replies.
+     *
+     * Replies from all clusters are merged with overspill replies. This is a
+     * shortcut for a call of both following methods: AfsReplysetHelper::get_cluster_replies
+     * and AfsReplysetHelper::get_replies.
+     *
+     * @return merged replies.
+     */
+    public function get_all_replies()
+    {
+        return array_merge($this->get_cluster_replies(), $this->get_replies());
     }
 
     /** @brief Checks whether pager is defined.
@@ -106,6 +169,12 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
             foreach ($this->get_facets() as $facet_id => $facet) {
                 $result['facets'][$facet_id] = $facet->format();
             }
+        }
+        if ($this->has_cluster()) {
+            $formatted_cluster = array();
+            foreach ($this->get_clusters() as $cluster_id => $cluster)
+                $formatted_cluster[$cluster_id] = $cluster->format();
+            $result['clusters'] = $formatted_cluster;
         }
         if ($this->has_pager())
             $result['pager'] = $this->get_pager()->format();

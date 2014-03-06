@@ -189,8 +189,6 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $config->set_helper_format(AfsHelperFormat::HELPERS);
-
         $facet_mgr = $config->get_facet_manager();
         $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
 
@@ -213,7 +211,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Boolean facet', $facets[0]->get_label());
         $elems = $facets[0]->get_elements();
         $this->assertEquals(2, count($elems));
-        // You can continue here if you want but unit tests already exists for 
+        // You can continue here if you want but unit tests already exists for
         // facets.
 
         $this->assertEquals(2, $helper->get_nb_replies());
@@ -221,7 +219,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('The <b>title</b> 116', $replies[0]->title);
         $this->assertEquals('The <b>title</b> 81', $replies[1]->title);
         // and so on...
-        
+
         $this->assertTrue($helper->has_pager());
         $pager = $helper->get_pager();
         $this->assertEquals($pager->get_next()->get_page(), '3');
@@ -412,8 +410,6 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $config->set_helper_format(AfsHelperFormat::HELPERS);
-
         $coder = new AfsQueryCoder('foo.php');
         $config->set_query_coder($coder);
         $facet_mgr = $config->get_facet_manager();
@@ -441,7 +437,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('BAD', $elems[0]->label);
         $this->assertTrue($elems[0]->link != null);
         $this->assertEquals($elems[0]->link, 'foo.php?replies=2&query=title&filter=BOOL_false');
-        // You can continue here if you want but unit tests already exists for 
+        // You can continue here if you want but unit tests already exists for
         // facets.
 
         $this->assertEquals(2, $helper->get_nb_replies());
@@ -449,7 +445,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('The <b>title</b> 116', $replies[0]->title);
         $this->assertEquals('The <b>title</b> 81', $replies[1]->title);
         // and so on...
-        
+
         $this->assertTrue($helper->has_pager());
         $pager = $helper->get_pager();
         $this->assertEquals('foo.php?replies=2&query=title&page=3', $pager->get_next());
@@ -668,7 +664,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('BAD', $elems[0]->label);
         $this->assertTrue($elems[0]->link != null);
         $this->assertEquals($elems[0]->link, 'foo.php?replies=2&query=title&filter=BOOL_false');
-        // You can continue here if you want but unit tests already exists for 
+        // You can continue here if you want but unit tests already exists for
         // facets.
 
         $this->assertEquals(2, $helper->get_nb_replies());
@@ -676,7 +672,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('The <b>title</b> 116', $replies[0]->get_title());
         $this->assertEquals('The <b>title</b> 81', $replies[1]->get_title());
         // and so on...
-        
+
         $this->assertTrue($helper->has_pager());
         $pager = $helper->get_pager()->format();
         $this->assertEquals('foo.php?replies=2&query=title&page=3', $pager['pages']['next']);
@@ -778,8 +774,6 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $config->set_helper_format(AfsHelperFormat::HELPERS);
-
         $facet_mgr = $config->get_facet_manager();
         $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
 
@@ -802,7 +796,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $replies = $helper->get_replies();
         $this->assertEquals('The <b>title</b> 116', $replies[0]->title);
         // and so on...
-        
+
         $this->assertFalse($helper->has_pager());
     }
 
@@ -901,8 +895,6 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $config->set_helper_format(AfsHelperFormat::HELPERS);
-
         $facet_mgr = $config->get_facet_manager();
         $facet_mgr->set_facet_stickyness('BOOL');
         $this->assertTrue($facet_mgr->has_facet('BOOL'));
@@ -998,8 +990,6 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $config->set_helper_format(AfsHelperFormat::HELPERS);
-
         $facet_mgr = $config->get_facet_manager();
         $facet_mgr->set_facet_stickyness('Foo');
         $this->assertTrue($facet_mgr->has_facet('Foo'));
@@ -1069,8 +1059,6 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $config->set_helper_format(AfsHelperFormat::HELPERS);
-
         $facet_mgr = $config->get_facet_manager();
         $facet_mgr->set_facet_sort_order(array('Foo', 'Bar'), AfsFacetSort::LAX);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
@@ -1170,8 +1158,6 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $config->set_helper_format(AfsHelperFormat::HELPERS);
-
         $facet_mgr = $config->get_facet_manager();
         $facet_mgr->set_facet_sort_order(array('Foo', 'Bar'), AfsFacetSort::LAX);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
@@ -1263,8 +1249,6 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $config->set_helper_format(AfsHelperFormat::HELPERS);
-
         $facet_mgr = $config->get_facet_manager();
         $facet_mgr->set_facet_sort_order(array('Foo', 'Bal', 'Bar'), AfsFacetSort::LAX);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
@@ -1282,6 +1266,278 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Foo', $facets[0]->get_id());
         $this->assertEquals('Bar', $facets[1]->get_id());
         $this->assertEquals('Baz', $facets[2]->get_id());
+    }
+
+    private function get_cluster_input_data()
+    {
+        return json_decode('{
+            "header": {
+                "query": {
+                    "userId": "user_52efac67e5abc",
+                    "sessionId": "3127b3a7-3de0-4cc9-b152-ef33d0c28a1a",
+                    "date": "2014-02-28T13:22:56+0000",
+                    "queryParam": [],
+                    "mainCtx": { "textQuery": "" },
+                    "textQuery": ""
+                },
+                "user": {
+                    "requestMethod": "GET",
+                    "agent": "Mozilla/5.0 (X11; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0 Iceweasel/24.0",
+                    "address": "10.61.8.236",
+                    "output": {
+                        "format": "JSON",
+                        "encoding": "gzip",
+                        "charset": "UTF-8"
+                    }
+                },
+                "performance": {
+                    "durationMs": 13
+                },
+                "info": { }
+            },
+            "replySet": [
+                {
+                    "meta": {
+                        "uri": "Catalog",
+                        "totalItems": 61,
+                        "totalItemsIsExact": true,
+                        "pageItems": 20,
+                        "firstPageItem": 1,
+                        "lastPageItem": 20,
+                        "durationMs": 6,
+                        "cluster": "marketing",
+                        "firstPaFId": 1,
+                        "lastPaFId": 1,
+                        "producer": "SEARCH",
+                        "totalItemsInClusters": 2,
+                        "nbClusters": 2
+                    },
+                    "facets": {
+                        "facet": [
+                            {
+                                "afs:t": "FacetTree",
+                                "node": [
+                                    {
+                                        "key": "OPERATION_9",
+                                        "labels": [
+                                            {
+                                                "lang": "FR",
+                                                "label": "5% sur les produtis textiles de plus de 100 euros"
+                                            }
+                                        ],
+                                        "items": 9
+                                    },
+                                    {
+                                        "key": "OPERATION_8",
+                                        "items": 6
+                                    }
+                                ],
+                                "layout": "TREE",
+                                "type": "STRING",
+                                "id": "marketing",
+                                "labels": [
+                                    {
+                                        "lang": "FR",
+                                        "label": "Marketing"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "content": {
+                        "cluster": [
+                            {
+                                "id": "OPERATION_8",
+                                "totalItems": 6,
+                                "totalItemsIsExact": true,
+                                "pageItems": 1,
+                                "firstPageItem": 1,
+                                "lastPageItem": 1,
+                                "reply": [
+                                    {
+                                        "docId": 64,
+                                        "uri": "166_en",
+                                        "title": [
+                                            {
+                                                "afs:t": "KwicString",
+                                                "text": "HTC Touch Diamond"
+                                            }
+                                        ],
+                                        "relevance": { "rank": 1 },
+                                        "clientData": [
+                                            {
+                                                "contents": "<product/>",
+                                                "id": "main",
+                                                "mimeType": "text/xml"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "OPERATION_9",
+                                "totalItems": 9,
+                                "totalItemsIsExact": true,
+                                "pageItems": 1,
+                                "firstPageItem": 1,
+                                "lastPageItem": 1,
+                                "reply": [
+                                    {
+                                        "docId": 16,
+                                        "uri": "112_fr",
+                                        "title": [
+                                            {
+                                                "afs:t": "KwicString",
+                                                "text": "ECCO Womens Golf Flexor Chaussures de golf"
+                                            }
+                                        ],
+                                        "relevance": { "rank": 2 },
+                                        "clientData": [
+                                            {
+                                                "contents": "<product/>",
+                                                "id": "main",
+                                                "mimeType": "text/xml"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "reply": [
+                            {
+                                "docId": 63,
+                                "uri": "165_en",
+                                "title": [
+                                    {
+                                        "afs:t": "KwicString",
+                                        "text": "My Computer"
+                                    }
+                                ],
+                                "abstract": [
+                                    {
+                                        "afs:t": "KwicString",
+                                        "text": "test description"
+                                    }
+                                ],
+                                "relevance": { "rank": 3 },
+                                "clientData": [
+                                    {
+                                        "contents": "<product/>",
+                                        "id": "main",
+                                        "mimeType": "text/xml"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "pager": {
+                        "nextPage": 2,
+                        "currentPage": 1,
+                        "page": [ 1, 2, 3, 4 ]
+                    }
+                }
+            ]
+        }');
+    }
+
+    public function testClustering()
+    {
+        $input = $this->get_cluster_input_data();
+
+        $config = new AfsHelperConfiguration();
+        $query = new AfsQuery();
+        $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
+
+        $this->assertEquals('marketing', $helper->get_meta()->get_cluster_id());
+        $this->assertEquals('Marketing', $helper->get_meta()->get_cluster_label());
+
+        $this->assertTrue($helper->has_cluster());
+
+        # First cluster from list of clusters
+        $clusters = $helper->get_clusters();
+        $this->assertEquals(2, count($clusters));
+        $cluster = reset($clusters);
+        $this->assertEquals('"OPERATION_8"', $cluster->get_id());
+        $this->assertEquals('OPERATION_8', $cluster->get_label());
+        $this->assertTrue($cluster->has_reply());
+        $replies = $cluster->get_replies();
+        $this->assertEquals(1, count($replies));
+        $this->assertEquals('166_en', $replies[0]->get_uri());
+
+        # Second cluster from list of clusters
+        $cluster = next($clusters);
+        $this->assertEquals('"OPERATION_9"', $cluster->get_id());
+        $this->assertEquals('5% sur les produtis textiles de plus de 100 euros', $cluster->get_label());
+        $this->assertTrue($cluster->has_reply());
+        $replies = $cluster->get_replies();
+        $this->assertEquals(1, count($replies));
+        $this->assertEquals('112_fr', $replies[0]->get_uri());
+
+        # Overspill
+        $this->assertTrue($helper->has_reply());
+        $replies = $helper->get_replies();
+        $this->assertEquals(1, count($replies));
+        $reply = reset($replies);
+        $this->assertEquals('165_en', $reply->get_uri());
+
+        # Merge replies from all cluster replies
+        $replies = $helper->get_cluster_replies();
+        $this->assertEquals(2, count($replies));
+        $this->assertEquals('166_en', $replies[0]->get_uri());
+        $this->assertEquals('112_fr', $replies[1]->get_uri());
+
+        # Merge all replies: cluster replies and overspill
+        $replies = $helper->get_all_replies();
+        $this->assertEquals(3, count($replies));
+        $this->assertEquals('166_en', $replies[0]->get_uri());
+        $this->assertEquals('112_fr', $replies[1]->get_uri());
+        $this->assertEquals('165_en', $replies[2]->get_uri());
+    }
+
+    public function testClusteringAsArray()
+    {
+        $input = $this->get_cluster_input_data();
+
+        $config = new AfsHelperConfiguration();
+        $query = new AfsQuery();
+        $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
+        $result = $helper->format();
+
+        $this->assertEquals('marketing', $result['meta']['cluster']);
+        $this->assertEquals('Marketing', $result['meta']['cluster_label']);
+
+        $clusters = $result['clusters'];
+        $this->assertFalse(empty($clusters));
+        $this->assertEquals(2, count($clusters));
+
+        # First cluster from list of clusters
+        $cluster = each($clusters);
+        $this->assertEquals('"OPERATION_8"', $cluster['key']);
+        $cluster = $cluster['value'];
+        $this->assertEquals('"OPERATION_8"', $cluster['id']);
+        $this->assertEquals('OPERATION_8', $cluster['label']);
+        $replies = $cluster['replies'];
+        $this->assertFalse(empty($replies));
+        $this->assertEquals(1, count($replies));
+        $this->assertEquals('166_en', $replies[0]['uri']);
+
+        # Second cluster from list of clusters
+        $cluster = each($clusters);
+        $this->assertEquals('"OPERATION_9"', $cluster['key']);
+        $cluster = $cluster['value'];
+        $this->assertEquals('"OPERATION_9"', $cluster['id']);
+        $this->assertEquals('5% sur les produtis textiles de plus de 100 euros', $cluster['label']);
+        $replies = $cluster['replies'];
+        $this->assertFalse(empty($replies));
+        $this->assertEquals(1, count($replies));
+        $this->assertEquals('112_fr', $replies[0]['uri']);
+
+        # Overspill
+        $replies = $result['replies'];
+        $this->assertFalse(empty($replies));
+        $this->assertEquals(1, count($replies));
+        $reply = $replies[0];
+        $this->assertEquals('165_en', $reply['uri']);
     }
 }
 

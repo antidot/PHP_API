@@ -362,6 +362,100 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->fail('Invalid sort order parameter should have raised an exception!');
     }
 
+    public function testNoCluster()
+    {
+        $query = new AfsQuery();
+        $this->assertFalse($query->has_cluster());
+        $this->assertFalse($query->has_max_clusters());
+        $this->assertFalse($query->has_overspill());
+        $this->assertEquals(null, $query->get_count_mode());
+    }
+    public function testSimpleCluster()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_cluster('Foo', 3);
+        $this->assertTrue($query->has_cluster());
+        $this->assertEquals('Foo', $query->get_cluster_id());
+        $this->assertEquals(3, $query->get_nb_replies_per_cluster());
+        $this->assertFalse($query->has_max_clusters());
+        $this->assertFalse($query->has_overspill());
+        $this->assertEquals(AfsCount::DOCUMENTS, $query->get_count_mode());
+    }
+    public function testClusterLimit()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_cluster('Foo', 3)->set_max_clusters(42);
+        $this->assertTrue($query->has_cluster());
+        $this->assertTrue($query->has_max_clusters());
+        $this->assertEquals(42, $query->get_max_clusters());
+        $this->assertFalse($query->has_overspill());
+        $this->assertEquals(AfsCount::DOCUMENTS, $query->get_count_mode());
+    }
+    public function testClusterOverspill()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_cluster('Foo', 3)->set_overspill();
+        $this->assertTrue($query->has_cluster());
+        $this->assertFalse($query->has_max_clusters());
+        $this->assertTrue($query->has_overspill());
+        $this->assertEquals(AfsCount::DOCUMENTS, $query->get_count_mode());
+
+        $query = $query->set_overspill(false);
+        $this->assertFalse($query->has_overspill());
+    }
+    public function testClusterCountMode()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_cluster('Foo', 3)->set_count(AfsCount::CLUSTERS);
+        $this->assertTrue($query->has_cluster());
+        $this->assertFalse($query->has_max_clusters());
+        $this->assertFalse($query->has_overspill());
+        $this->assertEquals(AfsCount::CLUSTERS, $query->get_count_mode());
+    }
+    public function testUnsetCluster()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_cluster('Foo', 3)
+            ->set_overspill()
+            ->set_max_clusters(42)
+            ->set_count(AfsCount::CLUSTERS);
+        $this->assertTrue($query->has_cluster());
+        $this->assertTrue($query->has_max_clusters());
+        $this->assertTrue($query->has_overspill());
+        $this->assertEquals(AfsCount::CLUSTERS, $query->get_count_mode());
+
+        $query = $query->unset_cluster();
+        $this->assertFalse($query->has_cluster());
+        $this->assertFalse($query->has_max_clusters());
+        $this->assertFalse($query->has_overspill());
+        $this->assertEquals(null, $query->get_count_mode());
+    }
+    public function testUninitializedClusterFailsOnMaxClusters()
+    {
+        $query = new AfsQuery();
+        try {
+            $query->set_max_clusters(42);
+            $this->fail('Setting Max Clusters on uninitialized cluster should have failed!');
+        } catch (AfsClusterException $e) {}
+    }
+    public function testUninitializedClusterFailsOnCount()
+    {
+        $query = new AfsQuery();
+        try {
+            $query->set_count(AfsCount::CLUSTERS);
+            $this->fail('Setting cluster count mode on uninitialized cluster should have failed!');
+        } catch (AfsClusterException $e) {}
+    }
+    public function testUninitializedClusterFailsOnOverspill()
+    {
+        $query = new AfsQuery();
+        try {
+            $query->set_overspill();
+            $this->fail('Setting overspill on uninitialized cluster should have failed!');
+        } catch (AfsClusterException $e) {}
+    }
+
+
     public function testOriginDefaultValue()
     {
         $query = new AfsQuery();
@@ -506,6 +600,10 @@ class QueryTest extends PHPUnit_Framework_TestCase
                        ->set_sort(AfsSortBuiltins::WEIGHT, AfsSortOrder::ASC)
                        ->add_sort('foo')
                        ->add_sort('BAR')
+                       ->set_cluster('CLUSTER', 42666)
+                       ->set_max_clusters(66642)
+                       ->set_overspill()
+                       ->set_count(AfsCount::CLUSTERS)
                        ->set_page(42)
                        ->set_from(AfsOrigin::SEARCHBOX)
                        ->add_log('loggy')
@@ -526,6 +624,14 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(AfsSortOrder::DESC, $clone->get_sort_order('foo'));
         $this->assertTrue($clone->has_sort('BAR'));
         $this->assertEquals(AfsSortOrder::DESC, $clone->get_sort_order('BAR'));
+
+        $this->assertTrue($clone->has_cluster());
+        $this->assertEquals('CLUSTER', $clone->get_cluster_id());
+        $this->assertEquals(42666, $clone->get_nb_replies_per_cluster());
+        $this->assertTrue($clone->has_max_clusters());
+        $this->assertEquals(66642, $clone->get_max_clusters());
+        $this->assertTrue($clone->has_overspill());
+        $this->assertEquals(AfsCount::CLUSTERS, $clone->get_count_mode());
 
         $this->assertEquals(AfsOrigin::SEARCHBOX, $clone->get_from());
         $logs = $clone->get_logs();
@@ -557,6 +663,11 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->set_sort(AfsSortBuiltins::WEIGHT, AfsSortOrder::ASC)
                        ->add_sort('foo')
                        ->add_sort('BAR');
+
+        $query = $query->set_cluster('CLUSTER', 666)
+                       ->set_max_clusters(3)
+                       ->set_overspill()
+                       ->set_count(AfsCount::CLUSTERS);
 
         $query = $query->set_page(42);
 
@@ -598,6 +709,15 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('BAR', $kv[0]);
         $this->assertEquals('DESC', $kv[1]);
 
+        $this->assertTrue(array_key_exists('cluster', $result));
+        $this->assertEquals('CLUSTER,666', $result['cluster']);
+        $this->assertTrue(array_key_exists('maxClusters', $result));
+        $this->assertEquals(3, $result['maxClusters']);
+        $this->assertTrue(array_key_exists('overspill', $result));
+        $this->assertEquals('true', $result['overspill']);
+        $this->assertTrue(array_key_exists('count', $result));
+        $this->assertEquals('clusters', $result['count']);
+
         $this->assertTrue(array_key_exists('page', $result));
         $this->assertTrue($result['page'] == 42);
 
@@ -622,6 +742,10 @@ class QueryTest extends PHPUnit_Framework_TestCase
             'sort' => array('afs:weight' => 'ASC',
                             'foo' => 'DESC',
                             'BAR' => 'DESC'),
+            'cluster' => 'CLUSTER,6',
+            'maxClusters' => '666',
+            'overspill' => 'true',
+            'count' => 'clusters',
             'from' => 'PAGER',
             'log' => array('loggy', 'loggo')));
 
@@ -653,6 +777,12 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($query->has_sort('BAR'));
         $this->assertEquals(AfsSortOrder::DESC, $query->get_sort_order('BAR'));
 
+        $this->assertEquals('CLUSTER', $query->get_cluster_id());
+        $this->assertEquals(6, $query->get_nb_replies_per_cluster());
+        $this->assertEquals(666, $query->get_max_clusters());
+        $this->assertTrue($query->has_overspill());
+        $this->assertEquals(AfsCount::CLUSTERS, $query->get_count_mode());
+
         $this->assertTrue($query->has_page());
         $this->assertTrue($query->get_page() == 42);
 
@@ -662,6 +792,20 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($logs));
         $this->assertEquals('loggy', $logs[0]);
         $this->assertEquals('loggo', $logs[1]);
+    }
+
+    public function testInitializeWithArrayWithoutOverspill()
+    {
+        $query = AfsQuery::create_from_parameters(array(
+            'cluster' => 'CLUSTER,6',
+            'maxClusters' => '666',
+            'count' => 'documents'));
+
+        $this->assertEquals('CLUSTER', $query->get_cluster_id());
+        $this->assertEquals(6, $query->get_nb_replies_per_cluster());
+        $this->assertEquals(666, $query->get_max_clusters());
+        $this->assertFalse($query->has_overspill());
+        $this->assertEquals(AfsCount::DOCUMENTS, $query->get_count_mode());
     }
 }
 

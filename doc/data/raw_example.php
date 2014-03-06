@@ -13,7 +13,11 @@ $search->set_query($query->set_lang('fr'));  // language is set manually in orde
 */
 $search->set_facet_sort_order(array('price_eur', 'marketing'), AfsFacetSort::LAX);
 $helper = $search->execute(AfsHelperFormat::HELPERS);
-$generated_url = $search->get_generated_url()
+$generated_url = $search->get_generated_url();
+
+$query = $search->get_query();
+$clustering_is_active = $query->has_cluster();
+$nsmap = array('ns' => 'http://ref.antidot.net/store/afs#');
 
 ?>
 
@@ -38,6 +42,7 @@ $generated_url = $search->get_generated_url()
     <div class="page-header">
       <h1>Raw example <small>based on the Antidot PHP API</small></h1>
     </div>
+    <!-- ####################### Search box ########################### -->
     <div class="row">
       <div class="col-md-5"></div>
       <div class="input-group col-md-2">
@@ -51,6 +56,7 @@ $generated_url = $search->get_generated_url()
       </div>
     </div>
 
+    <!-- ####################### Current filter parameters ########################### -->
 <?php
 $params = $search->get_query()->get_parameters(false);
 if (array_key_exists('filter', $params) && is_array($params['filter'])) {
@@ -72,6 +78,7 @@ if (array_key_exists('filter', $params) && is_array($params['filter'])) {
     </div>';
 } ?>
 
+    <!-- ####################### Promote ########################### -->
 <?php
 if ($helper->has_promote()) {
     echo '
@@ -111,6 +118,7 @@ if ($helper->has_replyset()) {
     <div class="row">
     <div class="col-md-3">
       <h2>Filters</h2>
+    <!-- ####################### Filters ########################### -->
 <?php
 foreach ($replyset->get_facets() as $facet) {
 /* foreach ($replyset->facets->facet as $facet) */
@@ -146,14 +154,15 @@ foreach ($facet->get_elements() as $value) {
 <?php } ?>
 
 <div class="col-md-9">
-  <div class="row">
+  <div class="row page-header">
     <div class="col-md-1"></div>
-    <div class="col-md-4">
+    <div class="col-md-2">
     <h2>Results <span class="label label-success"><?php echo $replyset->get_meta()->get_total_replies() ?></span></h2>
       <h4><span class="label label-info">Duration <?php echo $replyset->get_meta()->get_duration() ?> ms</span></h4>
     </div>
     <div class="col-md-1"></div>
     <div class="col-md-2">
+    <!-- ####################### Relevance ########################### -->
 <?php
     $query = $search->get_query();
     if ($query->has_sort(AfsSortBuiltins::RELEVANCE)) {
@@ -172,11 +181,77 @@ foreach ($facet->get_elements() as $value) {
 ?>
     <a href="<?php echo $relevance_link ?>" class="btn btn-default btn-lg active" role="button"><span class="glyphicon <?php echo $relevance_icon; ?>"></span> Relevance</a>
     </div>
-  </div>
-  <ul class="list-unstyled">
+    <div class="col-md-2">
 <?php
+$query_coder = $search->get_helpers_configuration()->get_query_coder();
+if ($clustering_is_active) {
+    $cluster_query = $query->unset_cluster();
+    $cluster_link = $query_coder->generate_link($query->unset_cluster());
+    $cluster_label = 'Remove clusters';
+} else {
+    $cluster_link = $query_coder->generate_link($query->set_cluster('marketing', 1)->set_overspill());
+    $cluster_label = 'Create cluster on "marketing" filter';
+} ?>
+      <a href="<?php echo $cluster_link ?>" class="btn btn-default btn-lg active" role="button"><?php echo $cluster_label ?></a>
+    </div>
+  </div>
+
+    <!-- ####################### Clusters ########################### -->
+<?php
+if ($clustering_is_active) {
+    foreach ($replyset->get_clusters() as $cluster) {
+        echo '
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+      <h3>
+        <span class="label label-success">
+          <a href="' . $query_coder->generate_link($cluster->get_query()) . '">' . $cluster->get_label() . '<a>
+        </span>
+      </h3>
+    </div>
+  </div>
+  <ul class="list-unstyled">';
+        foreach ($cluster->get_replies() as $reply) {
+            echo '
+          <li>
+              <h3>' . $reply->get_title() . '</h3>
+              <p><a href="' . $reply->get_uri() . '">' . $reply->get_uri() . '</a></p>
+              <p>' . $reply->get_abstract() . '</p>
+              <p>Some client data:
+                <ul>
+                  <li>Name: ' . $reply->get_clientdata()->get_value('/ns:product/ns:name', $nsmap) . '</li>
+                  <li>Availability: ' . $reply->get_clientdata()->get_value('/ns:product/ns:is_available', $nsmap) . '</li>
+                  <li>Prices:
+                    <ul>';
+// Here multiple values are retrieved from client data
+foreach ($reply->get_clientdata()->get_values('/ns:product/ns:prices/ns:price', $nsmap) as $value)
+    echo '<li>' . $value . '</li>';
+echo '
+                    </ul>
+                  </li>
+                </ul>
+              </p>
+          </li>';
+        }
+    echo '
+  </ul>';
+    }
+
+    echo '
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+      <h3><span class="label label-success">Other results</span></h3>
+    </div>
+  </div>';
+} ?>
+
+    <!-- ####################### Replies ########################### -->
+<?php
+echo '
+  <ul class="list-unstyled">';
 foreach ($replyset->get_replies() as $reply) {
-    $nsmap = array('ns' => 'http://ref.antidot.net/store/afs#');
 ?>
           <li>
               <h3><?php echo $reply->get_title() ?></h3>
@@ -203,6 +278,7 @@ foreach ($reply->get_clientdata()->get_values('/ns:product/ns:prices/ns:price', 
 </div>
     </div>
 
+    <!-- ####################### Pager ########################### -->
 <?php
 if ($replyset->has_pager()) {
     $pager = $replyset->get_pager();
@@ -230,6 +306,7 @@ foreach ($pager->get_all_pages() as $page => $url) {
 
     </div>
 
+    <!-- ####################### Spellcheck ########################### -->
 <?php } elseif ($helper->has_spellcheck()) { // if no replyset, let's check spellcheck ?>
     <div class="row">
       <div class="col-md-9">
@@ -260,6 +337,7 @@ foreach ($helper->get_spellchecks() as $feed => $suggestions) {
 <?php } ?>
       </div>
     </div>
+    <!-- ####################### Error ########################### -->
 <?php } elseif ($helper->in_error()) { // no spellcheck... is there any error? ?>
     <div class="row">
       <div class="col-md-9">

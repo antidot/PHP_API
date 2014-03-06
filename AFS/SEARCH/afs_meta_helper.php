@@ -11,6 +11,8 @@ class AfsMetaHelper extends AfsHelperBase
     private $total_replies = null;
     private $duration = null;
     private $producer = null;
+    private $cluster = null;
+    private $cluster_label = null;
 
     /** @brief Construct new instance from <tt>meta</tt> node.
      * @param $meta [in] meta data node of AFS reply.
@@ -21,6 +23,10 @@ class AfsMetaHelper extends AfsHelperBase
         $this->total_replies = $meta->totalItems;
         $this->duration = $meta->durationMs;
         $this->producer = $meta->producer;
+        if (property_exists($meta, 'cluster')) {
+            $this->cluster = $meta->cluster;
+            $this->cluster_label = $meta->cluster;
+        }
     }
 
     /** @brief Retrieve feed name of the reply.
@@ -52,6 +58,38 @@ class AfsMetaHelper extends AfsHelperBase
         return $this->producer;
     }
 
+    /** @brief Checks whether response contains clusters.
+     * @return @c True in cluster mode, @c false otherwise.
+     */
+    public function has_cluster()
+    {
+        return (! is_null($this->cluster));
+    }
+
+    /** @brief Retrieves filter identifier used to clusterize.
+     * @return filter identifier.
+     */
+    public function get_cluster_id()
+    {
+        return $this->cluster;
+    }
+
+    /** @brief Retrieves filter label used to clusterize.
+     * @return filter label.
+     */
+    public function get_cluster_label()
+    {
+        return $this->cluster_label;
+    }
+
+    /** @internal
+     * @brief Set cluster label (internal use only).
+     */
+    public function set_cluster_label($label)
+    {
+        $this->cluster_label = $label;
+    }
+
     /** @brief Retrieve meta as array.
      *
      * All data are store in <tt>key => value</tt> format:
@@ -64,10 +102,15 @@ class AfsMetaHelper extends AfsHelperBase
      */
     public function format()
     {
-        return array('feed' => $this->feed,
-                     'total_replies' => $this->total_replies,
-                     'duration' => $this->duration,
-                     'producer' => $this->producer);
+        $result = array('feed' => $this->feed,
+                        'total_replies' => $this->total_replies,
+                        'duration' => $this->duration,
+                        'producer' => $this->producer);
+        if (! is_null($this->cluster)) {
+            $result['cluster'] = $this->cluster;
+            $result['cluster_label'] = $this->cluster_label;
+        }
+        return $result;
     }
 }
 

@@ -3,6 +3,8 @@ require_once 'COMMON/afs_language.php';
 require_once 'AFS/afs_query_base.php';
 require_once 'AFS/SEARCH/afs_sort_order.php';
 require_once 'AFS/SEARCH/afs_sort_builtins.php';
+require_once 'AFS/SEARCH/afs_cluster_exception.php';
+require_once 'AFS/SEARCH/afs_count.php';
 
 /** @brief Represent an AFS query.
  *
@@ -30,6 +32,10 @@ class AfsQuery extends AfsQueryBase
     protected $lang = null;       // afs:lang
     protected $sort = array();    // afs:sort
     protected $facetDefault = array(); // afs:facetDefault
+    protected $cluster = null;
+    protected $maxClusters = null;
+    protected $overspill = null;
+    protected $count = null;      // afs:count for cluster mode
 
     /**
      * @brief Construct new AFS query object.
@@ -44,6 +50,10 @@ class AfsQuery extends AfsQueryBase
             $this->page = $afs_query->page;
             $this->lang = $afs_query->lang;
             $this->sort = $afs_query->sort;
+            $this->cluster = $afs_query->cluster;
+            $this->maxClusters = $afs_query->maxClusters;
+            $this->overspill = $afs_query->overspill;
+            $this->count = $afs_query->count;
         } else {
             $this->lang = new AfsLanguage(null);
             $this->facetDefault[] = 'replies=1000';
@@ -379,6 +389,170 @@ class AfsQuery extends AfsQueryBase
     }
     /**  @} */
 
+    /** @name Clustering
+     * @{ */
+
+    /** @brief Checks whether cluster is set for current query.
+     * @return @c True when cluster is defined for the query, @c false otherwise.
+     */
+    public function has_cluster()
+    {
+        return ! is_null($this->cluster);
+    }
+    /** @brief Defines new cluster query.
+     *
+     * @param $facet_id [in] Facet identifier used to make clusters.
+     * @param $replies_per_cluster [in] Number of replies provided by AFS
+     *        search engine per cluster reply.
+     * @return new up to date instance.
+     */
+    public function set_cluster($facet_id, $replies_per_cluster)
+    {
+        $copy = $this->copy();
+        $copy->on_assignment();
+        $copy->cluster = $facet_id . ',' . $replies_per_cluster;
+        $copy->count = AfsCount::DOCUMENTS;
+        return $copy;
+    }
+    /** @brief Unsets cluster definition.
+     * @return new up to date instance.
+     */
+    public function unset_cluster()
+    {
+        $copy = $this->copy();
+        $copy->cluster = null;
+        $copy->maxClusters = null;
+        $copy->overspill = null;
+        $copy->count = null;
+        return $copy;
+    }
+    /** @brief Retrieves cluster identifier.
+     * @return Filter identifier used to make the clusters.
+     * @exception AfsUninitializedClusterException when no cluster has been previously set.
+     */
+    public function get_cluster_id()
+    {
+        $tmp = $this->get_splitted_cluster_definition();
+        return $tmp[0];
+    }
+    /** @brief Retrieves maximum number of replies per cluster.
+     * @return Number of replies per cluster reply.
+     * @exception AfsUninitializedClusterException when no cluster has been previously set.
+     */
+    public function get_nb_replies_per_cluster()
+    {
+        $tmp = $this->get_splitted_cluster_definition();
+        return $tmp[1];
+    }
+    /** @internal
+     * @brief Split cluster property to retrieve facet id and nb replies per cluster.
+     */
+    private function get_splitted_cluster_definition()
+    {
+        $this->check_cluster_initialization();
+        return explode(',', $this->cluster);
+    }
+    /** @brief Checks whether number of cluster is limited.
+     *
+     * When no limit is set, one cluster is created per facet value.
+     * @return @c True when number of clusters is limited, @c false otherwise.
+     */
+    public function has_max_clusters()
+    {
+        return ! is_null($this->maxClusters);
+    }
+    /** @brief Defines maximum number of cluster replies shown in AFS response.
+     * @param $max_nb_of_clusters [in] Maximum number of clusters.
+     * @return new up to date instance.
+     */
+    public function set_max_clusters($max_nb_of_clusters)
+    {
+        $this->check_cluster_initialization();
+        $copy = $this->copy();
+        $copy->on_assignment();
+        $copy->maxClusters = $max_nb_of_clusters;
+        return $copy;
+    }
+    /** @internal
+     * Useful for parse_from_parameter method.
+     */
+    protected function set_maxClusters($max_nb_of_clusters)
+    {
+        return $this->set_max_clusters($max_nb_of_clusters);
+    }
+    /** @brief Retrieves maximum number of clusters.
+     * @return Maximum number of clusters or @c null when not set (ie no limit).
+     */
+    public function get_max_clusters()
+    {
+        return $this->maxClusters;
+    }
+    /** @brief Checks wether overspill has been activated.
+     * @return @c True when overspill is active, @c false otherwise.
+     */
+    public function has_overspill()
+    {
+        return ! is_null($this->overspill);
+    }
+    /** @brief Activates or deactivate overspill mode.
+     *
+     * When overspill is activated, replies that could not be fitted in
+     * clusters are added, in sorted order, after all clusters.
+     *
+     * @param $status [in] Activates (default: @c true) or deactivates (@c false)
+     *        overspill.
+     * @return new up to date instance.
+     */
+    public function set_overspill($status=true)
+    {
+        $this->check_cluster_initialization();
+        $copy = $this->copy();
+        if (true == $status)
+            $copy->overspill = 'true';
+        else
+            $copy->overspill = null;
+        return $copy;
+    }
+    /** @brief Retrieves count mode when cluster mode is active.
+     *
+     * Count mode influences number of replies value which corresponds to the
+     * number of documents (default) or the number of clusters.
+     *
+     * @return Current count mode. AfsCount::DOCUMENTS, AfsCount::CLUSTERS or
+     *         @c null when no specific count mode has been set.
+     */
+    public function get_count_mode()
+    {
+        return $this->count;
+    }
+    /** @brief Defines new count mode.
+     *
+     * @param $count_mode [in] New count mode to set. Available values are
+     *        AfsCount::DOCUMENTS, AfsCount::CLUSTERS or null to rely on
+     *        default AFS search engine count mode.
+     *
+     * @return new up to date instance.
+     */
+    public function set_count($count_mode)
+    {
+        $this->check_cluster_initialization();
+        if (!is_null($count_mode))
+            AfsCount::check_value($count_mode, 'Invalid count mode: ');
+        $copy = $this->copy();
+        $copy->on_assignment();
+        $copy->count = $count_mode;
+        return $copy;
+    }
+    /** @internal
+     * Checks whether cluster has been initialized otherwise raise an exception.
+     */
+    private function check_cluster_initialization()
+    {
+        if (! $this->has_cluster())
+            throw new AfsUninitializedClusterException();
+    }
+    /** @} */
+
     /** @name Full configuration through array of parameters
      * @{ */
 
@@ -388,9 +562,9 @@ class AfsQuery extends AfsQueryBase
      */
     public static function create_from_parameters(array $params)
     {
-        uksort($params, function($a, $b) { return $a == 'page' ? 1 : 0; });
+        $result = AfsQuery::work_on_specific_parameters($params);
+        $page = $result->get_page(); # page can be reset by some method calls
 
-        $result = new AfsQuery();
         foreach ($params as $param => $values) {
             $adder = 'add_' . $param;
             $setter = 'set_' . $param;
@@ -411,9 +585,25 @@ class AfsQuery extends AfsQueryBase
             } elseif (method_exists($result, $setter)) {
                 $result = $result->$setter($values);
             } else {
+                var_dump($result);
                 throw new InvalidArgumentException('Cannot initialize '
                     . 'query: unknown parameter ' . $param);
             }
+        }
+        $result->page = $page;
+        return $result;
+    }
+
+    private static function work_on_specific_parameters(array& $params)
+    {
+        $result = new AfsQuery();
+        if (array_key_exists('cluster', $params)) {
+            $result->cluster = $params['cluster'];
+            unset($params['cluster']);
+        }
+        if (array_key_exists('page', $params)) {
+            $result->page = $params['page'];
+            unset($params['page']);
         }
         return $result;
     }
@@ -421,7 +611,7 @@ class AfsQuery extends AfsQueryBase
 
     protected function get_relevant_parameters()
     {
-        $params = array('filter', 'sort');
+        $params = array('filter', 'sort', 'cluster', 'maxClusters', 'overspill', 'count');
         if ($this->page != 1)
             $params[] = 'page';
         if (! is_null($this->lang->lang))
