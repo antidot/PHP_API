@@ -11,7 +11,7 @@ function help()
 
 function retrieve_version()
 {
-    RESULT=$(cat afs_version.php | grep "'$1'" | sed -E "s/.*$1.*([0-9]+).*/\1/")
+    RESULT=$(cat afs_version.php | grep "'$1'" | sed -E "s/.*$1[^0-9]*([0-9]+)[^0-9]*/\1/")
 }
 
 function initialize_version()
@@ -26,7 +26,7 @@ function initialize_version()
 
 function update_version()
 {
-    sed -i -E "s/(.*$1.*)[0-9]+(.*)/\1$2\2/" afs_version.php
+    sed -i -E "s/(.*$1[^0-9]*)[0-9]+([^0-9]*)/\1$2\2/" afs_version.php
 }
 
 function update()
