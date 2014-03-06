@@ -1,7 +1,7 @@
 <?php
 require_once 'AFS/SEARCH/afs_facet_manager.php';
 require_once 'COMMON/afs_helper_base.php';
-require_once 'AFS/SEARCH/afs_facet_value_formatter.php';
+require_once 'AFS/SEARCH/afs_facet_helper_retriever.php';
 
 /** @brief Helper to manage facets. */
 class AfsFacetHelper extends AfsHelperBase
@@ -255,14 +255,7 @@ class AfsFacetElementBuilder
     public function create_elements($facet_id, $facet_element,
         AfsHelperConfiguration $config)
     {
-        $facet = $config->get_facet_manager()->get_facet($facet_id);
-        if ((AfsFacetType::STRING_TYPE == $facet->get_type()
-                || AfsFacetType::DATE_TYPE == $facet->get_type())
-                && AfsFacetLayout::TREE == $facet->get_layout()) {
-            $formatter = new AfsQuoteFacetValueIdFormatter();
-        } else {
-            $formatter = new AfsNoFacetValueIdFormatter();
-        }
+        $formatter = AfsFacetHelperRetriever::get_formatter($facet_id, $config);
         return $this->create_elements_recursively($facet_id, $facet_element,
             $formatter, $config);
     }
