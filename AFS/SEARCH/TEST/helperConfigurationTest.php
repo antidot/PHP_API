@@ -40,18 +40,18 @@ class HelperConfigurationTest extends PHPUnit_Framework_TestCase
     public function testRetrieveDefaultFormat()
     {
         $config = new AfsHelperConfiguration();
-        $this->assertEquals(AfsHelperFormat::ARRAYS, $config->get_helper_format());
-        $this->assertTrue($config->is_array_format());
-        $this->assertFalse($config->is_helper_format());
+        $this->assertEquals(AfsHelperFormat::HELPERS, $config->get_helper_format());
+        $this->assertFalse($config->is_array_format());
+        $this->assertTrue($config->is_helper_format());
     }
 
     public function testSetAndRetrieveFormat()
     {
         $config = new AfsHelperConfiguration();
-        $config->set_helper_format(AfsHelperFormat::HELPERS);
-        $this->assertEquals(AfsHelperFormat::HELPERS, $config->get_helper_format());
-        $this->assertFalse($config->is_array_format());
-        $this->assertTrue($config->is_helper_format());
+        $config->set_helper_format(AfsHelperFormat::ARRAYS);
+        $this->assertEquals(AfsHelperFormat::ARRAYS, $config->get_helper_format());
+        $this->assertTrue($config->is_array_format());
+        $this->assertFalse($config->is_helper_format());
     }
 
     public function testSetInvalidFormat()

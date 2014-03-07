@@ -13,7 +13,7 @@ abstract class AfsConfigurationBase
      */
     public function __construct()
     {
-        $this->helper_format = AfsHelperFormat::ARRAYS;
+        $this->helper_format = AfsHelperFormat::HELPERS;
         $this->user_session_mgr = new AfsUserSessionManager();
     }
 
@@ -21,7 +21,8 @@ abstract class AfsConfigurationBase
      * @{ */
 
     /** @brief Retrieves reply helper format.
-     * @return helper format (AfsHelperFormat::ARRAYS or AfsHelperFormat::HELPERS)
+     * @return helper format (AfsHelperFormat::ARRAYS or
+     *         AfsHelperFormat::HELPERS (default))
      */
     public function get_helper_format()
     {
