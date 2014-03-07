@@ -2,9 +2,27 @@
 require_once 'AFS/SEARCH/afs_pager_helper.php';
 require_once 'AFS/SEARCH/afs_query.php';
 require_once 'AFS/SEARCH/afs_query_coder.php';
+require_once 'AFS/SEARCH/afs_meta_helper.php';
 
 class PagerHelperTest extends PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+        $input = json_decode('{
+            "uri": "Catalog",
+            "totalItems": 62,
+            "totalItemsIsExact": true,
+            "pageItems": 10,
+            "firstPageItem": 1,
+            "lastPageItem": 20,
+            "durationMs": 6,
+            "firstPaFId": 1,
+            "lastPaFId": 1,
+            "producer": "SEARCH"
+        }');
+        $this->meta = new AfsMetaHelper($input);
+    }
+
     public function testDefaultPage()
     {
         $input = json_decode('{
@@ -18,7 +36,7 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
             }
         }');
 
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(),
+        $helper = new AfsPagerHelper($input->pager, $this->meta, new AfsQuery(),
             new AfsHelperConfiguration());
         try {
             $helper->get_previous();
@@ -49,7 +67,7 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
             }
         }');
 
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(),
+        $helper = new AfsPagerHelper($input->pager, $this->meta, new AfsQuery(),
             new AfsHelperConfiguration());
         try {
             $helper->get_next();
@@ -82,7 +100,7 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
             }
         }');
 
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(),
+        $helper = new AfsPagerHelper($input->pager, $this->meta, new AfsQuery(),
             new AfsHelperConfiguration());
         $format = $helper->format();
         $this->assertFalse(array_key_exists('next', $format['pages']));
@@ -110,7 +128,7 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
 
         $config = new AfsHelperConfiguration();
         $config->set_query_coder(new AfsQueryCoder('foo.php'));
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
+        $helper = new AfsPagerHelper($input->pager, $this->meta, new AfsQuery(), $config);
         $this->assertEquals($helper->get_previous(), 'foo.php?replies=10');
         $this->assertEquals('foo.php?replies=10&page=3', $helper->get_next());
 
@@ -142,7 +160,7 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
 
         $config = new AfsHelperConfiguration();
         $config->set_query_coder(new AfsQueryCoder('foo.php'));
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
+        $helper = new AfsPagerHelper($input->pager, $this->meta, new AfsQuery(), $config);
         $format = $helper->format();
 
         $this->assertEquals('foo.php?replies=10', $format['pages']['previous']);
@@ -167,7 +185,7 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
 
         $config = new AfsHelperConfiguration();
         $config->set_query_coder(new AfsQueryCoder('foo.php'));
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
+        $helper = new AfsPagerHelper($input->pager, $this->meta, new AfsQuery(), $config);
         $this->assertEquals(111, $helper->get_current_no());
 
         $pages = $helper->get_all_pages();
@@ -195,7 +213,7 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
 
         $config = new AfsHelperConfiguration();
         $config->set_query_coder(new AfsQueryCoder('foo.php'));
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
+        $helper = new AfsPagerHelper($input->pager, $this->meta, new AfsQuery(), $config);
         $this->assertEquals(111, $helper->get_current_no());
 
         $pages = $helper->get_all_pages();
@@ -226,7 +244,7 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
 
         $config = new AfsHelperConfiguration();
         $config->set_query_coder(new AfsQueryCoder('foo.php'));
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
+        $helper = new AfsPagerHelper($input->pager, $this->meta, new AfsQuery(), $config);
         $this->assertEquals(111, $helper->get_current_no());
 
         $pages = $helper->get_all_pages();
@@ -258,7 +276,7 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
 
         $config = new AfsHelperConfiguration();
         $config->set_query_coder(new AfsQueryCoder('foo.php'));
-        $helper = new AfsPagerHelper($input->pager, new AfsQuery(), $config);
+        $helper = new AfsPagerHelper($input->pager, $this->meta, new AfsQuery(), $config);
         $this->assertEquals(111, $helper->get_current_no());
 
         $pages = $helper->get_all_pages();
@@ -277,6 +295,101 @@ class PagerHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo.php?replies=10&page=666', $key_value['value']);
     }
 
+    public function testComputedLastPage1()
+    {
+        $input = json_decode('{
+            "uri": "Catalog",
+            "totalItems": 62,
+            "totalItemsIsExact": true,
+            "pageItems": 10,
+            "firstPageItem": 1,
+            "lastPageItem": 20,
+            "durationMs": 6,
+            "firstPaFId": 1,
+            "lastPaFId": 1,
+            "producer": "SEARCH"
+        }');
+        $meta = new AfsMetaHelper($input);
+
+        $input = json_decode('{
+            "pager": {
+                "previousPage": 42,
+                "nextPage": 666,
+                "currentPage": 111,
+                "page": [ 1 ]
+            }
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $helper = new AfsPagerHelper($input->pager, $meta, new AfsQuery(), $config);
+
+        $this->assertEquals(7, $helper->get_last_page_no());
+        $page_info = $helper->get_last_page();
+        $this->assertEquals(7, $page_info[0]);
+        $this->assertEquals(7, $page_info[1]->get_page());
+    }
+    public function testComputedLastPage2()
+    {
+        $input = json_decode('{
+            "uri": "Catalog",
+            "totalItems": 59,
+            "totalItemsIsExact": true,
+            "pageItems": 10,
+            "firstPageItem": 1,
+            "lastPageItem": 20,
+            "durationMs": 6,
+            "firstPaFId": 1,
+            "lastPaFId": 1,
+            "producer": "SEARCH"
+        }');
+        $meta = new AfsMetaHelper($input);
+
+        $input = json_decode('{
+            "pager": {
+                "previousPage": 42,
+                "nextPage": 666,
+                "currentPage": 111,
+                "page": [ 1 ]
+            }
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_query_coder(new AfsQueryCoder('foo.php'));
+        $helper = new AfsPagerHelper($input->pager, $meta, new AfsQuery(), $config);
+
+        $this->assertEquals(6, $helper->get_last_page_no());
+    }
+    public function testComputedLastPage3()
+    {
+        $input = json_decode('{
+            "uri": "Catalog",
+            "totalItems": 60,
+            "totalItemsIsExact": true,
+            "pageItems": 10,
+            "firstPageItem": 1,
+            "lastPageItem": 20,
+            "durationMs": 6,
+            "firstPaFId": 1,
+            "lastPaFId": 1,
+            "producer": "SEARCH"
+        }');
+        $meta = new AfsMetaHelper($input);
+
+        $input = json_decode('{
+            "pager": {
+                "previousPage": 42,
+                "nextPage": 666,
+                "currentPage": 111,
+                "page": [ 1 ]
+            }
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_query_coder(new AfsQueryCoder('foo.php'));
+        $helper = new AfsPagerHelper($input->pager, $meta, new AfsQuery(), $config);
+
+        $this->assertEquals(6, $helper->get_last_page_no());
+    }
 }
 
 

@@ -19,6 +19,7 @@ class MetaHelperTest extends PHPUnit_Framework_TestCase
         $meta = new AfsMetaHelper($input->meta);
         $this->assertEquals($meta->get_feed(), 'TOTO');
         $this->assertEquals($meta->get_total_replies(), 200);
+        $this->assertEquals($meta->get_replies_per_page(), 2);
         $this->assertEquals($meta->get_duration(), 66);
         $this->assertEquals($meta->get_producer(), 'SEARCH');
         $this->assertFalse($meta->has_cluster());
@@ -43,6 +44,7 @@ class MetaHelperTest extends PHPUnit_Framework_TestCase
         $meta = new AfsMetaHelper($input);
         $this->assertEquals('Catalog', $meta->get_feed());
         $this->assertEquals(61, $meta->get_total_replies());
+        $this->assertEquals($meta->get_replies_per_page(), 20);
         $this->assertEquals(6, $meta->get_duration());
         $this->assertEquals('SEARCH', $meta->get_producer());
         $this->assertTrue($meta->has_cluster());
@@ -71,6 +73,8 @@ class MetaHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($meta['feed'], 'TOTO');
         $this->assertTrue(array_key_exists('total_replies', $meta));
         $this->assertEquals($meta['total_replies'], 200);
+        $this->assertTrue(array_key_exists('replies_per_page', $meta));
+        $this->assertEquals($meta['replies_per_page'], 2);
         $this->assertTrue(array_key_exists('duration', $meta));
         $this->assertEquals($meta['duration'], 66);
         $this->assertTrue(array_key_exists('producer', $meta));
@@ -102,6 +106,8 @@ class MetaHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($meta['feed'], 'Catalog');
         $this->assertTrue(array_key_exists('total_replies', $meta));
         $this->assertEquals($meta['total_replies'], 61);
+        $this->assertTrue(array_key_exists('replies_per_page', $meta));
+        $this->assertEquals($meta['replies_per_page'], 20);
         $this->assertTrue(array_key_exists('duration', $meta));
         $this->assertEquals($meta['duration'], 6);
         $this->assertTrue(array_key_exists('producer', $meta));

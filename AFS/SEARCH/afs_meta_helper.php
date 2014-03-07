@@ -9,6 +9,7 @@ class AfsMetaHelper extends AfsHelperBase
 {
     private $feed = null;
     private $total_replies = null;
+    private $replies_per_page = null;
     private $duration = null;
     private $producer = null;
     private $cluster = null;
@@ -21,6 +22,7 @@ class AfsMetaHelper extends AfsHelperBase
     {
         $this->feed = $meta->uri;
         $this->total_replies = $meta->totalItems;
+        $this->replies_per_page = $meta->pageItems;
         $this->duration = $meta->durationMs;
         $this->producer = $meta->producer;
         if (property_exists($meta, 'cluster')) {
@@ -42,6 +44,13 @@ class AfsMetaHelper extends AfsHelperBase
     public function get_total_replies()
     {
         return $this->total_replies;
+    }
+    /** @brief Retrieves  number of replies per page.
+     * @return number of replies per page.
+     */
+    public function get_replies_per_page()
+    {
+        return $this->replies_per_page;
     }
     /** @brief Retrieve reply computation time for the feed.
      * @return duration in milliseconds.
@@ -95,6 +104,7 @@ class AfsMetaHelper extends AfsHelperBase
      * All data are store in <tt>key => value</tt> format:
      * @li @c feed: feed name,
      * @li @c total_replies: total number of replies for current query,
+     * @li @c replies_per_page: number of replies per page,
      * @li @c duration: time to compute the reply (in milliseconds),
      * @li @c producer: name of the producer agent.
      *
@@ -104,6 +114,7 @@ class AfsMetaHelper extends AfsHelperBase
     {
         $result = array('feed' => $this->feed,
                         'total_replies' => $this->total_replies,
+                        'replies_per_page' => $this->replies_per_page,
                         'duration' => $this->duration,
                         'producer' => $this->producer);
         if (! is_null($this->cluster)) {

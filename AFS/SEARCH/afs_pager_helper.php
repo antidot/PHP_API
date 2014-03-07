@@ -12,15 +12,18 @@ require_once 'AFS/SEARCH/afs_helper_configuration.php';
 class AfsPagerHelper extends AfsHelperBase
 {
     private $pager = null;
+    private $last_page = null;
     private $query = null;
     private $config = null;
     const PREVIOUS_NAME = 'previousPage';
     const NEXT_NAME = 'nextPage';
     const CURRENT_NAME = 'currentPage';
+    const LAST_PAGE = 'lastPage';
 
     /** @brief Construct helper with pager and current query.
      *
      * @param $pager [in] pager retrieved from reply.
+     * @param $meta [in] meta data of the replyset.
      * @param $query [in] current @a AfsQuery which will be used to generate
      *        appropriate queries (see bellow @a get_pages, @a get_previous and
      *        @a get_next).
@@ -28,7 +31,7 @@ class AfsPagerHelper extends AfsHelperBase
      *
      * @exception InvalidArgumentException @a pager is invalid.
      */
-    public function __construct($pager, AfsQuery $query,
+    public function __construct($pager, AfsMetaHelper $meta, AfsQuery $query,
         AfsHelperConfiguration $config)
     {
         if (! property_exists($pager, AfsPagerHelper::CURRENT_NAME)) {
@@ -37,6 +40,7 @@ class AfsPagerHelper extends AfsHelperBase
         $this->pager = $pager;
         $this->query = $query;
         $this->config = $config;
+        $this->initialize_last_page($meta);
     }
 
     /** @brief Retrieves all numbered pages.
@@ -104,6 +108,35 @@ class AfsPagerHelper extends AfsHelperBase
     public function get_next()
     {
         return $this->get_typed(AfsPagerHelper::NEXT_NAME);
+    }
+
+    private function initialize_last_page($meta)
+    {
+        $page_no = ceil($meta->get_total_replies() / $meta->get_replies_per_page());
+        $query = $this->query->set_page($page_no);
+        if ($this->config->has_query_coder())
+            $second = $this->config->get_query_coder()->generate_link($query);
+        else
+            $second = $query;
+        $this->last_page = array($page_no, $second);
+    }
+    /** @brief Retrieves last page number along with corresponding query/URL.
+     *
+     * When a query coder is available, an URL is returned as second paramter
+     * instead of AfsQuery.
+     *
+     * @return Array with last page available and query/URL.
+     */
+    public function get_last_page()
+    {
+        return $this->last_page;
+    }
+    /** @brief Retrieves last page number.
+     * @return Last page number.
+     */
+    public function get_last_page_no()
+    {
+        return $this->last_page[0];
     }
 
     /** @brief Retrieves pages as a simple array with key/value pairs.
