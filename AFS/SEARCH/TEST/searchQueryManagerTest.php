@@ -67,15 +67,19 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($origin, $params['afs:from']);
     }
 
-    private function checkFacetDefaultValues($values)
+    private function checkFacetDefaultValues($values, $exists=true)
     {
         $params = $this->connector->get_parameters();
         $this->assertTrue(array_key_exists('afs:facetDefault', $params));
-        foreach ($values as $value)
-            $this->assertTrue(in_array($value, $params['afs:facetDefault']));
+        foreach ($values as $value) {
+            if ($exists)
+                $this->assertTrue(in_array($value, $params['afs:facetDefault']));
+            else
+                $this->assertFalse(in_array($value, $params['afs:facetDefault']));
+        }
     }
 
-    private function checkFacetOptions($facet_id, $option)
+    private function checkFacetOptions($facet_id, $option, $exists=true)
     {
         $params = $this->connector->get_parameters();
         $this->assertTrue(array_key_exists('afs:facet', $params), 'No facet option available');
@@ -84,8 +88,12 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
             $res = explode(',', $facet_option);
             $facet_options[$res[0]] = $res[1];
         }
-        $this->assertTrue(array_key_exists($facet_id, $facet_options), 'No facet option available for facet: ' . $facet_id);
-        $this->assertEquals($option, $facet_options[$facet_id]);
+        if ($exists) {
+            $this->assertTrue(array_key_exists($facet_id, $facet_options), 'No facet option available for facet: ' . $facet_id);
+            $this->assertEquals($option, $facet_options[$facet_id]);
+        } else {
+            $this->assertFalse(array_key_exists($facet_id, $facet_options), '!! Facet option available for facet: ' . $facet_id);
+        }
     }
 
 
@@ -202,7 +210,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     {
         $query = new AfsQuery();
         $this->qm->send($query);
-        $this->checkFacetDefaultValues(array('sticky=false'));
+        $this->checkFacetDefaultValues(array('sticky=false'), false);
     }
     public function testFacetDefaultSticky()
     {
@@ -211,14 +219,29 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->qm->send($query);
         $this->checkFacetDefaultValues(array('sticky=true'));
     }
-    public function testFacetNonSticky()
+    public function testFacetNonStickyWithDefaultNonSticky()
     {
         $query = new AfsQuery();
         $this->facet_mgr->set_facet_stickyness('FOO', false);
         $this->qm->send($query);
+        $this->checkFacetOptions('FOO', 'sticky=false', false);
+    }
+    public function testFacetNonStickyWithDefaultSticky()
+    {
+        $query = new AfsQuery();
+        $this->facet_mgr->set_facet_stickyness('FOO', false);
+        $this->facet_mgr->set_facets_stickyness();
+        $this->qm->send($query);
         $this->checkFacetOptions('FOO', 'sticky=false');
     }
-    public function testFacetSticky()
+    public function testFacetStickyWithDefaultNonSticky()
+    {
+        $query = new AfsQuery();
+        $this->facet_mgr->set_facet_stickyness('FOO', true);
+        $this->qm->send($query);
+        $this->checkFacetOptions('FOO', 'sticky=true');
+    }
+    public function testFacetStickyWithDefaultSticky()
     {
         $query = new AfsQuery();
         $this->facet_mgr->set_facet_stickyness('FOO', true);
