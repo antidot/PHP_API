@@ -168,7 +168,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
 {
     private $client_data = null;
     private $doc = null;
-    private $need_callbacks = false;
+    private $callbacks = array();   // callbacks activated on specific node name
     private static $afs_ns = 'http://ref.antidot.net/v7/afs#';
 
     /** @brief Construct new instance of XML helper.
@@ -189,7 +189,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
             $contents = str_replace_first('>',
                 ' xmlns:afs="' . AfsXmlClientDataHelper::$afs_ns . '">',
                 $client_data->contents);
-            $this->need_callbacks = true;
+            $this->init_callbacks();
         } else {
             $contents = $client_data->contents;
         }
@@ -220,7 +220,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
             return $this->client_data->contents;
         } else {
             $items = $this->apply_xpath($path, $nsmap);
-            $named_callbacks = $this->init_callbacks($callbacks);
+            $named_callbacks = $this->update_callbacks($callbacks);
             return DOMNodeHelper::get_text($items->item(0), $named_callbacks);
         }
     }
@@ -248,7 +248,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
             return array($this->client_data->contents);
         } else {
             $items = $this->apply_xpath($path, $nsmap);
-            $named_callbacks = $this->init_callbacks($callbacks);
+            $named_callbacks = $this->update_callbacks($callbacks);
             $result = array();
             foreach ($items as $item) {
                 $result[] = DOMNodeHelper::get_text($item, $named_callbacks);
@@ -295,20 +295,16 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         return 'application/xml';
     }
 
-    private function init_callbacks($callbacks)
+    private function init_callbacks()
     {
-        if ($this->need_callbacks) {
-            if (empty($callbacks)) {
-                $callbacks = array();
-                $callbacks[] = new BoldFilterNode('match',
-                    AfsXmlClientDataHelper::$afs_ns);
-                $callbacks[] = new TruncatedFilterNode('trunc',
-                    AfsXmlClientDataHelper::$afs_ns);
-            }
-            return array(XML_ELEMENT_NODE => $callbacks);
-        } else {
-            return array();
-        }
+        $this->callbacks[] = new BoldFilterNode('match', AfsXmlClientDataHelper::$afs_ns);
+        $this->callbacks[] = new TruncatedFilterNode('trunc', AfsXmlClientDataHelper::$afs_ns);
+    }
+    private function update_callbacks($callbacks)
+    {
+        if (empty($callbacks))
+            $callbacks = $this->callbacks;
+        return array(XML_ELEMENT_NODE => $callbacks);
     }
 }
 
