@@ -166,7 +166,7 @@ class AfsClientDataHelperFactory
 /** @brief XML client data helper. */
 class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClientDataHelperInterface
 {
-    private $client_data = null;
+    private $contents = null;
     private $doc = null;
     private $callbacks = array();   // callbacks activated on specific node name
     private static $afs_ns = 'http://ref.antidot.net/v7/afs#';
@@ -178,7 +178,6 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
     {
         parent::__construct($client_data);
 
-        $this->client_data = $client_data;
         // Client data content is not XML valid when highlight is activated for
         // client data and a match occurs: no afs namespace prefix is defined!
         // No namespace declared for truncated client data...
@@ -186,15 +185,15 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         $has_trunc = false;
         if (strpos($client_data->contents, '<afs:match>') !== false
                 || strpos($client_data->contents, '<afs:trunc/>') !== false) {
-            $contents = str_replace_first('>',
+            $this->contents = str_replace_first('>',
                 ' xmlns:afs="' . AfsXmlClientDataHelper::$afs_ns . '">',
                 $client_data->contents);
             $this->init_callbacks();
         } else {
-            $contents = $client_data->contents;
+            $this->contents = $client_data->contents;
         }
         $this->doc = new DOMDocument();
-        $this->doc->loadXML($contents);
+        $this->doc->loadXML($this->contents);
     }
 
     /** @brief Retrieves text from XML node.
@@ -217,7 +216,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
     public function get_value($path=null, $nsmap=array(), $callbacks=array())
     {
         if (is_null($path)) {
-            return $this->client_data->contents;
+            return $this->contents;
         } else {
             $items = $this->apply_xpath($path, $nsmap);
             $named_callbacks = $this->update_callbacks($callbacks);
@@ -245,7 +244,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
     public function get_values($path=null, $nsmap=array(), $callbacks=array())
     {
         if (is_null($path)) {
-            return array($this->client_data->contents);
+            return array($this->contents);
         } else {
             $items = $this->apply_xpath($path, $nsmap);
             $named_callbacks = $this->update_callbacks($callbacks);
