@@ -1,5 +1,6 @@
 <?php
 require_once 'AFS/SEARCH/FILTER/afs_filter.php';
+require_once 'AFS/SEARCH/FILTER/afs_filter_wrapper.php';
 
 
 /** @brief Factory class to create combinator filter objects.
@@ -56,7 +57,7 @@ class AfsBaseCombinatorFilter
      */
     public function filter($id)
     {
-        $this->right = new AfsFilter($id, $this);
+        $this->right = new AfsFilterWrapper($this, new AfsFilter($id));
         return $this->right;
     }
 
@@ -66,7 +67,7 @@ class AfsBaseCombinatorFilter
      */
     public function group($element)
     {
-        $this->right = new AfsGroupFilter($element, $this);
+        $this->right = new AfsFilterWrapper($this, new AfsGroupFilter($element));
         return $this->right;
     }
 

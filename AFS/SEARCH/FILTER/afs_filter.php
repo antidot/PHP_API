@@ -18,19 +18,14 @@ function filter($id)
 class AfsFilter
 {
     private $id = null;
-    private $previous = null;
 
 
     /** @brief Constructs new filter instance.
-     *
      * @param $id [in] Filter identifier (should be a string).
-     * @param $previous [in] Previous element when combining multiple filters
-     *        (default @c null).
      */
-    public function __construct($id, $previous=null)
+    public function __construct($id)
     {
         $this->id = $id;
-        $this->previous = $previous;
     }
 
     /** @brief Create new filter operator object.
@@ -56,16 +51,10 @@ class AfsFilter
     }
 
     /** @brief Transforms this instance in its string representation.
-     * @param $current [in] Force output to string representation of this
-     *        instance when set to @c true or output string representation of
-     *        previous element when set to @c false (default).
      * @return string representation of the instance.
      */
-    public function to_string($current=false)
+    public function to_string()
     {
-        if ($current || is_null($this->previous))
-            return $this->id;
-        else
-            return $this->previous->to_string();
+        return $this->id;
     }
 }

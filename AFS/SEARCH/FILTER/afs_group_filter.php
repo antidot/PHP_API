@@ -2,29 +2,39 @@
 require_once 'AFS/SEARCH/FILTER/afs_combinable_filter.php';
 
 
-function group($elements)
+/** @brief Helper function to create new AfsGroup instance.
+ * @param $filter_expr [in] One filter or combined and/or grouped filters.
+ * @return newly created AfsGroup instance.
+ */
+function group($filter_expr)
 {
-    return new AfsGroupFilter($elements);
+    return new AfsGroupFilter($filter_expr);
 }
 
 
+/** @brief Class used to group filter expressions.
+ *
+ * Example:
+ * @code GROUP(filter_1 AND filter_2) OR filter_1 @endcode
+ */
 class AfsGroupFilter extends AfsCombinableFilter
 {
-    private $elements = null;
-    private $previous = null;
+    private $filter_expr = null;
 
 
-    public function __construct($elements, $previous=null)
+    /** @brief Constructs new group instance.
+     * @param $filter_expr [in] Valid filter expression.
+     */
+    public function __construct($filter_expr)
     {
-        $this->elements = $elements;
-        $this->previous = $previous;
+        $this->filter_expr = $filter_expr;
     }
 
-    public function to_string($current=false)
+    /** @brief Transforms this instance in its string representation.
+     * @return string representation of the instance.
+     */
+    public function to_string()
     {
-        if ($current || is_null($this->previous))
-            return '(' . $this->elements->to_string() . ')';
-        else
-            return $this->previous->to_string();
+        return '(' . $this->filter_expr->to_string() . ')';
     }
 }
