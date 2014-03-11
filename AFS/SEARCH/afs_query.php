@@ -411,7 +411,6 @@ class AfsQuery extends AfsQueryBase
         $copy = $this->copy();
         $copy->on_assignment();
         $copy->cluster = $facet_id . ',' . $replies_per_cluster;
-        $copy->count = AfsCount::DOCUMENTS;
         return $copy;
     }
     /** @brief Unsets cluster definition.

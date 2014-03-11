@@ -379,7 +379,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, $query->get_nb_replies_per_cluster());
         $this->assertFalse($query->has_max_clusters());
         $this->assertFalse($query->has_overspill());
-        $this->assertEquals(AfsCount::DOCUMENTS, $query->get_count_mode());
+        $this->assertEquals(null, $query->get_count_mode());
     }
     public function testClusterLimit()
     {
@@ -389,7 +389,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($query->has_max_clusters());
         $this->assertEquals(42, $query->get_max_clusters());
         $this->assertFalse($query->has_overspill());
-        $this->assertEquals(AfsCount::DOCUMENTS, $query->get_count_mode());
+        $this->assertEquals(null, $query->get_count_mode());
     }
     public function testClusterOverspill()
     {
@@ -398,7 +398,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($query->has_cluster());
         $this->assertFalse($query->has_max_clusters());
         $this->assertTrue($query->has_overspill());
-        $this->assertEquals(AfsCount::DOCUMENTS, $query->get_count_mode());
+        $this->assertEquals(null, $query->get_count_mode());
 
         $query = $query->set_overspill(false);
         $this->assertFalse($query->has_overspill());
@@ -411,6 +411,15 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($query->has_max_clusters());
         $this->assertFalse($query->has_overspill());
         $this->assertEquals(AfsCount::CLUSTERS, $query->get_count_mode());
+    }
+    public function testClusterDocumentsCountMode()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_cluster('Foo', 3)->set_count(AfsCount::DOCUMENTS);
+        $this->assertTrue($query->has_cluster());
+        $this->assertFalse($query->has_max_clusters());
+        $this->assertFalse($query->has_overspill());
+        $this->assertEquals(AfsCount::DOCUMENTS, $query->get_count_mode());
     }
     public function testUnsetCluster()
     {
