@@ -287,6 +287,19 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
         $data2 = $mgr->get_clientdata('foo');
         $this->assertEquals('data <b>0</b>', $data2->get_value('/clientdata/data/data1[1]'));
     }
+
+    public function testRawXmlClientDataWithNamespace()
+    {
+        $input = json_decode('[
+              {
+                "contents": "<clientdata><data><data1>data <afs:match>0</afs:match></data1><data1>data <afs:match>1</afs:match> foo</data1></data></clientdata>",
+                "id": "foo",
+                "mimeType": "text/xml"
+              }
+            ]');
+        $mgr = new AfsClientDataManager($input);
+        $data = $mgr->get_clientdata('foo')->get_value();
+        $doc = new DOMDocument();
+        $doc->loadXML($data);
+    }
 }
-
-
