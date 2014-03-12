@@ -1,4 +1,6 @@
 <?php
+/** @file afs_filter.php */
+
 require_once 'AFS/SEARCH/FILTER/afs_operator_filter.php';
 
 /** @brief Helper function to create new AfsFilter instance.

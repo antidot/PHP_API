@@ -1,4 +1,5 @@
 <?php
+/** @file afs_group_filter.php */
 require_once 'AFS/SEARCH/FILTER/afs_combinable_filter.php';
 
 
