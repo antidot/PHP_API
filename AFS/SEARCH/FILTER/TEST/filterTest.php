@@ -76,5 +76,25 @@ class FilterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('ID>=666', $filter->to_string());
     }
 
+    public function testIntegerValue()
+    {
+        $filter = filter('ID')->equal->value(42);
+        $this->assertEquals('ID=42', $filter->to_string());
+    }
+    public function testFloatValue()
+    {
+        $filter = filter('ID')->equal->value(66.6);
+        $this->assertEquals('ID=66.6', $filter->to_string());
+    }
+    public function testTrueBoolValue()
+    {
+        $filter = filter('ID')->equal->value(true);
+        $this->assertEquals('ID=true', $filter->to_string());
+    }
+    public function testFalseBoolValue()
+    {
+        $filter = filter('ID')->equal->value(FALSE);
+        $this->assertEquals('ID=false', $filter->to_string());
+    }
 
 }

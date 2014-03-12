@@ -68,6 +68,8 @@ abstract class AfsBaseOperatorFilter
      */
     public function value($value)
     {
+        if (is_bool($value))
+            $value = ($value) ? 'true' : 'false';
         return new AfsValuedFilter($this, $value);
     }
 
