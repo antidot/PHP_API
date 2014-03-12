@@ -1,5 +1,5 @@
 <?php
-require_once 'AFS/afs_exception.php';
+require_once 'COMMON/afs_exception.php';
 
 
 /** @brief Base class for all ACP exceptions. */

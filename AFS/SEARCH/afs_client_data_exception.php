@@ -1,5 +1,5 @@
 <?php
-require_once 'AFS/afs_exception.php';
+require_once 'COMMON/afs_exception.php';
 
 /** @brief Base exception class for all client data access errors. */
 abstract class AfsClientDataException extends AfsBaseException
