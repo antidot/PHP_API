@@ -46,6 +46,7 @@ class AfsFacetManager
      */
     public function set_facet_sort_order(array $ids, $mode)
     {
+        AfsFacetSort::check_value($mode, 'Invalid sort order: ');
         sort_array_by_key($ids, $this->facets, "simple_facet_creator");
         $this->facet_sort_mode = $mode;
     }

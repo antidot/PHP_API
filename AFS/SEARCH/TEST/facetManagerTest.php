@@ -121,6 +121,27 @@ class FacetManagerTest extends PHPUnit_Framework_TestCase
             $this->fail('Existing facet with different parameters should have raise exception!');
         } catch (AfsInvalidFacetParameterException $e) { }
     }
+
+    public function testFacetStrictSortOrder()
+    {
+        $mgr = new AfsFacetManager();
+        $mgr->set_facet_sort_order(array('foo', 'bar'), AfsFacetSort::STRICT);
+        $this->assertEquals(true, $mgr->is_facet_sort_order_strict());
+    }
+    public function testFacetLaxSortOrder()
+    {
+        $mgr = new AfsFacetManager();
+        $mgr->set_facet_sort_order(array('foo', 'bar'), AfsFacetSort::LAX);
+        $this->assertEquals(false, $mgr->is_facet_sort_order_strict());
+    }
+    public function testFacetInvalidSortOrder()
+    {
+        $mgr = new AfsFacetManager();
+        try {
+            $mgr->set_facet_sort_order(array('foo', 'bar'), 'FOO');
+            $this->fail('Invalid sort order should have raised exception');
+        } catch (InvalidArgumentException $e) { }
+    }
 }
 
 
