@@ -38,7 +38,7 @@ PROJECT_NAME           = "Antidot PHP API"
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = "version 0.8.1"
+PROJECT_NUMBER         = "version 0.9.0"
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
@@ -632,7 +632,7 @@ SHOW_USED_FILES        = NO
 # (if specified).
 # The default value is: YES.
 
-SHOW_FILES             = NO
+SHOW_FILES             = YES
 
 # Set the SHOW_NAMESPACES tag to NO to disable the generation of the Namespaces
 # page. This will remove the Namespaces entry from the Quick Index and from the

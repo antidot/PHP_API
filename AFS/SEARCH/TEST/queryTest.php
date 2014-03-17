@@ -1,5 +1,7 @@
 <?php ob_start();
-require_once "AFS/SEARCH/afs_query.php";
+require_once 'AFS/SEARCH/afs_query.php';
+require_once 'AFS/SEARCH/afs_interval_helper.php';
+require_once 'AFS/SEARCH/FILTER/afs_filter.php';
 
 
 class QueryTest extends PHPUnit_Framework_TestCase
@@ -56,6 +58,13 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($query->has_filter('foo', 'bar'));
         $this->assertTrue($query->has_filter('foo', 'baz'));
     }
+    public function testAddFilterArrayValues()
+    {
+        $query = new AfsQuery();
+        $query = $query->add_filter('foo', array('bar', 'baz'));
+        $this->assertTrue($query->has_filter('foo', 'bar'));
+        $this->assertTrue($query->has_filter('foo', 'baz'));
+    }
     public function testAddValuesToFilters()
     {
         $query = new AfsQuery();
@@ -84,6 +93,24 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($query->has_filter('foo', 'bar'));
         $this->assertFalse($query->has_filter('foo', 'baz'));
         $this->assertTrue($query->has_filter('foo', 'foz'));
+    }
+    public function testOverwriteMultipleValuesForFilter()
+    {
+        $query = new AfsQuery();
+        $query = $query->add_filter('foo', 'bar');
+        $query = $query->add_filter('foo', 'baz');
+        $query = $query->set_filter('foo', array('for', 'foz'));
+        $this->assertFalse($query->has_filter('foo', 'bar'));
+        $this->assertFalse($query->has_filter('foo', 'baz'));
+        $this->assertTrue($query->has_filter('foo', 'foz'));
+        $this->assertTrue($query->has_filter('foo', 'foz'));
+    }
+
+    public function testSetIntervalValueToFilter()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_filter('foo', AfsIntervalHelper::create(42, 666));
+        $this->assertTrue($query->has_filter('foo', '[42 .. 666]'));
     }
 
     public function testHasNoFilter()
@@ -173,6 +200,49 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(empty($filters));
         $this->assertTrue(in_array('foo', $query->get_filters()));
         $this->assertTrue(in_array('foz', $query->get_filters()));
+    }
+
+    public function testNoAdvancedFilter()
+    {
+        $query = new AfsQuery();
+        $this->assertFalse($query->has_advanced_filter());
+    }
+    public function testOneAdvancedFilter()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_advanced_filter(filter('FOO')->less->value('bar'));
+        $this->assertTrue($query->has_advanced_filter());
+        $advanced_filters = $query->get_advanced_filters();
+        $this->assertEquals(1, count($advanced_filters));
+        $this->assertEquals('FOO<bar', $advanced_filters[0]);
+    }
+    public function testMultipleAdvancedFilter()
+    {
+        $query = new AfsQuery();
+        $query = $query->add_advanced_filter(filter('FOO')->less->value('bar'))
+            ->add_advanced_filter(filter('FOZ')->greater->value('baz'));
+        $this->assertTrue($query->has_advanced_filter());
+        $advanced_filters = $query->get_advanced_filters();
+        $this->assertEquals(2, count($advanced_filters));
+        $this->assertEquals('FOO<bar', $advanced_filters[0]);
+        $this->assertEquals('FOZ>baz', $advanced_filters[1]);
+    }
+    public function testOverrideAdvancedFilter()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_advanced_filter(filter('FOO')->less->value('bar'));
+        $query = $query->set_advanced_filter(filter('FOZ')->less->value('baz'));
+        $this->assertTrue($query->has_advanced_filter());
+        $advanced_filters = $query->get_advanced_filters();
+        $this->assertEquals(1, count($advanced_filters));
+        $this->assertEquals('FOZ<baz', $advanced_filters[0]);
+    }
+    public function testResetAdvancedFilter()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_advanced_filter(filter('FOO')->less->value('bar'));
+        $query = $query->reset_advanced_filter();
+        $this->assertFalse($query->has_advanced_filter());
     }
 
     public function testHasNoFeedSet()
@@ -616,6 +686,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
                        ->set_page(42)
                        ->set_from(AfsOrigin::SEARCHBOX)
                        ->add_log('loggy')
+                       ->add_advanced_filter(filter('foo')->greater->value(666))
                        ->auto_set_from();
         $clone = new AfsQuery($query);
         $this->assertTrue($clone->get_query('query') == 'query');
@@ -647,6 +718,10 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($logs));
         $this->assertEquals('loggy', $logs[0]);
 
+        $this->assertTrue($clone->has_advanced_filter());
+        $adv_filters = $clone->get_advanced_filters();
+        $this->assertEquals('foo>666', $adv_filters[0]);
+
         // Need to call specific method to check that auto set from is active
         $clone = $clone->add_filter('youhou', 'bloublou');
         $this->assertEquals(AfsOrigin::FACET, $clone->get_from());
@@ -677,6 +752,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
                        ->set_max_clusters(3)
                        ->set_overspill()
                        ->set_count(AfsCount::CLUSTERS);
+
+        $query = $query->set_advanced_filter(filter('FOO')->less_equal->value(42));
 
         $query = $query->set_page(42);
 
@@ -726,6 +803,9 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('true', $result['overspill']);
         $this->assertTrue(array_key_exists('count', $result));
         $this->assertEquals('clusters', $result['count']);
+
+        $this->assertTrue(array_key_exists('advancedFilter', $result));
+        $this->assertEquals('FOO<=42', $result['advancedFilter'][0]);
 
         $this->assertTrue(array_key_exists('page', $result));
         $this->assertTrue($result['page'] == 42);

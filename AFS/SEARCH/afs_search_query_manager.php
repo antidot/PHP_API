@@ -39,17 +39,16 @@ class AfsSearchQueryManager
      * @brief Add options specific to facets
      *
      * Currently managed options are:
-     * - <tt>afs:facet stickyness</tt> to defined dynamically sticky facets
-     *   individually or globally.
+     * - <tt>afs:facet stickyness</tt> to defined dynamically sticky facets.
      *
      * @param $params [in-out] array of parameter to update with facet options.
      */
     private function add_facet_options(&$params)
     {
         $facet_mgr = $this->config->get_facet_manager();
-        if (! array_key_exists('afs:facetDefault', $params))
-            $params['afs:facetDefault'] = array();
-        if ($facet_mgr->get_facets_stickyness()) {
+        if ($facet_mgr->get_default_stickyness()) {
+            if (! array_key_exists('afs:facetDefault', $params))
+                $params['afs:facetDefault'] = array();
             $params['afs:facetDefault'][] = 'sticky=true';
             $default_sticky = true;
         } else {
@@ -60,9 +59,9 @@ class AfsSearchQueryManager
             if (empty($params['afs:facet']))
                 $params['afs:facet'] = array();
             foreach ($facet_mgr->get_facets() as $name => $facet) {
-                $sticky = $facet->is_sticky();
-                if ($default_sticky || $sticky)
-                    $params['afs:facet'][] = $name . ',sticky=' . ($sticky ? 'true' : 'false');
+                $sticky = $facet_mgr->is_sticky($facet);
+                if ($default_sticky != $sticky)
+                    $params['afs:facet'][] = $name . ',sticky=' .  ($sticky ? 'true' : 'false');
             }
 
             if ($facet_mgr->is_facet_sort_order_strict())
@@ -104,24 +103,29 @@ class AfsSearchQueryManager
         $params = array();
         foreach ($query->get_parameters() as $param => $values) {
             if ($param == 'filter') {
-                if (! empty($values)) {
-                    $params['afs:filter'] = array();
-                    foreach ($values as $facet => $ids) {
-                        $params['afs:filter'][] = $this->format_filter($facet,
-                                                                       $ids);
-                    }
-                }
+                foreach ($values as $facet => $ids)
+                    $this->fill_in_filter($params, $this->format_filter($facet, $ids));
             } elseif ($param == 'sort') {
                 if (! empty($values)) {
                     foreach ($values as $name => $order) {
                         $params['afs:sort'][] = $this->format_sort($name, $order);
                     }
                 }
+            } elseif ($param == 'advancedFilter') {
+                foreach ($values as $value)
+                    $this->fill_in_filter($params, $value);
             } else {
                 $params['afs:' . $param] = $values;
             }
         }
         return $params;
+    }
+
+    private function fill_in_filter(array& $params, $value)
+    {
+        if (! array_key_exists('afs:filter', $params))
+            $params['afs:filter'] = array();
+        $params['afs:filter'][] = $value;
     }
 
     /** @internal
@@ -139,15 +143,7 @@ class AfsSearchQueryManager
      */
     private function format_filter($name, $values)
     {
-        $facets = $this->config->get_facet_manager()->get_facets();
-        if (empty($facets[$name])) {
-            if (count($values) > 1) {
-                error_log('No facet named "' . $name . '" is currently registered. Only first facet value will be used to query AFS search engine');
-            }
-            return $name . '=' . $values[0];
-        } else {
-            return $facets[$name]->join_values($values);
-        }
+        return $this->config->get_facet_manager()->get_or_create_facet($name)->join_values($values);
     }
 
     private function format_sort($name, $order)

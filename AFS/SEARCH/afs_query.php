@@ -36,6 +36,7 @@ class AfsQuery extends AfsQueryBase
     protected $maxClusters = null;
     protected $overspill = null;
     protected $count = null;      // afs:count for cluster mode
+    protected $advancedFilter = array();  // exposed only to AFS search engine
 
     /**
      * @brief Construct new AFS query object.
@@ -54,6 +55,7 @@ class AfsQuery extends AfsQueryBase
             $this->maxClusters = $afs_query->maxClusters;
             $this->overspill = $afs_query->overspill;
             $this->count = $afs_query->count;
+            $this->advancedFilter = $afs_query->advancedFilter;
         } else {
             $this->lang = new AfsLanguage(null);
             $this->facetDefault[] = 'replies=1000';
@@ -82,33 +84,35 @@ class AfsQuery extends AfsQueryBase
     /** @name Filter management
      * @{ */
 
-    /** @brief Assign new value to specific facet replacing any existing one.
+    /** @brief Assign new value(s) to specific facet replacing any existing one.
      * @param $facet_id [in] id of the facet to update.
-     * @param $value [in] new value to filter on.
+     * @param $values [in] new value(s) to filter on.
      * @return new up to date instance.
      */
-    public function set_filter($facet_id, $value)
+    public function set_filter($facet_id, $values)
     {
         $copy = $this->copy();
         $copy->on_assignment();
-        $copy->filter[$facet_id] = array($value);
+        if (! is_array($values))
+            $values = array($values);
+        $copy->filter[$facet_id] = $values;
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
-    /** @brief Assign new value to specific facet.
+    /** @brief Assign new value(s) to specific facet.
      * @param $facet_id [in] id of the facet for which new @a value should be
      *        added.
-     * @param $value [in] value to add to the facet.
+     * @param $values [in] value(s) to add to the facet.
      * @return new up to date instance.
      */
-    public function add_filter($facet_id, $value)
+    public function add_filter($facet_id, $values)
     {
         $copy = $this->copy();
         $copy->on_assignment();
         if (empty($copy->filter[$facet_id]))
-        {
             $copy->filter[$facet_id] = array();
-        }
-        $copy->filter[$facet_id][] = $value;
+        if (! is_array($values))
+            $values = array($values);
+        $copy->filter[$facet_id] = array_merge($copy->filter[$facet_id], $values);
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
     /** @brief Remove existing value from specific facet.
@@ -122,14 +126,11 @@ class AfsQuery extends AfsQueryBase
     {
         $copy = $this->copy();
         $copy->on_assignment();
-        if (! empty($copy->filter[$facet_id]))
-        {
+        if (! empty($copy->filter[$facet_id])) {
             $pos = array_search($value, $copy->filter[$facet_id]);
             unset($copy->filter[$facet_id][$pos]);
             if (empty($copy->filter[$facet_id]))
-            {
                 unset($copy->filter[$facet_id]);
-            }
         }
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
@@ -144,20 +145,13 @@ class AfsQuery extends AfsQueryBase
      */
     public function has_filter($facet_id, $value)
     {
-        if (empty($this->filter[$facet_id]))
-        {
+        if (empty($this->filter[$facet_id])) {
             return false;
-        }
-        else
-        {
+        } else {
             if (! isset($value))
-            {
                 return true;
-            }
             else
-            {
                 return in_array($value, $this->filter[$facet_id]);
-            }
         }
     }
     /** @brief Retrieve the list of values for specific facet id.
@@ -179,6 +173,57 @@ class AfsQuery extends AfsQueryBase
     {
         return array_keys($this->filter);
     }
+    /**  @} */
+
+    /** @name Advanced filter management
+     *
+     * These filters are intended to be exposed to AFS search engine only.
+     * @{ */
+    /** @brief Checks whether at least one advanced filter is defined.
+     * @return @c True when one or more advanced filters have been defined,
+     *         @c false otherwise.
+     */
+    public function has_advanced_filter()
+    {
+        return ! empty($this->advancedFilter);
+    }
+    /** @brief Retrieves advanced filters.
+     * @return Advanced filters.
+     */
+    public function get_advanced_filters()
+    {
+        return $this->advancedFilter;
+    }
+    /** @brief Defines new advanced filter replacing any existing ones.
+     * @param $filter [in] Advanced filter to set.
+     * @return new up to date instance.
+     */
+    public function set_advanced_filter(AfsFilterWrapper $filter)
+    {
+        $copy = $this->copy();
+        $copy->advancedFilter = array($filter->to_string());
+        return $copy;
+    }
+    /** @brief Appends new advanced filter to the query.
+     * @param $filter [in] Advanced filter to add.
+     * @return new up to date instance.
+     */
+    public function add_advanced_filter(AfsFilterWrapper $filter)
+    {
+        $copy = $this->copy();
+        $copy->advancedFilter[] = $filter->to_string();
+        return $copy;
+    }
+    /** @brief Remove any advanced filter definition from the query.
+     * @return new up to date instance.
+     */
+    public function reset_advanced_filter()
+    {
+        $copy = $this->copy();
+        $copy->advancedFilter = array();
+        return $copy;
+    }
+
     /**  @} */
 
     /** @name Page management
@@ -621,7 +666,7 @@ class AfsQuery extends AfsQueryBase
 
     protected function get_additional_parameters()
     {
-        return array('facetDefault');
+        return array('facetDefault', 'advancedFilter');
     }
     /**  @} */
 }

@@ -62,37 +62,61 @@ class SearchTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($facet_mgr->has_facet('FOO'));
     }
 
-    public function testDefaultFacetOptionNonSticky()
+    public function testDefaultFacetOptionMultiValuedMode()
     {
         $search = new AfsSearch('127.0.0.1', 42);
-        $search->set_facets_stickyness(false);
+        $search->set_default_multi_selection_facets();
         $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
-        $this->assertFalse($facet_mgr->get_facets_stickyness());
+        $this->assertEquals(AfsFacetMode::OR_MODE, $facet_mgr->get_default_facets_mode());
     }
-    public function testDefaultFacetOptionSticky()
+    public function testDefaultFacetOptionSingleValuedMode()
     {
         $search = new AfsSearch('127.0.0.1', 42);
-        $search->set_facets_stickyness(true);
+        $search->set_default_mono_selection_facets();
         $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
-        $this->assertTrue($facet_mgr->get_facets_stickyness());
+        $this->assertEquals(AfsFacetMode::SINGLE_MODE, $facet_mgr->get_default_facets_mode());
     }
-    public function testFacetNonSticky()
+    public function testFacetMultiValued()
     {
         $search = new AfsSearch('127.0.0.1', 42);
-        $search->set_facet_stickyness('FOO', false);
+        $search->set_multi_selection_facets('FOO');
         $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
         $this->assertTrue($facet_mgr->has_facet('FOO'));
         $facet = $facet_mgr->get_facet('FOO');
-        $this->assertFalse($facet->is_sticky());
+        $this->assertTrue($facet->has_or_mode());
     }
-    public function testFacetSticky()
+    public function testFacetsMultiValued()
     {
         $search = new AfsSearch('127.0.0.1', 42);
-        $search->set_facet_stickyness('FOO', true);
+        $facets = array('FOO', 'BAR');
+        $search->set_multi_selection_facets($facets);
+        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
+        foreach ($facets as $facet) {
+            $this->assertTrue($facet_mgr->has_facet($facet));
+            $facet = $facet_mgr->get_facet($facet);
+            $this->assertTrue($facet->has_or_mode());
+        }
+    }
+    public function testFacetSingleValued()
+    {
+        $search = new AfsSearch('127.0.0.1', 42);
+        $search->set_mono_selection_facets('FOO');
         $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
         $this->assertTrue($facet_mgr->has_facet('FOO'));
         $facet = $facet_mgr->get_facet('FOO');
-        $this->assertTrue($facet->is_sticky());
+        $this->assertTrue($facet->has_single_mode());
+    }
+    public function testFacetsSingleValued()
+    {
+        $search = new AfsSearch('127.0.0.1', 42);
+        $facets = array('FOO', 'BAR');
+        $search->set_mono_selection_facets($facets);
+        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
+        foreach ($facets as $facet) {
+            $this->assertTrue($facet_mgr->has_facet($facet));
+            $facet = $facet_mgr->get_facet($facet);
+            $this->assertTrue($facet->has_single_mode());
+        }
     }
 
     public function testSmoothFacetSortOrder()

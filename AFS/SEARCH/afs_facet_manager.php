@@ -13,31 +13,41 @@ require_once 'COMMON/afs_tools.php';
 class AfsFacetManager
 {
     private $facets = array();
-    private $stickyness = false;
+    private $facet_mode = AfsFacetMode::OR_MODE;
     private $facet_sort_mode = null;
 
     /** @name Global facet management
      * @{ */
 
-    /** @brief Defines stickyness for all facets.
+    /** @brief Defines default facet mode.
      *
-     * By default, facets are not sticky.
+     * By default, facet mode is set to AfsFacetMode::OR_MODE.
      *
-     * @param $state [in] stickyness state: @c true (default) to set all facets
-     *        sticky, @c false
+     * @param $mode [in] Facet mode, see @a AfsFacetMode for more details.
+     *
+     * @exception InvalidArgumentException when provided mode is invalid.
      */
-    public function set_facets_stickyness($state=true)
+    public function set_default_facets_mode($mode)
     {
-        $this->stickyness = $state;
+        AfsFacetMode::check_value($mode);
+        if (AfsFacetMode::UNSPECIFIED_MODE == $mode)
+            throw new InvalidArgumentException('Invalid ' . $mode . ' for default facet mode.');
+        $this->facet_mode = $mode;
     }
 
-    /** @brief Retrieves facet stickyness for all facets
-     * @return @c true when facets should be sticky by default, @c false
-     * otherwise.
+    /** @brief Retrieves default facet mode.
+     * @return facet mode (see AfsFacetMode for more details)
      */
-    public function get_facets_stickyness()
+    public function get_default_facets_mode()
     {
-        return $this->stickyness;
+        return $this->facet_mode;
+    }
+    /** @brief Retrieves default stickyness of all facets
+     * @return @c true when facets should be sticky, @c false otherwise.
+     */
+    public function get_default_stickyness()
+    {
+        return $this->is_mode_sticky($this->facet_mode);
     }
 
     /** @brief Defines facet sort order.
@@ -62,17 +72,21 @@ class AfsFacetManager
     /** @name Fine grained facet management
      * @{ */
 
-    /** @brief Defines stickyness for specific facet.
-     * @param $id [in] Identifier of the facet.
-     * @param $state [in] @c true (default) to set facet sticky, @c false
-     *        otherwise.
+    /** @brief Defines facet mode for one or more facets.
+     * @param $mode [in] Facet mode to set (see AfsFacetMode for more details).
+     * @param $ids [in] Identifier(s) of the facet(s).
+     * @exception InvalidArgumentException when provided mode is invalid.
      */
-    public function set_facet_stickyness($id, $state=true)
+    public function set_facets_mode($mode, $ids)
     {
-        if (! array_key_exists($id, $this->facets))
-            $this->facets[$id] = new AfsFacet($id, AfsFacetType::UNKNOWN_TYPE);
-        $facet = $this->facets[$id];
-        $facet->set_sticky($state);
+        if (! is_array($ids))
+            $ids = array($ids);
+        foreach ($ids as $id) {
+            if (! array_key_exists($id, $this->facets))
+                $this->facets[$id] = new AfsFacet($id, AfsFacetType::UNKNOWN_TYPE);
+            $facet = $this->facets[$id];
+            $facet->set_mode($mode);
+        }
     }
     /** @brief Adds new facet configuration to manager.
      *
@@ -94,8 +108,8 @@ class AfsFacetManager
     }
     /** @brief Checks whether provided facet exists and has right parameters.
      *
-     * Currently configured facet is updated with parameters from given facet
-     * when it is necessary (update facet stkickyness, facet type...)
+     * Currently configured facet is updated with parameters of the given facet
+     * when it is necessary (update facet mode, facet type...)
      *
      * @param $facet [in] Facet to test.
      * @exception AfsUndefinedFacetException provided facet is not currently
@@ -175,7 +189,60 @@ class AfsFacetManager
         }
         return $this->facets[$name];
     }
+    /** @brief Retrieves facet, creates it first if it deos not exist.
+     *
+     * When necessary, facet is created using default configuration parameters.
+     *
+     * @param $name [in] Facet identifier.
+     *
+     * @return facet with appropriate identifier.
+     */
+    public function get_or_create_facet($name)
+    {
+        try {
+            return $this->get_facet($name);
+        } catch (OutOfBoundsException $e) {
+            $facet = new AfsFacet($name);
+            $facet->set_mode($this->get_default_facets_mode());
+            $this->add_facet($facet);
+            return $this->get_facet($name);
+        }
+
+    }
     /**  @} */
+
+    /** @name Internal helpers
+     * @{ */
+
+    /** @brief Checks whether provided facet is sticky or not.
+     *
+     * If facet mode is undefined, rely on default facet mode to determine
+     * whether the facet is sticky or not.
+     *
+     * @param $facet [in] Facet for which mode should be determined.
+     *
+     * @return @c true when the facet is considered as sticky, @c false
+     *         otherwise.
+     */
+    public function is_sticky(AfsFacet $facet)
+    {
+        $mode = $facet->get_mode();
+        if (AfsFacetMode::UNSPECIFIED_MODE == $mode)
+            $mode = $this->facet_mode;
+
+        return $this->is_mode_sticky($mode);
+    }
+    /** @} */
+
+    private function is_mode_sticky($mode)
+    {
+        if (AfsFacetMode::SINGLE_MODE == $mode
+                || AfsFacetMode::OR_MODE == $mode) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 

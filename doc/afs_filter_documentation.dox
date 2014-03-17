@@ -1,0 +1,171 @@
+/** \page afs_filter_expr AFS filter expressions
+ *
+ * \tableofcontents
+ *
+ * \section afe_introduction Introduction
+ *
+ * This page introduces filter expressions. They are usefull to define AFS
+ * search engine queries.
+ *
+ *
+ * \section afe_basics Simple filter expressions
+ *
+ * To filter on specific facet value, one must define following elements:
+ * - facet identifier to use as filter,
+ * - operator used to compare facet value of each document/product to the
+ *   specified one,
+ * - and, finally, facet value to be compared with the one defined in each
+ *   document/product.
+ *
+ * These elements must be defined in this order and none can be omitted.
+ *
+ *
+ * \subsection afeb_id Filter identifier
+ *
+ * Filter identifier is created using the helper function @a filter(). It is also
+ * possible to create it using other method which is detailled later (see
+ * \ref afea_combine_filter).
+ *
+ * For example, you can define a filter on the categorie identified by
+ * @c MATERIAL as following:
+ * \code filter('MATERIAL') \endcode
+ *
+ *
+ * \subsection afeb_operators Filter operators
+ *
+ * Operators must be used on filter identifiers. One operator, and only one, can
+ * be applied to one defined filter identifier.
+ *
+ * Operators define the way provided facet values are compared with values
+ * defined by each document/product.
+ *
+ * Standard operators are available. Here is the list of all available
+ * operators:
+ * - @c equal: equal to comparison,
+ * - @c not_equal: not equal to comparison,
+ * - @c less: less than comparison,
+ * - @c less_equal: less than or equal to comparison,
+ * - @c greater: greater than comparison,
+ * - @c greater_equal: greater than or equal to comparison.
+ *
+ * Here are examples for some of the operators:
+ * \code filter('MATERIAL')->equal \endcode
+ * \code filter('PRICE')->less_equal \endcode
+ *
+ *
+ * \subsection afeb_value Filter value
+ *
+ * Values must be defined on filter operators. One value, and only one, can be
+ * applied to one filter operator.
+ *
+ * Allowed value types are:
+ * - @c string: it may be a string value surrounded by double quotes (@c ") or
+ *   a string representation of an integer, float, boolean or date value,
+ * - @c integer,
+ * - @c float,
+ * - @c boolean.
+ *
+ * @note Date values must be defined as @c string value with appropriate format.
+ * See @ref afes_date_format for more details.
+ *
+ * Here are examples of AFS search engine filter definitions along with their
+ * corresponding expressions:
+ * - <tt>MATERIAL="copper"</tt>
+ * \code filter('MATERIAL')->equal->('"copper"'); \endcode
+ * - <tt>PRICE=42.666</tt>
+ * \code filter('PRICE')->less_equal(42.666); \endcode
+ *
+ *
+ * \section afe_advanced Advanced filter expressions
+ *
+ * Filter expressions, like the ones defined earlier (ID->operator->value), can
+ * be combined or grouped in order to build complex filter expressions.
+ *
+ *
+ * \subsection afea_combine_filter Combine simple filter expressions
+ *
+ * Combination should be defined on simple filter expressions or groups (for
+ * details on groups, see below @ref afea_group_filter).
+ *
+ * Simple filter expressions can be combined in order to make a new filter
+ * expression. Two combination types are available:
+ * - @c and: Filter expressions on both sides of the @c and operator must
+ *   be verified for a document/product to make it appears in AFS search
+ *   engine reply.
+ * - @c or: At least one filter expression on whichever side of the @c or
+ *   operator must be verified for a document/product to make it appears in AFS
+ *   search engine reply.
+ *
+ * This is really usefull when you want to filter on multiple values for
+ * specific facet. This is also true when you want to build intervals. Here are
+ * examples of such conditions:
+ * - <tt>MATERIAL="copper" or MATERIAL="gold"</tt>
+ * \code filter('MATERIAL')->equal->('"copper"')->or->filter('MATERIAL')->equal->value('"gold"') \endcode
+ * - <tt>PRICE<=42.666 or PRICE>12.3</tt>
+ * \code filter('PRICE')->less_equal->(42.666)->or->filter('PRICE')->greater->value(12.3) \endcode
+ *
+ *
+ * \subsection afea_group_filter Group filter expressions
+ *
+ * Grouping filter expressions defines priority for combined expressions.
+ *
+ * Group expression is created with @a group() function. Usage example follows:
+ * - <tt>(MATERIAL="copper" and PRICE<42.666) or (MATERIAL="gold" and PRICE<=123.456)</tt>
+ * \code group(filter('MATERIAL')->equal->('"copper"')->and->filter('PRICE')->less_equal->(42.666))->or->group(filter('MATERIAL')->equal->value('"gold"')->and->filter('PRICE')->less_equal->(123.456)); \endcode
+ * - <tt>MATERIAL="platinium" or (MATERIAL="gold" and PRICE>345)</tt>
+ * \code filter(MATERIAL)->equal->value('"platinium"')->or->group(filter('MATERIAL')->equal->value('"gold"')->and->filter('PRICE')->cwgreaterless_equal->(345)); \endcode
+ *
+ *
+ * \section afe_special Special notes
+ *
+ * \subsection afes_date_format Date format
+ *
+ * Date value should match one of the following formats:
+ * - <tt>yyyy-MM-dd HH:mm</tt>
+ * - <tt>yyyy-MM-dd HH</tt>
+ * - <tt>yyyy-MM-dd</tt>
+ * - <tt>yyyy-MM</tt>
+ * - <tt>yyyy</tt>
+ *
+ * with:
+ * - @c yyyy: represents years,
+ * - @c MM: represents months (with leading 0 when necessary),
+ * - @c dd: represents days (with leading 0 when necessary),
+ * - @c HH: represents hours (with leading 0 when necessary),
+ * - @c mm: represents minutes (with leading 0 when necessary),
+ *
+ * For more details on date format and their usage, please refer to AFS search
+ * engine documentation.
+ *
+ *
+ * \subsection afes_filter_builder_example Example of filter builder
+ *
+ * It can happen that one wants to create several filters of the same type. In
+ * such case, it may be tedious to write appropriate filter expressions for each
+ * filter. So you are encouraged to make your own function to create appropriate
+ * filter expressions.
+ *
+ * For example, let's suppose you often want to combine multiple values for
+ * specific facet identifier. List of facet values can be transfered as array
+ * to your specific function. Here is an example of such function:
+ * \code
+ * function myExpressionBuilder($id, array $values)
+ * {
+ *     if (empty($values))
+ *         return null;
+ *
+ *     $value = array_shift($values);
+ *     $result = filter($id)->equal->value($value);
+ *     while (! empty($values))
+ *         $result = $result->or->filter($id)->equal->value(array_shift($values));
+ *
+ *     return $result;
+ * }\endcode
+ *
+ * Previous function definition will help you build following filter
+ * expressions:
+ * - <tt>MATERIAL="copper"</tt>
+ *   \code myExpressionBuilder('MATERIAL', array('"copper"')); \endcode
+ * - <tt>MATERIAL="copper" or MATERIAL="silver" or MATERIAL="gold"</tt>
+ *   \code myExpressionBuilder('MATERIAL', array('"copper"', '"silver"', '"gold"')); \endcode
+ */
