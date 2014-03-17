@@ -9,7 +9,7 @@ require_once 'AFS/SEARCH/FILTER/afs_operator_filter.php';
  */
 function filter($id)
 {
-    return new AfsFilter($id);
+    return new AfsFilterWrapper(null, new AfsFilter($id));
 }
 
 

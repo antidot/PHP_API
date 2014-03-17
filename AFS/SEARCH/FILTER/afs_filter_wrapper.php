@@ -74,7 +74,7 @@ class AfsFilterWrapper
      */
     public function to_string($serialize_wrapped_object=false)
     {
-        if ($serialize_wrapped_object)
+        if ($serialize_wrapped_object || is_null($this->parent))
             return $this->obj->to_string();
         else
             return $this->parent->to_string();
