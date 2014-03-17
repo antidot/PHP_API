@@ -61,7 +61,37 @@ class AfsSearch
     }
     /** @} */
 
-    /** @name Facet configuration
+    /** @name Global facet configuration
+     * @{ */
+
+    /** @brief Defines multi-selection mode for all facets.
+     *
+     * This is the default mode.
+     *
+     * Multi-selection mode allows to filter on one or more facet values whereas
+     * all facet values are still present in AFS search reply. See
+     * AfsFacetMode::OR_MODE for simple example.
+     */
+    public function set_default_multi_selection_facets()
+    {
+        $this->config->get_facet_manager()->set_default_facets_mode(AfsFacetMode::OR_MODE);
+    }
+    /** @brief Defines mono-selection mode for all facets.
+     *
+     * Replaces default mode (multi-selection facets).
+     *
+     * Mono-selection mode allows to filter on one facet value whereas all facet
+     * values are still present in AFS search reply. Selecting new facet value
+     * replaces previously selected one. See AfsFacetMode::OR_MODE for simple
+     * example.
+     */
+    public function set_default_mono_selection_facets()
+    {
+        $this->config->get_facet_manager()->set_default_facets_mode(AfsFacetMode::SINGLE_MODE);
+    }
+    /** @} */
+
+    /** @name Specific facet configuration
      * @{ */
 
     /** @brief Defines facet sort order.
@@ -72,25 +102,27 @@ class AfsSearch
     {
         $this->config->get_facet_manager()->set_facet_sort_order($ids, $mode);
     }
-    /** @brief Defines stickyness for all facets.
+    /** @brief Defines multi-selection mode for one or more facets.
      *
-     * By default, facets are not sticky.
+     * See AfsSearch::set_default_multi_selection_facets or
+     * AfsFacetMode::OR_MODE for more details.
      *
-     * @param $state [in] stickyness state: @c true (default) to set all facets
-     *        sticky, @c false
+     * @param $ids [in] One (string) or more facet identifiers (array of strings).
      */
-    public function set_facets_stickyness($state=true)
+    public function set_multi_selection_facets($ids)
     {
-        $this->config->get_facet_manager()->set_facets_stickyness($state);
+        $this->config->get_facet_manager()->set_facets_mode(AfsFacetMode::OR_MODE, $ids);
     }
-    /** @brief Defines stickyness for specific facet.
-     * @param $id [in] Identifier of the facet.
-     * @param $state [in] @c true (default) to set facet sticky, @c false
-     *        otherwise.
+    /** @brief Defines mono-selection mode for one or more facets.
+     *
+     * See AfsSearch::set_default_mono_selection_facets or
+     * AfsFacetMode::SINGLE_MODE for more details.
+     *
+     * @param $ids [in] One (string) or more facet identifiers (array of strings).
      */
-    public function set_facet_stickyness($id, $state=true)
+    public function set_mono_selection_facets($ids)
     {
-        $this->config->get_facet_manager()->set_facet_stickyness($id, $state);
+        $this->config->get_facet_manager()->set_facets_mode(AfsFacetMode::SINGLE_MODE, $ids);
     }
     /** @brief Configures specific facet.
      * @param $facet [in] New facet to configure.

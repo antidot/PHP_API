@@ -3,7 +3,6 @@ require_once 'AFS/SEARCH/afs_facet_type.php';
 require_once 'AFS/SEARCH/afs_facet_layout.php';
 require_once 'AFS/SEARCH/afs_facet_mode.php';
 require_once 'AFS/SEARCH/afs_facet_combination.php';
-require_once 'AFS/SEARCH/afs_facet_stickyness.php';
 
 
 /** @brief Configuration class for AFS facets.
@@ -15,52 +14,29 @@ class AfsFacet
     private $layout = null;
     private $mode = null;
     private $combination = null;
-    private $sticky = null;
-    private $embracing_char = '';
 
     /** @brief Construct new facet with specified parameters.
      *
      * @param $id [in] facet id defined in feed.xml on indexation side.
-     * @param $type [in] facet type defined in feed.xml on indexation side (see
-     *        @ref AfsFacetType for available types).
+     * @param $type [in] facet type defined in feed.xml on indexation side.
+     *        Default value is AfsFacetType::UNKNOWN_TYPE.
+     *        (see @ref AfsFacetType for available types).
      * @param $layout [in] facet layout defined in feed.xml on indexation side.
      *        Default value is AfsFacetLayout::TREE.
      *        (see @ref AfsFacetLayout for availanle layouts).
-     * @param $mode [in] facet mode (see @ref AfsFacetMode):
-     *        - @c AfsFacetMode::REPLACE (default): when new value of the facet
-     *          is selected, it replaces previous one,
-     *        - @c AfsFacetMode::ADD : when new value of the facet is selected,
-     *          it is combined with previous ones.
-     * @param $combination [in] 'and' or 'or' (default) combination used to
-     *        combine multiple facet values (see @ref AfsFacetCombination).
-     * @param $sticky [in] defines the stickyness of the facet. Default is non
-     *        sticky (see AfsFacetStickyness).
+     * @param $mode [in] facet mode, see @ref AfsFacetMode for more details.
+     *        (default: UNSPECIFIED_MODE).
      *
      * @exception InvalidArgumentException invalid parameter value provided for
-     *            @a type, @a layout, @a mode, @a combination or @a sticky
-     *            parameter.
+     *            @a type, @a layout or @a mode parameter.
      */
-    public function __construct($id, $type, $layout=AfsFacetLayout::TREE,
-        $mode=AfsFacetMode::REPLACE, $combination=AfsFacetCombination::OR_MODE,
-        $sticky=AfsFacetStickyness::NON_STICKY)
+    public function __construct($id, $type=AfsFacetType::UNKNOWN_TYPE,
+        $layout=AfsFacetLayout::TREE, $mode=AfsFacetMode::UNSPECIFIED_MODE)
     {
-        AfsFacetLayout::check_value($layout, 'Invalid facet layout parameter: ');
-        AfsFacetMode::check_value($mode, 'Invalid facet mode parameter: ');
-        AfsFacetCombination::check_value($combination,
-            'Invalid facet combination mode parameter: ');
-        AfsFacetStickyness::check_value($sticky, 'Invalid facet stickyness parameter: ');
-
         $this->set_type($type);
         $this->id = $id;
         $this->layout = $layout;
-        $this->mode = $mode;
-        $this->combination = $combination;
-        if (AfsFacetLayout::TREE == $this->layout
-            && (AfsFacetType::STRING_TYPE == $this->type
-                || AfsFacetType::DATE_TYPE == $this->type)) {
-            $this->embracing_char = '"';
-        }
-        $this->sticky = $sticky;
+        $this->set_mode($mode);
     }
 
     /** @brief Retrieves facet id.
@@ -72,6 +48,7 @@ class AfsFacet
     }
     /** @brief Redefines facet type.
      * @param $type [in] new type of the facet to set.
+     * @exception InvalidArgumentException invalid type provided.
      */
     public function set_type($type)
     {
@@ -92,49 +69,49 @@ class AfsFacet
     {
         return $this->layout;
     }
+
+    /** @brief Defines new facet mode.
+     * @param $mode [in] New mode to set.
+     * @exception InvalidArgumentException invalid mode provided.
+     */
+    public function set_mode($mode)
+    {
+        AfsFacetMode::check_value($mode, 'Invalid facet mode: ');
+        $this->mode = $mode;
+        if (AfsFacetMode::SINGLE_MODE == $mode
+                || AfsFacetMode::OR_MODE == $mode) {
+            $this->combination = 'or';
+        } elseif (AfsFacetMode::AND_MODE == $mode) {
+            $this->combination = 'and';
+        }
+    }
     /** @brief Retrieve facet mode.
-     * @return facet mode (@c replace or @c add).
+     * @return facet mode (@c replace, @c or, @c add or @c unspecified).
      */
     public function get_mode()
     {
         return $this->mode;
     }
-    /** @brief Check whether mode is set to <tt>replace</tt>.
-     * @return true when mode is <tt>replace</tt>, false otherwise.
+    /** @brief Check whether mode is set to <tt>single</tt>.
+     * @return true when mode is <tt>single</tt>, false otherwise.
      */
-    public function has_replace_mode()
+    public function has_single_mode()
     {
-        return $this->get_mode() == AfsFacetMode::REPLACE;
+        return $this->get_mode() == AfsFacetMode::SINGLE_MODE;
     }
-    /** @brief Check whether mode is set to <tt>add</tt>.
-     * @return true when mode is <tt>add</tt>, false otherwise.
+    /** @brief Check whether mode is set to <tt>or</tt>.
+     * @return true when mode is <tt>or</tt>, false otherwise.
      */
-    public function has_add_mode()
+    public function has_or_mode()
     {
-        return $this->get_mode() == AfsFacetMode::ADD;
+        return $this->get_mode() == AfsFacetMode::OR_MODE;
     }
-    /** @brief Retrieve facet combination.
-     * @return facet combination (@c or or @c and).
+    /** @brief Check whether mode is set to <tt>or</tt>.
+     * @return true when mode is <tt>or</tt>, false otherwise.
      */
-    public function get_combination()
+    public function has_and_mode()
     {
-        return $this->combination;
-    }
-
-    /** @brief Defines stickyness of the facet.
-     * @param $state [in] @c true (default) to set facet sticky, @c false
-     *        otherwise.
-     */
-    public function set_sticky($state=true)
-    {
-        $this->sticky = ($state) ? AfsFacetStickyness::STICKY : AfsFacetStickyness::NON_STICKY;
-    }
-    /** @brief Retrieve facet stickyness.
-     * @return true when the facet is sticky, false otherwise.
-     */
-    public function is_sticky()
-    {
-        return $this->sticky == AfsFacetStickyness::STICKY;
+        return $this->get_mode() == AfsFacetMode::AND_MODE;
     }
 
     /** @brief Checks whether provided facet is similar to current instance.
@@ -194,6 +171,10 @@ class AfsFacet
      */
     public function join_values($values)
     {
+        // In single mode we should have only one value!
+        if ($this->has_single_mode())
+            $values = array(array_pop($values));
+
         $formatted = array();
         foreach ($values as $value) {
             $formatted[] = $this->id . '=' . $value;
@@ -209,8 +190,7 @@ class AfsFacet
     public function __toString()
     {
         return '<' . $this->id . ': ' . $this->type . ' - ' . $this->layout
-            . ', ' . $this->mode . ', ' . $this->combination . ', '
-            . $this->sticky . '>';
+            . ', ' . $this->mode . ', ' . $this->combination . '>';
     }
 }
 

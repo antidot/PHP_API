@@ -5,59 +5,30 @@ class FacetTest extends PHPUnit_Framework_TestCase
 {
     public function testDefaultValues()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
+        $facet = new AfsFacet('foo');
         $this->assertTrue($facet->get_id() == 'foo');
-        $this->assertEquals(AfsFacetType::STRING_TYPE, $facet->get_type());
+        $this->assertEquals(AfsFacetType::UNKNOWN_TYPE, $facet->get_type());
         $this->assertEquals(AfsFacetLayout::TREE, $facet->get_layout());
-        $this->assertTrue($facet->get_mode() == AfsFacetMode::REPLACE);
-        $this->assertTrue($facet->has_replace_mode());
-        $this->assertFalse($facet->has_add_mode());
-        $this->assertTrue($facet->get_combination() == AfsFacetCombination::OR_MODE);
-        $this->assertFalse($facet->is_sticky());
+        $this->assertEquals(AfsFacetMode::UNSPECIFIED_MODE, $facet->get_mode());
+        $this->assertFalse($facet->has_or_mode());
+        $this->assertFalse($facet->has_and_mode());
+        $this->assertFalse($facet->has_single_mode());
     }
 
-    public function testDefaultStickyMode()
+    public function testFailOnBadTypeValue()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::AND_MODE);
-        $this->assertTrue($facet->get_id() == 'foo');
-        $this->assertTrue($facet->get_mode() == AfsFacetMode::ADD);
-        $this->assertFalse($facet->has_replace_mode());
-        $this->assertTrue($facet->has_add_mode());
-        $this->assertTrue($facet->get_combination() == AfsFacetCombination::AND_MODE);
-        $this->assertFalse($facet->is_sticky());
+        try {
+            $facet = new AfsFacet('foo', 'foo');
+            $this->fail('Should have failed on invalid type value');
+        } catch (Exception $e) { }
     }
-
-    public function testForceStickyToTrue()
+    public function testFailOnBadLayoutValue()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::AND_MODE, AfsFacetStickyness::STICKY);
-        $this->assertTrue($facet->get_id() == 'foo');
-        $this->assertTrue($facet->get_mode() == AfsFacetMode::ADD);
-        $this->assertTrue($facet->get_combination() == AfsFacetCombination::AND_MODE);
-        $this->assertTrue($facet->is_sticky());
-
-        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::OR_MODE, AfsFacetStickyness::STICKY);
-        $this->assertTrue($facet->get_id() == 'foo');
-        $this->assertTrue($facet->get_mode() == AfsFacetMode::ADD);
-        $this->assertTrue($facet->get_combination() == AfsFacetCombination::OR_MODE);
-        $this->assertTrue($facet->is_sticky());
+        try {
+            $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE, 'foo');
+            $this->fail('Should have failed on invalid sticky value');
+        } catch (Exception $e) { }
     }
-    public function testForceStickyToFalse()
-    {
-        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD,
-            AfsFacetCombination::AND_MODE, AfsFacetStickyness::NON_STICKY);
-        $this->assertTrue($facet->get_id() == 'foo');
-        $this->assertTrue($facet->get_mode() == AfsFacetMode::ADD);
-        $this->assertTrue($facet->get_combination() == AfsFacetCombination::AND_MODE);
-        $this->assertFalse($facet->is_sticky());
-
-        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD,
-            AfsFacetCombination::OR_MODE, AfsFacetStickyness::NON_STICKY);
-        $this->assertTrue($facet->get_id() == 'foo');
-        $this->assertTrue($facet->get_mode() == AfsFacetMode::ADD);
-        $this->assertTrue($facet->get_combination() == AfsFacetCombination::OR_MODE);
-        $this->assertFalse($facet->is_sticky());
-    }
-
     public function testFailOnBadModeValue()
     {
         try {
@@ -65,41 +36,27 @@ class FacetTest extends PHPUnit_Framework_TestCase
             $this->fail('Should have failed on invalid mode value');
         } catch (Exception $e) { }
     }
-    public function testFailOnBadCombinationValue()
-    {
-        try {
-            $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, 'bar');
-            $this->fail('Should have failed on invalid combination value');
-        } catch (Exception $e) { }
-    }
-    public function testFailOnBadStickyValue()
-    {
-        try {
-            $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::AND_MODE, 'bar');
-            $this->fail('Should have failed on invalid sticky value');
-        } catch (Exception $e) { }
-    }
 
     public function testJoinOneStringValue()
     {
         $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
-        $this->assertTrue($facet->join_values(array('"bar"')) == 'foo="bar"');
+        $this->assertEquals('foo="bar"', $facet->join_values(array('"bar"')));
     }
     public function testJoinStringValues()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
-        $this->assertTrue($facet->join_values(array('"bar"', '"baz"')) == 'foo="bar" or foo="baz"');
+        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE);
+        $this->assertEquals('foo="bar" or foo="baz"', $facet->join_values(array('"bar"', '"baz"')));
     }
 
     public function testJoinOneValueOtherThanString()
     {
         $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE);
-        $this->assertTrue($facet->join_values(array('bar')) == 'foo=bar');
+        $this->assertEquals('foo=bar', $facet->join_values(array('bar')));
     }
     public function testJoinValuesOtherThanString()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::AND_MODE);
-        $this->assertTrue($facet->join_values(array('bar', 'baz')) == 'foo=bar and foo=baz');
+        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::AND_MODE);
+        $this->assertEquals('foo=bar and foo=baz', $facet->join_values(array('bar', 'baz')));
     }
 
     public function testFacetAreSimilar()

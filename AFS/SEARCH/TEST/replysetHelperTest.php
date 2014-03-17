@@ -896,7 +896,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
 
         $config = new AfsHelperConfiguration();
         $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->set_facet_stickyness('BOOL');
+        $facet_mgr->set_facet_sort_order(array('BOOL'), AfsFacetSort::STRICT);
         $this->assertTrue($facet_mgr->has_facet('BOOL'));
         $this->assertEquals(AfsFacetType::UNKNOWN_TYPE, $facet_mgr->get_facet('BOOL')->get_type());
 
@@ -991,7 +991,7 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
 
         $config = new AfsHelperConfiguration();
         $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->set_facet_stickyness('Foo');
+        $facet_mgr->set_facet_sort_order(array('Foo'), AfsFacetSort::STRICT);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
         $this->assertEquals(AfsFacetType::UNKNOWN_TYPE, $facet_mgr->get_facet('Foo')->get_type());
 

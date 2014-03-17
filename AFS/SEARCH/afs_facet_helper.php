@@ -37,9 +37,7 @@ class AfsFacetHelper extends AfsHelperBase
             $this->sticky = false;
         }
         $facet_manager = $config->get_facet_manager();
-        $facet_manager->check_or_add_facet(new AfsFacet($this->id, $this->type,
-            $this->layout, AfsFacetMode::REPLACE, AfsFacetCombination::OR_MODE,
-            $this->sticky ? AfsFacetStickyness::STICKY : AfsFacetStickyness::NON_STICKY));
+        $facet_manager->check_or_add_facet(new AfsFacet($this->id, $this->type, $this->layout));
         $builder = new AfsFacetElementBuilder($facet_manager, $query);
         $this->elements = $builder->create_elements($this->id, $facet, $config);
     }
@@ -335,12 +333,10 @@ class AfsFacetElementBuilder
         if ($active) {
             $result = $this->query->remove_filter($facet_id, $value_id);
         } else {
-            if ($facet->has_replace_mode()) {
+            if ($facet->has_single_mode()) {
                 $result = $this->query->set_filter($facet_id, $value_id);
-            } elseif ($facet->has_add_mode()) {
-                $result = $this->query->add_filter($facet_id, $value_id);
             } else {
-                throw new Exception('Unmanaged facet mode: ' . $facet->get_mode());
+                $result = $this->query->add_filter($facet_id, $value_id);
             }
         }
         return $result;
