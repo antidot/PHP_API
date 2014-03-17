@@ -82,33 +82,35 @@ class AfsQuery extends AfsQueryBase
     /** @name Filter management
      * @{ */
 
-    /** @brief Assign new value to specific facet replacing any existing one.
+    /** @brief Assign new value(s) to specific facet replacing any existing one.
      * @param $facet_id [in] id of the facet to update.
-     * @param $value [in] new value to filter on.
+     * @param $values [in] new value(s) to filter on.
      * @return new up to date instance.
      */
-    public function set_filter($facet_id, $value)
+    public function set_filter($facet_id, $values)
     {
         $copy = $this->copy();
         $copy->on_assignment();
-        $copy->filter[$facet_id] = array($value);
+        if (! is_array($values))
+            $values = array($values);
+        $copy->filter[$facet_id] = $values;
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
-    /** @brief Assign new value to specific facet.
+    /** @brief Assign new value(s) to specific facet.
      * @param $facet_id [in] id of the facet for which new @a value should be
      *        added.
-     * @param $value [in] value to add to the facet.
+     * @param $values [in] value(s) to add to the facet.
      * @return new up to date instance.
      */
-    public function add_filter($facet_id, $value)
+    public function add_filter($facet_id, $values)
     {
         $copy = $this->copy();
         $copy->on_assignment();
         if (empty($copy->filter[$facet_id]))
-        {
             $copy->filter[$facet_id] = array();
-        }
-        $copy->filter[$facet_id][] = $value;
+        if (! is_array($values))
+            $values = array($values);
+        $copy->filter[$facet_id] = array_merge($copy->filter[$facet_id], $values);
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
     /** @brief Remove existing value from specific facet.
@@ -122,14 +124,11 @@ class AfsQuery extends AfsQueryBase
     {
         $copy = $this->copy();
         $copy->on_assignment();
-        if (! empty($copy->filter[$facet_id]))
-        {
+        if (! empty($copy->filter[$facet_id])) {
             $pos = array_search($value, $copy->filter[$facet_id]);
             unset($copy->filter[$facet_id][$pos]);
             if (empty($copy->filter[$facet_id]))
-            {
                 unset($copy->filter[$facet_id]);
-            }
         }
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
@@ -144,20 +143,13 @@ class AfsQuery extends AfsQueryBase
      */
     public function has_filter($facet_id, $value)
     {
-        if (empty($this->filter[$facet_id]))
-        {
+        if (empty($this->filter[$facet_id])) {
             return false;
-        }
-        else
-        {
+        } else {
             if (! isset($value))
-            {
                 return true;
-            }
             else
-            {
                 return in_array($value, $this->filter[$facet_id]);
-            }
         }
     }
     /** @brief Retrieve the list of values for specific facet id.

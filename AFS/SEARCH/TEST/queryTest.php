@@ -56,6 +56,13 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($query->has_filter('foo', 'bar'));
         $this->assertTrue($query->has_filter('foo', 'baz'));
     }
+    public function testAddFilterArrayValues()
+    {
+        $query = new AfsQuery();
+        $query = $query->add_filter('foo', array('bar', 'baz'));
+        $this->assertTrue($query->has_filter('foo', 'bar'));
+        $this->assertTrue($query->has_filter('foo', 'baz'));
+    }
     public function testAddValuesToFilters()
     {
         $query = new AfsQuery();
@@ -83,6 +90,17 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->set_filter('foo', 'foz');
         $this->assertFalse($query->has_filter('foo', 'bar'));
         $this->assertFalse($query->has_filter('foo', 'baz'));
+        $this->assertTrue($query->has_filter('foo', 'foz'));
+    }
+    public function testOverwriteMultipleValuesForFilter()
+    {
+        $query = new AfsQuery();
+        $query = $query->add_filter('foo', 'bar');
+        $query = $query->add_filter('foo', 'baz');
+        $query = $query->set_filter('foo', array('for', 'foz'));
+        $this->assertFalse($query->has_filter('foo', 'bar'));
+        $this->assertFalse($query->has_filter('foo', 'baz'));
+        $this->assertTrue($query->has_filter('foo', 'foz'));
         $this->assertTrue($query->has_filter('foo', 'foz'));
     }
 
