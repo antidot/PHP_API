@@ -816,6 +816,15 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($query->has_overspill());
         $this->assertEquals(AfsCount::DOCUMENTS, $query->get_count_mode());
     }
+
+    public function testInitializeWithUnknownValueInArray()
+    {
+        $query = AfsQuery::create_from_parameters(array(
+            'X' => '42',
+            'Y' => '666'));
+        $this->assertEquals(0, count($query->get_filters()));
+        $this->assertFalse($query->has_query());
+    }
 }
 
 

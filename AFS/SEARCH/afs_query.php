@@ -555,9 +555,12 @@ class AfsQuery extends AfsQueryBase
     /** @name Full configuration through array of parameters
      * @{ */
 
-    /** @brief Create full query from array of parameters
-      * @param $params [in] structured array of parameters.
-      * @return correctly initialized query.
+    /** @brief Creates full query from array of parameters.
+     *
+     * Unknown parameters are silently ignored.
+     *
+     * @param $params [in] structured array of parameters.
+     * @return correctly initialized query.
      */
     public static function create_from_parameters(array $params)
     {
@@ -584,9 +587,7 @@ class AfsQuery extends AfsQueryBase
             } elseif (method_exists($result, $setter)) {
                 $result = $result->$setter($values);
             } else {
-                var_dump($result);
-                throw new InvalidArgumentException('Cannot initialize '
-                    . 'query: unknown parameter ' . $param);
+                // Ignore unknown parameter
             }
         }
         $result->page = $page;
