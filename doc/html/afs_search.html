@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -66,7 +67,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,7 +100,7 @@ AFS search initialization</h1>
 <p>Along with the search URL, a service number and service status should also have been provided. These informations are used to initialized the instance of <em><a class="el" href="classAfsSearch.html" title="Facade for AFS search engine query. ">AfsSearch</a></em>. Production services are not modified in place so their status are usually <code>stable</code>.</p>
 <p>Here an example to initialize an AFS search object: </p>
 <div class="fragment"><div class="line"><span class="comment">// Third parameter is set to AfsServiceStatus::STABLE by default.</span></div>
-<div class="line">$search = <span class="keyword">new</span> <a class="code" href="classAfsSearch.html">AfsSearch</a>(<span class="stringliteral">&#39;eval.partners.antidot.net&#39;</span>, 70000);</div>
+<div class="line"><a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a> = <span class="keyword">new</span> <a class="code" href="classAfsSearch.html">AfsSearch</a>(<span class="stringliteral">&#39;eval.partners.antidot.net&#39;</span>, 48000);</div>
 </div><!-- fragment --><p> Once the object is initialized, query can be submitted by calling <a class="el" href="classAfsSearch.html#a6ee5eb9942ecb1cadeb93ee1035da62a" title="Executes query. ">AfsSearch::execute</a> method.</p>
 <h1><a class="anchor" id="as_query_init"></a>
 Query initialization</h1>
@@ -110,24 +111,24 @@ Query initialization</h1>
 </ul>
 <p>If the query should be initialized with URL parameters, this can be done as following: </p>
 <div class="fragment"><div class="line"><span class="comment">// Instead, you can initialize new query and call $search-&gt;set_query($initial_query)</span></div>
-<div class="line">$search-&gt;build_query_from_url_parameters();</div>
+<div class="line"><a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;build_query_from_url_parameters();</div>
 </div><!-- fragment --><p> Otherwise, you can define initial query and set it with <a class="el" href="classAfsSearch.html#ae09979047904e6ec293dd1385cdda42d" title="Defines new query. ">AfsSearch::set_query</a>.</p>
 <h1><a class="anchor" id="as_query_execute"></a>
 Query AFS search engine</h1>
 <p>Once the query is initialized, AFS search engine can be queried as following: </p>
 <div class="fragment"><div class="line"><span class="comment">// Default format is AfsHelperFormat::ARRAYS, it can be set to AfsHelperFormat::HELPERS</span></div>
 <div class="line"><span class="comment">// when execute method is called.</span></div>
-<div class="line">$reply = $search-&gt;execute();</div>
+<div class="line"><a class="code" href="full__lightweight__example_8php.html#a46ad7c5fff64ab9b49b9cfcaff650baa">$reply</a> = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;execute();</div>
 </div><!-- fragment --><p> Default result is formatted as <code>array</code>. Alternate result format is available see <a class="el" href="classAfsSearch.html#a6ee5eb9942ecb1cadeb93ee1035da62a" title="Executes query. ">AfsSearch::execute</a> for more details.</p>
 <h1><a class="anchor" id="as_facet_manager"></a>
 Facets management (optional)</h1>
 <p>Facets can be declared and configured by instantiating <em><a class="el" href="classAfsFacet.html" title="Configuration class for AFS facets. ">AfsFacet</a></em>. But, if no specific configuration is necessary, facets are deduced from the reply of AFS search engine.</p>
 <p>Example of declaration: </p>
-<div class="fragment"><div class="line">$search-&gt;add_facet(<span class="keyword">new</span> <a class="code" href="classAfsFacet.html">AfsFacet</a>(<span class="stringliteral">&#39;FacetId&#39;</span>, <a class="code" href="classAfsFacetType.html#a8f9407ce6f57b891a8bd3dc9a2614cb5">AfsFacetType::STRING_TYPE</a>, <a class="code" href="classAfsFacetLayout.html#a6237e7daf6c228dee4a4d584f2ed655d">AfsFacetLayout::TREE</a>);</div>
+<div class="fragment"><div class="line"><a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;add_facet(<span class="keyword">new</span> <a class="code" href="classAfsFacet.html">AfsFacet</a>(<span class="stringliteral">&#39;FacetId&#39;</span>, <a class="code" href="classAfsFacetType.html#a8f9407ce6f57b891a8bd3dc9a2614cb5">AfsFacetType::STRING_TYPE</a>, <a class="code" href="classAfsFacetLayout.html#a6237e7daf6c228dee4a4d584f2ed655d">AfsFacetLayout::TREE</a>);</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:48 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

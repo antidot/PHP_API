@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -87,7 +88,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_h"><span>h</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
       <li><a href="#index_l"><span>l</span></a></li>
-      <li><a href="#index_n"><span>n</span></a></li>
       <li><a href="#index_o"><span>o</span></a></li>
       <li><a href="#index_p"><span>p</span></a></li>
       <li><a href="#index_r"><span>r</span></a></li>
@@ -103,7 +103,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -156,14 +156,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>ACP
 : <a class="el" href="classAfsOrigin.html#a18357388777fdf2c2cb44821eb58d0c0">AfsOrigin</a>
 </li>
-<li>ADD
-: <a class="el" href="classAfsFacetMode.html#a329418a40817d60a6853c5e9547ca3a7">AfsFacetMode</a>
-</li>
 <li>ALPHA
 : <a class="el" href="classAfsServiceStatus.html#a6bb7987358cd3de8e7c775094597e631">AfsServiceStatus</a>
 </li>
 <li>AND_MODE
 : <a class="el" href="classAfsFacetCombination.html#aedde9cb7f1297cb7db6d09d51731563d">AfsFacetCombination</a>
+, <a class="el" href="classAfsFacetMode.html#aedde9cb7f1297cb7db6d09d51731563d">AfsFacetMode</a>
 </li>
 <li>ARCHIVE
 : <a class="el" href="classAfsServiceStatus.html#aac403b04f6adb9de257400787caf3ef8">AfsServiceStatus</a>
@@ -260,16 +258,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </ul>
 
 
-<h3><a class="anchor" id="index_n"></a>- n -</h3><ul>
-<li>NON_STICKY
-: <a class="el" href="classAfsFacetStickyness.html#ad9220a791291a2348bc0ebfed675e5da">AfsFacetStickyness</a>
-</li>
-</ul>
-
-
 <h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
 <li>OR_MODE
 : <a class="el" href="classAfsFacetCombination.html#af5e70a01eaaa6fe84e0cbd211e04464b">AfsFacetCombination</a>
+, <a class="el" href="classAfsFacetMode.html#af5e70a01eaaa6fe84e0cbd211e04464b">AfsFacetMode</a>
 </li>
 </ul>
 
@@ -309,9 +301,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>RELEVANCE
 : <a class="el" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins</a>
 </li>
-<li>REPLACE
-: <a class="el" href="classAfsFacetMode.html#a4223a719e1c916bf302beb9b827fc632">AfsFacetMode</a>
-</li>
 <li>RTE
 : <a class="el" href="classAfsOrigin.html#a2b658a238339199caf06652184c768da">AfsOrigin</a>
 </li>
@@ -334,6 +323,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>SEARCHBOX
 : <a class="el" href="classAfsOrigin.html#a1033c59aec85379c95bf8f474cbafc3a">AfsOrigin</a>
 </li>
+<li>SINGLE_MODE
+: <a class="el" href="classAfsFacetMode.html#abf12c5db8493af9454928854ad23d58c">AfsFacetMode</a>
+</li>
 <li>SIZE
 : <a class="el" href="classAfsSortBuiltins.html#a91e807ff725d3b13626ea72f6e9c5965">AfsSortBuiltins</a>
 </li>
@@ -343,9 +335,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>STABLE
 : <a class="el" href="classAfsServiceStatus.html#aee0f82f7e54d98e7632482563a1be168">AfsServiceStatus</a>
-</li>
-<li>STICKY
-: <a class="el" href="classAfsFacetStickyness.html#af5b67973a86dc4a8331c2a14b780a61c">AfsFacetStickyness</a>
 </li>
 <li>STRICT
 : <a class="el" href="classAfsFacetSort.html#a824c9148f2e4e2b8ee362a7876bd74cf">AfsFacetSort</a>
@@ -370,6 +359,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>UNKNOWN_TYPE
 : <a class="el" href="classAfsFacetType.html#a26f5b76a783cb64fc4d51ef83a63a38e">AfsFacetType</a>
 </li>
+<li>UNSPECIFIED_MODE
+: <a class="el" href="classAfsFacetMode.html#aa96945f7ee707279ee88ef23957e34c6">AfsFacetMode</a>
+</li>
 <li>URI
 : <a class="el" href="classAfsSortBuiltins.html#ae8f2644cc12163a8b104c3ec6727ae3d">AfsSortBuiltins</a>
 </li>
@@ -387,7 +379,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:50 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['afs_20filter_20expressions',['AFS filter expressions',['../afs_filter_expr.html',1,'']]],
   ['antidot_20paf_20upload',['Antidot PaF upload',['../afs_paf_upload.html',1,'']]],
   ['afs_20search_20api',['AFS search API',['../afs_search.html',1,'']]],
   ['afs_20search_20query_20coder_2fdecoder_20api',['AFS search query coder/decoder API',['../afs_search_coder.html',1,'']]],

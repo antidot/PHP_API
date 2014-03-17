@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['query',['query',['../classAfsAcp.html#a90b4d600eed14715a330f0dca9ee7dd0',1,'AfsAcp']]]
+  ['parse',['parse',['../classAfsIntervalHelper.html#ae2e3a4aa032a3ad90279daa99f43adda',1,'AfsIntervalHelper']]]
 ];

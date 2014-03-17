@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -74,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -95,19 +96,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr class="even"><td class="entry"><a class="el" href="classAfsFacetManager.html#af6f6f4e7f73fc402a0fc18d3b3f42c5d">add_facet</a>(AfsFacet $facet)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classAfsFacetManager.html#ac9ca08235137f0a2a66dd6f25a1dad68">check_facet</a>(AfsFacet $facet)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classAfsFacetManager.html#a5431a0eb5b5d14c8d7c47643cede92a2">check_or_add_facet</a>($facet)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classAfsFacetManager.html#a81a75e477fe14d79433fc348ad7537d3">get_default_facets_mode</a>()</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsFacetManager.html#a9d050c87e8cbafb9eb86a4a76021ec0f">get_default_stickyness</a>()</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classAfsFacetManager.html#a178d0af5094d386f9e63b15301ffc9f1">get_facet</a>($name)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classAfsFacetManager.html#aed41d87808e7a0118657d893a9831eca">get_facets</a>()</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classAfsFacetManager.html#a6578f52dadc8b6dd3c8ed376d207fc12">get_facets_stickyness</a>()</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classAfsFacetManager.html#aca5e6f7051811295553310b73a1adc10">get_or_create_facet</a>($name)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classAfsFacetManager.html#aa7d71d423fcfb845a3da40533afca959">has_facet</a>($name)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classAfsFacetManager.html#a80874bdb6aabb8ff2735bad88fe61ab7">has_facets</a>()</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classAfsFacetManager.html#a3ba323df945fcadbf5a85eb10d19cd23">is_facet_sort_order_strict</a>()</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classAfsFacetManager.html#a15e8cd0e98451a057577a5d011650af4">is_sticky</a>(AfsFacet $facet)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsFacetManager.html#a36706f41df74fd29ff1408e755156684">set_default_facets_mode</a>($mode)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classAfsFacetManager.html#ae4f445bc7d9f284384555f7871b0c634">set_facet_sort_order</a>(array $ids, $mode)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classAfsFacetManager.html#a90ed598becee6e83812a6cde94a20be0">set_facet_stickyness</a>($id, $state=true)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classAfsFacetManager.html#aa27ceb3a03085587208865be59839b57">set_facets_stickyness</a>($state=true)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsFacetManager.html#a6a94862513249e4fae13847a7f456cb0">set_facets_mode</a>($mode, $ids)</td><td class="entry"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:49 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

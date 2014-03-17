@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -74,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,6 +104,8 @@ Inheritance diagram for AfsBaseException:</div>
 <area href="classAfsClusterException.html" title="Base class for all exceptions related to cluster errors. " alt="AfsClusterException" shape="rect" coords="1144,112,1420,136"/>
 <area href="classAfsConnectorExecutionFailedException.html" title="Exception class for internal use only. " alt="AfsConnectorExecutionFailedException" shape="rect" coords="1430,112,1706,136"/>
 <area href="classAfsFacetException.html" title="Base class for all exceptions related to facet errors. " alt="AfsFacetException" shape="rect" coords="1716,112,1992,136"/>
+<area href="classAfsIntervalException.html" title="Base class for all facet interval exceptions. " alt="AfsIntervalException" shape="rect" coords="2288,112,2564,136"/>
+<area href="classAfsNotImplementedException.html" title="Not implemented exception. " alt="AfsNotImplementedException" shape="rect" coords="2574,112,2850,136"/>
 <area href="classAfsAcpEmptyReplysetException.html" title="Exception raised when trying to initialize replyset from empty ACP suggestion. " alt="AfsAcpEmptyReplysetException" shape="rect" coords="286,168,562,192"/>
 <area href="classAfsAcpInvalidSuggestionFormatException.html" title="Exception raised when input data are incoherent. " alt="AfsAcpInvalidSuggestionFormatException" shape="rect" coords="286,224,562,248"/>
 <area href="classAfsAcpUnmanagedSuggestionFormatException.html" title="Exception raised when input data can&#39;t be used to initialize ACP suggestion. " alt="AfsAcpUnmanagedSuggestionFormatException" shape="rect" coords="286,280,562,304"/>
@@ -111,6 +114,8 @@ Inheritance diagram for AfsBaseException:</div>
 <area href="classAfsUninitializedClusterException.html" title="Requested cluster identifier is unknown. " alt="AfsUninitializedClusterException" shape="rect" coords="1144,168,1420,192"/>
 <area href="classAfsInvalidFacetParameterException.html" title="Configured facet parameter and detected facet parameter are not coherent. " alt="AfsInvalidFacetParameterException" shape="rect" coords="2002,168,2278,192"/>
 <area href="classAfsUndefinedFacetException.html" title="Requested facet identifier is unknown. " alt="AfsUndefinedFacetException" shape="rect" coords="2002,224,2278,248"/>
+<area href="classAfsIntervalBoundException.html" title="Exception raised when invalid bound has been provided to interval. " alt="AfsIntervalBoundException" shape="rect" coords="2574,168,2850,192"/>
+<area href="classAfsIntervalInitializerException.html" title="Exception raised when invalid string initializer has been provided to create interval. " alt="AfsIntervalInitializerException" shape="rect" coords="2574,224,2850,248"/>
 </map>
  </div></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -118,7 +123,7 @@ Inheritance diagram for AfsBaseException:</div>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:48 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

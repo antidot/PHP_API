@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -74,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -112,12 +113,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1110012c6b8b3e5530c0408916bc0228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct new AFS query object.  <a href="#a1110012c6b8b3e5530c0408916bc0228">More...</a><br/></td></tr>
 <tr class="separator:a1110012c6b8b3e5530c0408916bc0228"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Filter management</div></td></tr>
-<tr class="memitem:aa8c436cf9389263e980e1c5bbc033f58"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#aa8c436cf9389263e980e1c5bbc033f58">set_filter</a> ($facet_id, $value)</td></tr>
-<tr class="memdesc:aa8c436cf9389263e980e1c5bbc033f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign new value to specific facet replacing any existing one.  <a href="#aa8c436cf9389263e980e1c5bbc033f58">More...</a><br/></td></tr>
-<tr class="separator:aa8c436cf9389263e980e1c5bbc033f58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a783993ea5fd131053be6c97e38ffcc1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a783993ea5fd131053be6c97e38ffcc1c">add_filter</a> ($facet_id, $value)</td></tr>
-<tr class="memdesc:a783993ea5fd131053be6c97e38ffcc1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign new value to specific facet.  <a href="#a783993ea5fd131053be6c97e38ffcc1c">More...</a><br/></td></tr>
-<tr class="separator:a783993ea5fd131053be6c97e38ffcc1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adadf99011e60235465b6e5491e2b2a0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#adadf99011e60235465b6e5491e2b2a0f">set_filter</a> ($facet_id, $values)</td></tr>
+<tr class="memdesc:adadf99011e60235465b6e5491e2b2a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign new value(s) to specific facet replacing any existing one.  <a href="#adadf99011e60235465b6e5491e2b2a0f">More...</a><br/></td></tr>
+<tr class="separator:adadf99011e60235465b6e5491e2b2a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac77aa91d60bd0c5582141fb8ec4e58d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#ac77aa91d60bd0c5582141fb8ec4e58d9">add_filter</a> ($facet_id, $values)</td></tr>
+<tr class="memdesc:ac77aa91d60bd0c5582141fb8ec4e58d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign new value(s) to specific facet.  <a href="#ac77aa91d60bd0c5582141fb8ec4e58d9">More...</a><br/></td></tr>
+<tr class="separator:ac77aa91d60bd0c5582141fb8ec4e58d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06cc37ecbc8de90f787f5e3c6b144546"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a06cc37ecbc8de90f787f5e3c6b144546">remove_filter</a> ($facet_id, $value)</td></tr>
 <tr class="memdesc:a06cc37ecbc8de90f787f5e3c6b144546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove existing value from specific facet.  <a href="#a06cc37ecbc8de90f787f5e3c6b144546">More...</a><br/></td></tr>
 <tr class="separator:a06cc37ecbc8de90f787f5e3c6b144546"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,6 +131,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1876fc31ac3190e79cb03b65d3ce4b9b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a1876fc31ac3190e79cb03b65d3ce4b9b">get_filters</a> ()</td></tr>
 <tr class="memdesc:a1876fc31ac3190e79cb03b65d3ce4b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the list of all managed facet ids.  <a href="#a1876fc31ac3190e79cb03b65d3ce4b9b">More...</a><br/></td></tr>
 <tr class="separator:a1876fc31ac3190e79cb03b65d3ce4b9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Advanced filter management</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>These filters are intended to be exposed to AFS search engine only. </p>
+</div></td></tr>
+<tr class="memitem:a16277a029f92887fd0030e05763fb64c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a16277a029f92887fd0030e05763fb64c">has_advanced_filter</a> ()</td></tr>
+<tr class="memdesc:a16277a029f92887fd0030e05763fb64c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether at least one advanced filter is defined.  <a href="#a16277a029f92887fd0030e05763fb64c">More...</a><br/></td></tr>
+<tr class="separator:a16277a029f92887fd0030e05763fb64c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ababe22b6c58138cc716f41747fb747fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#ababe22b6c58138cc716f41747fb747fc">get_advanced_filters</a> ()</td></tr>
+<tr class="memdesc:ababe22b6c58138cc716f41747fb747fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves advanced filters.  <a href="#ababe22b6c58138cc716f41747fb747fc">More...</a><br/></td></tr>
+<tr class="separator:ababe22b6c58138cc716f41747fb747fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e47e4fcde440e9f5ce9b2ebc0bc0444"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a2e47e4fcde440e9f5ce9b2ebc0bc0444">set_advanced_filter</a> (<a class="el" href="classAfsFilterWrapper.html">AfsFilterWrapper</a> $<a class="el" href="afs__filter_8php.html#af79b692968a5d4fc4175fa1c373b0b59">filter</a>)</td></tr>
+<tr class="memdesc:a2e47e4fcde440e9f5ce9b2ebc0bc0444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new advanced filter replacing any existing ones.  <a href="#a2e47e4fcde440e9f5ce9b2ebc0bc0444">More...</a><br/></td></tr>
+<tr class="separator:a2e47e4fcde440e9f5ce9b2ebc0bc0444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4869727061609535349f55b4147596e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a4869727061609535349f55b4147596e0">add_advanced_filter</a> (<a class="el" href="classAfsFilterWrapper.html">AfsFilterWrapper</a> $<a class="el" href="afs__filter_8php.html#af79b692968a5d4fc4175fa1c373b0b59">filter</a>)</td></tr>
+<tr class="memdesc:a4869727061609535349f55b4147596e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends new advanced filter to the query.  <a href="#a4869727061609535349f55b4147596e0">More...</a><br/></td></tr>
+<tr class="separator:a4869727061609535349f55b4147596e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a3d0e329ad3ae79145f5bbd6851d7e1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a4a3d0e329ad3ae79145f5bbd6851d7e1">reset_advanced_filter</a> ()</td></tr>
+<tr class="memdesc:a4a3d0e329ad3ae79145f5bbd6851d7e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove any advanced filter definition from the query.  <a href="#a4a3d0e329ad3ae79145f5bbd6851d7e1">More...</a><br/></td></tr>
+<tr class="separator:a4a3d0e329ad3ae79145f5bbd6851d7e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Language management</div></td></tr>
 <tr class="memitem:ae71a52882ae36cba1b7f840bdc49e8a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#ae71a52882ae36cba1b7f840bdc49e8a9">has_lang</a> ()</td></tr>
 <tr class="memdesc:ae71a52882ae36cba1b7f840bdc49e8a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether language is set.  <a href="#ae71a52882ae36cba1b7f840bdc49e8a9">More...</a><br/></td></tr>
@@ -334,7 +353,7 @@ Full configuration through array of parameters</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>get_additional_parameters</b> ()</td></tr>
 <tr class="separator:a9d7e3c3e6cb2fdd742b8b38d6b0b2a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a233968501372f4c3569e206bae2b69b4"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsQuery.html#a233968501372f4c3569e206bae2b69b4">create_from_parameters</a> (array $params)</td></tr>
-<tr class="memdesc:a233968501372f4c3569e206bae2b69b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create full query from array of parameters.  <a href="#a233968501372f4c3569e206bae2b69b4">More...</a><br/></td></tr>
+<tr class="memdesc:a233968501372f4c3569e206bae2b69b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates full query from array of parameters.  <a href="#a233968501372f4c3569e206bae2b69b4">More...</a><br/></td></tr>
 <tr class="separator:a233968501372f4c3569e206bae2b69b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -372,7 +391,32 @@ Full configuration through array of parameters</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a783993ea5fd131053be6c97e38ffcc1c"></a>
+<a class="anchor" id="a4869727061609535349f55b4147596e0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">add_advanced_filter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classAfsFilterWrapper.html">AfsFilterWrapper</a>&#160;</td>
+          <td class="paramname"><em>$filter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends new advanced filter to the query. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$filter</td><td>[in] Advanced filter to add. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new up to date instance. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac77aa91d60bd0c5582141fb8ec4e58d9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -386,7 +430,7 @@ Full configuration through array of parameters</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$value</em>&#160;</td>
+          <td class="paramname"><em>$values</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -396,11 +440,11 @@ Full configuration through array of parameters</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assign new value to specific facet. </p>
+<p>Assign new value(s) to specific facet. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$facet_id</td><td>[in] id of the facet for which new <em>value</em> should be added. </td></tr>
-    <tr><td class="paramname">$value</td><td>[in] value to add to the facet. </td></tr>
+    <tr><td class="paramname">$values</td><td>[in] value(s) to add to the facet. </td></tr>
   </table>
   </dd>
 </dl>
@@ -472,7 +516,8 @@ Full configuration through array of parameters</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create full query from array of parameters. </p>
+<p>Creates full query from array of parameters. </p>
+<p>Unknown parameters are silently ignored.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$params</td><td>[in] structured array of parameters. </td></tr>
@@ -480,6 +525,24 @@ Full configuration through array of parameters</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>correctly initialized query. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ababe22b6c58138cc716f41747fb747fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_advanced_filters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves advanced filters. </p>
+<dl class="section return"><dt>Returns</dt><dd>Advanced filters. </dd></dl>
 
 </div>
 </div>
@@ -700,6 +763,24 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a16277a029f92887fd0030e05763fb64c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">has_advanced_filter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether at least one advanced filter is defined. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> when one or more advanced filters have been defined, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a6918008ecac4c4e32a1e568448a5897a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -915,6 +996,24 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a4a3d0e329ad3ae79145f5bbd6851d7e1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">reset_advanced_filter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove any advanced filter definition from the query. </p>
+<dl class="section return"><dt>Returns</dt><dd>new up to date instance. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a039a2df767df51d646fd5d3a858d8cd9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -938,6 +1037,31 @@ Full configuration through array of parameters</h2></td></tr>
 
 <p>Shortcut for <em>set_page(1)</em>. </p>
 <p>This method do not copy the instance and change current one inplace. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2e47e4fcde440e9f5ce9b2ebc0bc0444"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">set_advanced_filter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classAfsFilterWrapper.html">AfsFilterWrapper</a>&#160;</td>
+          <td class="paramname"><em>$filter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines new advanced filter replacing any existing ones. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$filter</td><td>[in] Advanced filter to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>new up to date instance. </dd></dl>
 
 </div>
 </div>
@@ -1002,7 +1126,7 @@ Full configuration through array of parameters</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa8c436cf9389263e980e1c5bbc033f58"></a>
+<a class="anchor" id="adadf99011e60235465b6e5491e2b2a0f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1016,7 +1140,7 @@ Full configuration through array of parameters</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$value</em>&#160;</td>
+          <td class="paramname"><em>$values</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1026,11 +1150,11 @@ Full configuration through array of parameters</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assign new value to specific facet replacing any existing one. </p>
+<p>Assign new value(s) to specific facet replacing any existing one. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$facet_id</td><td>[in] id of the facet to update. </td></tr>
-    <tr><td class="paramname">$value</td><td>[in] new value to filter on. </td></tr>
+    <tr><td class="paramname">$values</td><td>[in] new value(s) to filter on. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1215,7 +1339,7 @@ Full configuration through array of parameters</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:49 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

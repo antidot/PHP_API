@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -74,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -92,24 +93,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>This is the complete list of members for <a class="el" href="classAfsFacet.html">AfsFacet</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#ab9a8a500cf681605e40173802f838ab1">__construct</a>($id, $type, $layout=AfsFacetLayout::TREE, $mode=AfsFacetMode::REPLACE, $combination=AfsFacetCombination::OR_MODE, $sticky=AfsFacetStickyness::NON_STICKY)</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#ad84bcb6b2b996099b968ccf32e42218a">__construct</a>($id, $type=AfsFacetType::UNKNOWN_TYPE, $layout=AfsFacetLayout::TREE, $mode=AfsFacetMode::UNSPECIFIED_MODE)</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classAfsFacet.html#a7516ca30af0db3cdbf9a7739b48ce91d">__toString</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#aedb7e9f70593cb65efbcf5d70d0afdab">get_combination</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classAfsFacet.html#a8a94003b9d888b085c68d6eac44be175">get_id</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#ab914fc6f8744c64a352cc6a0279e91c7">get_layout</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classAfsFacet.html#acae04b87923d21614e3c8ec8f738ca2e">get_mode</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#ab5be4c3d74f109176ef57e753ebd4918">get_type</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classAfsFacet.html#a125bfa703eb601ad85b9c87ea6ce4a42">has_add_mode</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#aa619d67baecfe46632e36f150eac1966">has_replace_mode</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#a8a94003b9d888b085c68d6eac44be175">get_id</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classAfsFacet.html#ab914fc6f8744c64a352cc6a0279e91c7">get_layout</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#acae04b87923d21614e3c8ec8f738ca2e">get_mode</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classAfsFacet.html#ab5be4c3d74f109176ef57e753ebd4918">get_type</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#a47b2e97fb79939abd1d79770d67fb5a0">has_and_mode</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classAfsFacet.html#a8279d790a59ebcdb42c70b601682f7cc">has_or_mode</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#af79156c1d100eda384931ab0a18206ee">has_single_mode</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classAfsFacet.html#a28f26872e5ea71fead83b236d71dc952">is_similar_to</a>(AfsFacet $other)</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#a9ebdd76b5d36ed75ba8d432c0d0c11cc">is_sticky</a>()</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classAfsFacet.html#a6a3207031b68345838b2b2a7c084e234">set_sticky</a>($state=true)</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#a424a47491438d0e72cc283f9c8b0c16a">set_type</a>($type)</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classAfsFacet.html#a685704b8f3238145b9dc8ebd70e03131">update</a>(AfsFacet $other)</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#ab32fd90a4ac2df4be1e56460d6f6daa3">set_mode</a>($mode)</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classAfsFacet.html#a424a47491438d0e72cc283f9c8b0c16a">set_type</a>($type)</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsFacet.html#a685704b8f3238145b9dc8ebd70e03131">update</a>(AfsFacet $other)</td><td class="entry"><a class="el" href="classAfsFacet.html">AfsFacet</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:48 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

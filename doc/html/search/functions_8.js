@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['has_5fadd_5fmode',['has_add_mode',['../classAfsFacet.html#a125bfa703eb601ad85b9c87ea6ce4a42',1,'AfsFacet']]],
+  ['has_5fadvanced_5ffilter',['has_advanced_filter',['../classAfsQuery.html#a16277a029f92887fd0030e05763fb64c',1,'AfsQuery']]],
+  ['has_5fand_5fmode',['has_and_mode',['../classAfsFacet.html#a47b2e97fb79939abd1d79770d67fb5a0',1,'AfsFacet']]],
   ['has_5fclientdata',['has_clientdata',['../classAfsReplyHelper.html#a830d45021b3c5c8d949fc2408c5f0b3a',1,'AfsReplyHelper']]],
   ['has_5fcluster',['has_cluster',['../classAfsMetaHelper.html#a6918008ecac4c4e32a1e568448a5897a',1,'AfsMetaHelper\has_cluster()'],['../classAfsQuery.html#a6918008ecac4c4e32a1e568448a5897a',1,'AfsQuery\has_cluster()'],['../classAfsReplysetHelper.html#a6918008ecac4c4e32a1e568448a5897a',1,'AfsReplysetHelper\has_cluster()']]],
   ['has_5fconcept',['has_concept',['../classAfsConceptManager.html#ae7a57c7e323d89d0e35398911dbb7d86',1,'AfsConceptManager\has_concept()'],['../classAfsConceptItem.html#ae7a57c7e323d89d0e35398911dbb7d86',1,'AfsConceptItem\has_concept()'],['../classAfsResponseHelper.html#ae7a57c7e323d89d0e35398911dbb7d86',1,'AfsResponseHelper\has_concept()']]],
@@ -14,6 +15,7 @@ var searchData=
   ['has_5fmax_5fclusters',['has_max_clusters',['../classAfsQuery.html#a0ede9ba0b74c95ccf4fcf06a4760aca3',1,'AfsQuery']]],
   ['has_5fnext',['has_next',['../classAfsPagerHelper.html#a1cbed9c86987cc22754e47594b45ab78',1,'AfsPagerHelper']]],
   ['has_5foption',['has_option',['../classAfsAcpReplyHelper.html#a8d5dbc1fddb4c9a70cc2062a1c76db44',1,'AfsAcpReplyHelper']]],
+  ['has_5for_5fmode',['has_or_mode',['../classAfsFacet.html#a8279d790a59ebcdb42c70b601682f7cc',1,'AfsFacet']]],
   ['has_5foverspill',['has_overspill',['../classAfsQuery.html#a71c2791e0c0ec7928e54933c5c4c3195',1,'AfsQuery']]],
   ['has_5fpage',['has_page',['../classAfsQuery.html#a1370f133fde53a19f72ce0aa8eb39d8d',1,'AfsQuery']]],
   ['has_5fpager',['has_pager',['../classAfsReplysetHelper.html#a6315241cf08cafb541e32d597aa3a00c',1,'AfsReplysetHelper']]],
@@ -21,12 +23,12 @@ var searchData=
   ['has_5fpromote',['has_promote',['../classAfsResponseHelper.html#a5802208a2368d3713677fbe1af63ac93',1,'AfsResponseHelper']]],
   ['has_5fquery',['has_query',['../classAfsQueryBase.html#ad7ed34dabf83db49f1ad493e027a6df7',1,'AfsQueryBase']]],
   ['has_5fquery_5fcoder',['has_query_coder',['../classAfsHelperConfiguration.html#a1512dbe074f880d5636e67ed414a6b7f',1,'AfsHelperConfiguration']]],
-  ['has_5freplace_5fmode',['has_replace_mode',['../classAfsFacet.html#aa619d67baecfe46632e36f150eac1966',1,'AfsFacet']]],
   ['has_5freplies',['has_replies',['../classAfsQueryBase.html#aa75dd79d6f3dd0a5e9857563df8bdd0a',1,'AfsQueryBase']]],
   ['has_5freply',['has_reply',['../classAfsAcpReplysetHelper.html#a05da85a86710931cfb22c45a276f2b19',1,'AfsAcpReplysetHelper\has_reply()'],['../classAfsBaseReplysetHelper.html#a05da85a86710931cfb22c45a276f2b19',1,'AfsBaseReplysetHelper\has_reply()'],['../classAfsClusterHelper.html#a05da85a86710931cfb22c45a276f2b19',1,'AfsClusterHelper\has_reply()']]],
   ['has_5freplyset',['has_replyset',['../classAfsAcpResponseHelper.html#a5f3780f5cea9b8536c402e7306bf6af8',1,'AfsAcpResponseHelper\has_replyset()'],['../classAfsResponseHelper.html#a5f3780f5cea9b8536c402e7306bf6af8',1,'AfsResponseHelper\has_replyset()']]],
   ['has_5fresult',['has_result',['../classAfsPafUploadReply.html#a571185bc837397940e6010353a6911f2',1,'AfsPafUploadReply']]],
   ['has_5fsession_5fid',['has_session_id',['../classAfsQueryBase.html#a4c11cd4e09a5be758f96bfe1d4ac365e',1,'AfsQueryBase']]],
+  ['has_5fsingle_5fmode',['has_single_mode',['../classAfsFacet.html#af79156c1d100eda384931ab0a18206ee',1,'AfsFacet']]],
   ['has_5fsort',['has_sort',['../classAfsQuery.html#aceea970b6434a392f23a543e57a98f22',1,'AfsQuery']]],
   ['has_5fspellcheck',['has_spellcheck',['../classAfsResponseHelper.html#ae15b795a22fb08c8651780936a1f7b1a',1,'AfsResponseHelper\has_spellcheck()'],['../classAfsSpellcheckManager.html#ae15b795a22fb08c8651780936a1f7b1a',1,'AfsSpellcheckManager\has_spellcheck()']]],
   ['has_5fuser_5fid',['has_user_id',['../classAfsQueryBase.html#a7512e177d638d4ff343c8ed16e61045c',1,'AfsQueryBase']]]

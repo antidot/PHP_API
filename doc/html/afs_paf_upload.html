@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -66,7 +67,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,8 +111,8 @@ PaF connector</h1>
 <p>Instance of <em><a class="el" href="classAfsPafConnector.html" title="AFS PaF connector. ">AfsPafConnector</a></em> allows to configure connection to specific PaF. Once it is configure, one or more documents can be uploaded by calling appropriate method (<em><a class="el" href="classAfsPafConnector.html#abe4f4b5475b59dea35bbf2c18dd1aea4" title="Upload one document to the PaF. ">AfsPafConnector::upload_doc</a></em> or <em><a class="el" href="classAfsPafConnector.html#a594494ebe4936cb8ecd2755d685c75ab" title="Upload one or more documents through document manager. ">AfsPafConnector::upload_docs</a></em>).</p>
 <p>Example of uploading one or more documents: </p>
 <div class="fragment"><div class="line">$auth = <span class="keyword">new</span> <a class="code" href="classAfsAuthentication.html">AfsAuthentication</a>(<span class="stringliteral">&#39;antidot&#39;</span>, <span class="stringliteral">&#39;change_on_install&#39;</span>, AFS_AUTH_ANTIDOT);</div>
-<div class="line">$service = <span class="keyword">new</span> <a class="code" href="classAfsService.html">AfsService</a>(42);</div>
-<div class="line">$connector = <span class="keyword">new</span> <a class="code" href="classAfsPafConnector.html">AfsPafConnector</a>(<span class="stringliteral">&#39;eval.partners.antidot.net&#39;</span>, $service, <span class="stringliteral">&#39;TEST&#39;</span>, $auth);</div>
+<div class="line"><a class="code" href="full__example_8php.html#abb8d1943d2cf9b6a3d54a4fed1ad2d9d">$service</a> = <span class="keyword">new</span> <a class="code" href="classAfsService.html">AfsService</a>(42);</div>
+<div class="line">$connector = <span class="keyword">new</span> <a class="code" href="classAfsPafConnector.html">AfsPafConnector</a>(<span class="stringliteral">&#39;eval.partners.antidot.net&#39;</span>, <a class="code" href="full__example_8php.html#abb8d1943d2cf9b6a3d54a4fed1ad2d9d">$service</a>, <span class="stringliteral">&#39;TEST&#39;</span>, $auth);</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Upload one document directly</span></div>
 <div class="line">$result = $connector-&gt;upload_doc($doc);</div>
@@ -121,20 +122,20 @@ PaF connector</h1>
 </div><!-- fragment --><h1><a class="anchor" id="apu_paf_reply"></a>
 PaF upload result</h1>
 <p>Instance of <em><a class="el" href="classAfsPafUploadReply.html" title="Wrapper for reply of PaF upload document. ">AfsPafUploadReply</a></em> simplifies reply management of PaF upload. If an error occured, you can get it in a very simple way: </p>
-<div class="fragment"><div class="line">$reply = $connector-&gt;upload_doc($doc);</div>
+<div class="fragment"><div class="line"><a class="code" href="full__lightweight__example_8php.html#a46ad7c5fff64ab9b49b9cfcaff650baa">$reply</a> = $connector-&gt;upload_doc($doc);</div>
 <div class="line"></div>
-<div class="line"><span class="keywordflow">if</span> ($reply-&gt;in_error())</div>
+<div class="line"><span class="keywordflow">if</span> (<a class="code" href="full__lightweight__example_8php.html#a46ad7c5fff64ab9b49b9cfcaff650baa">$reply</a>-&gt;in_error())</div>
 <div class="line">{</div>
-<div class="line">  echo <span class="stringliteral">&#39;ERROR: &#39;</span> . $reply-&gt;error;</div>
+<div class="line">  echo <span class="stringliteral">&#39;ERROR: &#39;</span> . <a class="code" href="full__lightweight__example_8php.html#a46ad7c5fff64ab9b49b9cfcaff650baa">$reply</a>-&gt;error;</div>
 <div class="line">}</div>
 <div class="line"><span class="keywordflow">else</span></div>
 <div class="line">{</div>
-<div class="line">  echo <span class="stringliteral">&#39;OK (Job id: &#39;</span> . $reply-&gt;result-&gt;jobId . <span class="charliteral">&#39;)&#39;</span>;</div>
+<div class="line">  echo <span class="stringliteral">&#39;OK (Job id: &#39;</span> . <a class="code" href="full__lightweight__example_8php.html#a46ad7c5fff64ab9b49b9cfcaff650baa">$reply</a>-&gt;result-&gt;jobId . <span class="charliteral">&#39;)&#39;</span>;</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:48 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

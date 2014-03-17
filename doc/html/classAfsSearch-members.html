@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -74,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -101,15 +102,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr class="even"><td class="entry"><a class="el" href="classAfsSearch.html#a1d04c2858be0c7e666c0bfb265effb49">get_helpers_configuration</a>()</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classAfsSearch.html#aeca228af56a64dc648c2b98f15bc496a">get_query</a>()</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classAfsSearch.html#ac55ba4f4b6faf2110f64e0eaef63fb92">get_service</a>()</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classAfsSearch.html#a245a9ab534f64efd808ef076f14d305f">set_default_mono_selection_facets</a>()</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsSearch.html#ac91181c9eb52089c23a0ca4caf1463fd">set_default_multi_selection_facets</a>()</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classAfsSearch.html#ae4f445bc7d9f284384555f7871b0c634">set_facet_sort_order</a>(array $ids, $mode)</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classAfsSearch.html#a90ed598becee6e83812a6cde94a20be0">set_facet_stickyness</a>($id, $state=true)</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classAfsSearch.html#aa27ceb3a03085587208865be59839b57">set_facets_stickyness</a>($state=true)</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classAfsSearch.html#a3da5fa2fadb300e755e0340353fbe980">set_mono_selection_facets</a>($ids)</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classAfsSearch.html#a756e98e88db749bfdc2ff052de22a2fc">set_multi_selection_facets</a>($ids)</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classAfsSearch.html#ae09979047904e6ec293dd1385cdda42d">set_query</a>(AfsQuery $query)</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classAfsSearch.html#a135ab896c4875fe9edaf96e4baefc91b">set_query_coder</a>(AfsQueryCoderInterface $query_coder)</td><td class="entry"><a class="el" href="classAfsSearch.html">AfsSearch</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:49 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

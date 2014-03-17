@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -74,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,12 +108,18 @@ Inheritance diagram for AfsFacetMode:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a4223a719e1c916bf302beb9b827fc632"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetMode.html#a4223a719e1c916bf302beb9b827fc632">REPLACE</a> = 'replace'</td></tr>
-<tr class="memdesc:a4223a719e1c916bf302beb9b827fc632"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace mode.  <a href="#a4223a719e1c916bf302beb9b827fc632">More...</a><br/></td></tr>
-<tr class="separator:a4223a719e1c916bf302beb9b827fc632"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a329418a40817d60a6853c5e9547ca3a7"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetMode.html#a329418a40817d60a6853c5e9547ca3a7">ADD</a> = 'add'</td></tr>
-<tr class="memdesc:a329418a40817d60a6853c5e9547ca3a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add mode.  <a href="#a329418a40817d60a6853c5e9547ca3a7">More...</a><br/></td></tr>
-<tr class="separator:a329418a40817d60a6853c5e9547ca3a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf12c5db8493af9454928854ad23d58c"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetMode.html#abf12c5db8493af9454928854ad23d58c">SINGLE_MODE</a> = 'SINGLE_MODE'</td></tr>
+<tr class="memdesc:abf12c5db8493af9454928854ad23d58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single mode.  <a href="#abf12c5db8493af9454928854ad23d58c">More...</a><br/></td></tr>
+<tr class="separator:abf12c5db8493af9454928854ad23d58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5e70a01eaaa6fe84e0cbd211e04464b"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetMode.html#af5e70a01eaaa6fe84e0cbd211e04464b">OR_MODE</a> = 'OR_MODE'</td></tr>
+<tr class="memdesc:af5e70a01eaaa6fe84e0cbd211e04464b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Or mode.  <a href="#af5e70a01eaaa6fe84e0cbd211e04464b">More...</a><br/></td></tr>
+<tr class="separator:af5e70a01eaaa6fe84e0cbd211e04464b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedde9cb7f1297cb7db6d09d51731563d"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetMode.html#aedde9cb7f1297cb7db6d09d51731563d">AND_MODE</a> = 'AND_MODE'</td></tr>
+<tr class="memdesc:aedde9cb7f1297cb7db6d09d51731563d"><td class="mdescLeft">&#160;</td><td class="mdescRight">And mode.  <a href="#aedde9cb7f1297cb7db6d09d51731563d">More...</a><br/></td></tr>
+<tr class="separator:aedde9cb7f1297cb7db6d09d51731563d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa96945f7ee707279ee88ef23957e34c6"><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetMode.html#aa96945f7ee707279ee88ef23957e34c6">UNSPECIFIED_MODE</a> = 'UNSPECIFIED_MODE'</td></tr>
+<tr class="memdesc:aa96945f7ee707279ee88ef23957e34c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unspecified mode.  <a href="#aa96945f7ee707279ee88ef23957e34c6">More...</a><br/></td></tr>
+<tr class="separator:aa96945f7ee707279ee88ef23957e34c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -131,40 +138,113 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>Mode of the facets. </p>
 <p>Specify the mode of the facets. Modes allow to combine or replace values of the facets. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a329418a40817d60a6853c5e9547ca3a7"></a>
+<a class="anchor" id="aedde9cb7f1297cb7db6d09d51731563d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const ADD = 'add'</td>
+          <td class="memname">const AND_MODE = 'AND_MODE'</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Add mode. </p>
-<p>New value set for the facet is appended to the list of already set facets. </p>
+<p>And mode. </p>
+<p>New value set for the facet is appended to the list of values already set. All the values are and-combined.</p>
+<p>Example:<br/>
+ Let's suppose your products have one or more colors each.</p>
+<ul>
+<li>A query without any filter should get a reply with all products and following facet values: <pre class="fragment">- Green  (3 products)
+- Blue   (7 products)
+- Red    (4 products)
+</pre></li>
+<li>Then you can filter on Blue, reply should only contains products of appropriate color and facet values are updated. Only relevant facet values are present in the reply: let's suppose there is no product which is blue and red and there is only two products which are blue and green: <pre class="fragment">- Green  (2 products)
+- Blue   (7 products) X
+</pre></li>
+<li>You can add filter on Green so that you get all products which are blue and green. Facet values are updated according to this new filter: <pre class="fragment">- Green  (2 products) X
+- Blue   (2 products) X</pre> </li>
+</ul>
 
 </div>
 </div>
-<a class="anchor" id="a4223a719e1c916bf302beb9b827fc632"></a>
+<a class="anchor" id="af5e70a01eaaa6fe84e0cbd211e04464b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const REPLACE = 'replace'</td>
+          <td class="memname">const OR_MODE = 'OR_MODE'</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Replace mode. </p>
-<p>New value set for the facet replace existing one. </p>
+<p>Or mode. </p>
+<p>New value set for the facet is appended to the list of values already set. All the values are or-combined.</p>
+<p>Example:<br/>
+ Let's suppose your products have one brand each.</p>
+<ul>
+<li>A query without any filter should get a reply with all products and following facet values: <pre class="fragment">- Brand1  (3 products)
+- Brand2  (7 products)
+- Brand3  (4 products)
+</pre></li>
+<li>Then you can filter on Brand2, reply should only contains products of appropriate brand whereas facet values are not changed. All the brands are still available so that one can filter on other brand. <pre class="fragment">- Brand1  (3 products)
+- Brand2  (7 products) X
+- Brand3  (4 products)
+</pre></li>
+<li>You can add filter on Brand1 so that you get all products for brand 1 and brand 2 whereas facet values are still unchanged: <pre class="fragment">- Brand1  (3 products) X
+- Brand2  (7 products) X
+- Brand3  (4 products)</pre> </li>
+</ul>
+
+</div>
+</div>
+<a class="anchor" id="abf12c5db8493af9454928854ad23d58c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const SINGLE_MODE = 'SINGLE_MODE'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Single mode. </p>
+<p>New value set for the facet replaces existing one.</p>
+<p>Example:<br/>
+ Let's suppose your products have one brand each.</p>
+<ul>
+<li>A query without any filter should get a reply with all products and following facet values: <pre class="fragment">- Brand1  (3 products)
+- Brand2  (7 products)
+- Brand3  (4 products)
+</pre></li>
+<li>Then you can filter on Brand2, reply should only contains products of appropriate brand whereas facet values are not changed. All the brands are still available so that one can filter on other brand. <pre class="fragment"> - Brand1  (3 products)
+ - Brand2  (7 products) X
+ - Brand3  (4 products)
+</pre></li>
+<li>You can filter on Brand1 so that you get all products for this brand whereas facet values are still unchanged: <pre class="fragment">- Brand1  (3 products) X
+- Brand2  (7 products)
+- Brand3  (4 products)</pre> </li>
+</ul>
+
+</div>
+</div>
+<a class="anchor" id="aa96945f7ee707279ee88ef23957e34c6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const UNSPECIFIED_MODE = 'UNSPECIFIED_MODE'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unspecified mode. </p>
+<p>When a facet is built with unspecified mode, global mode defined at facet manager level is applied. </p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:49 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

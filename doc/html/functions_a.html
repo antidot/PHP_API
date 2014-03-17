@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -91,7 +92,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_i.html#index_i"><span>i</span></a></li>
       <li><a href="functions_l.html#index_l"><span>l</span></a></li>
       <li><a href="functions_m.html#index_m"><span>m</span></a></li>
-      <li><a href="functions_n.html#index_n"><span>n</span></a></li>
       <li><a href="functions_o.html#index_o"><span>o</span></a></li>
       <li><a href="functions_p.html#index_p"><span>p</span></a></li>
       <li><a href="functions_q.html#index_q"><span>q</span></a></li>
@@ -109,7 +109,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -129,8 +129,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>ACP
 : <a class="el" href="classAfsOrigin.html#a18357388777fdf2c2cb44821eb58d0c0">AfsOrigin</a>
 </li>
-<li>ADD
-: <a class="el" href="classAfsFacetMode.html#a329418a40817d60a6853c5e9547ca3a7">AfsFacetMode</a>
+<li>add_advanced_filter()
+: <a class="el" href="classAfsQuery.html#a4869727061609535349f55b4147596e0">AfsQuery</a>
 </li>
 <li>add_callbacks()
 : <a class="el" href="classFilterNodeManager.html#a2b77c74b0d06aecc185f5d5e42e101bb">FilterNodeManager</a>
@@ -149,7 +149,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classAfsQueryBase.html#abf2ddc5d95bf5d7537522a10e6289dd7">AfsQueryBase</a>
 </li>
 <li>add_filter()
-: <a class="el" href="classAfsQuery.html#a783993ea5fd131053be6c97e38ffcc1c">AfsQuery</a>
+: <a class="el" href="classAfsQuery.html#ac77aa91d60bd0c5582141fb8ec4e58d9">AfsQuery</a>
 </li>
 <li>add_item()
 : <a class="el" href="classAfsConceptHelper.html#a258462d4b46c2261e6847c249efa8a1b">AfsConceptHelper</a>
@@ -168,6 +168,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>AND_MODE
 : <a class="el" href="classAfsFacetCombination.html#aedde9cb7f1297cb7db6d09d51731563d">AfsFacetCombination</a>
+, <a class="el" href="classAfsFacetMode.html#aedde9cb7f1297cb7db6d09d51731563d">AfsFacetMode</a>
 </li>
 <li>apply_filter()
 : <a class="el" href="classFilterNodeManager.html#af3b16ffbf39d978f01849b330860a460">FilterNodeManager</a>
@@ -188,7 +189,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:49 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

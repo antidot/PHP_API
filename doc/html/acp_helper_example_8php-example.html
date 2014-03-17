@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -67,7 +68,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -87,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">$acp = <span class="keyword">new</span> <a name="_a0"></a><a class="code" href="classAfsAcp.html">AfsAcp</a>(<span class="stringliteral">&#39;eval.partners.antidot.net&#39;</span>, 48000);</div>
 <div class="line">$acp = <span class="keyword">new</span> <a class="code" href="classAfsAcp.html">AfsAcp</a>(<span class="stringliteral">&#39;10.61.8.49&#39;</span>, 48000);</div>
 <div class="line">$acp-&gt;query(<span class="stringliteral">&#39;Men&#39;</span>);</div>
-<div class="line">$helper = $acp-&gt;execute(<a name="a1"></a><a class="code" href="classAfsHelperFormat.html#afe8b0b488d0cdf90d6dd285e8622bc57">AfsHelperFormat::HELPERS</a>);</div>
+<div class="line"><a name="a1"></a><a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a> = $acp-&gt;execute(<a name="a2"></a><a class="code" href="classAfsHelperFormat.html#afe8b0b488d0cdf90d6dd285e8622bc57">AfsHelperFormat::HELPERS</a>);</div>
 <div class="line"></div>
 <div class="line">?&gt;</div>
 <div class="line"></div>
@@ -111,10 +112,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    &lt;/div&gt;</div>
 <div class="line"></div>
 <div class="line">&lt;?php</div>
-<div class="line"><span class="keywordflow">if</span> ($helper-&gt;has_replyset()) {</div>
+<div class="line"><span class="keywordflow">if</span> (<a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a>-&gt;has_replyset()) {</div>
 <div class="line">    echo <span class="stringliteral">&#39;</span></div>
 <div class="line"><span class="stringliteral">    &lt;div class=&quot;row&quot;&gt;&#39;</span>;</div>
-<div class="line">    <span class="keywordflow">foreach</span> ($helper-&gt;get_replysets() as $suggests) {</div>
+<div class="line">    <span class="keywordflow">foreach</span> (<a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a>-&gt;get_replysets() as $suggests) {</div>
 <div class="line">        echo <span class="stringliteral">&#39;</span></div>
 <div class="line"><span class="stringliteral">          &lt;div class=&quot;col-md-2&quot;&gt;</span></div>
 <div class="line"><span class="stringliteral">            &lt;h4&gt;&lt;span class=&quot;label label-danger&quot;&gt;&#39;</span> . $suggests-&gt;get_feed() . <span class="stringliteral">&#39;&lt;/span&gt;&lt;/h4&gt;</span></div>
@@ -142,7 +143,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="stringliteral">    &lt;div class=&quot;row&quot;&gt;</span></div>
 <div class="line"><span class="stringliteral">      &lt;div class=&quot;col-md-1&quot;&gt;&lt;/div&gt;</span></div>
 <div class="line"><span class="stringliteral">      &lt;div class=&quot;col-md-5&quot;&gt;</span></div>
-<div class="line"><span class="stringliteral">        &lt;h2&gt;No suggestion available for &lt;strong&gt;&#39;</span> . $helper-&gt;get_query_string() . <span class="stringliteral">&#39;&lt;/strong&gt;&lt;/h2&gt;</span></div>
+<div class="line"><span class="stringliteral">        &lt;h2&gt;No suggestion available for &lt;strong&gt;&#39;</span> . <a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a>-&gt;get_query_string() . <span class="stringliteral">&#39;&lt;/strong&gt;&lt;/h2&gt;</span></div>
 <div class="line"><span class="stringliteral">      &lt;/div&gt;</span></div>
 <div class="line"><span class="stringliteral">    &lt;/div&gt;&#39;</span>;</div>
 <div class="line">} ?&gt;</div>
@@ -157,7 +158,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:48 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

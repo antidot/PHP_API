@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.8.1</span>
+   &#160;<span id="projectnumber">version 0.9.1</span>
    </div>
   </td>
  </tr>
@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -66,7 +67,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,7 +108,7 @@ Introduction</h1>
 Reponse helper</h1>
 <p>This is the main helper (see <em><a class="el" href="classAfsSearchQueryManager.html" title="Manage search query. ">AfsSearchQueryManager</a></em> for more details). It should be initilized with result of <em><a class="el" href="classAfsSearchQueryManager.html#a0f0f607c931a468d4bdca47745508163" title="Send query to AFS search engine. ">AfsSearchQueryManager::send</a></em> method, the facet manager, the current query and the query coder (see <a class="el" href="afs_search_coder.html">AFS search query coder/decoder API</a> and <a class="el" href="afs_search_query.html">AFS search query API</a> for details on these parameters).</p>
 <p>Here an example to initialize AFS response helper: </p>
-<div class="fragment"><div class="line">$helper = <span class="keyword">new</span> <a class="code" href="classAfsResponseHelper.html">AfsResponseHelper</a>($reply, $query, $config);</div>
+<div class="fragment"><div class="line"><a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a> = <span class="keyword">new</span> <a class="code" href="classAfsResponseHelper.html">AfsResponseHelper</a>(<a class="code" href="full__lightweight__example_8php.html#a46ad7c5fff64ab9b49b9cfcaff650baa">$reply</a>, $query, <a class="code" href="full__example_8php.html#a49c7011be9c979d9174c52a8b83e5d8e">$config</a>);</div>
 </div><!-- fragment --><p> On initialization, error checking is performed. When no error occured, <em><a class="el" href="classAfsResponseHelper.html#aa47b950f8dc54f7b06c97d9d12a3f767" title="Retrieves all replysets. ">AfsResponseHelper::get_replysets</a></em> returns a list of <em><a class="el" href="classAfsReplysetHelper.html" title="Helper for replies from one feed. ">AfsReplysetHelper</a></em>. By the way, following helpers are also initialized:</p>
 <ul>
 <li><em><a class="el" href="classAfsMetaHelper.html" title="AFS reply meta data. ">AfsMetaHelper</a></em>,</li>
@@ -124,8 +125,8 @@ Helper generalities</h1>
 Getters</h2>
 <p>One main feature of helpers is that each getter <code>get_XXX()</code> can also be called like a property of the class.</p>
 <p>For example, the two following statements are equivalent: </p>
-<div class="fragment"><div class="line">$helper-&gt;get_error_msg();</div>
-<div class="line">$helper-&gt;error_msg;</div>
+<div class="fragment"><div class="line"><a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a>-&gt;get_error_msg();</div>
+<div class="line"><a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a>-&gt;error_msg;</div>
 </div><!-- fragment --><p>This convenient feature can only be used for getters that do not require parameter.</p>
 <h2><a class="anchor" id="asr_helper_format"></a>
 Helper formats</h2>
@@ -184,7 +185,7 @@ Full detailled example without template</h2>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2014 12:23:48 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 17 2014 15:54:54 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
