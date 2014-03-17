@@ -4,6 +4,7 @@ require_once 'AFS/SEARCH/afs_search_query_manager.php';
 require_once 'AFS/SEARCH/afs_query.php';
 require_once 'AFS/SEARCH/afs_helper_configuration.php';
 require_once 'AFS/SEARCH/afs_interval_helper.php';
+require_once 'AFS/SEARCH/FILTER/afs_filter.php';
 
 class ConnectorMock implements AfsConnectorInterface
 {
@@ -31,10 +32,10 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->qm = new AfsSearchQueryManager($this->connector, $this->config);
     }
 
-    private function checkOneFacetValue($facet_id, $facet_value)
+    private function checkOneFacetValue($facet_id, $facet_value, $operator='=')
     {
         $params = $this->connector->get_parameters();
-        $filter_str = explode('=', $params['afs:filter'][0], 2);
+        $filter_str = explode($operator, $params['afs:filter'][0], 2);
         $filter[$filter_str[0]] = $filter_str[1];
         $facet = $filter[$facet_id];
         $this->assertEquals($facet_value, $facet);
@@ -293,5 +294,13 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
             ->add_filter('FOO', 'value2');
         $this->qm->send($query);
         $this->checkFacetValues('FOO', array('value1', 'value2'), 'or');
+    }
+
+    public function testAdvancedFilter()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_advanced_filter(filter('FOO')->greater_equal->value(666));
+        $this->qm->send($query);
+        $this->checkOneFacetValue('FOO', 666, '>=');
     }
 }
