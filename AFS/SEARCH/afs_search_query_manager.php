@@ -104,24 +104,29 @@ class AfsSearchQueryManager
         $params = array();
         foreach ($query->get_parameters() as $param => $values) {
             if ($param == 'filter') {
-                if (! empty($values)) {
-                    $params['afs:filter'] = array();
-                    foreach ($values as $facet => $ids) {
-                        $params['afs:filter'][] = $this->format_filter($facet,
-                                                                       $ids);
-                    }
-                }
+                foreach ($values as $facet => $ids)
+                    $this->fill_in_filter($params, $this->format_filter($facet, $ids));
             } elseif ($param == 'sort') {
                 if (! empty($values)) {
                     foreach ($values as $name => $order) {
                         $params['afs:sort'][] = $this->format_sort($name, $order);
                     }
                 }
+            } elseif ($param == 'advancedFilter') {
+                foreach ($values as $value)
+                    $this->fill_in_filter($params, $value);
             } else {
                 $params['afs:' . $param] = $values;
             }
         }
         return $params;
+    }
+
+    private function fill_in_filter(array& $params, $value)
+    {
+        if (! array_key_exists('afs:filter', $params))
+            $params['afs:filter'] = array();
+        $params['afs:filter'][] = $value;
     }
 
     /** @internal

@@ -36,6 +36,7 @@ class AfsQuery extends AfsQueryBase
     protected $maxClusters = null;
     protected $overspill = null;
     protected $count = null;      // afs:count for cluster mode
+    protected $advancedFilter = array();  // exposed only to AFS search engine
 
     /**
      * @brief Construct new AFS query object.
@@ -54,6 +55,7 @@ class AfsQuery extends AfsQueryBase
             $this->maxClusters = $afs_query->maxClusters;
             $this->overspill = $afs_query->overspill;
             $this->count = $afs_query->count;
+            $this->advancedFilter = $afs_query->advancedFilter;
         } else {
             $this->lang = new AfsLanguage(null);
             $this->facetDefault[] = 'replies=1000';
@@ -179,6 +181,57 @@ class AfsQuery extends AfsQueryBase
     {
         return array_keys($this->filter);
     }
+    /**  @} */
+
+    /** @name Advanced filter management
+     *
+     * These filters are intended to be exposed to AFS search engine only.
+     * @{ */
+    /** @brief Checks whether at least one advanced filter is defined.
+     * @return @c True when one or more advanced filters have been defined,
+     *         @c false otherwise.
+     */
+    public function has_advanced_filter()
+    {
+        return ! empty($this->advancedFilter);
+    }
+    /** @brief Retrieves advanced filters.
+     * @return Advanced filters.
+     */
+    public function get_advanced_filters()
+    {
+        return $this->advancedFilter;
+    }
+    /** @brief Defines new advanced filter replacing any existing ones.
+     * @param $filter [in] Advanced filter to set.
+     * @return new up to date instance.
+     */
+    public function set_advanced_filter(AfsFilterWrapper $filter)
+    {
+        $copy = $this->copy();
+        $copy->advancedFilter = array($filter->to_string());
+        return $copy;
+    }
+    /** @brief Appends new advanced filter to the query.
+     * @param $filter [in] Advanced filter to add.
+     * @return new up to date instance.
+     */
+    public function add_advanced_filter(AfsFilterWrapper $filter)
+    {
+        $copy = $this->copy();
+        $copy->advancedFilter[] = $filter->to_string();
+        return $copy;
+    }
+    /** @brief Remove any advanced filter definition from the query.
+     * @return new up to date instance.
+     */
+    public function reset_advanced_filter()
+    {
+        $copy = $this->copy();
+        $copy->advancedFilter = array();
+        return $copy;
+    }
+
     /**  @} */
 
     /** @name Page management
@@ -621,7 +674,7 @@ class AfsQuery extends AfsQueryBase
 
     protected function get_additional_parameters()
     {
-        return array('facetDefault');
+        return array('facetDefault', 'advancedFilter');
     }
     /**  @} */
 }
