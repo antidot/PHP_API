@@ -1,6 +1,7 @@
 <?php ob_start();
 require_once 'COMMON/afs_connector_interface.php';
 require_once 'AFS/SEARCH/afs_search_query_manager.php';
+require_once 'AFS/SEARCH/afs_search_connector.php';
 require_once 'AFS/SEARCH/afs_query.php';
 require_once 'AFS/SEARCH/afs_helper_configuration.php';
 require_once 'AFS/SEARCH/afs_interval_helper.php';
@@ -302,5 +303,24 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $query = $query->set_advanced_filter(filter('FOO')->greater_equal->value(666));
         $this->qm->send($query);
         $this->checkOneFacetValue('FOO', 666, '>=');
+    }
+
+    public function testMultiLogs()
+    {
+        $connector = new AfsSearchConnector('foo', new AfsService(42));
+        $qm = new AfsSearchQueryManager($connector, $this->config);
+
+        $query = new AfsQuery();
+        $query = $query->add_log('LOG')->add_log('LOGGG');
+        try {
+            $qm->send($query);
+        } catch (Exception $e) { }
+
+        $url = $connector->get_generated_url();
+        $afs_log = urlencode('afs:log').'=';
+        $this->assertFalse(strpos($url, $afs_log.'LOG') === False,
+            'No afs:log LOG in URL: '.$url);
+        $this->assertFalse(strpos($url, $afs_log.'LOGGG') === False,
+            'No afs:log LOGGG in URL: '.$url);
     }
 }
