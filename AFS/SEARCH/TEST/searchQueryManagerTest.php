@@ -3,6 +3,7 @@ require_once 'COMMON/afs_connector_interface.php';
 require_once 'AFS/SEARCH/afs_search_query_manager.php';
 require_once 'AFS/SEARCH/afs_query.php';
 require_once 'AFS/SEARCH/afs_helper_configuration.php';
+require_once 'AFS/SEARCH/afs_interval_helper.php';
 
 class ConnectorMock implements AfsConnectorInterface
 {
@@ -42,6 +43,8 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     private function checkFacetValues($facet_id, $facet_values, $split)
     {
         $params = $this->connector->get_parameters();
+        if (! array_key_exists('afs:filter', $params))
+            throw new Exception('No filter defined!');
         $filters = explode(' ' . $split . ' ', $params['afs:filter'][0]);
         $facets = array();
         foreach ($filters as $filter)
@@ -122,6 +125,17 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->checkOneFacetValue('foo', '"bar"');
     }
 
+    public function testOneFacetOneIntervalValue()
+    {
+        $facet = new AfsFacet('foo');
+        $this->facet_mgr->add_facet($facet);
+
+        $query = new AfsQuery();
+        $query = $query->add_filter('foo', AfsIntervalHelper::create(42, 666));
+        $this->qm->send($query);
+        $this->checkOneFacetValue('foo', '[42 .. 666]');
+    }
+
     public function testFailOneFacetOneValue()
     {
         $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE);
@@ -143,7 +157,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testOneFacetMultipleValues()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::OR_MODE);
+        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE);
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
@@ -155,7 +169,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testFailOnValueOneFacetMultipleValues()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::OR_MODE);
+        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE);
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
@@ -175,7 +189,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testFailOnModeValueOneFacetMultipleValues()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::OR_MODE);
+        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE);
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
@@ -195,7 +209,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testFromParameter()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::ADD, AfsFacetCombination::OR_MODE);
+        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE);
         $this->facet_mgr->add_facet($facet);
 
         $query = new AfsQuery();
@@ -215,38 +229,42 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testFacetDefaultSticky()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_facets_stickyness();
         $this->qm->send($query);
         $this->checkFacetDefaultValues(array('sticky=true'));
     }
     public function testFacetNonStickyWithDefaultNonSticky()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_facet_stickyness('FOO', false);
+        $this->facet_mgr->set_default_facets_mode(AfsFacetMode::AND_MODE);
+        $this->assertFalse($this->facet_mgr->get_default_stickyness());
+        $this->facet_mgr->set_facet_sort_order(array('FOO'), AfsFacetSort::STRICT);
         $this->qm->send($query);
         $this->checkFacetOptions('FOO', 'sticky=false', false);
     }
     public function testFacetNonStickyWithDefaultSticky()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_facet_stickyness('FOO', false);
-        $this->facet_mgr->set_facets_stickyness();
+        $this->assertTrue($this->facet_mgr->get_default_stickyness());
+        $this->facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::AND_MODE));
         $this->qm->send($query);
         $this->checkFacetOptions('FOO', 'sticky=false');
     }
     public function testFacetStickyWithDefaultNonSticky()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_facet_stickyness('FOO', true);
+        $this->facet_mgr->set_default_facets_mode(AfsFacetMode::AND_MODE);
+        $this->assertFalse($this->facet_mgr->get_default_stickyness());
+        $this->facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE));
         $this->qm->send($query);
         $this->checkFacetOptions('FOO', 'sticky=true');
     }
     public function testFacetStickyWithDefaultSticky()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_facet_stickyness('FOO', true);
+        $this->assertTrue($this->facet_mgr->get_default_stickyness());
+        $this->facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE));
         $this->qm->send($query);
-        $this->checkFacetOptions('FOO', 'sticky=true');
+        $this->checkFacetOptions('FOO', 'sticky=true', false);
     }
 
     public function testFacetNonStrictOrder()
@@ -266,5 +284,14 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $params = $this->connector->get_parameters();
         $this->assertTrue(array_key_exists('afs:facetOrder', $params));
         $this->assertEquals(implode(',', $sort), $params['afs:facetOrder']);
+    }
+
+    public function testFilterParameterForUnconfiguredFacet()
+    {
+        $query = new AfsQuery();
+        $query = $query->add_filter('FOO', 'value1')
+            ->add_filter('FOO', 'value2');
+        $this->qm->send($query);
+        $this->checkFacetValues('FOO', array('value1', 'value2'), 'or');
     }
 }
