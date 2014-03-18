@@ -90,19 +90,11 @@ class AfsPafConnector extends AfsConnectorBase
         if (! is_null($comment)) {
             $params['comment'] = $comment;
         }
-        $params['afs:login'] = $this->format_authentication();
 
         return sprintf('%s://%s/bo-ws/service/%d/instance/%s/paf/%s/upload?%s',
             $this->scheme, $this->host, $this->service->id,
             $this->service->status, $this->paf_name,
             $this->format_parameters($params));
-    }
-
-    private function format_authentication()
-    {
-        return sprintf('login://%s:%s@%s',
-            $this->authentication->user, $this->authentication->password,
-            $this->authentication->authority);
     }
 
     private function set_default_curl_options(&$request)
@@ -112,7 +104,8 @@ class AfsPafConnector extends AfsConnectorBase
                       //CURLOPT_FAILONERROR => true,
                       CURLOPT_POST => true,
                       CURLOPT_HTTPHEADER => array('Expect:',
-                                                  'Accept: application/json'),
+                          'Accept: application/json',
+                          'Authorization: Basic ' . $this->authentication->format()),
                       CURLOPT_SSL_VERIFYPEER => false,
                       CURLOPT_SSL_VERIFYHOST => false
                       )) === false) {
