@@ -6,7 +6,7 @@ var searchData=
   ['integer_5ftype',['INTEGER_TYPE',['../classAfsFacetType.html#acd2a6308a9e6c1d7048bbc5a0e633453',1,'AfsFacetType']]],
   ['interval',['INTERVAL',['../classAfsFacetLayout.html#a2bcc470f420cee9ed0c45776352e75f2',1,'AfsFacetLayout']]],
   ['is_5farray_5fformat',['is_array_format',['../classAfsConfigurationBase.html#ac5281f8cd523fbc05cf4770c202ffc6f',1,'AfsConfigurationBase']]],
-  ['is_5ffacet_5fsort_5forder_5fstrict',['is_facet_sort_order_strict',['../classAfsFacetManager.html#a3ba323df945fcadbf5a85eb10d19cd23',1,'AfsFacetManager']]],
+  ['is_5ffacet_5forder_5fstrict',['is_facet_order_strict',['../classAfsFacetManager.html#ab30b3ab3a6f7b7e9f718a020885d2abd',1,'AfsFacetManager']]],
   ['is_5fhelper_5fformat',['is_helper_format',['../classAfsConfigurationBase.html#a21e07a02eef8cd2849de42ed89a888d5',1,'AfsConfigurationBase']]],
   ['is_5fmanaged_5ftype',['is_managed_type',['../classFilterNodeManager.html#a52ea56dd34b67c5e989296267b7f7cba',1,'FilterNodeManager']]],
   ['is_5fsimilar_5fto',['is_similar_to',['../classAfsFacet.html#a28f26872e5ea71fead83b236d71dc952',1,'AfsFacet']]],

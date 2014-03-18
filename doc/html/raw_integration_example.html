@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.9.2</span>
+   &#160;<span id="projectnumber">version 0.10.0</span>
    </div>
   </td>
  </tr>
@@ -89,19 +89,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">require_once <span class="stringliteral">&quot;PHP_API/afs_lib.php&quot;</span>;</div>
 <div class="line"></div>
 <div class="line"><a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a> = <span class="keyword">new</span> <a class="code" href="classAfsSearch.html">AfsSearch</a>(<span class="stringliteral">&#39;eval.partners.antidot.net&#39;</span>, 48000);</div>
-<div class="line"><a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a> = <span class="keyword">new</span> <a class="code" href="classAfsSearch.html">AfsSearch</a>(<span class="stringliteral">&#39;10.61.8.53&#39;</span>, 48000);</div>
-<div class="line"><a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;build_query_from_url_parameters();</div>
-<div class="line"><span class="comment">/*</span></div>
-<div class="line"><span class="comment">$query = $search-&gt;get_query();</span></div>
-<div class="line"><span class="comment">$search-&gt;set_query($query-&gt;set_lang(&#39;fr&#39;));  // language is set manually in order to get spellcheck results</span></div>
-<div class="line"><span class="comment">*/</span></div>
-<div class="line"><a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;set_multi_selection_facets(<span class="stringliteral">&#39;classification&#39;</span>);</div>
-<div class="line"><a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;set_mono_selection_facets(array(<span class="stringliteral">&#39;afs:lang&#39;</span>, <span class="stringliteral">&#39;has_variants&#39;</span>, <span class="stringliteral">&#39;has_image&#39;</span>));</div>
-<div class="line"><a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;set_facet_sort_order(array(<span class="stringliteral">&#39;price_eur&#39;</span>, <span class="stringliteral">&#39;marketing&#39;</span>, <span class="stringliteral">&#39;classification&#39;</span>), <a class="code" href="classAfsFacetSort.html#ac420e1c589683070703ed794a36284ca">AfsFacetSort::LAX</a>);</div>
-<div class="line"><a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a> = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;execute(<a class="code" href="classAfsHelperFormat.html#afe8b0b488d0cdf90d6dd285e8622bc57">AfsHelperFormat::HELPERS</a>);</div>
+<div class="line"></div>
+<div class="line">$query = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;build_query_from_url_parameters();</div>
+<div class="line">$query = $query-&gt;set_lang(<span class="stringliteral">&#39;fr&#39;</span>);  <span class="comment">// language is set manually in order to get spellcheck results</span></div>
+<div class="line">$query = $query-&gt;set_multi_selection_facets(<span class="stringliteral">&#39;classification&#39;</span>);</div>
+<div class="line">$query = $query-&gt;set_mono_selection_facets(<span class="stringliteral">&#39;afs:lang&#39;</span>, <span class="stringliteral">&#39;has_variants&#39;</span>, <span class="stringliteral">&#39;has_image&#39;</span>);</div>
+<div class="line">$query = $query-&gt;set_facet_order(<span class="stringliteral">&#39;price_eur&#39;</span>, <span class="stringliteral">&#39;marketing&#39;</span>, <span class="stringliteral">&#39;classification&#39;</span>, <span class="stringliteral">&#39;has_variants&#39;</span>, <span class="stringliteral">&#39;has_image&#39;</span>);</div>
+<div class="line"></div>
+<div class="line"><a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a> = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;execute($query);</div>
 <div class="line">$generated_url = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;get_generated_url();</div>
 <div class="line"></div>
-<div class="line">$query = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;get_query();</div>
 <div class="line">$clustering_is_active = $query-&gt;has_cluster();</div>
 <div class="line">$nsmap = array(<span class="stringliteral">&#39;ns&#39;</span> =&gt; <span class="stringliteral">&#39;http://ref.antidot.net/store/afs#&#39;</span>);</div>
 <div class="line"></div>
@@ -144,7 +141,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line">    &lt;!-- ####################### Current <a class="code" href="afs__filter_8php.html#af79b692968a5d4fc4175fa1c373b0b59">filter</a> parameters ########################### --&gt;</div>
 <div class="line">&lt;?php</div>
-<div class="line">$params = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;get_query()-&gt;get_parameters(<span class="keyword">false</span>);</div>
+<div class="line">$params = $query-&gt;get_parameters(<span class="keyword">false</span>);</div>
 <div class="line"><span class="keywordflow">if</span> (array_key_exists(<span class="stringliteral">&#39;filter&#39;</span>, $params) &amp;&amp; is_array($params[<span class="stringliteral">&#39;filter&#39;</span>])) {</div>
 <div class="line">    echo <span class="stringliteral">&#39;</span></div>
 <div class="line"><span class="stringliteral">    &lt;div class=&quot;row&quot;&gt;</span></div>
@@ -250,7 +247,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;col-md-2&quot;</span>&gt;</div>
 <div class="line">    &lt;!-- ####################### Relevance ########################### --&gt;</div>
 <div class="line">&lt;?php</div>
-<div class="line">    $query = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;get_query();</div>
 <div class="line">    <span class="keywordflow">if</span> ($query-&gt;has_sort(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>)) {</div>
 <div class="line">        <span class="keywordflow">if</span> ($query-&gt;get_sort_order(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>) == <a class="code" href="classAfsSortOrder.html#a32bea9cb6a1769ec537f6acdfe4618a8">AfsSortOrder::ASC</a>) {</div>
 <div class="line">            $relevance_icon = <span class="stringliteral">&#39;glyphicon-arrow-up&#39;</span>;</div>
@@ -452,7 +448,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 18 2014 08:37:43 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 18 2014 15:43:59 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.9.2</span>
+   &#160;<span id="projectnumber">version 0.10.0</span>
    </div>
   </td>
  </tr>
@@ -112,13 +112,6 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a095c5d389db211932136b53f25f39685">__construct</a> ()</td></tr>
 <tr class="memdesc:a095c5d389db211932136b53f25f39685"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new configuration class with default parameters set. <br/></td></tr>
 <tr class="separator:a095c5d389db211932136b53f25f39685"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Facet manager</div></td></tr>
-<tr class="memitem:a24008364ec473bb14b46e59caf53057a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a24008364ec473bb14b46e59caf53057a">get_facet_manager</a> ()</td></tr>
-<tr class="memdesc:a24008364ec473bb14b46e59caf53057a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves facet manager.  <a href="#a24008364ec473bb14b46e59caf53057a">More...</a><br/></td></tr>
-<tr class="separator:a24008364ec473bb14b46e59caf53057a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16403dac4ccebc984466898cee1e2a2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a16403dac4ccebc984466898cee1e2a2b">set_facet_manager</a> (<a class="el" href="classAfsFacetManager.html">AfsFacetManager</a> $facet_mgr)</td></tr>
-<tr class="memdesc:a16403dac4ccebc984466898cee1e2a2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines new facet manager.  <a href="#a16403dac4ccebc984466898cee1e2a2b">More...</a><br/></td></tr>
-<tr class="separator:a16403dac4ccebc984466898cee1e2a2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Query coder</div></td></tr>
 <tr class="memitem:a1512dbe074f880d5636e67ed414a6b7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsHelperConfiguration.html#a1512dbe074f880d5636e67ed414a6b7f">has_query_coder</a> ()</td></tr>
 <tr class="memdesc:a1512dbe074f880d5636e67ed414a6b7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a query coder has been defined.  <a href="#a1512dbe074f880d5636e67ed414a6b7f">More...</a><br/></td></tr>
@@ -171,24 +164,6 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Configuration class for AFS helper classes. </p>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="full_example_8php-example.html#_a7">full_example.php</a>.</dd>
 </dl></div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a24008364ec473bb14b46e59caf53057a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">get_facet_manager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves facet manager. </p>
-<dl class="section return"><dt>Returns</dt><dd>facet manager (see <a class="el" href="classAfsFacetManager.html" title="AFS facet manager. ">AfsFacetManager</a>). </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a2a0f0dc5c1d1fabc359179275c057305"></a>
 <div class="memitem">
 <div class="memproto">
@@ -259,31 +234,6 @@ Public Member Functions</h2></td></tr>
 
 <p>Checks whether a query coder has been defined. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>True</code> when a query coder is defined, <code>false</code> otherwise. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a16403dac4ccebc984466898cee1e2a2b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set_facet_manager </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classAfsFacetManager.html">AfsFacetManager</a>&#160;</td>
-          <td class="paramname"><em>$facet_mgr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defines new facet manager. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">$facet_mgr</td><td>[in] new facet manager to set. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>current instance. </dd></dl>
 
 </div>
 </div>
@@ -365,7 +315,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 18 2014 08:37:43 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 18 2014 15:44:00 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
