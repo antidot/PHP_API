@@ -1,22 +1,19 @@
 <?php ob_start();
-require_once 'AIF/afs_authentication.php';
+require_once 'AIF/afs_user_authentication.php';
+require_once 'AIF/afs_token_authentication.php';
 
 class AuthenticationTest extends PHPUnit_Framework_TestCase
 {
-    public function testGoodParameters()
+    public function testUserAuthenticationFormat()
     {
-        $auth = new AfsAuthentication('foo', 'bar', AFS_AUTH_LDAP);
-        $this->assertEquals($auth->user, 'foo');
-        $this->assertEquals($auth->password, 'bar');
-        $this->assertEquals($auth->authority, AFS_AUTH_LDAP);
+        $auth = new AfsUserAuthentication('foo', 'bar');
+        $this->assertEquals(base64_encode('foo:bar'), $auth->format());
     }
 
-    public function testBadAuthority()
+    public function testTokenAuthenticationFormat()
     {
-        try {
-            $auth = new AfsAuthentication('foo', 'bar', 'AFS_AUTH_LDAP');
-            $this->fail('Should have failed due to invalid authority parameter');
-        } catch (InvalidArgumentException $e) { }
+        $auth = new AfsTokenAuthentication('foo');
+        $this->assertEquals('foo', $auth->format());
     }
 
 }
