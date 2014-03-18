@@ -25,6 +25,7 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
         $query = new AfsQuery();
         $response = new AfsResponseHelper($input, $query, $config);
         $this->assertFalse($response->has_replyset());
+        $this->assertFalse($response->in_error());
     }
 
     public function testReplysetWith()

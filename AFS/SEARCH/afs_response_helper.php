@@ -52,8 +52,6 @@ class AfsResponseHelper extends AfsResponseHelperBase
             $this->initialize_replysets($response->replySet, $query, $config);
         } elseif ($this->header->in_error()) {
             $this->set_error_msg($this->header->get_error());
-        } else {
-            $this->set_error_msg('Unmanaged error');
         }
     }
 
