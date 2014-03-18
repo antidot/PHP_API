@@ -731,13 +731,15 @@ class AfsQuery extends AfsQueryBase
     }
 
     /** @brief Defines facet sort order.
-     * @param $ids [in] List of facet identifiers in the right sort order.
-     * @param $mode [in] Sort order mode (see AfsFacetOrder for more details).
+     *
+     * @remark Parameters are a list of facet identifiers in the right sort
+     *         order (list of strings or array of strings).
      */
-    public function set_facet_order(array $ids, $mode)
+    public function set_facet_order()
     {
+        $args = get_function_args_as_array(func_get_args());
         $copy = $this->copy();
-        $copy->facet_mgr->set_facet_order($ids, $mode);
+        $copy->facet_mgr->set_facet_order($args, AfsFacetOrder::STRICT);
         return $copy;
     }
     /** @brief Defines standard selection mode for one or more facets.
