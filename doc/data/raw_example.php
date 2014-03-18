@@ -10,8 +10,8 @@ $search = new AfsSearch('eval.partners.antidot.net', 48000);
 $query = $search->build_query_from_url_parameters();
 $query = $query->set_lang('fr');  // language is set manually in order to get spellcheck results
 $query = $query->set_multi_selection_facets('classification');
-$query = $query->set_facet_order(array('price_eur', 'marketing', 'classification'), AfsFacetSort::LAX);
 $query = $query->set_mono_selection_facets('afs:lang', 'has_variants', 'has_image');
+$query = $query->set_facet_order(array('price_eur', 'marketing', 'classification'), AfsFacetOrder::LAX);
 
 $helper = $search->execute($query);
 $generated_url = $search->get_generated_url();

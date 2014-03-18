@@ -1019,7 +1019,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
     public function testStrictFacetSortOrder()
     {
         $query = new AfsQuery();
-        $query = $query->set_facet_order(array('foo', 'bar'), AfsFacetSort::STRICT);
+        $query = $query->set_facet_order(array('foo', 'bar'), AfsFacetOrder::STRICT);
         $this->assertTrue($query->get_facet_manager()->is_facet_order_strict());
     }
 }

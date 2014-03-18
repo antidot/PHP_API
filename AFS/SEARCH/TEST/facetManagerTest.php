@@ -125,13 +125,13 @@ class FacetManagerTest extends PHPUnit_Framework_TestCase
     public function testFacetStrictSortOrder()
     {
         $mgr = new AfsFacetManager();
-        $mgr->set_facet_order(array('foo', 'bar'), AfsFacetSort::STRICT);
+        $mgr->set_facet_order(array('foo', 'bar'), AfsFacetOrder::STRICT);
         $this->assertEquals(true, $mgr->is_facet_order_strict());
     }
     public function testFacetLaxSortOrder()
     {
         $mgr = new AfsFacetManager();
-        $mgr->set_facet_order(array('foo', 'bar'), AfsFacetSort::LAX);
+        $mgr->set_facet_order(array('foo', 'bar'), AfsFacetOrder::LAX);
         $this->assertEquals(false, $mgr->is_facet_order_strict());
     }
     public function testFacetInvalidSortOrder()

@@ -65,11 +65,11 @@ class AfsFacetManager
 
     /** @brief Defines facet sort order.
      * @param $ids [in] List of facet identifiers in the right sort order.
-     * @param $mode [in] Sort order mode (see AfsFacetSort for more details).
+     * @param $mode [in] Sort order mode (see AfsFacetOrder for more details).
      */
     public function set_facet_order(array $ids, $mode)
     {
-        AfsFacetSort::check_value($mode, 'Invalid sort order: ');
+        AfsFacetOrder::check_value($mode, 'Invalid sort order: ');
         sort_array_by_key($ids, $this->facets, "simple_facet_creator");
         $this->facet_sort_mode = $mode;
     }
@@ -78,7 +78,7 @@ class AfsFacetManager
      */
     public function is_facet_order_strict()
     {
-        return AfsFacetSort::STRICT == $this->facet_sort_mode;
+        return AfsFacetOrder::STRICT == $this->facet_sort_mode;
     }
     /** @} */
 
