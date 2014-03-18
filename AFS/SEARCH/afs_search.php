@@ -64,9 +64,21 @@ class AfsSearch
     /** @name Global facet configuration
      * @{ */
 
-    /** @brief Defines multi-selection mode for all facets.
+    /** @brief Defines standard selection mode for all facets.
      *
      * This is the default mode.
+     *
+     * Standard selection mode allows to filter on one or more facet values
+     * whereas only relevant facet values are present in AFS search reply. See
+     * AfsFacetMode::AND_MODE for simple example.
+     */
+    public function set_default_standard_selection_facets()
+    {
+        $this->config->get_facet_manager()->set_default_facets_mode(AfsFacetMode::AND_MODE);
+    }
+    /** @brief Defines multi-selection mode for all facets.
+     *
+     * Replaces default mode (standard selection facets).
      *
      * Multi-selection mode allows to filter on one or more facet values whereas
      * all facet values are still present in AFS search reply. See
@@ -78,7 +90,7 @@ class AfsSearch
     }
     /** @brief Defines mono-selection mode for all facets.
      *
-     * Replaces default mode (multi-selection facets).
+     * Replaces default mode (standard selection facets).
      *
      * Mono-selection mode allows to filter on one facet value whereas all facet
      * values are still present in AFS search reply. Selecting new facet value
@@ -101,6 +113,17 @@ class AfsSearch
     public function set_facet_sort_order(array $ids, $mode)
     {
         $this->config->get_facet_manager()->set_facet_sort_order($ids, $mode);
+    }
+    /** @brief Defines standard selection mode for one or more facets.
+     *
+     * See AfsSearch::set_default_standard_selection_facets or
+     * AfsFacetMode::AND_MODE for more details.
+     *
+     * @param $ids [in] One (string) or more facet identifiers (array of strings).
+     */
+    public function set_standard_selection_facets($ids)
+    {
+        $this->config->get_facet_manager()->set_facets_mode(AfsFacetMode::AND_MODE, $ids);
     }
     /** @brief Defines multi-selection mode for one or more facets.
      *

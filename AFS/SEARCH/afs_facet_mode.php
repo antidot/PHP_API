@@ -74,6 +74,8 @@ abstract class AfsFacetMode extends BasicEnum
 
     /** @brief And mode.
      *
+     * This is the standard mode for Antidot search engine.
+     *
      * New value set for the facet is appended to the list of values already
      * set. All the values are and-combined.
      *

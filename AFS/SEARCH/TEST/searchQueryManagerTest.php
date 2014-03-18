@@ -78,9 +78,11 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(array_key_exists('afs:facetDefault', $params));
         foreach ($values as $value) {
             if ($exists)
-                $this->assertTrue(in_array($value, $params['afs:facetDefault']));
+                $this->assertTrue(in_array($value, $params['afs:facetDefault']),
+                    $value.' NOT FOUND in: '.serialize($params));
             else
-                $this->assertFalse(in_array($value, $params['afs:facetDefault']));
+                $this->assertFalse(in_array($value, $params['afs:facetDefault']),
+                    $value.' FOUND in: '.serialize($params));
         }
     }
 
@@ -227,17 +229,18 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $query = new AfsQuery();
         $this->qm->send($query);
         $this->checkFacetDefaultValues(array('sticky=false'), false);
+        $this->checkFacetDefaultValues(array('sticky=true'), false);
     }
     public function testFacetDefaultSticky()
     {
         $query = new AfsQuery();
+        $this->facet_mgr->set_default_facets_mode(AfsFacetMode::OR_MODE);
         $this->qm->send($query);
         $this->checkFacetDefaultValues(array('sticky=true'));
     }
     public function testFacetNonStickyWithDefaultNonSticky()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_default_facets_mode(AfsFacetMode::AND_MODE);
         $this->assertFalse($this->facet_mgr->get_default_stickyness());
         $this->facet_mgr->set_facet_sort_order(array('FOO'), AfsFacetSort::STRICT);
         $this->qm->send($query);
@@ -246,6 +249,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testFacetNonStickyWithDefaultSticky()
     {
         $query = new AfsQuery();
+        $this->facet_mgr->set_default_facets_mode(AfsFacetMode::OR_MODE);
         $this->assertTrue($this->facet_mgr->get_default_stickyness());
         $this->facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::AND_MODE));
         $this->qm->send($query);
@@ -263,6 +267,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testFacetStickyWithDefaultSticky()
     {
         $query = new AfsQuery();
+        $this->facet_mgr->set_default_facets_mode(AfsFacetMode::OR_MODE);
         $this->assertTrue($this->facet_mgr->get_default_stickyness());
         $this->facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE));
         $this->qm->send($query);
@@ -294,7 +299,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $query = $query->add_filter('FOO', 'value1')
             ->add_filter('FOO', 'value2');
         $this->qm->send($query);
-        $this->checkFacetValues('FOO', array('value1', 'value2'), 'or');
+        $this->checkFacetValues('FOO', array('value1', 'value2'), 'and');
     }
 
     public function testAdvancedFilter()

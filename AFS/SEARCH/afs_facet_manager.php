@@ -13,7 +13,7 @@ require_once 'COMMON/afs_tools.php';
 class AfsFacetManager
 {
     private $facets = array();
-    private $facet_mode = AfsFacetMode::OR_MODE;
+    private $facet_mode = AfsFacetMode::AND_MODE;
     private $facet_sort_mode = null;
 
     /** @name Global facet management
