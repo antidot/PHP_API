@@ -9,6 +9,7 @@ var searchData=
   ['set_5fdefault_5ffacets_5fmode',['set_default_facets_mode',['../classAfsFacetManager.html#a36706f41df74fd29ff1408e755156684',1,'AfsFacetManager']]],
   ['set_5fdefault_5fmono_5fselection_5ffacets',['set_default_mono_selection_facets',['../classAfsSearch.html#a245a9ab534f64efd808ef076f14d305f',1,'AfsSearch']]],
   ['set_5fdefault_5fmulti_5fselection_5ffacets',['set_default_multi_selection_facets',['../classAfsSearch.html#ac91181c9eb52089c23a0ca4caf1463fd',1,'AfsSearch']]],
+  ['set_5fdefault_5fstandard_5fselection_5ffacets',['set_default_standard_selection_facets',['../classAfsSearch.html#a33d3234f22aa18e7832e194ca42e61f5',1,'AfsSearch']]],
   ['set_5ffacet_5fmanager',['set_facet_manager',['../classAfsHelperConfiguration.html#a16403dac4ccebc984466898cee1e2a2b',1,'AfsHelperConfiguration']]],
   ['set_5ffacet_5fsort_5forder',['set_facet_sort_order',['../classAfsFacetManager.html#ae4f445bc7d9f284384555f7871b0c634',1,'AfsFacetManager\set_facet_sort_order()'],['../classAfsSearch.html#ae4f445bc7d9f284384555f7871b0c634',1,'AfsSearch\set_facet_sort_order()']]],
   ['set_5ffacets_5fmode',['set_facets_mode',['../classAfsFacetManager.html#a6a94862513249e4fae13847a7f456cb0',1,'AfsFacetManager']]],
@@ -32,6 +33,7 @@ var searchData=
   ['set_5fsession_5ftimeout',['set_session_timeout',['../classAfsUserSessionManager.html#ad3263db366a871a83de6abb3d8cfd07a',1,'AfsUserSessionManager']]],
   ['set_5fsort',['set_sort',['../classAfsQuery.html#a67ab8b80c928420ea4138a0b48f6fee1',1,'AfsQuery']]],
   ['set_5fspellcheck_5ftext_5fvisitor',['set_spellcheck_text_visitor',['../classAfsHelperConfiguration.html#af1f8804eacc09391f9598a01dbbe93e3',1,'AfsHelperConfiguration']]],
+  ['set_5fstandard_5fselection_5ffacets',['set_standard_selection_facets',['../classAfsSearch.html#a8c355326bed12e908383ae436632754c',1,'AfsSearch']]],
   ['set_5ftype',['set_type',['../classAfsFacet.html#a424a47491438d0e72cc283f9c8b0c16a',1,'AfsFacet']]],
   ['set_5fuser_5fid',['set_user_id',['../classAfsQueryBase.html#adee8448c24ea06b19f64e2b0dfa1f746',1,'AfsQueryBase\set_user_id()'],['../classAfsUserSessionManager.html#a88b8063362eddd3d3e33a4d8133e2426',1,'AfsUserSessionManager\set_user_id()']]],
   ['set_5fuser_5fsessionmanager',['set_user_sessionmanager',['../classAfsConfigurationBase.html#a97234e4d7ffad9397134c1152c4bc3c7',1,'AfsConfigurationBase']]]
