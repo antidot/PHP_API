@@ -31,7 +31,7 @@ class AfsSearchQueryManager
     {
         $query->initialize_user_and_session_id($this->config->get_user_session_manager());
         $params = $this->convert_to_param($query);
-        $this->add_facet_options($params);
+        $this->add_facet_options($query, $params);
         return $this->connector->send($params);
     }
 
@@ -39,13 +39,15 @@ class AfsSearchQueryManager
      * @brief Add options specific to facets
      *
      * Currently managed options are:
-     * - <tt>afs:facet stickyness</tt> to defined dynamically sticky facets.
+     * - <tt>facet stickyness</tt> to defined global et specific facet stickyness.
+     * - <tt>facet order</tt> when using strict strict ordering mode.
      *
+     * @param $query [in] Query along with its configuration.
      * @param $params [in-out] array of parameter to update with facet options.
      */
-    private function add_facet_options(&$params)
+    private function add_facet_options(AfsQuery $query, &$params)
     {
-        $facet_mgr = $this->config->get_facet_manager();
+        $facet_mgr = $query->get_facet_manager();
         if ($facet_mgr->get_default_stickyness()) {
             if (! array_key_exists('afs:facetDefault', $params))
                 $params['afs:facetDefault'] = array();
@@ -63,10 +65,9 @@ class AfsSearchQueryManager
                 if ($default_sticky != $sticky)
                     $params['afs:facet'][] = $name . ',sticky=' .  ($sticky ? 'true' : 'false');
             }
-
-            if ($facet_mgr->is_facet_sort_order_strict())
-                $params['afs:facetOrder'] = implode(',', array_keys($facet_mgr->get_facets()));
         }
+        if ($facet_mgr->is_facet_order_strict())
+            $params['afs:facetOrder'] = implode(',', array_keys($facet_mgr->get_facets()));
     }
 
     /** @internal
@@ -104,7 +105,7 @@ class AfsSearchQueryManager
         foreach ($query->get_parameters() as $param => $values) {
             if ($param == 'filter') {
                 foreach ($values as $facet => $ids)
-                    $this->fill_in_filter($params, $this->format_filter($facet, $ids));
+                    $this->fill_in_filter($params, $this->format_filter($query, $facet, $ids));
             } elseif ($param == 'sort') {
                 if (! empty($values)) {
                     foreach ($values as $name => $order) {
@@ -131,9 +132,7 @@ class AfsSearchQueryManager
     /** @internal
      * @brief Format filter values.
      *
-     * This allows to add necessary surrounding double-quotes for facet values
-     * which require them.
-     *
+     * @param $query [in] AfsQuery with its configuration.
      * @param $name [in] facet name. It should have already been configured.
      * @param $values [in] filter values for the given facet @a name.
      *
@@ -141,9 +140,9 @@ class AfsSearchQueryManager
      *
      * @exception Exception when no facet with @a name has been registered.
      */
-    private function format_filter($name, $values)
+    private function format_filter($query, $name, $values)
     {
-        return $this->config->get_facet_manager()->get_or_create_facet($name)->join_values($values);
+        return $query->get_facet_manager()->get_or_create_facet($name)->join_values($values);
     }
 
     private function format_sort($name, $order)

@@ -188,14 +188,14 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
             ]
         }');
 
-        $config = new AfsHelperConfiguration();
-        $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
-
         $query = new AfsQuery();
         $query = $query->set_query('title');
         $query = $query->set_replies(2);
         $query = $query->set_page(3);
+
+        $config = new AfsHelperConfiguration();
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
 
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
 
@@ -409,16 +409,16 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
             ]
         }');
 
-        $config = new AfsHelperConfiguration();
-        $coder = new AfsQueryCoder('foo.php');
-        $config->set_query_coder($coder);
-        $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
-
         $query = new AfsQuery();
         $query = $query->set_query('title');
         $query = $query->set_replies(2);
         $query = $query->set_page(3);
+
+        $config = new AfsHelperConfiguration();
+        $coder = new AfsQueryCoder('foo.php');
+        $config->set_query_coder($coder);
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
 
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
 
@@ -635,17 +635,17 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
             ]
         }');
 
-        $config = new AfsHelperConfiguration();
-
-        $coder = new AfsQueryCoder('foo.php');
-        $config->set_query_coder($coder);
-        $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
-
         $query = new AfsQuery();
         $query = $query->set_query('title');
         $query = $query->set_replies(2);
         $query = $query->set_page(3);
+
+        $config = new AfsHelperConfiguration();
+
+        $coder = new AfsQueryCoder('foo.php');
+        $config->set_query_coder($coder);
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
 
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
 
@@ -773,14 +773,14 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
             ]
         }');
 
-        $config = new AfsHelperConfiguration();
-        $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
-
         $query = new AfsQuery();
         $query = $query->set_query('title');
         $query = $query->set_replies(1);
         $query = $query->set_page(3);
+
+        $config = new AfsHelperConfiguration();
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->add_facet(new AfsFacet('BOOL', AfsFacetType::BOOL_TYPE));
 
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
 
@@ -895,12 +895,12 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->set_facet_sort_order(array('BOOL'), AfsFacetSort::STRICT);
+        $query = new AfsQuery();
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->set_facet_order(array('BOOL'), AfsFacetSort::STRICT);
         $this->assertTrue($facet_mgr->has_facet('BOOL'));
         $this->assertEquals(AfsFacetType::UNKNOWN_TYPE, $facet_mgr->get_facet('BOOL')->get_type());
 
-        $query = new AfsQuery();
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
         $this->assertEquals(AfsFacetType::BOOL_TYPE, $facet_mgr->get_facet('BOOL')->get_type());
     }
@@ -990,12 +990,12 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->set_facet_sort_order(array('Foo'), AfsFacetSort::STRICT);
+        $query = new AfsQuery();
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->set_facet_order(array('Foo'), AfsFacetSort::STRICT);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
         $this->assertEquals(AfsFacetType::UNKNOWN_TYPE, $facet_mgr->get_facet('Foo')->get_type());
 
-        $query = new AfsQuery();
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
         $this->assertEquals(AfsFacetType::REAL_TYPE, $facet_mgr->get_facet('Foo')->get_type());
     }
@@ -1059,12 +1059,12 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->set_facet_sort_order(array('Foo', 'Bar'), AfsFacetSort::LAX);
+        $query = new AfsQuery();
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->set_facet_order(array('Foo', 'Bar'), AfsFacetSort::LAX);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
         $this->assertTrue($facet_mgr->has_facet('Bar'));
 
-        $query = new AfsQuery();
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
         $this->assertEquals(AfsFacetType::REAL_TYPE, $facet_mgr->get_facet('Foo')->get_type());
         $this->assertEquals(AfsFacetType::INTEGER_TYPE, $facet_mgr->get_facet('Bar')->get_type());
@@ -1158,14 +1158,14 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->set_facet_sort_order(array('Foo', 'Bar'), AfsFacetSort::LAX);
+        $query = new AfsQuery();
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->set_facet_order(array('Foo', 'Bar'), AfsFacetSort::LAX);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
         $this->assertTrue($facet_mgr->has_facet('Bar'));
         $this->assertFalse($facet_mgr->has_facet('Baz'));
         $this->assertFalse($facet_mgr->has_facet('Bat'));
 
-        $query = new AfsQuery();
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
         $this->assertEquals(AfsFacetType::REAL_TYPE, $facet_mgr->get_facet('Foo')->get_type());
         $this->assertEquals(AfsFacetType::INTEGER_TYPE, $facet_mgr->get_facet('Bar')->get_type());
@@ -1249,14 +1249,14 @@ class ReplysetHelperTest extends PHPUnit_Framework_TestCase
         }');
 
         $config = new AfsHelperConfiguration();
-        $facet_mgr = $config->get_facet_manager();
-        $facet_mgr->set_facet_sort_order(array('Foo', 'Bal', 'Bar'), AfsFacetSort::LAX);
+        $query = new AfsQuery();
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->set_facet_order(array('Foo', 'Bal', 'Bar'), AfsFacetSort::LAX);
         $this->assertTrue($facet_mgr->has_facet('Foo'));
         $this->assertTrue($facet_mgr->has_facet('Bal'));
         $this->assertTrue($facet_mgr->has_facet('Bar'));
         $this->assertFalse($facet_mgr->has_facet('Baz'));
 
-        $query = new AfsQuery();
         $helper = new AfsReplysetHelper($input->replySet[0], $query, $config);
         $this->assertEquals(AfsFacetType::REAL_TYPE, $facet_mgr->get_facet('Foo')->get_type());
         $this->assertEquals(AfsFacetType::INTEGER_TYPE, $facet_mgr->get_facet('Bar')->get_type());

@@ -374,3 +374,25 @@ function sort_array_by_key(array $ordered_keys, array &$data, $creator=null)
 }
 
 
+/** @brief Retrieves function arguments as array.
+ *
+ * You need to call <tt>get_function_args_as_array(func_get_args())</tt> from
+ * your function. Then this function will return array of arguments.
+ * For example:
+ * - <tt>my_func('foo')</tt>: returned value is <tt>array('foo')</tt>.
+ * - <tt>my_func('foo', 'bar', 'baz')</tt>: returned value is <tt>array('foo', 'bar', 'baz')</tt>.
+ * - <tt>my_func(array('foo'))</tt>: returned value is <tt>array('foo')</tt>.
+ * - <tt>my_func(array('foo', 'bar', 'baz'))</tt>: returned value is <tt>array('foo', 'bar', 'baz')</tt>.
+ *
+ * @param $args [in] Array of arguments of the calling function.
+ *
+ * @return Array of parameters.
+ */
+function get_function_args_as_array(array& $args)
+{
+    if (empty($args) || !is_array($args[0])) {
+        return $args;
+    } else {
+        return $args[0];
+    }
+}

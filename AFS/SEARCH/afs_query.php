@@ -5,6 +5,7 @@ require_once 'AFS/SEARCH/afs_sort_order.php';
 require_once 'AFS/SEARCH/afs_sort_builtins.php';
 require_once 'AFS/SEARCH/afs_cluster_exception.php';
 require_once 'AFS/SEARCH/afs_count.php';
+require_once 'AFS/SEARCH/afs_facet_manager.php';
 
 /** @brief Represent an AFS query.
  *
@@ -27,6 +28,8 @@ require_once 'AFS/SEARCH/afs_count.php';
  */
 class AfsQuery extends AfsQueryBase
 {
+    protected $facet_mgr = null;
+
     protected $filter = array();  // afs:filter
     protected $page = 1;          // afs:page
     protected $lang = null;       // afs:lang
@@ -47,6 +50,7 @@ class AfsQuery extends AfsQueryBase
     {
         parent::__construct($afs_query);
         if ($afs_query != null) {
+            $this->facet_mgr = $afs_query->facet_mgr->copy();
             $this->filter = $afs_query->filter;
             $this->page = $afs_query->page;
             $this->lang = $afs_query->lang;
@@ -57,6 +61,7 @@ class AfsQuery extends AfsQueryBase
             $this->count = $afs_query->count;
             $this->advancedFilter = $afs_query->advancedFilter;
         } else {
+            $this->facet_mgr = new AfsFacetManager();
             $this->lang = new AfsLanguage(null);
             $this->facetDefault[] = 'replies=1000';
             $this->auto_set_from = false;
@@ -669,6 +674,118 @@ class AfsQuery extends AfsQueryBase
         return array('facetDefault', 'advancedFilter');
     }
     /**  @} */
+
+    /** @name Facet management
+     *@{ */
+
+    /** @brief Retrieves facet manager.
+     * @return Facet manager associated to this instance.
+     */
+    public function get_facet_manager()
+    {
+        return $this->facet_mgr;
+    }
+
+    /** @brief Defines standard selection mode for all facets.
+     *
+     * This is the default mode.
+     *
+     * Standard selection mode allows to filter on one or more facet values
+     * whereas only relevant facet values are present in AFS search reply. See
+     * AfsFacetMode::AND_MODE for simple example.
+     */
+    public function set_default_standard_selection_facets()
+    {
+        $copy = $this->copy();
+        $copy->facet_mgr->set_default_facets_mode(AfsFacetMode::AND_MODE);
+        return $copy;
+    }
+    /** @brief Defines multi-selection mode for all facets.
+     *
+     * Replaces default mode (standard selection facets).
+     *
+     * Multi-selection mode allows to filter on one or more facet values whereas
+     * all facet values are still present in AFS search reply. See
+     * AfsFacetMode::OR_MODE for simple example.
+     */
+    public function set_default_multi_selection_facets()
+    {
+        $copy = $this->copy();
+        $copy->facet_mgr->set_default_facets_mode(AfsFacetMode::OR_MODE);
+        return $copy;
+    }
+    /** @brief Defines mono-selection mode for all facets.
+     *
+     * Replaces default mode (standard selection facets).
+     *
+     * Mono-selection mode allows to filter on one facet value whereas all facet
+     * values are still present in AFS search reply. Selecting new facet value
+     * replaces previously selected one. See AfsFacetMode::OR_MODE for simple
+     * example.
+     */
+    public function set_default_mono_selection_facets()
+    {
+        $copy = $this->copy();
+        $copy->facet_mgr->set_default_facets_mode(AfsFacetMode::SINGLE_MODE);
+        return $copy;
+    }
+
+    /** @brief Defines facet sort order.
+     * @param $ids [in] List of facet identifiers in the right sort order.
+     * @param $mode [in] Sort order mode (see AfsFacetOrder for more details).
+     */
+    public function set_facet_order(array $ids, $mode)
+    {
+        $copy = $this->copy();
+        $copy->facet_mgr->set_facet_order($ids, $mode);
+        return $copy;
+    }
+    /** @brief Defines standard selection mode for one or more facets.
+     *
+     * See AfsSearch::set_default_standard_selection_facets or
+     * AfsFacetMode::AND_MODE for more details.
+     *
+     * @remark Parameters: one (string) or more facet identifiers (individual
+     * strings or array of strings).
+     */
+    public function set_standard_selection_facets()
+    {
+        $args = get_function_args_as_array(func_get_args());
+        $copy = $this->copy();
+        $copy->facet_mgr->set_facets_mode(AfsFacetMode::AND_MODE, $args);
+        return $copy;
+    }
+    /** @brief Defines multi-selection mode for one or more facets.
+     *
+     * See AfsSearch::set_default_multi_selection_facets or
+     * AfsFacetMode::OR_MODE for more details.
+     *
+     * @remark Parameters: one (string) or more facet identifiers (individual
+     * strings or array of strings).
+     */
+    public function set_multi_selection_facets($ids)
+    {
+        $args = get_function_args_as_array(func_get_args());
+        $copy = $this->copy();
+        $copy->facet_mgr->set_facets_mode(AfsFacetMode::OR_MODE, $args);
+        return $copy;
+    }
+    /** @brief Defines mono-selection mode for one or more facets.
+     *
+     * See AfsSearch::set_default_mono_selection_facets or
+     * AfsFacetMode::SINGLE_MODE for more details.
+     *
+     * @remark Parameters: one (string) or more facet identifiers (individual
+     * strings or array of strings).
+     */
+    public function set_mono_selection_facets($ids)
+    {
+        $args = get_function_args_as_array(func_get_args());
+        $copy = $this->copy();
+        $copy->facet_mgr->set_facets_mode(AfsFacetMode::SINGLE_MODE, $args);
+        return $copy;
+    }
+    /** @} */
 }
 
 

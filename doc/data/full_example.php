@@ -33,11 +33,12 @@ $connector = new AfsSearchConnector($host, $service);
 /** [Helper configuration] */
 $config = new AfsHelperConfiguration();
 $config->set_query_coder($coder);
+$config->set_helper_format(AfsHelperFormat::ARRAYS);
 /** [Helper configuration] */
 
 // Facets and Facet Manager
 /** [Facets and Facet manager] */
-$facet_mgr = $config->get_facet_manager();
+$facet_mgr = $query->get_facet_manager();
 $facet_mgr->add_facet(new AfsFacet('Organization', AfsFacetType::STRING_TYPE));
 $facet_mgr->add_facet(new AfsFacet('date_parution', AfsFacetType::DATE_TYPE));
 $facet_mgr->add_facet(new AfsFacet('geo', AfsFacetType::STRING_TYPE));
@@ -58,7 +59,7 @@ $facet_mgr->add_facet(new AfsFacet('ticketPrice', AfsFacetType::INTEGER_TYPE, Af
 
 // Query Manager
 /** [Query manager] */
-$query_mgr = new AfsSearchQueryManager($connector, $facet_mgr);
+$query_mgr = new AfsSearchQueryManager($connector, $config);
 $reply = $query_mgr->send($query);
 /** [Query manager] */
 

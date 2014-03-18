@@ -1,6 +1,5 @@
 <?php
 require_once 'AFS/afs_configuration_base.php';
-require_once 'AFS/SEARCH/afs_facet_manager.php';
 require_once 'AFS/SEARCH/afs_query_coder.php';
 require_once 'AFS/SEARCH/afs_text_visitor.php';
 require_once 'AFS/SEARCH/afs_spellcheck_text_visitor.php';
@@ -9,7 +8,6 @@ require_once 'AFS/SEARCH/afs_spellcheck_text_visitor.php';
 /** @brief Configuration class for AFS helper classes. */
 class AfsHelperConfiguration extends AfsConfigurationBase
 {
-    private $facet_mgr = null;
     private $query_coder = null;
     private $reply_text_visitor = null;
     private $spellcheck_text_visitor = null;
@@ -19,31 +17,9 @@ class AfsHelperConfiguration extends AfsConfigurationBase
     public function __construct()
     {
         parent::__construct();
-        $this->facet_mgr = new AfsFacetManager();
         $this->reply_text_visitor = new AfsTextVisitor();
         $this->spellcheck_text_visitor = new AfsSpellcheckTextVisitor();
     }
-
-    /** @name Facet manager
-     * @{ */
-
-    /** @brief Retrieves facet manager.
-     * @return facet manager (see AfsFacetManager).
-     */
-    public function get_facet_manager()
-    {
-        return $this->facet_mgr;
-    }
-    /** @brief Defines new facet manager.
-     * @param $facet_mgr [in] new facet manager to set.
-     * @return current instance.
-     */
-    public function set_facet_manager(AfsFacetManager $facet_mgr)
-    {
-        $this->facet_mgr = $facet_mgr;
-        return $this;
-    }
-    /** @}*/
 
     /** @name Query coder
      * @{ */

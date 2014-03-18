@@ -18,7 +18,7 @@ class SearchTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(strpos($url, 'status=stable') !== False, 'URL does not contain right sesrvice status');
 
         $config = $search->get_helpers_configuration();
-        $this->assertEquals(AfsHelperFormat::ARRAYS, $config->get_helper_format());
+        $this->assertEquals(AfsHelperFormat::HELPERS, $config->get_helper_format());
     }
 
     public function testRetrieveSpecificParameters()
@@ -29,14 +29,14 @@ class SearchTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(42, $service->id);
         $this->assertEquals(AfsServiceStatus::RC, $service->status);
 
-        $search->execute(AfsHelperFormat::HELPERS);
+        $search->execute(AfsHelperFormat::ARRAYS);
         $url = $search->get_generated_url();
         $this->assertTrue(strpos($url, '127.0.0.2') !== False, 'URL does not contain right host');
         $this->assertTrue(strpos($url, 'service=42') !== False, 'URL does not contain right sesrvice id');
         $this->assertTrue(strpos($url, 'status=rc') !== False, 'URL does not contain right sesrvice status');
 
         $config = $search->get_helpers_configuration();
-        $this->assertEquals(AfsHelperFormat::HELPERS, $config->get_helper_format());
+        $this->assertEquals(AfsHelperFormat::ARRAYS, $config->get_helper_format());
     }
 
     public function testSetQuery()
@@ -50,84 +50,5 @@ class SearchTest extends PHPUnit_Framework_TestCase
 
         $search->execute();
         $this->assertTrue(strpos($search->get_generated_url(), 'query=foo') !== False, 'URL does not contain query!');
-    }
-
-    public function testAddFacet()
-    {
-        $search = new AfsSearch('127.0.0.1', 42);
-        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
-        $this->assertFalse($facet_mgr->has_facet('FOO'));
-
-        $search->add_facet(new AfsFacet('FOO', AfsFacetType::STRING_TYPE, AfsFacetLayout::INTERVAL));
-        $this->assertTrue($facet_mgr->has_facet('FOO'));
-    }
-
-    public function testDefaultFacetOptionMultiValuedMode()
-    {
-        $search = new AfsSearch('127.0.0.1', 42);
-        $search->set_default_multi_selection_facets();
-        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
-        $this->assertEquals(AfsFacetMode::OR_MODE, $facet_mgr->get_default_facets_mode());
-    }
-    public function testDefaultFacetOptionSingleValuedMode()
-    {
-        $search = new AfsSearch('127.0.0.1', 42);
-        $search->set_default_mono_selection_facets();
-        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
-        $this->assertEquals(AfsFacetMode::SINGLE_MODE, $facet_mgr->get_default_facets_mode());
-    }
-    public function testFacetMultiValued()
-    {
-        $search = new AfsSearch('127.0.0.1', 42);
-        $search->set_multi_selection_facets('FOO');
-        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
-        $this->assertTrue($facet_mgr->has_facet('FOO'));
-        $facet = $facet_mgr->get_facet('FOO');
-        $this->assertTrue($facet->has_or_mode());
-    }
-    public function testFacetsMultiValued()
-    {
-        $search = new AfsSearch('127.0.0.1', 42);
-        $facets = array('FOO', 'BAR');
-        $search->set_multi_selection_facets($facets);
-        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
-        foreach ($facets as $facet) {
-            $this->assertTrue($facet_mgr->has_facet($facet));
-            $facet = $facet_mgr->get_facet($facet);
-            $this->assertTrue($facet->has_or_mode());
-        }
-    }
-    public function testFacetSingleValued()
-    {
-        $search = new AfsSearch('127.0.0.1', 42);
-        $search->set_mono_selection_facets('FOO');
-        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
-        $this->assertTrue($facet_mgr->has_facet('FOO'));
-        $facet = $facet_mgr->get_facet('FOO');
-        $this->assertTrue($facet->has_single_mode());
-    }
-    public function testFacetsSingleValued()
-    {
-        $search = new AfsSearch('127.0.0.1', 42);
-        $facets = array('FOO', 'BAR');
-        $search->set_mono_selection_facets($facets);
-        $facet_mgr = $search->get_helpers_configuration()->get_facet_manager();
-        foreach ($facets as $facet) {
-            $this->assertTrue($facet_mgr->has_facet($facet));
-            $facet = $facet_mgr->get_facet($facet);
-            $this->assertTrue($facet->has_single_mode());
-        }
-    }
-
-    public function testSmoothFacetSortOrder()
-    {
-        $search = new AfsSearch('127.0.0.1', 42);
-        $this->assertFalse($search->get_helpers_configuration()->get_facet_manager()->is_facet_sort_order_strict());
-    }
-    public function testStrictFacetSortOrder()
-    {
-        $search = new AfsSearch('127.0.0.1', 42);
-        $search->set_facet_sort_order(array('foo', 'bar'), AfsFacetSort::STRICT);
-        $this->assertTrue($search->get_helpers_configuration()->get_facet_manager()->is_facet_sort_order_strict());
     }
 }

@@ -25,7 +25,7 @@ class AfsClusterHelper extends AfsHelperBase
     public function __construct($cluster, AfsMetaHelper $meta, $facet_helper,
         AfsQuery $query, AfsHelperConfiguration $config)
     {
-        $formatter = AfsFacetHelperRetriever::get_formatter($meta->get_cluster_id(), $config);
+        $formatter = AfsFacetHelperRetriever::get_formatter($meta->get_cluster_id(), $query);
         $this->id = $formatter->format($cluster->id);
         $this->initialize_label($facet_helper);
         $this->total_replies = $cluster->totalItems;

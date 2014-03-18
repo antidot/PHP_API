@@ -905,6 +905,123 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($query->get_filters()));
         $this->assertFalse($query->has_query());
     }
+
+    public function testRetrieveFacetManager()
+    {
+        $query = new AfsQuery();
+        $mgr = $query->get_facet_manager();
+        $this->assertNotNull($mgr);
+        $facets = $mgr->get_facets();
+        $this->assertTrue(empty($facets));
+    }
+
+    public function testRetrieveFacetManagerAndUpdate()
+    {
+        $query = new AfsQuery();
+        $mgr = $query->get_facet_manager();
+        $this->assertNotNull($mgr);
+        $facets = $mgr->get_facets();
+        $this->assertTrue(empty($facets));
+        $mgr->add_facet(new AfsFacet('FOO', AfsFacetType::STRING_TYPE));
+
+        $mgr = $query->get_facet_manager();
+        $this->assertNotNull($mgr);
+        $facets = $mgr->get_facets();
+        $this->assertFalse(empty($facets));
+        $this->assertTrue(array_key_exists('FOO', $facets));
+    }
+
+    public function testDefaultFacetOptionMultiValuedMode()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_default_multi_selection_facets();
+        $facet_mgr = $query->get_facet_manager();
+        $this->assertEquals(AfsFacetMode::OR_MODE, $facet_mgr->get_default_facets_mode());
+    }
+    public function testDefaultFacetOptionSingleValuedMode()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_default_mono_selection_facets();
+        $facet_mgr = $query->get_facet_manager();
+        $this->assertEquals(AfsFacetMode::SINGLE_MODE, $facet_mgr->get_default_facets_mode());
+    }
+    public function testFacetMultiValued()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_multi_selection_facets('FOO');
+        $facet_mgr = $query->get_facet_manager();
+        $this->assertTrue($facet_mgr->has_facet('FOO'));
+        $facet = $facet_mgr->get_facet('FOO');
+        $this->assertTrue($facet->has_or_mode());
+    }
+    public function testFacetsMultiValuedAsArray()
+    {
+        $query = new AfsQuery();
+        $facets = array('FOO', 'BAR');
+        $query = $query->set_multi_selection_facets($facets);
+        $facet_mgr = $query->get_facet_manager();
+        foreach ($facets as $facet) {
+            $this->assertTrue($facet_mgr->has_facet($facet));
+            $facet = $facet_mgr->get_facet($facet);
+            $this->assertTrue($facet->has_or_mode());
+        }
+    }
+    public function testFacetsMultiValuedAsList()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_multi_selection_facets('FOO', 'BAR');
+        $facet_mgr = $query->get_facet_manager();
+        foreach (array('FOO', 'BAR') as $facet) {
+            $this->assertTrue($facet_mgr->has_facet($facet));
+            $facet = $facet_mgr->get_facet($facet);
+            $this->assertTrue($facet->has_or_mode());
+        }
+    }
+    public function testFacetSingleValuedAsArray()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_mono_selection_facets('FOO');
+        $facet_mgr = $query->get_facet_manager();
+        $this->assertTrue($facet_mgr->has_facet('FOO'));
+        $facet = $facet_mgr->get_facet('FOO');
+        $this->assertTrue($facet->has_single_mode());
+    }
+    public function testFacetsSingleValuedAsList()
+    {
+        $query = new AfsQuery();
+        $facets = array('FOO', 'BAR');
+        $query = $query->set_mono_selection_facets($facets);
+        $facet_mgr = $query->get_facet_manager();
+        foreach ($facets as $facet) {
+            $this->assertTrue($facet_mgr->has_facet($facet));
+            $facet = $facet_mgr->get_facet($facet);
+            $this->assertTrue($facet->has_single_mode());
+        }
+    }
+    public function testFacetsSingleValued()
+    {
+        $query = new AfsQuery();
+        
+        $query = $query->set_mono_selection_facets('FOO', 'BAR');
+        $facet_mgr = $query->get_facet_manager();
+        foreach (array('FOO', 'BAR') as $facet) {
+            $this->assertTrue($facet_mgr->has_facet($facet));
+            $facet = $facet_mgr->get_facet($facet);
+            $this->assertTrue($facet->has_single_mode());
+        }
+    }
+
+    public function testSmoothFacetSortOrder()
+    {
+        $query = new AfsQuery();
+        $this->assertFalse($query->get_facet_manager()->is_facet_order_strict());
+    }
+    public function testStrictFacetSortOrder()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_facet_order(array('foo', 'bar'), AfsFacetSort::STRICT);
+        $this->assertTrue($query->get_facet_manager()->is_facet_order_strict());
+    }
 }
 
 

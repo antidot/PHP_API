@@ -29,7 +29,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     {
         $this->connector = new ConnectorMock();
         $this->config = new AfsHelperConfiguration();
-        $this->facet_mgr = $this->config->get_facet_manager();
         $this->qm = new AfsSearchQueryManager($this->connector, $this->config);
     }
 
@@ -120,9 +119,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testOneFacetOneValue()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::STRING_TYPE);
-        $this->facet_mgr->add_facet($facet);
-
         $query = new AfsQuery();
         $query = $query->add_filter('foo', '"bar"');
         $this->qm->send($query);
@@ -131,9 +127,6 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testOneFacetOneIntervalValue()
     {
-        $facet = new AfsFacet('foo');
-        $this->facet_mgr->add_facet($facet);
-
         $query = new AfsQuery();
         $query = $query->add_filter('foo', AfsIntervalHelper::create(42, 666));
         $this->qm->send($query);
@@ -142,18 +135,12 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
 
     public function testFailOneFacetOneValue()
     {
-        $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE);
-        $this->facet_mgr->add_facet($facet);
-
         $query = new AfsQuery();
         $query = $query->add_filter('foo', 'bar');
         $this->qm->send($query);
-        try
-        {
+        try {
             $this->checkOneFacetValue('foo', '"bar"');
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             return;
         }
         $this->fail('Should have failed due to value type/reference provided!');
@@ -162,11 +149,10 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testOneFacetMultipleValues()
     {
         $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE);
-        $this->facet_mgr->add_facet($facet);
-
         $query = new AfsQuery();
         $query = $query->add_filter('foo', '4');
         $query = $query->add_filter('foo', '2');
+        $query->get_facet_manager()->add_facet($facet);
         $this->qm->send($query);
         $this->checkFacetValues('foo', array('4', '2'), 'or');
     }
@@ -174,11 +160,10 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testFailOnValueOneFacetMultipleValues()
     {
         $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE);
-        $this->facet_mgr->add_facet($facet);
-
         $query = new AfsQuery();
         $query = $query->add_filter('foo', '4');
         $query = $query->add_filter('foo', '2');
+        $query->get_facet_manager()->add_facet($facet);
         $this->qm->send($query);
         try
         {
@@ -194,18 +179,14 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testFailOnModeValueOneFacetMultipleValues()
     {
         $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE);
-        $this->facet_mgr->add_facet($facet);
-
         $query = new AfsQuery();
         $query = $query->add_filter('foo', '4');
         $query = $query->add_filter('foo', '2');
+        $query->get_facet_manager()->add_facet($facet);
         $this->qm->send($query);
-        try
-        {
+        try {
             $this->checkFacetValues('foo', array('4', '2'), 'and');
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             return;
         }
         $this->fail('Should have failed due to invalid mode provided!');
@@ -214,12 +195,11 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testFromParameter()
     {
         $facet = new AfsFacet('foo', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE);
-        $this->facet_mgr->add_facet($facet);
-
         $query = new AfsQuery();
         $query = $query->auto_set_from()
                        ->add_filter('foo', '4')
                        ->add_filter('foo', '2');
+        $query->get_facet_manager()->add_facet($facet);
         $this->qm->send($query);
         $this->checkFromValue(AfsOrigin::FACET);
     }
@@ -234,42 +214,46 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testFacetDefaultSticky()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_default_facets_mode(AfsFacetMode::OR_MODE);
+        $query->get_facet_manager()->set_default_facets_mode(AfsFacetMode::OR_MODE);
         $this->qm->send($query);
         $this->checkFacetDefaultValues(array('sticky=true'));
     }
     public function testFacetNonStickyWithDefaultNonSticky()
     {
         $query = new AfsQuery();
-        $this->assertFalse($this->facet_mgr->get_default_stickyness());
-        $this->facet_mgr->set_facet_sort_order(array('FOO'), AfsFacetSort::STRICT);
+        $facet_mgr = $query->get_facet_manager();
+        $this->assertFalse($facet_mgr->get_default_stickyness());
+        $facet_mgr->set_facet_order(array('FOO'), AfsFacetSort::STRICT);
         $this->qm->send($query);
         $this->checkFacetOptions('FOO', 'sticky=false', false);
     }
     public function testFacetNonStickyWithDefaultSticky()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_default_facets_mode(AfsFacetMode::OR_MODE);
-        $this->assertTrue($this->facet_mgr->get_default_stickyness());
-        $this->facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::AND_MODE));
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->set_default_facets_mode(AfsFacetMode::OR_MODE);
+        $this->assertTrue($facet_mgr->get_default_stickyness());
+        $facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::AND_MODE));
         $this->qm->send($query);
         $this->checkFacetOptions('FOO', 'sticky=false');
     }
     public function testFacetStickyWithDefaultNonSticky()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_default_facets_mode(AfsFacetMode::AND_MODE);
-        $this->assertFalse($this->facet_mgr->get_default_stickyness());
-        $this->facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE));
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->set_default_facets_mode(AfsFacetMode::AND_MODE);
+        $this->assertFalse($facet_mgr->get_default_stickyness());
+        $facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE));
         $this->qm->send($query);
         $this->checkFacetOptions('FOO', 'sticky=true');
     }
     public function testFacetStickyWithDefaultSticky()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_default_facets_mode(AfsFacetMode::OR_MODE);
-        $this->assertTrue($this->facet_mgr->get_default_stickyness());
-        $this->facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE));
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->set_default_facets_mode(AfsFacetMode::OR_MODE);
+        $this->assertTrue($facet_mgr->get_default_stickyness());
+        $facet_mgr->add_facet(new AfsFacet('FOO', AfsFacetType::INTEGER_TYPE, AfsFacetLayout::TREE, AfsFacetMode::OR_MODE));
         $this->qm->send($query);
         $this->checkFacetOptions('FOO', 'sticky=true', false);
     }
@@ -277,7 +261,8 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testFacetNonStrictOrder()
     {
         $query = new AfsQuery();
-        $this->facet_mgr->set_facet_sort_order(array('FOO', 'BAR'), AfsFacetSort::LAX);
+        $facet_mgr = $query->get_facet_manager();
+        $facet_mgr->set_facet_order(array('FOO', 'BAR'), AfsFacetSort::LAX);
         $this->qm->send($query);
         $params = $this->connector->get_parameters();
         $this->assertFalse(array_key_exists('afs:facetOrder', $params));
@@ -285,8 +270,9 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testFacetStrictOrder()
     {
         $query = new AfsQuery();
+        $facet_mgr = $query->get_facet_manager();
         $sort = array('FOO', 'BAR');
-        $this->facet_mgr->set_facet_sort_order($sort, AfsFacetSort::STRICT);
+        $facet_mgr->set_facet_order($sort, AfsFacetSort::STRICT);
         $this->qm->send($query);
         $params = $this->connector->get_parameters();
         $this->assertTrue(array_key_exists('afs:facetOrder', $params));

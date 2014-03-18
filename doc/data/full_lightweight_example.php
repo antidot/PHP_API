@@ -18,7 +18,7 @@ $twig->addExtension(new Twig_Extension_Debug());
 
 /** [Search init] */
 // Third parameter is set to AfsServiceStatus::STABLE by default.
-$search = new AfsSearch('eval.partners.antidot.net', 70000);
+$search = new AfsSearch('eval.partners.antidot.net', 48000);
 /** [Search init] */
 
 /** [Query init] */
@@ -29,7 +29,7 @@ $search->build_query_from_url_parameters();
 /** [Query execution] */
 // Default format is AfsHelperFormat::ARRAYS, it can be set to AfsHelperFormat::HELPERS
 // when execute method is called.
-$reply = $search->execute();
+$reply = $search->execute(AfsHelperFormat::ARRAYS);
 /** [Query execution] */
 
 // Load and apply PHP templates

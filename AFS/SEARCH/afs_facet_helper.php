@@ -36,7 +36,7 @@ class AfsFacetHelper extends AfsHelperBase
         } else {
             $this->sticky = false;
         }
-        $facet_manager = $config->get_facet_manager();
+        $facet_manager = $query->get_facet_manager();
         $facet_manager->check_or_add_facet(new AfsFacet($this->id, $this->type, $this->layout));
         $builder = new AfsFacetElementBuilder($facet_manager, $query);
         $this->elements = $builder->create_elements($this->id, $facet, $config);
@@ -253,7 +253,7 @@ class AfsFacetElementBuilder
     public function create_elements($facet_id, $facet_element,
         AfsHelperConfiguration $config)
     {
-        $formatter = AfsFacetHelperRetriever::get_formatter($facet_id, $config);
+        $formatter = AfsFacetHelperRetriever::get_formatter($facet_id, $this->query);
         return $this->create_elements_recursively($facet_id, $facet_element,
             $formatter, $config);
     }

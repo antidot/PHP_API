@@ -16,6 +16,19 @@ class AfsFacetManager
     private $facet_mode = AfsFacetMode::AND_MODE;
     private $facet_sort_mode = null;
 
+    /** @brief Constructs new facet facet manager.
+     * @param $other [in] Instance used to initialize new one (default: creates
+     *        new instance with default parameters).
+     */
+    public function __construct(AfsFacetManager $other=null)
+    {
+        if (! is_null($other)) {
+            $this->facets = $other->facets;
+            $this->facet_mode = $other->facet_mode;
+            $this->facet_sort_mode = $other->facet_sort_mode;
+        }
+    }
+
     /** @name Global facet management
      * @{ */
 
@@ -54,7 +67,7 @@ class AfsFacetManager
      * @param $ids [in] List of facet identifiers in the right sort order.
      * @param $mode [in] Sort order mode (see AfsFacetSort for more details).
      */
-    public function set_facet_sort_order(array $ids, $mode)
+    public function set_facet_order(array $ids, $mode)
     {
         AfsFacetSort::check_value($mode, 'Invalid sort order: ');
         sort_array_by_key($ids, $this->facets, "simple_facet_creator");
@@ -63,7 +76,7 @@ class AfsFacetManager
     /** @brief Checks whether facet sort order is set to strict mode.
      * @return @c true when facet sort order mode is strict, @c false otherwise.
      */
-    public function is_facet_sort_order_strict()
+    public function is_facet_order_strict()
     {
         return AfsFacetSort::STRICT == $this->facet_sort_mode;
     }
@@ -231,6 +244,14 @@ class AfsFacetManager
             $mode = $this->facet_mode;
 
         return $this->is_mode_sticky($mode);
+    }
+
+    /** @brief Copies current instance.
+     * @return new instance, copy of current one.
+     */
+    public function copy()
+    {
+        return new AfsFacetManager($this);
     }
     /** @} */
 

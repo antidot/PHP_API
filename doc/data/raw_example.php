@@ -6,17 +6,16 @@
 require_once "PHP_API/afs_lib.php";
 
 $search = new AfsSearch('eval.partners.antidot.net', 48000);
-$search->build_query_from_url_parameters();
-/*
-$query = $search->get_query();
-$search->set_query($query->set_lang('fr'));  // language is set manually in order to get spellcheck results
-*/
-$search->set_mono_selection_facets(array('afs:lang', 'has_variants'));
-$search->set_facet_sort_order(array('price_eur', 'marketing'), AfsFacetSort::LAX);
-$helper = $search->execute(AfsHelperFormat::HELPERS);
+
+$query = $search->build_query_from_url_parameters();
+$query = $query->set_lang('fr');  // language is set manually in order to get spellcheck results
+$query = $query->set_multi_selection_facets('classification');
+$query = $query->set_facet_order(array('price_eur', 'marketing', 'classification'), AfsFacetSort::LAX);
+$query = $query->set_mono_selection_facets('afs:lang', 'has_variants', 'has_image');
+
+$helper = $search->execute($query);
 $generated_url = $search->get_generated_url();
 
-$query = $search->get_query();
 $clustering_is_active = $query->has_cluster();
 $nsmap = array('ns' => 'http://ref.antidot.net/store/afs#');
 
@@ -59,7 +58,7 @@ $nsmap = array('ns' => 'http://ref.antidot.net/store/afs#');
 
     <!-- ####################### Current filter parameters ########################### -->
 <?php
-$params = $search->get_query()->get_parameters(false);
+$params = $query->get_parameters(false);
 if (array_key_exists('filter', $params) && is_array($params['filter'])) {
     echo '
     <div class="row">
@@ -165,7 +164,6 @@ foreach ($facet->get_elements() as $value) {
     <div class="col-md-2">
     <!-- ####################### Relevance ########################### -->
 <?php
-    $query = $search->get_query();
     if ($query->has_sort(AfsSortBuiltins::RELEVANCE)) {
         if ($query->get_sort_order(AfsSortBuiltins::RELEVANCE) == AfsSortOrder::ASC) {
             $relevance_icon = 'glyphicon-arrow-up';

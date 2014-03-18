@@ -46,7 +46,7 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
                 $facets[$helper->get_id()] = $helper;
             }
         }
-        $facet_mgr = $config->get_facet_manager();
+        $facet_mgr = $query->get_facet_manager();
         if ($facet_mgr->has_facets())
             sort_array_by_key(array_keys($facet_mgr->get_facets()), $facets);
         $this->facets = array_values($facets); // preserve compatibility

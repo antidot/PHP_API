@@ -33,14 +33,14 @@ class AfsFacetHelperRetriever
      * specific facet type and layout.
      *
      * @param $facet_id [in] Facet identifier.
-     * @param $config [in] Configuration which should contain facet information.
+     * @param $query [in] AfsQuery which should contain facet information.
      *
      * @return appropriate formatter.
      */
-    public static function get_formatter($facet_id, $config)
+    public static function get_formatter($facet_id, $query)
     {
         try {
-            $facet = $config->get_facet_manager()->get_facet($facet_id);
+            $facet = $query->get_facet_manager()->get_facet($facet_id);
             if ((AfsFacetType::STRING_TYPE == $facet->get_type()
                     || AfsFacetType::DATE_TYPE == $facet->get_type())
                     && AfsFacetLayout::TREE == $facet->get_layout()) {

@@ -63,45 +63,6 @@ class HelperConfigurationTest extends PHPUnit_Framework_TestCase
         } catch (InvalidArgumentException $e) { }
     }
 
-    public function testRetrieveFacetManager()
-    {
-        $config = new AfsHelperConfiguration();
-        $mgr = $config->get_facet_manager();
-        $this->assertNotNull($mgr);
-        $facets = $mgr->get_facets();
-        $this->assertTrue(empty($facets));
-    }
-
-    public function testSetAndRetrieveFacetManager()
-    {
-        $config = new AfsHelperConfiguration();
-        $mgr = new AfsFacetManager();
-        $mgr->add_facet(new AfsFacet('FOO', AfsFacetType::STRING_TYPE));
-        $config->set_facet_manager($mgr);
-
-        $mgr = $config->get_facet_manager();
-        $this->assertNotNull($mgr);
-        $facets = $mgr->get_facets();
-        $this->assertFalse(empty($facets));
-        $this->assertTrue(array_key_exists('FOO', $facets));
-    }
-
-    public function testRetrieveFacetManagerAndUpdate()
-    {
-        $config = new AfsHelperConfiguration();
-        $mgr = $config->get_facet_manager();
-        $this->assertNotNull($mgr);
-        $facets = $mgr->get_facets();
-        $this->assertTrue(empty($facets));
-        $mgr->add_facet(new AfsFacet('FOO', AfsFacetType::STRING_TYPE));
-
-        $mgr = $config->get_facet_manager();
-        $this->assertNotNull($mgr);
-        $facets = $mgr->get_facets();
-        $this->assertFalse(empty($facets));
-        $this->assertTrue(array_key_exists('FOO', $facets));
-    }
-
     public function testHasQueryCoder()
     {
         $config = new AfsHelperConfiguration();
