@@ -1,0 +1,29 @@
+<?php
+require_once 'AIF/afs_bows_connector.php';
+require_once 'AIF/afs_bows_connector_interface.php';
+require_once 'AIF/afs_bows_information.php';
+
+
+/** @brief Simple connector to retrieve AFS Back Office information. */
+class AfsAboutConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterface
+{
+    /** @brief Retrieves URL.
+     * @param $params [in] Unused parameter.
+     * @return Valid URL to query information about installed AFS Back Office.
+     */
+    public function get_url(array $params=null)
+    {
+        return parent::get_base_url('about');
+    }
+
+    /** @brief Retrieves AFS Back Office Web Services information.
+     *
+     * This trigger a query to the host hosting AFS Back Office.
+     *
+     * @return AfsBOWSInformation object.
+     */
+    public function get_information()
+    {
+        return new AfsBOWSInformation($this->query());
+    }
+}

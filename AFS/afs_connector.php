@@ -1,8 +1,9 @@
 <?php
 require_once 'COMMON/afs_connector_interface.php';
-require_once 'COMMON/afs_connector_base.php';
+require_once 'COMMON/afs_service_connector.php';
 require_once 'COMMON/afs_exception.php';
 require_once 'AFS/afs_exception.php';
+require_once 'afs_version.php';
 
 
 /** @brief Base class for all AFS web services.
@@ -11,7 +12,7 @@ require_once 'AFS/afs_exception.php';
  *
  * Derived class of this class should implement get_web_service_name method.
  */
-abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInterface
+abstract class AfsConnector extends AfsServiceConnector implements AfsConnectorInterface
 {
     protected $url = null; ///> URL generated to query AFS web service (debug purpose).
     private $associative_array = false;

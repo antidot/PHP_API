@@ -1,12 +1,13 @@
 <?php
-require_once "AIF/afs_authentication.php";
-require_once "AIF/afs_document_manager.php";
-require_once "AIF/afs_paf_upload_reply.php";
-require_once "COMMON/afs_connector_base.php";
+require_once 'AIF/afs_authentication.php';
+require_once 'AIF/afs_document_manager.php';
+require_once 'AIF/afs_paf_upload_reply.php';
+require_once 'AIF/afs_about_connector.php';
+require_once 'COMMON/afs_service_connector.php';
 
 /** @brief AFS PaF connector.
  */
-class AfsPafConnector extends AfsConnectorBase
+class AfsPafConnector extends AfsServiceConnector
 {
     private $paf_name;
     private $authentication;
@@ -62,12 +63,16 @@ class AfsPafConnector extends AfsConnectorBase
             throw new InvalidArgumentException('No document to be sent');
         }
 
+        $version = $this->get_bo_version();
         $url = $this->get_url($comment);
+        $url .= '&' . $this->authentication->format_as_url_param($version);
+
         $request = curl_init($url);
         if ($request == false) {
             throw new Exception('Cannot initialize connexion to send documents');
         }
-        $this->set_default_curl_options($request);
+        $headers = $this->authentication->format_as_header_param($version);
+        $this->set_default_curl_options($request, $headers);
         $this->set_documents_to_send($request, $mgr);
         $result = curl_exec($request);
         if ($result === false) {
@@ -97,15 +102,17 @@ class AfsPafConnector extends AfsConnectorBase
             $this->format_parameters($params));
     }
 
-    private function set_default_curl_options(&$request)
+    private function set_default_curl_options(&$request, array $headers)
     {
+        $default_headers = array('Expect' => '', 'Accept' => 'application/json');
+        if (!is_null($headers) && !empty($headers))
+            $default_headers = array_merge($default_headers, $headers);
+
         if (curl_setopt_array($request,
                 array(CURLOPT_RETURNTRANSFER => true,
                       //CURLOPT_FAILONERROR => true,
                       CURLOPT_POST => true,
-                      CURLOPT_HTTPHEADER => array('Expect:',
-                          'Accept: application/json',
-                          'Authorization: Basic ' . $this->authentication->format()),
+                      CURLOPT_HTTPHEADER => $this->format_http_headers($default_headers),
                       CURLOPT_SSL_VERIFYPEER => false,
                       CURLOPT_SSL_VERIFYHOST => false
                       )) === false) {
@@ -125,6 +132,26 @@ class AfsPafConnector extends AfsConnectorBase
         if (curl_setopt($request, CURLOPT_POSTFIELDS, $documents) === false) {
             throw new Exception('Cannot set documents to be sent');
         }
+    }
+
+    private function get_bo_version()
+    {
+        $info_connector = new AfsAboutConnector($this->host, $this->scheme);
+        return $info_connector->get_information()->get_gen_version();
+        try {
+            $info_connector = new AfsAboutConnector($this->host, $this->scheme);
+            return $info_connector->get_information()->get_gen_version();
+        } catch (Exception $e) {
+            throw new AfsBOWSException('Cannot retrieve Back Office information', 1, $e);
+        }
+    }
+
+    private function format_http_headers(array &$headers)
+    {
+        $result = array();
+        foreach($headers as $key => $value)
+            $result[] = $key . ': ' . $value;
+        return $result;
     }
 }
 
