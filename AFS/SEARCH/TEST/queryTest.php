@@ -1,6 +1,6 @@
 <?php ob_start();
 require_once 'AFS/SEARCH/afs_query.php';
-require_once 'AFS/SEARCH/afs_interval_helper.php';
+require_once 'AFS/SEARCH/afs_interval.php';
 require_once 'AFS/SEARCH/FILTER/afs_filter.php';
 
 
@@ -109,7 +109,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
     public function testSetIntervalValueToFilter()
     {
         $query = new AfsQuery();
-        $query = $query->set_filter('foo', AfsIntervalHelper::create(42, 666));
+        $query = $query->set_filter('foo', AfsInterval::create(42, 666));
         $this->assertTrue($query->has_filter('foo', '[42 .. 666]'));
     }
 

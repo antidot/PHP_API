@@ -4,7 +4,7 @@ require_once 'AFS/SEARCH/afs_search_query_manager.php';
 require_once 'AFS/SEARCH/afs_search_connector.php';
 require_once 'AFS/SEARCH/afs_query.php';
 require_once 'AFS/SEARCH/afs_helper_configuration.php';
-require_once 'AFS/SEARCH/afs_interval_helper.php';
+require_once 'AFS/SEARCH/afs_interval.php';
 require_once 'AFS/SEARCH/FILTER/afs_filter.php';
 
 class ConnectorMock implements AfsConnectorInterface
@@ -128,7 +128,7 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
     public function testOneFacetOneIntervalValue()
     {
         $query = new AfsQuery();
-        $query = $query->add_filter('foo', AfsIntervalHelper::create(42, 666));
+        $query = $query->add_filter('foo', AfsInterval::create(42, 666));
         $this->qm->send($query);
         $this->checkOneFacetValue('foo', '[42 .. 666]');
     }

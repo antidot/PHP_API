@@ -8,14 +8,14 @@ define('PHP_INT_MIN', ~PHP_INT_MAX);
 
 /** @brief Helper to make intervals.
  */
-class AfsIntervalHelper
+class AfsInterval
 {
     private $lower_bound = null;
     private $upper_bound = null;
 
     /** @brief Constructs new interval helper.
      *
-     * Initialize new AfsIntervalHelper with at least one interval bound.
+     * Initialize new AfsInterval with at least one interval bound.
      *
      * @param $lower_bound [in] Lower bound of the interval (default: null).
      * @param $upper_bound [in] Upper bound of the interval (default: null).
@@ -53,7 +53,7 @@ class AfsIntervalHelper
     /** @brief Serialize this instance in string format.
      *
      * Returned value can be used to recreate new interval using
-     * AfsIntervalHelper::parse method.
+     * AfsInterval::parse method.
      *
      * @return string representation of the instance.
      */
@@ -65,7 +65,7 @@ class AfsIntervalHelper
 
     /** @brief Creates new interval helper.
      *
-     * Initialize new AfsIntervalHelper with at least one interval bound.
+     * Initialize new AfsInterval with at least one interval bound.
      *
      * @param $lower_bound [in] Lower bound of the interval (default: null).
      * @param $upper_bound [in] Upper bound of the interval (default: null).
@@ -74,13 +74,13 @@ class AfsIntervalHelper
      */
     public static function create($lower_bound=null, $upper_bound=null)
     {
-        return new AfsIntervalHelper($lower_bound, $upper_bound);
+        return new AfsInterval($lower_bound, $upper_bound);
     }
 
     /** @brief Creates new interval helper from string.
      *
      * @param $value [in] String value to parse in order to create new
-     *        AfsIntervalHelper instance.
+     *        AfsInterval instance.
      *
      * @return newly created instance.
      */
@@ -93,7 +93,7 @@ class AfsIntervalHelper
         if (1 == $result) {
             if (count($matches) != 3)
                 throw new Exception('Invalid number of matching elements, please contact Antidot support team');
-            return new AfsIntervalHelper($matches[1], $matches[2]);
+            return new AfsInterval($matches[1], $matches[2]);
         } elseif (0 == $result) {
             throw new AfsIntervalInitializerException($value);
         } else {
