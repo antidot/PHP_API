@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>Antidot PHP API: AfsIntervalHelper Class Reference</title>
+<title>Antidot PHP API: AfsInterval Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.10.0</span>
+   &#160;<span id="projectnumber">version 0.10.4</span>
    </div>
   </td>
  </tr>
@@ -89,43 +89,55 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="classAfsIntervalHelper-members.html">List of all members</a>  </div>
+<a href="classAfsInterval-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">AfsIntervalHelper Class Reference</div>  </div>
+<div class="title">AfsInterval Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>Helper to make intervals.  
- <a href="classAfsIntervalHelper.html#details">More...</a></p>
+ <a href="classAfsInterval.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aed40a3933a2cf139e23bc1c1f441e683"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsIntervalHelper.html#aed40a3933a2cf139e23bc1c1f441e683">__construct</a> ($lower_bound=null, $upper_bound=null)</td></tr>
-<tr class="memdesc:aed40a3933a2cf139e23bc1c1f441e683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new interval helper.  <a href="#aed40a3933a2cf139e23bc1c1f441e683">More...</a><br/></td></tr>
-<tr class="separator:aed40a3933a2cf139e23bc1c1f441e683"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbfde86e029cb2a465a735449fff9b42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsIntervalHelper.html#afbfde86e029cb2a465a735449fff9b42">get_lower_bound</a> ()</td></tr>
+<tr class="memitem:ad04007eaee3bc9703458a391689579c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsInterval.html#ad04007eaee3bc9703458a391689579c6">__construct</a> ($lower_bound, $upper_bound=null)</td></tr>
+<tr class="memdesc:ad04007eaee3bc9703458a391689579c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new interval helper.  <a href="#ad04007eaee3bc9703458a391689579c6">More...</a><br/></td></tr>
+<tr class="separator:ad04007eaee3bc9703458a391689579c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbfde86e029cb2a465a735449fff9b42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsInterval.html#afbfde86e029cb2a465a735449fff9b42">get_lower_bound</a> ()</td></tr>
 <tr class="memdesc:afbfde86e029cb2a465a735449fff9b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves interval lower bound.  <a href="#afbfde86e029cb2a465a735449fff9b42">More...</a><br/></td></tr>
 <tr class="separator:afbfde86e029cb2a465a735449fff9b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4feb43062485e0946171ec9bb4b145ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsIntervalHelper.html#a4feb43062485e0946171ec9bb4b145ed">get_upper_bound</a> ()</td></tr>
+<tr class="memitem:a638ec7ac22ae539b1e320db2ca09891a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsInterval.html#a638ec7ac22ae539b1e320db2ca09891a">exclude_lower_bound</a> ()</td></tr>
+<tr class="memdesc:a638ec7ac22ae539b1e320db2ca09891a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Excludes lower bound from the interval.  <a href="#a638ec7ac22ae539b1e320db2ca09891a">More...</a><br/></td></tr>
+<tr class="separator:a638ec7ac22ae539b1e320db2ca09891a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46acc80c5ccb25129c3c38dc64a3f87c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsInterval.html#a46acc80c5ccb25129c3c38dc64a3f87c">is_lower_bound_excluded</a> ()</td></tr>
+<tr class="memdesc:a46acc80c5ccb25129c3c38dc64a3f87c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks wether lower bound is excluded or not.  <a href="#a46acc80c5ccb25129c3c38dc64a3f87c">More...</a><br/></td></tr>
+<tr class="separator:a46acc80c5ccb25129c3c38dc64a3f87c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4feb43062485e0946171ec9bb4b145ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsInterval.html#a4feb43062485e0946171ec9bb4b145ed">get_upper_bound</a> ()</td></tr>
 <tr class="memdesc:a4feb43062485e0946171ec9bb4b145ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves interval upper bound.  <a href="#a4feb43062485e0946171ec9bb4b145ed">More...</a><br/></td></tr>
 <tr class="separator:a4feb43062485e0946171ec9bb4b145ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7516ca30af0db3cdbf9a7739b48ce91d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsIntervalHelper.html#a7516ca30af0db3cdbf9a7739b48ce91d">__toString</a> ()</td></tr>
+<tr class="memitem:a9d5d00f2b810469ffd46989b90891e56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsInterval.html#a9d5d00f2b810469ffd46989b90891e56">exclude_upper_bound</a> ()</td></tr>
+<tr class="memdesc:a9d5d00f2b810469ffd46989b90891e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Excludes upper bound from the interval.  <a href="#a9d5d00f2b810469ffd46989b90891e56">More...</a><br/></td></tr>
+<tr class="separator:a9d5d00f2b810469ffd46989b90891e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c03e9fc32fc72536d080c4ad401ec18"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsInterval.html#a8c03e9fc32fc72536d080c4ad401ec18">is_upper_bound_excluded</a> ()</td></tr>
+<tr class="memdesc:a8c03e9fc32fc72536d080c4ad401ec18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks wether upper bound is excluded or not.  <a href="#a8c03e9fc32fc72536d080c4ad401ec18">More...</a><br/></td></tr>
+<tr class="separator:a8c03e9fc32fc72536d080c4ad401ec18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7516ca30af0db3cdbf9a7739b48ce91d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsInterval.html#a7516ca30af0db3cdbf9a7739b48ce91d">__toString</a> ()</td></tr>
 <tr class="memdesc:a7516ca30af0db3cdbf9a7739b48ce91d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serialize this instance in string format.  <a href="#a7516ca30af0db3cdbf9a7739b48ce91d">More...</a><br/></td></tr>
 <tr class="separator:a7516ca30af0db3cdbf9a7739b48ce91d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:acf13977faf81a1d18ad62259eff43ab6"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsIntervalHelper.html#acf13977faf81a1d18ad62259eff43ab6">create</a> ($lower_bound=null, $upper_bound=null)</td></tr>
+<tr class="memitem:acf13977faf81a1d18ad62259eff43ab6"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsInterval.html#acf13977faf81a1d18ad62259eff43ab6">create</a> ($lower_bound=null, $upper_bound=null)</td></tr>
 <tr class="memdesc:acf13977faf81a1d18ad62259eff43ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new interval helper.  <a href="#acf13977faf81a1d18ad62259eff43ab6">More...</a><br/></td></tr>
 <tr class="separator:acf13977faf81a1d18ad62259eff43ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2e3a4aa032a3ad90279daa99f43adda"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsIntervalHelper.html#ae2e3a4aa032a3ad90279daa99f43adda">parse</a> ($value)</td></tr>
+<tr class="memitem:ae2e3a4aa032a3ad90279daa99f43adda"><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsInterval.html#ae2e3a4aa032a3ad90279daa99f43adda">parse</a> ($value)</td></tr>
 <tr class="memdesc:ae2e3a4aa032a3ad90279daa99f43adda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new interval helper from string.  <a href="#ae2e3a4aa032a3ad90279daa99f43adda">More...</a><br/></td></tr>
 <tr class="separator:ae2e3a4aa032a3ad90279daa99f43adda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Helper to make intervals. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aed40a3933a2cf139e23bc1c1f441e683"></a>
+<a class="anchor" id="ad04007eaee3bc9703458a391689579c6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -133,7 +145,7 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">__construct </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$lower_bound</em> = <code>null</code>, </td>
+          <td class="paramname"><em>$lower_bound</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -150,10 +162,10 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructs new interval helper. </p>
-<p>Initialize new <a class="el" href="classAfsIntervalHelper.html" title="Helper to make intervals. ">AfsIntervalHelper</a> with at least one interval bound.</p>
+<p>Initialize new <a class="el" href="classAfsInterval.html" title="Helper to make intervals. ">AfsInterval</a> with at least one interval bound.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">$lower_bound</td><td>[in] Lower bound of the interval (default: null). </td></tr>
+    <tr><td class="paramname">$lower_bound</td><td>[in] Lower bound of the interval. </td></tr>
     <tr><td class="paramname">$upper_bound</td><td>[in] Upper bound of the interval (default: null).</td></tr>
   </table>
   </dd>
@@ -182,7 +194,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Serialize this instance in string format. </p>
-<p>Returned value can be used to recreate new interval using <a class="el" href="classAfsIntervalHelper.html#ae2e3a4aa032a3ad90279daa99f43adda" title="Creates new interval helper from string. ">AfsIntervalHelper::parse</a> method.</p>
+<p>Returned value can be used to recreate new interval using <a class="el" href="classAfsInterval.html#ae2e3a4aa032a3ad90279daa99f43adda" title="Creates new interval helper from string. ">AfsInterval::parse</a> method.</p>
 <dl class="section return"><dt>Returns</dt><dd>string representation of the instance. </dd></dl>
 
 </div>
@@ -220,7 +232,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates new interval helper. </p>
-<p>Initialize new <a class="el" href="classAfsIntervalHelper.html" title="Helper to make intervals. ">AfsIntervalHelper</a> with at least one interval bound.</p>
+<p>Initialize new <a class="el" href="classAfsInterval.html" title="Helper to make intervals. ">AfsInterval</a> with at least one interval bound.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$lower_bound</td><td>[in] Lower bound of the interval (default: null). </td></tr>
@@ -234,6 +246,42 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a638ec7ac22ae539b1e320db2ca09891a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exclude_lower_bound </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Excludes lower bound from the interval. </p>
+<p>By default, both boundaries are included. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9d5d00f2b810469ffd46989b90891e56"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">exclude_upper_bound </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Excludes upper bound from the interval. </p>
+<p>By default, both boundaries are included. </p>
 
 </div>
 </div>
@@ -273,6 +321,42 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a46acc80c5ccb25129c3c38dc64a3f87c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">is_lower_bound_excluded </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks wether lower bound is excluded or not. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> when lower bound is excluded from the interval, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8c03e9fc32fc72536d080c4ad401ec18"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">is_upper_bound_excluded </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks wether upper bound is excluded or not. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> when upper bound is excluded from the interval, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ae2e3a4aa032a3ad90279daa99f43adda"></a>
 <div class="memitem">
 <div class="memproto">
@@ -298,7 +382,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Creates new interval helper from string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">$value</td><td>[in] String value to parse in order to create new <a class="el" href="classAfsIntervalHelper.html" title="Helper to make intervals. ">AfsIntervalHelper</a> instance.</td></tr>
+    <tr><td class="paramname">$value</td><td>[in] String value to parse in order to create new <a class="el" href="classAfsInterval.html" title="Helper to make intervals. ">AfsInterval</a> instance.</td></tr>
   </table>
   </dd>
 </dl>
@@ -309,7 +393,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 18 2014 15:44:00 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 20 2014 14:26:15 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -2,7 +2,7 @@ var searchData=
 [
   ['php_20api',['PHP API',['../md_README.html',1,'']]],
   ['pager',['PAGER',['../classAfsOrigin.html#a3d293b6b566829a2acdbfcff8cf0b42e',1,'AfsOrigin']]],
-  ['parse',['parse',['../classAfsIntervalHelper.html#ae2e3a4aa032a3ad90279daa99f43adda',1,'AfsIntervalHelper']]],
+  ['parse',['parse',['../classAfsInterval.html#ae2e3a4aa032a3ad90279daa99f43adda',1,'AfsInterval']]],
   ['pathlen',['PATHLEN',['../classAfsSortBuiltins.html#a35c625275e961f2517aa62b476d0395c',1,'AfsSortBuiltins']]],
   ['preferences',['PREFERENCES',['../classAfsOrigin.html#a80f07e7482132ba214eec651c358165f',1,'AfsOrigin']]],
   ['products_5ffrom_5fnavigation',['PRODUCTS_FROM_NAVIGATION',['../classAfsOrigin.html#adc03928f0a3cb20adf99a8598c64f570',1,'AfsOrigin']]],
