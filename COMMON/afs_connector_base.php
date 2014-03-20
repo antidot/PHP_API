@@ -1,12 +1,13 @@
 <?php
+/** @file afs_connector_base.php */
 require_once 'COMMON/afs_service.php';
-require_once 'afs_version.php';
 
 /** @defgroup uri_scheme Connection scheme
  *
  * Antidot Web Services can be queried in standard HTTP mode or in secured mode
  * (HTTPS).
  * @{ */
+
 /** @brief HTTP: Non secured mode */
 define('AFS_SCHEME_HTTP', 'http');
 /** @brief HTTPS: Secured mode */
@@ -27,14 +28,14 @@ abstract class AfsConnectorBase
      *
      * All parameter values should have been provided by Antidot.
      *
-     * @param $host [in] server hosting the required service.
+     * @param $host [in] Server hosting the required service.
      * @param $service [in] Antidot service (see @a AfsService).
      * @param $scheme [in] Scheme for the connection URL see
      *        @ref uri_scheme.
      *
      * @exception InvalidArgumentException invalid scheme parameter provided.
      */
-    protected function __construct($host, AfsService $service, $scheme)
+    protected function __construct($host, AfsService $service=null, $scheme=null)
     {
         if ($scheme != AFS_SCHEME_HTTP && $scheme != AFS_SCHEME_HTTPS)
             throw InvalidArgumentException('Connector supports only HTTP and HTTPS connections');

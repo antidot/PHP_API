@@ -1,12 +1,13 @@
 <?php
-require_once "AIF/afs_authentication.php";
-require_once "AIF/afs_document_manager.php";
-require_once "AIF/afs_paf_upload_reply.php";
-require_once "COMMON/afs_connector_base.php";
+require_once 'AIF/afs_authentication.php';
+require_once 'AIF/afs_document_manager.php';
+require_once 'AIF/afs_paf_upload_reply.php';
+require_once 'AIF/afs_bows_information_cache.php';
+require_once 'COMMON/afs_connector_base.php';
 
 /** @brief AFS PaF connector.
  */
-class AfsPafConnector extends AfsConnectorBase
+class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterface
 {
     private $paf_name;
     private $authentication;
@@ -58,70 +59,44 @@ class AfsPafConnector extends AfsConnectorBase
      */
     public function upload_docs(AfsDocumentManager $mgr, $comment=null)
     {
-        if (! $mgr->has_document()) {
+        if (! $mgr->has_document())
             throw new InvalidArgumentException('No document to be sent');
-        }
 
-        $url = $this->get_url($comment);
-        $request = curl_init($url);
-        if ($request == false) {
-            throw new Exception('Cannot initialize connexion to send documents');
-        }
-        $this->set_default_curl_options($request);
-        $this->set_documents_to_send($request, $mgr);
-        $result = curl_exec($request);
-        if ($result === false) {
-            throw new Exception('Failed to execute request: ' . $url . ' ['
-                . curl_error($request) . ']');
-        }
-        curl_close($request);
-
-        return new AfsPafUploadReply(json_decode($result));
+        $version = $this->get_bo_version();
+        $context = new AfsPafConnectorContext($version, $mgr, $comment);
+        return new AfsPafUploadReply($this->query($context));
     }
 
     /** @internal
      * @brief Build URL from host, service and other parameters.
-     * @param $comment [in] comment associated to this action (default=null).
+     * @param $context [in] Query context.
      * @return full URL to query.
      */
-    private function get_url($comment)
+    public function get_url($context=null)
     {
-        $params = array();
-        if (! is_null($comment)) {
-            $params['comment'] = $comment;
-        }
-        $params['afs:login'] = $this->format_authentication();
+        $url = parent::get_base_url('service');
 
-        return sprintf('%s://%s/bo-ws/service/%d/instance/%s/paf/%s/upload?%s',
-            $this->scheme, $this->host, $this->service->id,
-            $this->service->status, $this->paf_name,
+        $params = $this->authentication->format_as_url_param($context->version);
+        if (! is_null($context->comment))
+            $params['comment'] = $context->comment;
+
+        return sprintf($url . '/%d/instance/%s/paf/%s/upload?%s',
+            $this->service->id, $this->service->status, $this->paf_name,
             $this->format_parameters($params));
     }
 
-    private function format_authentication()
+    /** @brief Retrieves authentication as HTTP header for new authentication policy (>=v7.7)
+     * @param $context [in] Query context.
+     * @return Appropriate HTTP header.
+     */
+    public function get_http_headers($context=null)
     {
-        return sprintf('login://%s:%s@%s',
-            $this->authentication->user, $this->authentication->password,
-            $this->authentication->authority);
+        return $this->authentication->format_as_header_param($context->version);
     }
 
-    private function set_default_curl_options(&$request)
+    public function set_post_content(&$request, $context)
     {
-        if (curl_setopt_array($request,
-                array(CURLOPT_RETURNTRANSFER => true,
-                      //CURLOPT_FAILONERROR => true,
-                      CURLOPT_POST => true,
-                      CURLOPT_HTTPHEADER => array('Expect:',
-                                                  'Accept: application/json'),
-                      CURLOPT_SSL_VERIFYPEER => false,
-                      CURLOPT_SSL_VERIFYHOST => false
-                      )) === false) {
-            throw new Exception('Cannot define standard query options to send documents');
-        }
-    }
-
-    private function set_documents_to_send(&$request, AfsDocumentManager $mgr)
-    {
+        $mgr = $context->doc_mgr;
         $doc_no = 1;
         $documents = array();
         foreach ($mgr->get_documents() as $doc) {
@@ -133,6 +108,42 @@ class AfsPafConnector extends AfsConnectorBase
             throw new Exception('Cannot set documents to be sent');
         }
     }
+
+    private function get_bo_version()
+    {
+        return AfsBOWSInformationCache::get_information($this->host,
+            $this->scheme)->get_gen_version();
+    }
+
+    private function format_http_headers(array &$headers)
+    {
+        $result = array();
+        foreach($headers as $key => $value)
+            $result[] = $key . ': ' . $value;
+        return $result;
+    }
 }
 
 
+/** @brief Context propagated to various function calls.
+ */
+class AfsPafConnectorContext
+{
+    public $version = null;
+    public $doc_mgr = null;
+    public $comment = null;
+
+    /** @brief Constructs new PaF connector context.
+     *
+     * @param $version [in] Back Office version.
+     * @param $doc_mgr [in] Document manager with all documents which should be
+     *        sent to Back Office.
+     * @param $comment [in] Optional comment for uploaded files.
+     */
+    public function __construct($version, AfsDocumentManager $doc_mgr, $comment)
+    {
+        $this->version = $version;
+        $this->doc_mgr = $doc_mgr;
+        $this->comment = $comment;
+    }
+}

@@ -1,8 +1,9 @@
 <?php
 require_once 'COMMON/afs_connector_interface.php';
-require_once 'COMMON/afs_connector_base.php';
+require_once "COMMON/afs_connector_base.php";
 require_once 'COMMON/afs_exception.php';
 require_once 'AFS/afs_exception.php';
+require_once 'afs_version.php';
 
 
 /** @brief Base class for all AFS web services.
