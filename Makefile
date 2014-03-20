@@ -14,7 +14,7 @@ tag_list:
 	@git tag
 
 tag:
-	@git tag -a "v$$(./scripts/print_version.sh)"
+	@git tag -a "v$$(./scripts/print_version.sh minor)"
 
 doc:
 	@./scripts/gen_doc.sh
