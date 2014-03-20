@@ -2,7 +2,7 @@
 require_once 'AIF/afs_authentication.php';
 require_once 'AIF/afs_document_manager.php';
 require_once 'AIF/afs_paf_upload_reply.php';
-require_once 'AIF/afs_about_connector.php';
+require_once 'AIF/afs_bows_information_cache.php';
 require_once 'COMMON/afs_connector_base.php';
 
 /** @brief AFS PaF connector.
@@ -111,14 +111,8 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
 
     private function get_bo_version()
     {
-        $info_connector = new AfsAboutConnector($this->host, null, $this->scheme);
-        return $info_connector->get_information()->get_gen_version();
-        try {
-            $info_connector = new AfsAboutConnector($this->host, $this->scheme);
-            return $info_connector->get_information()->get_gen_version();
-        } catch (Exception $e) {
-            throw new AfsBOWSException('Cannot retrieve Back Office information', 1, $e);
-        }
+        return AfsBOWSInformationCache::get_information($this->host,
+            $this->scheme)->get_gen_version();
     }
 
     private function format_http_headers(array &$headers)
@@ -131,12 +125,21 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
 }
 
 
+/** @brief Context propagated to various function calls.
+ */
 class AfsPafConnectorContext
 {
     public $version = null;
     public $doc_mgr = null;
     public $comment = null;
 
+    /** @brief Constructs new PaF connector context.
+     *
+     * @param $version [in] Back Office version.
+     * @param $doc_mgr [in] Document manager with all documents which should be
+     *        sent to Back Office.
+     * @param $comment [in] Optional comment for uploaded files.
+     */
     public function __construct($version, AfsDocumentManager $doc_mgr, $comment)
     {
         $this->version = $version;
