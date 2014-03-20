@@ -8,21 +8,21 @@
 interface AfsBOWSConnectorInterface
 {
     /** @brief Retrieves additional HTTP headers to set.
+     * @param $context [in] Query context.
      * @return HTTP headers as array of key-value pairs.
      */
-    public function get_http_headers();
+    public function get_http_headers($context=null);
 
     /** @brief Retrieves URL using additional parameters.
-     * @param $params [in] Additional parameters to used (default=null).
+     * @param $context [in] Query context.
      * @return Valid URL which can be queried using CURL.
      */
-    public function get_url(array $params=null);
+    public function get_url($context=null);
 
     /** @brief Assigns new data to be sent through CURL request.
      *
      * @param $request [in] Correctly initialized CURL request.
-     * @param $post_data_mgr [in] Data manager which can update the request
-     *        object.
+     * @param $context [in] Query context.
      */
-    public function set_post_content(&$request, $post_data_mgr);
+    public function set_post_content(&$request, $context);
 }

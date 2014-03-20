@@ -22,14 +22,14 @@ class AfsTokenAuthentication implements AfsAuthentication
     /** @brief Formats authentication parameters.
      * @param $version [in] Format string representation according to provided
      *        version information.
-     * @return string representing authentication.
+     * @return array representing authentication.
      */
     public function format_as_url_param($version=null)
     {
         if ('7.6' == $version)
-            return sprintf('login://%s@%s', $this->token, AFS_AUTH_SSO);
+            return array('afs:login' => sprintf('login://%s@%s', $this->token, AFS_AUTH_SSO));
         else
-            return '';
+            return array();
     }
     /** @brief Formats authentication parameters.
      * @param $version [in] Format string representation according to provided

@@ -7,8 +7,8 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase
     public function testUserAuthenticationFormat76()
     {
         $auth = new AfsUserAuthentication('foo', 'bar', AFS_AUTH_LDAP);
-        $this->assertEquals('login://foo:bar@LDAP', $auth->format_as_url_param('7.6'));
-        $this->assertEquals('', $auth->format_as_url_param());
+        $this->assertEquals(array('afs:login' => 'login://foo:bar@LDAP'), $auth->format_as_url_param('7.6'));
+        $this->assertEquals(array(), $auth->format_as_url_param());
     }
     public function testUserAuthenticationFormatNew()
     {
@@ -19,7 +19,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase
     public function testTokenAuthenticationFormat76()
     {
         $auth = new AfsTokenAuthentication('foo');
-        $this->assertEquals('login://foo@SSO', $auth->format_as_url_param('7.6'));
+        $this->assertEquals(array('afs:login' => 'login://foo@SSO'), $auth->format_as_url_param('7.6'));
     }
     public function testTokenAuthenticationFormatNew()
     {

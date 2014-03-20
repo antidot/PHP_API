@@ -1,5 +1,6 @@
 <?php
 /** @file afs_connector_base.php */
+require_once 'COMMON/afs_service.php';
 
 /** @defgroup uri_scheme Connection scheme
  *
@@ -21,24 +22,27 @@ abstract class AfsConnectorBase
 {
     protected $scheme = null;
     protected $host = null;
+    protected $service = null;
 
     /** @brief Constructs new base connector.
      *
      * All parameter values should have been provided by Antidot.
      *
      * @param $host [in] Server hosting the required service.
+     * @param $service [in] Antidot service (see @a AfsService).
      * @param $scheme [in] Scheme for the connection URL see
      *        @ref uri_scheme.
      *
      * @exception InvalidArgumentException invalid scheme parameter provided.
      */
-    protected function __construct($host, $scheme)
+    protected function __construct($host, AfsService $service=null, $scheme=null)
     {
         if ($scheme != AFS_SCHEME_HTTP && $scheme != AFS_SCHEME_HTTPS)
             throw InvalidArgumentException('Connector supports only HTTP and HTTPS connections');
 
         $this->scheme = $scheme;
         $this->host = $host;
+        $this->service = $service;
     }
 
 

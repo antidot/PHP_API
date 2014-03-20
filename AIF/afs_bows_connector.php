@@ -8,14 +8,15 @@ abstract class AfsBOWSConnector extends AfsConnectorBase
     /** @brief Constructs new Back Office Web Service connector.
      *
      * @param $host [in] server hosting the Antidot Back Office.
+     * @param $service [in] Antidot service (see @a AfsService).
      * @param $scheme [in] Scheme for the connection URL see
      *        @ref uri_scheme (default: @a AFS_SCHEME_HTTP).
      *
      * @exception InvalidArgumentException invalid scheme parameter provided.
      */
-    public function __construct($host, $scheme=AFS_SCHEME_HTTP)
+    public function __construct($host, AfsService $service=null, $scheme=AFS_SCHEME_HTTP)
     {
-        parent::__construct($host, $scheme);
+        parent::__construct($host, $service, $scheme);
     }
 
     /** @internal
@@ -73,26 +74,24 @@ abstract class AfsBOWSConnector extends AfsConnectorBase
     /** @internal
      * @brief Queries appropriate Web Service.
      *
-     * @param $post_data_mgr [in] When you want to upload data, you need to
-     *        provide appropriate mananager. @c set_post_content will be
-     *        called with CURL request as first parameter and this manager
-     *        as second parameter.
+     * @param $context [in] This context is transmitted as is to other
+     *        method.
      *
      * @return json_decoded reply of the Web Service.
      *
      * @exception Exception on error.
      */
-    protected function query($post_data_mgr=null)
+    protected function query($context=null)
     {
-        $url = $this->get_url();
+        $url = $this->get_url($context);
         $request = curl_init($url);
         if ($request == false) {
             throw new Exception('Cannot initialize connexion to "' . $this->host
                 .'" with URL: ' . $url);
         }
-        $this->set_curl_options($request, $this->get_http_headers());
-        if (!is_null($post_data_mgr))
-            $this->set_post_content($request, $post_data_mgr);
+        $this->set_curl_options($request, $this->get_http_headers($context));
+        if (!is_null($context))
+            $this->set_post_content($request, $context);
         $result = curl_exec($request);
         if ($result === false) {
             throw new Exception('Failed to execute request: ' . $url . ' ['
@@ -104,9 +103,10 @@ abstract class AfsBOWSConnector extends AfsConnectorBase
     }
 
     /** @brief Default implementation: do nothing.
+     * @param $context [in] Query context (unused).
      * @return Always return @c null.
      */
-    public function get_http_headers()
+    public function get_http_headers($context=null)
     {
         return null;
     }
@@ -114,9 +114,9 @@ abstract class AfsBOWSConnector extends AfsConnectorBase
     /** @brief Default implementation: do nothing.
      *
      * @param $request [in] CURL request (not used).
-     * @param $post_data_mgr [in] Data manager (not use
+     * @param $context [in] Query context (unused).
      */
-    public function set_post_content(&$request, $post_data_mgr)
+    public function set_post_content(&$request, $context)
     {
     }
 }

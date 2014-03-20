@@ -8,10 +8,10 @@ require_once 'AIF/afs_bows_information.php';
 class AfsAboutConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterface
 {
     /** @brief Retrieves URL.
-     * @param $params [in] Unused parameter.
+     * @param $context [in] Unused parameter.
      * @return Valid URL to query information about installed AFS Back Office.
      */
-    public function get_url(array $params=null)
+    public function get_url($context=null)
     {
         return parent::get_base_url('about');
     }

@@ -31,7 +31,7 @@ class AfsUserAuthentication implements AfsAuthentication
     /** @brief Formats authentication parameters.
      * @param $version [in] Format string representation according to provided
      *        version information.
-     * @return string representing authentication.
+     * @return array representing authentication.
      */
     public function format_as_url_param($version=null)
     {
@@ -39,9 +39,9 @@ class AfsUserAuthentication implements AfsAuthentication
             if (is_null($this->authority))
                 throw new InvalidArgumentException('In version ' . $version
                 . ' authority parameter is mandatory!');
-            return sprintf('login://%s:%s@%s', $this->user, $this->password, $this->authority);
+            return array('afs:login' => sprintf('login://%s:%s@%s', $this->user, $this->password, $this->authority));
         } else {
-            return '';
+            return array();
         }
     }
     /** @brief Formats authentication parameters.
