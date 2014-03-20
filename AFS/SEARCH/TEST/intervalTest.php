@@ -9,6 +9,8 @@ class AfsIntervalTest extends PHPUnit_Framework_TestCase
         $interval = AfsInterval::create(10, 20);
         $this->assertEquals(10, $interval->get_lower_bound());
         $this->assertEquals(20, $interval->get_upper_bound());
+        $this->assertFalse($interval->is_lower_bound_excluded());
+        $this->assertFalse($interval->is_upper_bound_excluded());
     }
     public function testBuildIntervalWithLowerBound()
     {
@@ -28,6 +30,29 @@ class AfsIntervalTest extends PHPUnit_Framework_TestCase
             AfsInterval::create();
             $this->fail('Creating interval without bound should have raised error!');
         } catch (AfsIntervalBoundException $e) { }
+    }
+
+    public function testBuildIntervalExcludingLowerBound()
+    {
+        $interval = AfsInterval::create(10, 20)->exclude_lower_bound();
+        $this->assertEquals(']10 .. 20]', (string)$interval);
+        $this->assertTrue($interval->is_lower_bound_excluded());
+        $this->assertFalse($interval->is_upper_bound_excluded());
+    }
+    public function testBuildIntervalExcludingUpperBound()
+    {
+        $interval = AfsInterval::create(10, 20)->exclude_upper_bound();
+        $this->assertEquals('[10 .. 20[', (string)$interval);
+        $this->assertFalse($interval->is_lower_bound_excluded());
+        $this->assertTrue($interval->is_upper_bound_excluded());
+    }
+    public function testBuildIntervalExcludingBothBounds()
+    {
+        $interval = AfsInterval::create(10, 20)->exclude_upper_bound()
+            ->exclude_lower_bound();
+        $this->assertEquals(']10 .. 20[', (string)$interval);
+        $this->assertTrue($interval->is_lower_bound_excluded());
+        $this->assertTrue($interval->is_upper_bound_excluded());
     }
 
     public function testSerializeIntervalWithBothBoundaries()
@@ -51,6 +76,8 @@ class AfsIntervalTest extends PHPUnit_Framework_TestCase
         $interval = AfsInterval::parse('[10.3 .. 20]');
         $this->assertEquals(10.3, $interval->get_lower_bound());
         $this->assertEquals(20, $interval->get_upper_bound());
+        $this->assertFalse($interval->is_lower_bound_excluded());
+        $this->assertFalse($interval->is_upper_bound_excluded());
     }
     public function testBuildIntervalFromStringValueAndMinInf()
     {
@@ -64,6 +91,30 @@ class AfsIntervalTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(10, $interval->get_lower_bound());
         $this->assertEquals(null, $interval->get_upper_bound());
     }
+    public function testBuildIntervalFromStringExcludingLowerBound()
+    {
+        $interval = AfsInterval::parse(']10 .. 20]');
+        $this->assertEquals(10, $interval->get_lower_bound());
+        $this->assertEquals(20, $interval->get_upper_bound());
+        $this->assertTrue($interval->is_lower_bound_excluded());
+        $this->assertFalse($interval->is_upper_bound_excluded());
+    }
+    public function testBuildIntervalFromStringExcludingUpperBound()
+    {
+        $interval = AfsInterval::parse('[10 .. 20[');
+        $this->assertEquals(10, $interval->get_lower_bound());
+        $this->assertEquals(20, $interval->get_upper_bound());
+        $this->assertFalse($interval->is_lower_bound_excluded());
+        $this->assertTrue($interval->is_upper_bound_excluded());
+    }
+    public function testBuildIntervalFromStringExcludingBothBounds()
+    {
+        $interval = AfsInterval::parse(']10 .. 20[');
+        $this->assertEquals(10, $interval->get_lower_bound());
+        $this->assertEquals(20, $interval->get_upper_bound());
+        $this->assertTrue($interval->is_lower_bound_excluded());
+        $this->assertTrue($interval->is_upper_bound_excluded());
+    }
     public function testBuildIntervalFromInvalidStringValue()
     {
         try {
@@ -71,11 +122,11 @@ class AfsIntervalTest extends PHPUnit_Framework_TestCase
             $this->fail('Invalid interval string should have not been parsed!');
         } catch (AfsIntervalInitializerException $e) { }
         try {
-            AfsInterval::parse(']10 .. 20]');
+            AfsInterval::parse('10 .. 20]');
             $this->fail('Invalid interval string should have not been parsed!');
         } catch (AfsIntervalInitializerException $e) { }
         try {
-            AfsInterval::parse('[10 .. 20[');
+            AfsInterval::parse('[10 .. 20');
             $this->fail('Invalid interval string should have not been parsed!');
         } catch (AfsIntervalInitializerException $e) { }
         try {
