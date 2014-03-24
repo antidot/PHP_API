@@ -26,6 +26,38 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
         $response = new AfsResponseHelper($input, $query, $config);
         $this->assertFalse($response->has_replyset());
         $this->assertFalse($response->in_error());
+        $this->assertFalse($response->has_spellcheck());
+        $this->assertFalse($response->has_promote());
+        $this->assertFalse($response->has_concept());
+
+        try {
+            $response->get_replysets();
+            $this->fail('Should have raised exception');
+        } catch (AfsNoReplyException $e) { }
+        try {
+            $response->get_replyset('FOO');
+            $this->fail('Should have raised exception');
+        } catch (AfsNoReplyException $e) { }
+        try {
+            $response->get_spellchecks();
+            $this->fail('Should have raised exception');
+        } catch (AfsNoReplyException $e) { }
+        try {
+            $response->get_spellchecks('FOO');
+            $this->fail('Should have raised exception');
+        } catch (AfsNoReplyException $e) { }
+        try {
+            $response->get_promotes();
+            $this->fail('Should have raised exception');
+        } catch (AfsNoReplyException $e) { }
+        try {
+            $response->get_concepts();
+            $this->fail('Should have raised exception');
+        } catch (AfsNoReplyException $e) { }
+        try {
+            $response->get_concept('FOO');
+            $this->fail('Should have raised exception');
+        } catch (AfsNoReplyException $e) { }
     }
 
     public function testReplysetWith()

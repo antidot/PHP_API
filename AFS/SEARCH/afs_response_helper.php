@@ -7,6 +7,7 @@ require_once 'AFS/SEARCH/afs_spellcheck_helper.php';
 require_once 'AFS/SEARCH/afs_concept_helper.php';
 require_once 'AFS/SEARCH/afs_producer.php';
 require_once 'AFS/SEARCH/afs_helper_configuration.php';
+require_once 'AFS/SEARCH/afs_response_exception.php';
 require_once 'COMMON/afs_helper_format.php';
 
 /** @brief Main helper for AFS search reply.
@@ -19,6 +20,7 @@ require_once 'COMMON/afs_helper_format.php';
 class AfsResponseHelper extends AfsResponseHelperBase
 {
     private $config = null;
+    private $has_reply = false;
     private $header = null;
     private $replysets = array();
     private $spellcheck_mgr = null;
@@ -42,6 +44,7 @@ class AfsResponseHelper extends AfsResponseHelperBase
         $this->header = new AfsHeaderHelper($response->header);
 
         if (property_exists($response, 'replySet')) {
+            $this->has_reply = true;
             $us_mgr = $config->get_user_session_manager();
             $us_mgr->set_user_id($this->header->get_user_id());
             $us_mgr->set_session_id($this->header->get_session_id());
@@ -96,13 +99,14 @@ class AfsResponseHelper extends AfsResponseHelperBase
      */
     public function has_replyset()
     {
-        return (! $this->in_error()) && (! empty($this->replysets));
+        return $this->has_reply && (! empty($this->replysets));
     }
     /** @brief Retrieves all replysets.
      * @return all defined reply sets.
      */
     public function get_replysets()
     {
+        $this->check_reply('replysets');
         return $this->replysets;
     }
     /** @brief Retrieves replyset from the @a response.
@@ -114,6 +118,7 @@ class AfsResponseHelper extends AfsResponseHelperBase
      */
     public function get_replyset($feed=null)
     {
+        $this->check_reply('replysets');
         if (is_null($feed)) {
             if ($this->has_replyset()) {
                 return reset($this->replysets);
@@ -135,7 +140,8 @@ class AfsResponseHelper extends AfsResponseHelperBase
      */
     public function has_spellcheck()
     {
-        return (! $this->in_error()) and $this->spellcheck_mgr->has_spellcheck();
+        return $this->has_reply and (!is_null($this->spellcheck_mgr))
+            and $this->spellcheck_mgr->has_spellcheck();
     }
     /** @brief Retrieves spellchecks from the @a response.
      * @return list of @a AfsSpellcheckHelper or formatted spellcheck depending
@@ -143,6 +149,7 @@ class AfsResponseHelper extends AfsResponseHelperBase
      */
     public function get_spellchecks()
     {
+        $this->check_reply('spellcheck_mgr');
         return $this->spellcheck_mgr->get_spellchecks();
     }
     /** @brief Retrieves default, available or specified spellcheck.
@@ -158,6 +165,7 @@ class AfsResponseHelper extends AfsResponseHelperBase
      */
     public function get_spellcheck($feed=null)
     {
+        $this->check_reply('spellcheck_mgr');
         return $this->spellcheck_mgr->get_spellcheck($feed);
     }
     /** @} */
@@ -170,7 +178,7 @@ class AfsResponseHelper extends AfsResponseHelperBase
      */
     public function has_promote()
     {
-        return (! $this->in_error()) and (! is_null($this->promote))
+        return $this->has_reply and (! is_null($this->promote))
             and $this->promote->has_reply();
     }
     /** @brief Retrieves all promote helpers.
@@ -178,7 +186,8 @@ class AfsResponseHelper extends AfsResponseHelperBase
      */
     public function get_promotes()
     {
-      return $this->promote->get_replies();
+        $this->check_reply('promote');
+        return $this->promote->get_replies();
     }
     /** @brief Retrieves promote replyset helper.
      *
@@ -189,7 +198,8 @@ class AfsResponseHelper extends AfsResponseHelperBase
      */
     public function get_promote()
     {
-      return $this->promote;
+        $this->check_reply('promote');
+        return $this->promote;
     }
     /** @} */
 
@@ -201,14 +211,16 @@ class AfsResponseHelper extends AfsResponseHelperBase
      */
     public function has_concept()
     {
-      return (! $this->in_error()) and $this->concepts->has_concept();
+        return $this->has_reply and (! is_null($this->concepts))
+            and $this->concepts->has_concept();
     }
     /** @brief Retrieves all concept helpers.
      * @return concept replies.
      */
     public function get_concepts()
     {
-      return$this->concepts->get_concepts();
+        $this->check_reply('concepts');
+        return$this->concepts->get_concepts();
     }
     /** @brief Retrieves default or specified concept.
      *
@@ -221,7 +233,8 @@ class AfsResponseHelper extends AfsResponseHelperBase
      */
     public function get_concept($feed=null)
     {
-      return $this->concepts->get_concept($feed);
+        $this->check_reply('concepts');
+        return $this->concepts->get_concept($feed);
     }
     /** @} */
 
@@ -262,6 +275,15 @@ class AfsResponseHelper extends AfsResponseHelperBase
                 $result['spellchecks'] = $this->spellcheck_mgr->format();
             return $result;
         }
+    }
+
+
+    private function check_reply($param=null)
+    {
+        if (! $this->has_reply)
+            throw new AfsNoReplyException('No reply available!');
+        if (! is_null($param) && is_null($this->$param))
+            throw new AfsNoReplyException('No ' . $param . ' reply available!');
     }
     /** @} */
 
