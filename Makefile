@@ -14,14 +14,7 @@ tag_list:
 	@git tag
 
 tag:
-	@git tag -a "v$$(./scripts/print_version.sh minor)"; \
-	if [ "$$?" != "0" ]; \
-	then \
-		echo "You can try: make tag_force"; \
-	fi
-
-tag_force:
-	@git tag -f -a "v$$(./scripts/print_version.sh minor)"
+	@git tag -a "v$$(./scripts/print_version.sh)"
 
 doc:
 	@./scripts/gen_doc.sh
