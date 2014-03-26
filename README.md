@@ -1,6 +1,8 @@
 PHP API
 =======
 
+This API allows you to simplify integration of Antidot products.
+
 License
 -------
 
