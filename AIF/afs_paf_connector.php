@@ -64,7 +64,7 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
 
         $version = $this->get_bo_version();
         $context = new AfsPafConnectorContext($version, $mgr, $comment);
-        return new AfsPafUploadReply($this->query($context));
+        return new AfsPafUploadReply(json_decode($this->query($context)));
     }
 
     /** @internal

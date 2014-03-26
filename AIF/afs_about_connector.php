@@ -24,6 +24,6 @@ class AfsAboutConnector extends AfsBOWSConnector implements AfsBOWSConnectorInte
      */
     public function get_information()
     {
-        return new AfsBOWSInformation($this->query());
+        return new AfsBOWSInformation(json_decode($this->query()));
     }
 }

@@ -3,3 +3,4 @@ doc/html
 *.bak
 *.swp
 *#*
+.idea

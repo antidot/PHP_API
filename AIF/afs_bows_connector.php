@@ -99,7 +99,7 @@ abstract class AfsBOWSConnector extends AfsConnectorBase
         }
         curl_close($request);
 
-        return json_decode($result);
+        return $result;
     }
 
     /** @brief Default implementation: do nothing.

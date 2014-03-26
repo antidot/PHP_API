@@ -1,6 +1,6 @@
 <?php ob_start();
-require_once 'AIF/afs_paf_connector.php';
-require_once 'AIF/afs_user_authentication.php';
+require_once('AIF/afs_paf_connector.php');
+
 
 class PafConnectorTest extends PHPUnit_Framework_TestCase
 {
