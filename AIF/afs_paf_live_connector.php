@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: agaillard
- * Date: 3/25/14
- * Time: 5:24 PM
- */
 require_once("AIF/afs_bows_connector.php");
 require_once("AIF/afs_document.php");
 require_once("AIF/afs_bows_connector_interface.php");
@@ -13,12 +7,14 @@ require_once('COMMON/afs_service_status.php');
 require_once('AIF/afs_bows_information_cache.php');
 require_once('AIF/afs_multipart_response.php');
 
+/** @brief AFS PaF Live connector.
+ */
 class AfsPafLiveConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterface
 {
     private $paf_name;
     private $authentication;
 
-    /** @brief Construct new PaF connector.
+    /** @brief Construct new PaF Live connector.
      *
      * @param $host [in] server hosting the Antidot Back Office.
      * @param $service [in] antidot service (see @a AfsService).
@@ -31,9 +27,9 @@ class AfsPafLiveConnector extends AfsBOWSConnector implements AfsBOWSConnectorIn
      * @exception InvalidArgumentException invalid scheme parameter provided.
      */
     public function __construct($host, AfsService $service, $paf_name,
-        AfsAuthentication $authentication, $scheme=AFS_SCHEME_HTTP)
+        AfsAuthentication $authentication, $scheme=AFS_SCHEME_HTTP, SAI_CurlInterface $curlConnector=null)
     {
-        parent::__construct($host, $service, $scheme);
+        parent::__construct($host, $service, $scheme, $curlConnector);
         $this->paf_name = $paf_name;
         $this->authentication = $authentication;
     }
@@ -74,7 +70,7 @@ class AfsPafLiveConnector extends AfsBOWSConnector implements AfsBOWSConnectorIn
         $doc = $context['document'];
         $document = '@' . $doc->get_filename() . ';type='
             . $doc->get_mime_type();
-        if (curl_setopt($request, CURLOPT_POSTFIELDS, array($document)) === false) {
+        if ($this->curlConnector->curl_setopt($request, CURLOPT_POSTFIELDS, array($document)) === false) {
             throw new Exception('Cannot set documents to be sent');
         }
     }
@@ -82,28 +78,26 @@ class AfsPafLiveConnector extends AfsBOWSConnector implements AfsBOWSConnectorIn
     private function get_bo_version()
     {
         return AfsBOWSInformationCache::get_information($this->host,
-            $this->scheme)->get_gen_version();
+            $this->scheme, $this->curlConnector)->get_gen_version();
     }
 
+     /** @brief Upload one document to the PaF.
+     * @param $doc [in] simple document (see @a AfsDocument).
+     * @param $layers [in] array containing names of layers to retrieve.
+     * @return array of AfsLayers(see @a AfsLayer).
+     */
     public function process_doc($doc, $layers = array("CONTENTS"))
     {
         $context['layers'] = implode(',', $layers);
+        //FIXME enable setting version with mock
+        //$context['version'] = "7.7";
         $context['version'] = $this->get_bo_version();
         $context['document'] = $doc;
-        $res = $this->query($context);
-        //Get multipart separator and split response
-        $sep = strtok($res, "\r");
-        $parts = explode($sep, $res);
-        //Response is multipart
-        if (count($parts) > 2) {
-            //Remove first and last element as they do not contain anything useful
-            array_shift($parts);
-            array_pop($parts);
-        }
-        $multipart = new AfsMultipartResponse($parts);
+        $multipart = new AfsMultipartResponse($this->query($context));
         if (is_array($layers))
             return $multipart->get_layers();
         else
             return $multipart->get_layers()[$layers];
     }
 }
+

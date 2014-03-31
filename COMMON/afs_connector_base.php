@@ -1,6 +1,7 @@
 <?php
 /** @file afs_connector_base.php */
 require_once 'COMMON/afs_service.php';
+require_once 'COMMON/php-SAI/lib/Curl.php';
 
 /** @defgroup uri_scheme Connection scheme
  *
@@ -23,6 +24,7 @@ abstract class AfsConnectorBase
     protected $scheme = null;
     protected $host = null;
     protected $service = null;
+    protected $curlConnector = null;
 
     /** @brief Constructs new base connector.
      *
@@ -32,10 +34,11 @@ abstract class AfsConnectorBase
      * @param $service [in] Antidot service (see @a AfsService).
      * @param $scheme [in] Scheme for the connection URL see
      *        @ref uri_scheme.
+     * @param $curlConnector [in] Connector to curl, useful for mocking curl calls
      *
      * @exception InvalidArgumentException invalid scheme parameter provided.
      */
-    protected function __construct($host, AfsService $service=null, $scheme=null)
+    protected function __construct($host, AfsService $service=null, $scheme=null, SAI_CurlInterface $curlConnector=null)
     {
         if ($scheme != AFS_SCHEME_HTTP && $scheme != AFS_SCHEME_HTTPS)
             throw InvalidArgumentException('Connector supports only HTTP and HTTPS connections');
@@ -43,6 +46,12 @@ abstract class AfsConnectorBase
         $this->scheme = $scheme;
         $this->host = $host;
         $this->service = $service;
+        // If no custom connector was provided we set it to use real curl
+        if (is_null($curlConnector)) {
+            $this->curlConnector = new SAI_Curl();
+        } else {
+            $this->curlConnector = $curlConnector;
+        }
     }
 
 

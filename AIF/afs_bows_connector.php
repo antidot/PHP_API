@@ -1,5 +1,6 @@
 <?php
 require_once "COMMON/afs_connector_base.php";
+require_once "COMMON/php-SAI/lib/Curl.php";
 
 /** @brief AFS Back Office Web Service connector.
  */
@@ -11,12 +12,13 @@ abstract class AfsBOWSConnector extends AfsConnectorBase
      * @param $service [in] Antidot service (see @a AfsService).
      * @param $scheme [in] Scheme for the connection URL see
      *        @ref uri_scheme (default: @a AFS_SCHEME_HTTP).
+     * @param $curlConnector [in] Connector to curl, useful for mocking curl calls
      *
      * @exception InvalidArgumentException invalid scheme parameter provided.
      */
-    public function __construct($host, AfsService $service=null, $scheme=AFS_SCHEME_HTTP)
+    public function __construct($host, AfsService $service=null, $scheme=AFS_SCHEME_HTTP, SAI_CurlInterface $curlConnector=null)
     {
-        parent::__construct($host, $service, $scheme);
+        parent::__construct($host, $service, $scheme, $curlConnector);
     }
 
     /** @internal
@@ -48,7 +50,7 @@ abstract class AfsBOWSConnector extends AfsConnectorBase
         if (!is_null($headers) && !empty($headers))
             $default_headers = array_merge($default_headers, $headers);
 
-        if (curl_setopt_array($request,
+        if ($this->curlConnector->curl_setopt_array($request,
                 array(CURLOPT_RETURNTRANSFER => true,
                       CURLOPT_HTTPHEADER => $this->format_headers($default_headers),
                       CURLOPT_SSL_VERIFYPEER => false,
@@ -71,6 +73,11 @@ abstract class AfsBOWSConnector extends AfsConnectorBase
         return $result;
     }
 
+    protected function curl_exec($request)
+    {
+        return $this->curlConnector->curl_exec($request);
+    }
+
     /** @internal
      * @brief Queries appropriate Web Service.
      *
@@ -84,7 +91,7 @@ abstract class AfsBOWSConnector extends AfsConnectorBase
     protected function query($context=null)
     {
         $url = $this->get_url($context);
-        $request = curl_init($url);
+        $request = $this->curlConnector->curl_init($url);
         if ($request == false) {
             throw new Exception('Cannot initialize connexion to "' . $this->host
                 .'" with URL: ' . $url);
@@ -92,12 +99,12 @@ abstract class AfsBOWSConnector extends AfsConnectorBase
         $this->set_curl_options($request, $this->get_http_headers($context));
         if (!is_null($context))
             $this->set_post_content($request, $context);
-        $result = curl_exec($request);
-        if ($result === false) {
-            throw new Exception('Failed to execute request: ' . $url . ' ['
-                . curl_error($request) . ']');
+        $result = $this->curl_exec($request);
+        if ($this->curlConnector->curl_getinfo($request, CURLINFO_HTTP_CODE) >= 400) {
+            $r = json_decode($result);
+            throw new Exception("Code : " . $r->error->code . "\nMessage : " .$r->error->message . "\nDescription : " . $r->error->description);
         }
-        curl_close($request);
+        $this->curlConnector->curl_close($request);
 
         return $result;
     }
