@@ -32,5 +32,6 @@ var searchData=
   ['has_5fsort',['has_sort',['../classAfsQuery.html#aceea970b6434a392f23a543e57a98f22',1,'AfsQuery']]],
   ['has_5fspellcheck',['has_spellcheck',['../classAfsResponseHelper.html#ae15b795a22fb08c8651780936a1f7b1a',1,'AfsResponseHelper\has_spellcheck()'],['../classAfsSpellcheckManager.html#ae15b795a22fb08c8651780936a1f7b1a',1,'AfsSpellcheckManager\has_spellcheck()']]],
   ['has_5fuser_5fid',['has_user_id',['../classAfsQueryBase.html#a7512e177d638d4ff343c8ed16e61045c',1,'AfsQueryBase']]],
-  ['helpers',['HELPERS',['../classAfsHelperFormat.html#afe8b0b488d0cdf90d6dd285e8622bc57',1,'AfsHelperFormat']]]
+  ['helpers',['HELPERS',['../classAfsHelperFormat.html#afe8b0b488d0cdf90d6dd285e8622bc57',1,'AfsHelperFormat']]],
+  ['httpclient',['HttpClient',['../interfaceHttpClient.html',1,'']]]
 ];

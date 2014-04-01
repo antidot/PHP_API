@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.10.5</span>
+   &#160;<span id="projectnumber">version 0.11.0</span>
    </div>
   </td>
  </tr>
@@ -102,17 +102,18 @@ Inheritance diagram for AfsBOWSConnector:</div>
  <div class="center">
   <img src="classAfsBOWSConnector.png" usemap="#AfsBOWSConnector_map" alt=""/>
   <map id="AfsBOWSConnector_map" name="AfsBOWSConnector_map">
-<area href="classAfsConnectorBase.html" title="Base class for AFS connectors. " alt="AfsConnectorBase" shape="rect" coords="68,0,195,24"/>
-<area href="classAfsAboutConnector.html" title="Simple connector to retrieve AFS Back Office information. " alt="AfsAboutConnector" shape="rect" coords="0,112,127,136"/>
-<area href="classAfsPafConnector.html" title="AFS PaF connector. " alt="AfsPafConnector" shape="rect" coords="137,112,264,136"/>
+<area href="classAfsConnectorBase.html" title="Base class for AFS connectors. " alt="AfsConnectorBase" shape="rect" coords="143,0,276,24"/>
+<area href="classAfsAboutConnector.html" title="Simple connector to retrieve AFS Back Office information. " alt="AfsAboutConnector" shape="rect" coords="0,112,133,136"/>
+<area href="classAfsPafConnector.html" title="AFS PaF connector. " alt="AfsPafConnector" shape="rect" coords="143,112,276,136"/>
+<area href="classAfsPafLiveConnector.html" title="AFS PaF Live connector. " alt="AfsPafLiveConnector" shape="rect" coords="286,112,419,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a102419740d21d304087d1145543fe649"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsBOWSConnector.html#a102419740d21d304087d1145543fe649">__construct</a> ($host, <a class="el" href="classAfsService.html">AfsService</a> $service=null, $scheme=<a class="el" href="group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91">AFS_SCHEME_HTTP</a>)</td></tr>
-<tr class="memdesc:a102419740d21d304087d1145543fe649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new Back Office Web Service connector.  <a href="#a102419740d21d304087d1145543fe649">More...</a><br/></td></tr>
-<tr class="separator:a102419740d21d304087d1145543fe649"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af22cd5403039c6d2d74c2339179e2ec2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsBOWSConnector.html#af22cd5403039c6d2d74c2339179e2ec2">__construct</a> ($host, <a class="el" href="classAfsService.html">AfsService</a> $service=null, $scheme=<a class="el" href="group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91">AFS_SCHEME_HTTP</a>, <a class="el" href="interfaceSAI__CurlInterface.html">SAI_CurlInterface</a> $curlConnector=null)</td></tr>
+<tr class="memdesc:af22cd5403039c6d2d74c2339179e2ec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new Back Office Web Service connector.  <a href="#af22cd5403039c6d2d74c2339179e2ec2">More...</a><br/></td></tr>
+<tr class="separator:af22cd5403039c6d2d74c2339179e2ec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a073178b451384e59579d63fa9847758a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsBOWSConnector.html#a073178b451384e59579d63fa9847758a">get_http_headers</a> ($context=null)</td></tr>
 <tr class="memdesc:a073178b451384e59579d63fa9847758a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default implementation: do nothing.  <a href="#a073178b451384e59579d63fa9847758a">More...</a><br/></td></tr>
 <tr class="separator:a073178b451384e59579d63fa9847758a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,14 +124,14 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classAfsConnectorBase"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classAfsConnectorBase')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classAfsConnectorBase.html">AfsConnectorBase</a></td></tr>
-<tr class="memitem:a58bdb8f598243fac1bbfd7065944b7f9 inherit pro_methods_classAfsConnectorBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsConnectorBase.html#a58bdb8f598243fac1bbfd7065944b7f9">__construct</a> ($host, <a class="el" href="classAfsService.html">AfsService</a> $service=null, $scheme=null)</td></tr>
-<tr class="memdesc:a58bdb8f598243fac1bbfd7065944b7f9 inherit pro_methods_classAfsConnectorBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new base connector.  <a href="#a58bdb8f598243fac1bbfd7065944b7f9">More...</a><br/></td></tr>
-<tr class="separator:a58bdb8f598243fac1bbfd7065944b7f9 inherit pro_methods_classAfsConnectorBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68d91c0acaf4529e74c822eeeb720048 inherit pro_methods_classAfsConnectorBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsConnectorBase.html#a68d91c0acaf4529e74c822eeeb720048">__construct</a> ($host, <a class="el" href="classAfsService.html">AfsService</a> $service=null, $scheme=null, <a class="el" href="interfaceSAI__CurlInterface.html">SAI_CurlInterface</a> $curlConnector=null)</td></tr>
+<tr class="memdesc:a68d91c0acaf4529e74c822eeeb720048 inherit pro_methods_classAfsConnectorBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs new base connector.  <a href="#a68d91c0acaf4529e74c822eeeb720048">More...</a><br/></td></tr>
+<tr class="separator:a68d91c0acaf4529e74c822eeeb720048 inherit pro_methods_classAfsConnectorBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>AFS Back Office Web Service connector. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a102419740d21d304087d1145543fe649"></a>
+<a class="anchor" id="af22cd5403039c6d2d74c2339179e2ec2"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -150,7 +151,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$scheme</em> = <code><a class="el" href="group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91">AFS_SCHEME_HTTP</a></code>&#160;</td>
+          <td class="paramname"><em>$scheme</em> = <code><a class="el" href="group__uri__scheme.html#ga7c58d06051a1a33c19c94aefd5965c91">AFS_SCHEME_HTTP</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="interfaceSAI__CurlInterface.html">SAI_CurlInterface</a>&#160;</td>
+          <td class="paramname"><em>$curlConnector</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -165,7 +172,8 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">$host</td><td>[in] server hosting the Antidot Back Office. </td></tr>
     <tr><td class="paramname">$service</td><td>[in] Antidot service (see <em><a class="el" href="classAfsService.html" title="Antidot service. ">AfsService</a></em>). </td></tr>
-    <tr><td class="paramname">$scheme</td><td>[in] Scheme for the connection URL see <a class="el" href="group__uri__scheme.html">Connection scheme</a> (default: <em>AFS_SCHEME_HTTP</em>).</td></tr>
+    <tr><td class="paramname">$scheme</td><td>[in] Scheme for the connection URL see <a class="el" href="group__uri__scheme.html">Connection scheme</a> (default: <em>AFS_SCHEME_HTTP</em>). </td></tr>
+    <tr><td class="paramname">$curlConnector</td><td>[in] Connector to curl, useful for mocking curl calls</td></tr>
   </table>
   </dd>
 </dl>
@@ -242,7 +250,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 24 2014 17:13:48 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 1 2014 08:45:33 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

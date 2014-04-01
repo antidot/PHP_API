@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['idgenerator',['IdGenerator',['../classIdGenerator.html',1,'']]]
+  ['httpclient',['HttpClient',['../interfaceHttpClient.html',1,'']]]
 ];

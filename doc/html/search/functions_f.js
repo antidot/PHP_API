@@ -24,7 +24,7 @@ var searchData=
   ['set_5fmulti_5fselection_5ffacets',['set_multi_selection_facets',['../classAfsQuery.html#a756e98e88db749bfdc2ff052de22a2fc',1,'AfsQuery']]],
   ['set_5foverspill',['set_overspill',['../classAfsQuery.html#aebc056a25e8cc7b4e63eb13593d28569',1,'AfsQuery']]],
   ['set_5fpage',['set_page',['../classAfsQuery.html#a4202fc920bd53b48c883b513aaac8c12',1,'AfsQuery']]],
-  ['set_5fpost_5fcontent',['set_post_content',['../classAfsBOWSConnector.html#a63e75d8f08fde9c9d39f82d048727bfc',1,'AfsBOWSConnector\set_post_content()'],['../interfaceAfsBOWSConnectorInterface.html#a63e75d8f08fde9c9d39f82d048727bfc',1,'AfsBOWSConnectorInterface\set_post_content()'],['../classAfsPafConnector.html#a63e75d8f08fde9c9d39f82d048727bfc',1,'AfsPafConnector\set_post_content()']]],
+  ['set_5fpost_5fcontent',['set_post_content',['../classAfsBOWSConnector.html#a63e75d8f08fde9c9d39f82d048727bfc',1,'AfsBOWSConnector\set_post_content()'],['../interfaceAfsBOWSConnectorInterface.html#a63e75d8f08fde9c9d39f82d048727bfc',1,'AfsBOWSConnectorInterface\set_post_content()'],['../classAfsPafConnector.html#a63e75d8f08fde9c9d39f82d048727bfc',1,'AfsPafConnector\set_post_content()'],['../classAfsPafLiveConnector.html#a63e75d8f08fde9c9d39f82d048727bfc',1,'AfsPafLiveConnector\set_post_content()']]],
   ['set_5fquery',['set_query',['../classAfsAcp.html#a32de42cdbd8a2a64334733624db0f182',1,'AfsAcp\set_query()'],['../classAfsQueryBase.html#a0406312b3a7b01a30cdc3b31ba03668a',1,'AfsQueryBase\set_query()'],['../classAfsSearch.html#ae09979047904e6ec293dd1385cdda42d',1,'AfsSearch\set_query()']]],
   ['set_5fquery_5fcoder',['set_query_coder',['../classAfsHelperConfiguration.html#a135ab896c4875fe9edaf96e4baefc91b',1,'AfsHelperConfiguration\set_query_coder()'],['../classAfsSearch.html#a135ab896c4875fe9edaf96e4baefc91b',1,'AfsSearch\set_query_coder()']]],
   ['set_5freplies',['set_replies',['../classAfsQueryBase.html#a310f630c18f40b8f101d53d6077f4215',1,'AfsQueryBase']]],
@@ -36,5 +36,7 @@ var searchData=
   ['set_5fstandard_5fselection_5ffacets',['set_standard_selection_facets',['../classAfsQuery.html#a393b557abeedfb7d717ce8692c214998',1,'AfsQuery']]],
   ['set_5ftype',['set_type',['../classAfsFacet.html#a424a47491438d0e72cc283f9c8b0c16a',1,'AfsFacet']]],
   ['set_5fuser_5fid',['set_user_id',['../classAfsQueryBase.html#adee8448c24ea06b19f64e2b0dfa1f746',1,'AfsQueryBase\set_user_id()'],['../classAfsUserSessionManager.html#a88b8063362eddd3d3e33a4d8133e2426',1,'AfsUserSessionManager\set_user_id()']]],
-  ['set_5fuser_5fsessionmanager',['set_user_sessionmanager',['../classAfsConfigurationBase.html#a97234e4d7ffad9397134c1152c4bc3c7',1,'AfsConfigurationBase']]]
+  ['set_5fuser_5fsessionmanager',['set_user_sessionmanager',['../classAfsConfigurationBase.html#a97234e4d7ffad9397134c1152c4bc3c7',1,'AfsConfigurationBase']]],
+  ['sethttpheader',['setHttpHeader',['../classMultiCurl.html#a5dafe4dc3df3746f4e7257bafeef0088',1,'MultiCurl']]],
+  ['seturl',['setUrl',['../classMultiCurl.html#a0b6d0c531aa70b1811b166299edab8d0',1,'MultiCurl']]]
 ];

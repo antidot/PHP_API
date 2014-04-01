@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['validateurl',['validateUrl',['../classSimpleCurl.html#a073cfd1ac723ae095eb055467832d491',1,'SimpleCurl']]],
   ['value',['value',['../classAfsBaseOperatorFilter.html#a7d77e1d8f032d6e5a399c0044cea97fb',1,'AfsBaseOperatorFilter']]],
   ['visit_5fafsmatchtext',['visit_AfsMatchText',['../classAfsRawTextVisitor.html#a52ea666e80d44df2e5610d496bc2bbcb',1,'AfsRawTextVisitor\visit_AfsMatchText()'],['../interfaceAfsTextVisitorInterface.html#a52ea666e80d44df2e5610d496bc2bbcb',1,'AfsTextVisitorInterface\visit_AfsMatchText()'],['../classAfsTextVisitor.html#a52ea666e80d44df2e5610d496bc2bbcb',1,'AfsTextVisitor\visit_AfsMatchText()']]],
   ['visit_5fafsspellcheckmatch',['visit_AfsSpellcheckMatch',['../interfaceAfsSpellcheckTextVisitorInterface.html#a65384ae6ac67d7bd56f963c3009e0027',1,'AfsSpellcheckTextVisitorInterface\visit_AfsSpellcheckMatch()'],['../classAfsSpellcheckTextVisitor.html#a4dc3619130d93aeed0c0d8d85fe3f3a2',1,'AfsSpellcheckTextVisitor\visit_AfsSpellcheckMatch()']]],
