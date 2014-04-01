@@ -296,6 +296,14 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->checkOneFacetValue('FOO', 666, '>=');
     }
 
+    public function testDefaultFacetValuesSortOrder()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_facets_values_sort_order(AfsFacetValuesSortMode::ITEMS, AfsSortOrder::DESC);
+        $this->qm->send($query);
+        $this->checkFacetDefaultValues(array('sort=items', 'order=DESC'));
+    }
+
     public function testMultiLogs()
     {
         $connector = new AfsSearchConnector('foo', new AfsService(42));

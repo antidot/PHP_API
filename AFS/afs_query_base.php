@@ -384,8 +384,9 @@ abstract class AfsQueryBase
             $parameters = array_merge($parameters, $this->get_aggregated_additional_parameters());
 
         foreach ($parameters as $param) {
-            if ($this->$param != null && !empty($this->$param))
-                $result[$param] = $this->$param;
+            $own_param = $this->$param;
+            if ($own_param != null && !empty($own_param))
+                $result[$param] = $own_param;
         }
         return $result;
     }
