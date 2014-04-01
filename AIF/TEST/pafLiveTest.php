@@ -83,11 +83,11 @@ XML;
         $layer_content = $contents->get_content();
         $this->assertFalse(empty($layer_content));
         $xml = simplexml_load_string($layer_content);
-        $this->assertEquals("Francois Hollande mange des flamby", $xml->test[0]);
+        $this->assertEquals("Francois Hollande mange des flamby", (string)$xml->test[0]);
         $layer_content = $user->get_content();
         $this->assertEquals("application/xml", $user->get_mime_type());
         $this->assertFalse(empty($layer_content));
         $xml = simplexml_load_string($layer_content, "SimpleXMLElement", 0, "afs", true);
-        $this->assertEquals("Francois Hollande", $xml->entity[0]->attributes()->text);
+        $this->assertEquals("Francois Hollande", (string)$xml->entity[0]->attributes()->text);
     }
 }

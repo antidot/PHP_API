@@ -45,7 +45,8 @@ HTTP;
         $multiPart = new AfsMultipartResponse($rawMultipart);
         $this->assertEquals("contents1", $multiPart->get_layer("VALIDLAYER_2")->get_content());
         $this->assertEquals("contents2", $multiPart->get_layer("VALIDLAYER_3")->get_content());
-        $this->assertEquals("text/xml", $multiPart->get_layers()['VALIDLAYER_2']->get_mime_type());
-        $this->assertEquals("application/json", $multiPart->get_layers()['VALIDLAYER_3']->get_mime_type());
+        $l = $multiPart->get_layers();
+        $this->assertEquals("text/xml", $l['VALIDLAYER_2']->get_mime_type());
+        $this->assertEquals("application/json", $l['VALIDLAYER_3']->get_mime_type());
     }
 }

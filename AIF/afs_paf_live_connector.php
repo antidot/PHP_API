@@ -94,10 +94,12 @@ class AfsPafLiveConnector extends AfsBOWSConnector implements AfsBOWSConnectorIn
         $context['version'] = $this->get_bo_version();
         $context['document'] = $doc;
         $multipart = new AfsMultipartResponse($this->query($context));
-        if (is_array($layers))
+        if (is_array($layers)) {
             return $multipart->get_layers();
-        else
-            return $multipart->get_layers()[$layers];
+        } else {
+            $l = $multipart->get_layers();
+            return $l[$layers];
+        }
     }
 }
 
