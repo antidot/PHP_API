@@ -12,6 +12,7 @@ $query = $query->set_lang('fr');  // language is set manually in order to get sp
 $query = $query->set_multi_selection_facets('classification');
 $query = $query->set_mono_selection_facets('afs:lang', 'has_variants', 'has_image');
 $query = $query->set_facet_order('price_eur', 'marketing', 'classification', 'has_variants', 'has_image');
+$query = $query->set_facets_values_sort_order(AfsFacetValuesSortMode::ITEMS, AfsSortOrder::DESC);
 
 $helper = $search->execute($query);
 $generated_url = $search->get_generated_url();
