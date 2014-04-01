@@ -8,6 +8,7 @@ var searchData=
   ['has_5fdocument',['has_document',['../classAfsDocumentManager.html#a80957600652c103e76226cc78e687d23',1,'AfsDocumentManager']]],
   ['has_5ffacet',['has_facet',['../classAfsFacetManager.html#aa7d71d423fcfb845a3da40533afca959',1,'AfsFacetManager\has_facet()'],['../classAfsReplysetHelper.html#a598db9954428428b057f51f0973d1a45',1,'AfsReplysetHelper\has_facet()']]],
   ['has_5ffacets',['has_facets',['../classAfsFacetManager.html#a80874bdb6aabb8ff2735bad88fe61ab7',1,'AfsFacetManager']]],
+  ['has_5ffacets_5fvalues_5fsort_5forder',['has_facets_values_sort_order',['../classAfsFacetManager.html#aca17a1ef2d5f708d1c77b8287d8b3f93',1,'AfsFacetManager']]],
   ['has_5ffeed',['has_feed',['../classAfsQueryBase.html#a1ac5cc8209b2e7bd995bffca4417f6d8',1,'AfsQueryBase']]],
   ['has_5ffilter',['has_filter',['../classAfsQuery.html#a329f19d5fd0d1c553be8a33a16eaad5d',1,'AfsQuery']]],
   ['has_5fkey',['has_key',['../classAfsQueryBase.html#a299012df2852d183881da23655560cd8',1,'AfsQueryBase']]],

@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.11.0</span>
+   &#160;<span id="projectnumber">version 0.12.0</span>
    </div>
   </td>
  </tr>
@@ -118,6 +118,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab30b3ab3a6f7b7e9f718a020885d2abd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetManager.html#ab30b3ab3a6f7b7e9f718a020885d2abd">is_facet_order_strict</a> ()</td></tr>
 <tr class="memdesc:ab30b3ab3a6f7b7e9f718a020885d2abd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether facet sort order is set to strict mode.  <a href="#ab30b3ab3a6f7b7e9f718a020885d2abd">More...</a><br/></td></tr>
 <tr class="separator:ab30b3ab3a6f7b7e9f718a020885d2abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb171987e1f143d0899a044116b5ddab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetManager.html#abb171987e1f143d0899a044116b5ddab">set_facets_values_sort_order</a> ($mode, $order)</td></tr>
+<tr class="memdesc:abb171987e1f143d0899a044116b5ddab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines sort order for all facet values.  <a href="#abb171987e1f143d0899a044116b5ddab">More...</a><br/></td></tr>
+<tr class="separator:abb171987e1f143d0899a044116b5ddab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca17a1ef2d5f708d1c77b8287d8b3f93"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetManager.html#aca17a1ef2d5f708d1c77b8287d8b3f93">has_facets_values_sort_order</a> ()</td></tr>
+<tr class="memdesc:aca17a1ef2d5f708d1c77b8287d8b3f93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether specific sort order has been defined on facet values.  <a href="#aca17a1ef2d5f708d1c77b8287d8b3f93">More...</a><br/></td></tr>
+<tr class="separator:aca17a1ef2d5f708d1c77b8287d8b3f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed9eac5c7b14fec3fc9b6cc4703bca36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetManager.html#aed9eac5c7b14fec3fc9b6cc4703bca36">get_facets_values_sort_order</a> ()</td></tr>
+<tr class="memdesc:aed9eac5c7b14fec3fc9b6cc4703bca36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves sort order defined on facet values.  <a href="#aed9eac5c7b14fec3fc9b6cc4703bca36">More...</a><br/></td></tr>
+<tr class="separator:aed9eac5c7b14fec3fc9b6cc4703bca36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Fine grained facet management</div></td></tr>
 <tr class="memitem:a6a94862513249e4fae13847a7f456cb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAfsFacetManager.html#a6a94862513249e4fae13847a7f456cb0">set_facets_mode</a> ($mode, $ids)</td></tr>
 <tr class="memdesc:a6a94862513249e4fae13847a7f456cb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines facet mode for one or more facets.  <a href="#a6a94862513249e4fae13847a7f456cb0">More...</a><br/></td></tr>
@@ -384,6 +393,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aed9eac5c7b14fec3fc9b6cc4703bca36"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">get_facets_values_sort_order </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves sort order defined on facet values. </p>
+<dl class="section return"><dt>Returns</dt><dd>sort order or <code>null</code> when no sort sorder has been set. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="aca5e6f7051811295553310b73a1adc10"></a>
 <div class="memitem">
 <div class="memproto">
@@ -450,6 +477,24 @@ Public Member Functions</h2></td></tr>
 
 <p>Checks whether at least one facet is defined. </p>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> when one or more facet is defined, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aca17a1ef2d5f708d1c77b8287d8b3f93"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">has_facets_values_sort_order </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether specific sort order has been defined on facet values. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>True</code> when specific sort order has been defined, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -604,10 +649,52 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="abb171987e1f143d0899a044116b5ddab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">set_facets_values_sort_order </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$order</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines sort order for all facet values. </p>
+<p>AFS search default sort for facet values is alphanumeric. This method allows to change this behaviour.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$mode</td><td>[in] Sort mode (see <a class="el" href="classAfsFacetValuesSortMode.html" title="Facet values sort mode enumerator. ">AfsFacetValuesSortMode</a>). </td></tr>
+    <tr><td class="paramname">$order</td><td>[in] Sort order (see <a class="el" href="classAfsSortOrder.html" title="Sort order pseudo-enumerator. ">AfsSortOrder</a>).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">InvalidArgumentException</td><td>when $mode or $order is invalid. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 1 2014 08:45:33 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 1 2014 15:35:53 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

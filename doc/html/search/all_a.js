@@ -16,5 +16,6 @@ var searchData=
   ['is_5fvalid',['is_valid',['../classAfsDocument.html#a99a2e93fb647b699371cb19e2d28915b',1,'AfsDocument']]],
   ['is_5fvalid_5fname',['is_valid_name',['../classBasicEnum.html#aa9d9b4673fa1742b597be2d1e232b584',1,'BasicEnum']]],
   ['is_5fvalid_5fvalue',['is_valid_value',['../classBasicEnum.html#a0a51720bf4a56597f78fd34c8a95a2c3',1,'BasicEnum']]],
+  ['items',['ITEMS',['../classAfsFacetValuesSortMode.html#aa4c638581afd31f135a33643e1f49465',1,'AfsFacetValuesSortMode']]],
   ['integration_20example_20without_20php_20template_20engine',['Integration example without PHP template engine',['../raw_integration_example.html',1,'']]]
 ];

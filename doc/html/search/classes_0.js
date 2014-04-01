@@ -62,6 +62,8 @@ var searchData=
   ['afsfacettype',['AfsFacetType',['../classAfsFacetType.html',1,'']]],
   ['afsfacetvaluehelper',['AfsFacetValueHelper',['../classAfsFacetValueHelper.html',1,'']]],
   ['afsfacetvalueidformatter',['AfsFacetValueIdFormatter',['../interfaceAfsFacetValueIdFormatter.html',1,'']]],
+  ['afsfacetvaluessortmode',['AfsFacetValuesSortMode',['../classAfsFacetValuesSortMode.html',1,'']]],
+  ['afsfacetvaluessortorder',['AfsFacetValuesSortOrder',['../classAfsFacetValuesSortOrder.html',1,'']]],
   ['afsfeedcoder',['AfsFeedCoder',['../classAfsFeedCoder.html',1,'']]],
   ['afsfilter',['AfsFilter',['../classAfsFilter.html',1,'']]],
   ['afsfiltercoder',['AfsFilterCoder',['../classAfsFilterCoder.html',1,'']]],

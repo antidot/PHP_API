@@ -12,6 +12,7 @@ var searchData=
   ['set_5fdefault_5fstandard_5fselection_5ffacets',['set_default_standard_selection_facets',['../classAfsQuery.html#a33d3234f22aa18e7832e194ca42e61f5',1,'AfsQuery']]],
   ['set_5ffacet_5forder',['set_facet_order',['../classAfsFacetManager.html#a005b01679c600eb1fed576909f66e07b',1,'AfsFacetManager\set_facet_order()'],['../classAfsQuery.html#ae4beba75908b57e239e7d728d30b1adf',1,'AfsQuery\set_facet_order()']]],
   ['set_5ffacets_5fmode',['set_facets_mode',['../classAfsFacetManager.html#a6a94862513249e4fae13847a7f456cb0',1,'AfsFacetManager']]],
+  ['set_5ffacets_5fvalues_5fsort_5forder',['set_facets_values_sort_order',['../classAfsFacetManager.html#abb171987e1f143d0899a044116b5ddab',1,'AfsFacetManager\set_facets_values_sort_order()'],['../classAfsQuery.html#abb171987e1f143d0899a044116b5ddab',1,'AfsQuery\set_facets_values_sort_order()']]],
   ['set_5ffeed',['set_feed',['../classAfsQueryBase.html#a4389621d9c3a935fe05f3b44381d726e',1,'AfsQueryBase']]],
   ['set_5ffilter',['set_filter',['../classAfsQuery.html#adadf99011e60235465b6e5491e2b2a0f',1,'AfsQuery']]],
   ['set_5ffrom',['set_from',['../classAfsQueryBase.html#a553202278aefc16047cb9302c0fb2f89',1,'AfsQueryBase']]],

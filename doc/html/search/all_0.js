@@ -12,6 +12,8 @@ var searchData=
   ['_24label',['$label',['../classAfsFacetValueHelper.html#a177af2bf70bede02de3d05a425fb8e43',1,'AfsFacetValueHelper']]],
   ['_24lang',['$lang',['../classAfsLanguage.html#a7714b111b644017933931ec69a154102',1,'AfsLanguage']]],
   ['_24link',['$link',['../classAfsFacetValueHelper.html#a5d346e31b75d916e3bac9cb193bfc97f',1,'AfsFacetValueHelper']]],
+  ['_24mode',['$mode',['../classAfsFacetValuesSortOrder.html#a3aaf40baac36e278c7d7c9139df1750c',1,'AfsFacetValuesSortOrder']]],
+  ['_24order',['$order',['../classAfsFacetValuesSortOrder.html#a20d0f3c3de8ac827c9d513b70d8f47a6',1,'AfsFacetValuesSortOrder']]],
   ['_24query',['$query',['../classAfsFacetValueHelper.html#af59a5f7cd609e592c41dc3643efd3c98',1,'AfsFacetValueHelper']]],
   ['_24query_5fmgr',['$query_mgr',['../full__example_8php.html#a42e102a10a32456e3212e91b1102a39f',1,'full_example.php']]],
   ['_24raw',['$raw',['../classAfsRawAndFormattedText.html#ad2850dbb22c3d9922e340365d5b10f5f',1,'AfsRawAndFormattedText']]],

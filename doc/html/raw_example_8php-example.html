@@ -24,7 +24,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo-antidot-long-200x41.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Antidot PHP API
-   &#160;<span id="projectnumber">version 0.11.0</span>
+   &#160;<span id="projectnumber">version 0.12.0</span>
    </div>
   </td>
  </tr>
@@ -92,8 +92,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">$query = $query-&gt;set_multi_selection_facets(<span class="stringliteral">&#39;classification&#39;</span>);</div>
 <div class="line">$query = $query-&gt;set_mono_selection_facets(<span class="stringliteral">&#39;afs:lang&#39;</span>, <span class="stringliteral">&#39;has_variants&#39;</span>, <span class="stringliteral">&#39;has_image&#39;</span>);</div>
 <div class="line">$query = $query-&gt;set_facet_order(<span class="stringliteral">&#39;price_eur&#39;</span>, <span class="stringliteral">&#39;marketing&#39;</span>, <span class="stringliteral">&#39;classification&#39;</span>, <span class="stringliteral">&#39;has_variants&#39;</span>, <span class="stringliteral">&#39;has_image&#39;</span>);</div>
+<div class="line">$query = $query-&gt;set_facets_values_sort_order(<a name="a2"></a><a class="code" href="classAfsFacetValuesSortMode.html#aa4c638581afd31f135a33643e1f49465">AfsFacetValuesSortMode::ITEMS</a>, <a name="a3"></a><a class="code" href="classAfsSortOrder.html#a34abf23cff3df464425b7cedf58e2939">AfsSortOrder::DESC</a>);</div>
 <div class="line"></div>
-<div class="line"><a name="a2"></a><a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a> = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;execute($query);</div>
+<div class="line"><a name="a4"></a><a class="code" href="full__example_8php.html#ab03a8518b780b4b3b7f0d88cd1bb1186">$helper</a> = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;execute($query);</div>
 <div class="line">$generated_url = <a class="code" href="full__lightweight__example_8php.html#ae549977dd05a017aa81372f6994bf955">$search</a>-&gt;get_generated_url();</div>
 <div class="line"></div>
 <div class="line">$clustering_is_active = $query-&gt;has_cluster();</div>
@@ -136,7 +137,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">      &lt;/div&gt;</div>
 <div class="line">    &lt;/div&gt;</div>
 <div class="line"></div>
-<div class="line">    &lt;!-- ####################### Current <a name="a3"></a><a class="code" href="afs__filter_8php.html#af79b692968a5d4fc4175fa1c373b0b59">filter</a> parameters ########################### --&gt;</div>
+<div class="line">    &lt;!-- ####################### Current <a name="a5"></a><a class="code" href="afs__filter_8php.html#af79b692968a5d4fc4175fa1c373b0b59">filter</a> parameters ########################### --&gt;</div>
 <div class="line">&lt;?php</div>
 <div class="line">$params = $query-&gt;get_parameters(<span class="keyword">false</span>);</div>
 <div class="line"><span class="keywordflow">if</span> (array_key_exists(<span class="stringliteral">&#39;filter&#39;</span>, $params) &amp;&amp; is_array($params[<span class="stringliteral">&#39;filter&#39;</span>])) {</div>
@@ -244,10 +245,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">    &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;col-md-2&quot;</span>&gt;</div>
 <div class="line">    &lt;!-- ####################### Relevance ########################### --&gt;</div>
 <div class="line">&lt;?php</div>
-<div class="line">    <span class="keywordflow">if</span> ($query-&gt;has_sort(<a name="a4"></a><a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>)) {</div>
-<div class="line">        <span class="keywordflow">if</span> ($query-&gt;get_sort_order(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>) == <a name="a5"></a><a class="code" href="classAfsSortOrder.html#a32bea9cb6a1769ec537f6acdfe4618a8">AfsSortOrder::ASC</a>) {</div>
+<div class="line">    <span class="keywordflow">if</span> ($query-&gt;has_sort(<a name="a6"></a><a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>)) {</div>
+<div class="line">        <span class="keywordflow">if</span> ($query-&gt;get_sort_order(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>) == <a name="a7"></a><a class="code" href="classAfsSortOrder.html#a32bea9cb6a1769ec537f6acdfe4618a8">AfsSortOrder::ASC</a>) {</div>
 <div class="line">            $relevance_icon = <span class="stringliteral">&#39;glyphicon-arrow-up&#39;</span>;</div>
-<div class="line">            $relevance_query = $query-&gt;add_sort(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>, <a name="a6"></a><a class="code" href="classAfsSortOrder.html#a34abf23cff3df464425b7cedf58e2939">AfsSortOrder::DESC</a>);</div>
+<div class="line">            $relevance_query = $query-&gt;add_sort(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>, <a class="code" href="classAfsSortOrder.html#a34abf23cff3df464425b7cedf58e2939">AfsSortOrder::DESC</a>);</div>
 <div class="line">        } <span class="keywordflow">else</span> {</div>
 <div class="line">            $relevance_icon = <span class="stringliteral">&#39;glyphicon-arrow-down&#39;</span>;</div>
 <div class="line">            $relevance_query = $query-&gt;add_sort(<a class="code" href="classAfsSortBuiltins.html#af14a8f405cbe365869a34d4320357f17">AfsSortBuiltins::RELEVANCE</a>, <a class="code" href="classAfsSortOrder.html#a32bea9cb6a1769ec537f6acdfe4618a8">AfsSortOrder::ASC</a>);</div>
@@ -291,7 +292,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="stringliteral">    &lt;/div&gt;</span></div>
 <div class="line"><span class="stringliteral">  &lt;/div&gt;</span></div>
 <div class="line"><span class="stringliteral">  &lt;ul class=&quot;list-unstyled&quot;&gt;&#39;</span>;</div>
-<div class="line">        <span class="keywordflow">foreach</span> ($cluster-&gt;get_replies() as <a name="a7"></a><a class="code" href="full__lightweight__example_8php.html#a46ad7c5fff64ab9b49b9cfcaff650baa">$reply</a>) {</div>
+<div class="line">        <span class="keywordflow">foreach</span> ($cluster-&gt;get_replies() as <a name="a8"></a><a class="code" href="full__lightweight__example_8php.html#a46ad7c5fff64ab9b49b9cfcaff650baa">$reply</a>) {</div>
 <div class="line">            echo <span class="stringliteral">&#39;</span></div>
 <div class="line"><span class="stringliteral">          &lt;li&gt;</span></div>
 <div class="line"><span class="stringliteral">              &lt;h3&gt;&#39;</span> . <a class="code" href="full__lightweight__example_8php.html#a46ad7c5fff64ab9b49b9cfcaff650baa">$reply</a>-&gt;get_title() . <span class="stringliteral">&#39;&lt;/h3&gt;</span></div>
@@ -445,7 +446,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 1 2014 08:45:33 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 1 2014 15:35:52 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
