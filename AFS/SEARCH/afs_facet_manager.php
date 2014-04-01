@@ -2,6 +2,8 @@
 require_once 'AFS/SEARCH/afs_facet.php';
 require_once 'AFS/SEARCH/afs_facet_exception.php';
 require_once 'AFS/SEARCH/afs_facet_sort.php';
+require_once 'AFS/SEARCH/afs_sort_order.php';
+require_once 'AFS/SEARCH/afs_facet_values_sort_order.php';
 require_once 'COMMON/afs_tools.php';
 
 /** @brief AFS facet manager.
@@ -15,6 +17,7 @@ class AfsFacetManager
     private $facets = array();
     private $facet_mode = AfsFacetMode::AND_MODE;
     private $facet_sort_mode = null;
+    private $facet_values_sort_order  = null;
 
     /** @brief Constructs new facet facet manager.
      * @param $other [in] Instance used to initialize new one (default: creates
@@ -26,6 +29,7 @@ class AfsFacetManager
             $this->facets = $other->facets;
             $this->facet_mode = $other->facet_mode;
             $this->facet_sort_mode = $other->facet_sort_mode;
+            $this->facet_values_sort_order = $other->facet_values_sort_order;
         }
     }
 
@@ -79,6 +83,35 @@ class AfsFacetManager
     public function is_facet_order_strict()
     {
         return AfsFacetOrder::STRICT == $this->facet_sort_mode;
+    }
+
+    /** @brief Defines sort order for all facet values.
+     *
+     * AFS search default sort for facet values is alphanumeric. This method
+     * allows to change this behaviour.
+     *
+     * @param $mode [in] Sort mode (see AfsFacetValuesSortMode).
+     * @param $order [in] Sort order (see AfsSortOrder).
+     *
+     * @exception InvalidArgumentException when $mode or $order is invalid.
+     */
+    public function set_facets_values_sort_order($mode, $order)
+    {
+        $this->facet_values_sort_order = new AfsFacetValuesSortOrder($mode, $order);
+    }
+    /** @brief Checks whether specific sort order has been defined on facet values.
+     * @return @c True when specific sort order has been defined, @c false otherwise.
+     */
+    public function has_facets_values_sort_order()
+    {
+        return (! is_null($this->facet_values_sort_order));
+    }
+    /** @brief Retrieves sort order defined on facet values.
+     * @return sort order or @c null when no sort sorder has been set.
+     */
+    public function get_facets_values_sort_order()
+    {
+        return $this->facet_values_sort_order;
     }
     /** @} */
 

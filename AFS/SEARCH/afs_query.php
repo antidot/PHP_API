@@ -671,9 +671,26 @@ class AfsQuery extends AfsQueryBase
 
     protected function get_additional_parameters()
     {
-        return array('facetDefault', 'advancedFilter');
+        return array('facetDefault', 'advancedFilter', 'internalFacetValuesSortOrder');
     }
     /**  @} */
+
+    /** @internal
+     * @brief Retrieves specific parameters as values or array of values.
+     * @param $name [in] Required attribute.
+     * @return Correctly formatted attribute.
+     */
+    public function __get($name)
+    {
+        if ('internalFacetValuesSortOrder' == $name) {
+            if ($this->facet_mgr->has_facets_values_sort_order())
+                return $this->facet_mgr->get_facets_values_sort_order()->format();
+            else
+                return null;
+        } else {
+            throw new InvalidArgumentException('Unknown required attribute: ' . $name);
+        }
+    }
 
     /** @name Facet management
      *@{ */
@@ -742,6 +759,25 @@ class AfsQuery extends AfsQueryBase
         $copy->facet_mgr->set_facet_order($args, AfsFacetOrder::STRICT);
         return $copy;
     }
+
+    /** @brief Defines sort order for all facet values.
+     *
+     * AFS search default sort for facet values is alphanumeric. This method
+     * allows to change this behaviour.
+     * @remark This configuration is not exposed to AfsQueryCoder.
+     *
+     * @param $mode [in] Sort mode (see AfsFacetValuesSortMode).
+     * @param $order [in] Sort order (see AfsSortOrder).
+     *
+     * @exception InvalidArgumentException when $mode or $order is invalid.
+     */
+    public function set_facets_values_sort_order($mode, $order)
+    {
+        $copy = $this->copy();
+        $copy->facet_mgr->set_facets_values_sort_order($mode, $order);
+        return $copy;
+    }
+
     /** @brief Defines standard selection mode for one or more facets.
      *
      * See AfsSearch::set_default_standard_selection_facets or

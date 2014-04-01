@@ -115,6 +115,11 @@ class AfsSearchQueryManager
             } elseif ($param == 'advancedFilter') {
                 foreach ($values as $value)
                     $this->fill_in_filter($params, $value);
+            } elseif ($param == 'internalFacetValuesSortOrder') {
+                if (! array_key_exists('afs:facetDefault', $params))
+                    $params['afs:facetDefault'] = array();
+                $params['afs:facetDefault'][] = 'sort=' . $values[0];
+                $params['afs:facetDefault'][] = 'order=' . $values[1];
             } else {
                 $params['afs:' . $param] = $values;
             }

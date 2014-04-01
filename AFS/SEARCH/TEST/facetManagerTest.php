@@ -142,6 +142,15 @@ class FacetManagerTest extends PHPUnit_Framework_TestCase
             $this->fail('Invalid sort order should have raised exception');
         } catch (InvalidArgumentException $e) { }
     }
+
+    public function testValidFacetValuesSort()
+    {
+        $mgr = new AfsFacetManager();
+        $mgr->set_facets_values_sort_order(AfsFacetValuesSortMode::ALPHA, AfsSortOrder::DESC);
+        $this->assertTrue($mgr->has_facets_values_sort_order());
+        $this->assertEquals(AfsFacetValuesSortMode::ALPHA, $mgr->get_facets_values_sort_order()->mode);
+        $this->assertEquals(AfsSortOrder::DESC, $mgr->get_facets_values_sort_order()->order);
+    }
 }
 
 
