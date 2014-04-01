@@ -94,16 +94,16 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
     public function send(array $parameters)
     {
         $this->url = $this->build_url($this->get_web_service_name(), $parameters);
-        $request = curl_init($this->url);
+        $request = $this->curlConnector->curl_init($this->url);
         if ($request == false) {
             $result = $this->build_error('Cannot initialize connexion', $this->url);
         } else {
-            curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-            //curl_setopt($request, CURLOPT_FAILONERROR, true);
-            curl_setopt($request, CURLOPT_HTTPHEADER, $this->get_http_header());
+            $this->curlConnector->curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+            //$this->curlConnector->curl_setopt($request, CURLOPT_FAILONERROR, true);
+            $this->curlConnector->curl_setopt($request, CURLOPT_HTTPHEADER, $this->get_http_header());
 
-            $result = curl_exec($request);
-            curl_close($request);
+            $result = $this->curlConnector->curl_exec($request);
+            $this->curlConnector->curl_close($request);
             try {
                 if ($result == false)
                     throw new AfsConnectorExecutionFailedException();

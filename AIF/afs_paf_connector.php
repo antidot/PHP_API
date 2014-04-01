@@ -25,9 +25,9 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
      * @exception InvalidArgumentException invalid scheme parameter provided.
      */
     public function __construct($host, AfsService $service, $paf_name,
-        AfsAuthentication $authentication, $scheme=AFS_SCHEME_HTTP)
+        AfsAuthentication $authentication, $scheme=AFS_SCHEME_HTTP, SAI_CurlInterface $curlConnector=null)
     {
-        parent::__construct($host, $service, $scheme);
+        parent::__construct($host, $service, $scheme, $curlConnector);
         $this->paf_name = $paf_name;
         $this->authentication = $authentication;
     }
@@ -64,7 +64,7 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
 
         $version = $this->get_bo_version();
         $context = new AfsPafConnectorContext($version, $mgr, $comment);
-        return new AfsPafUploadReply($this->query($context));
+        return new AfsPafUploadReply(json_decode($this->query($context)));
     }
 
     /** @internal
@@ -104,7 +104,7 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
                 . $doc->get_mime_type() . ';filename=' . basename($doc->get_filename());
             $doc_no++;
         }
-        if (curl_setopt($request, CURLOPT_POSTFIELDS, $documents) === false) {
+        if ($this->curlConnector->curl_setopt($request, CURLOPT_POSTFIELDS, $documents) === false) {
             throw new Exception('Cannot set documents to be sent');
         }
     }
@@ -112,7 +112,7 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
     private function get_bo_version()
     {
         return AfsBOWSInformationCache::get_information($this->host,
-            $this->scheme)->get_gen_version();
+            $this->scheme, $this->curlConnector)->get_gen_version();
     }
 
     private function format_http_headers(array &$headers)
