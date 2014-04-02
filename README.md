@@ -17,6 +17,12 @@ Documentation
 http://antidot.github.io/PHP_API/doc/html/index.html
 
 
+FAQ
+---
+
+https://github.com/antidot/PHP_API/blob/master/FAQ.md
+
+
 Contact
 -------
 
