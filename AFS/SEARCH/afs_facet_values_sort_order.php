@@ -29,6 +29,14 @@ class AfsFacetValuesSortOrder
         $this->order = $order;
     }
 
+    /** @brief Copies current instance.
+     * @return new instance, copy of current one.
+     */
+    public function copy()
+    {
+        return new AfsFacetValuesSortOrder($this->mode, $this->order);
+    }
+
     /** @brief Format instance as array of sort mode then sort order.
      * @return formatted array.
      */

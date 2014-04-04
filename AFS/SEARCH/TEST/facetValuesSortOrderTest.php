@@ -25,4 +25,14 @@ class FacetValuesSortOrderTest extends PHPUnit_Framework_TestCase
             $this->fail('Invalid sort order should have raised exception!');
         } catch (InvalidArgumentException $e) { }
     }
+    public function testCopy()
+    {
+        $f = new AfsFacetValuesSortOrder(AfsFacetValuesSortMode::ALPHA, AfsSortOrder::ASC);
+        $s = $f->copy();
+        $f->mode = AfsFacetValuesSortMode::ITEMS;
+        $f->order = AfsSortOrder::ASC;
+        $this->assertEquals(AfsFacetValuesSortMode::ALPHA, $s->mode);
+        $this->assertEquals(AfsSortOrder::ASC, $s->order);
+        $this->assertEquals(array('alpha', 'ASC'), $s->format());
+    }
 }

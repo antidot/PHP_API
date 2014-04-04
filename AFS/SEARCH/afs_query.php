@@ -6,6 +6,7 @@ require_once 'AFS/SEARCH/afs_sort_builtins.php';
 require_once 'AFS/SEARCH/afs_cluster_exception.php';
 require_once 'AFS/SEARCH/afs_count.php';
 require_once 'AFS/SEARCH/afs_facet_manager.php';
+require_once 'AFS/SEARCH/afs_facet_default.php';
 
 /** @brief Represent an AFS query.
  *
@@ -34,7 +35,7 @@ class AfsQuery extends AfsQueryBase
     protected $page = 1;          // afs:page
     protected $lang = null;       // afs:lang
     protected $sort = array();    // afs:sort
-    protected $facetDefault = array(); // afs:facetDefault
+    protected $facetDefault = null; // afs:facetDefault
     protected $cluster = null;
     protected $maxClusters = null;
     protected $overspill = null;
@@ -55,6 +56,7 @@ class AfsQuery extends AfsQueryBase
             $this->page = $afs_query->page;
             $this->lang = $afs_query->lang;
             $this->sort = $afs_query->sort;
+            $this->facetDefault = $afs_query->facetDefault->copy();
             $this->cluster = $afs_query->cluster;
             $this->maxClusters = $afs_query->maxClusters;
             $this->overspill = $afs_query->overspill;
@@ -63,7 +65,7 @@ class AfsQuery extends AfsQueryBase
         } else {
             $this->facet_mgr = new AfsFacetManager();
             $this->lang = new AfsLanguage(null);
-            $this->facetDefault[] = 'replies=1000';
+            $this->facetDefault = new AfsFacetDefault();
             $this->auto_set_from = false;
         }
     }
@@ -671,26 +673,9 @@ class AfsQuery extends AfsQueryBase
 
     protected function get_additional_parameters()
     {
-        return array('facetDefault', 'advancedFilter', 'internalFacetValuesSortOrder');
+        return array('facetDefault', 'advancedFilter');
     }
     /**  @} */
-
-    /** @internal
-     * @brief Retrieves specific parameters as values or array of values.
-     * @param $name [in] Required attribute.
-     * @return Correctly formatted attribute.
-     */
-    public function __get($name)
-    {
-        if ('internalFacetValuesSortOrder' == $name) {
-            if ($this->facet_mgr->has_facets_values_sort_order())
-                return $this->facet_mgr->get_facets_values_sort_order()->format();
-            else
-                return null;
-        } else {
-            throw new InvalidArgumentException('Unknown required attribute: ' . $name);
-        }
-    }
 
     /** @name Facet management
      *@{ */
@@ -774,7 +759,19 @@ class AfsQuery extends AfsQueryBase
     public function set_facets_values_sort_order($mode, $order)
     {
         $copy = $this->copy();
-        $copy->facet_mgr->set_facets_values_sort_order($mode, $order);
+        $copy->facetDefault->set_sort_order($mode, $order);
+        return $copy;
+    }
+
+    /** @brief Defines maximum number of facet values replied per facet.
+     *
+     * Default maximum value is 1000.
+     * @param $nb_replies [in] maximum number of facet values.
+     */
+    public function set_facets_values_nb_replies($nb_replies)
+    {
+        $copy = $this->copy();
+        $copy->facetDefault->set_nb_replies($nb_replies);
         return $copy;
     }
 

@@ -385,8 +385,11 @@ abstract class AfsQueryBase
 
         foreach ($parameters as $param) {
             $own_param = $this->$param;
-            if ($own_param != null && !empty($own_param))
+            if ($own_param != null && !empty($own_param)) {
+                if (method_exists($own_param, 'format'))
+                    $own_param = $own_param->format();
                 $result[$param] = $own_param;
+            }
         }
         return $result;
     }

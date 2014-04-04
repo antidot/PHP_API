@@ -303,6 +303,14 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->qm->send($query);
         $this->checkFacetDefaultValues(array('sort=items', 'order=DESC'));
     }
+    public function testDefaultFacetValuesReplies()
+    {
+        $query = new AfsQuery();
+        $query = $query->set_facets_values_nb_replies(42);
+        $this->qm->send($query);
+        $this->checkFacetDefaultValues(array('replies=42'));
+    }
+
 
     public function testMultiLogs()
     {
