@@ -13,7 +13,7 @@ var indexSectionsWithContent =
   3: "_abcdefghimopqrstuv",
   4: "$abcdfhilnoprstuw",
   5: "acs",
-  6: "adilp"
+  6: "adgilp"
 };
 
 var indexSectionNames =
