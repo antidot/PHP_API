@@ -388,7 +388,7 @@ function sort_array_by_key(array $ordered_keys, array &$data, $creator=null)
  *
  * @return Array of parameters.
  */
-function get_function_args_as_array(array& $args)
+function get_function_args_as_array(array $args)
 {
     if (empty($args) || !is_array($args[0])) {
         return $args;
