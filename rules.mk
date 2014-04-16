@@ -3,12 +3,11 @@
 # AFS © Antidot 2014
 #
 #*******************************************************************************
-.PHONY: all_tests test individual_tests
+.PHONY: all_tests test individual_tests test_coverage
 .PHONY: local_test local_individual_tests recurse
 
 
 TEST_DIR=$(filter %/TEST, $(CURDIR))
-
 
 all_tests: test individual_tests
 
@@ -44,6 +43,15 @@ local_individual_tests:
 		echo 'You need phpunit installed on your computer to run unit tests'; \
 	fi
 
+test_coverage:
+	@if [ -f $(which phpunit) ]; \
+	then \
+			rm -rf $(ROOT_PATH)/coverage; \
+			phpunit --coverage-html=$(ROOT_PATH)/coverage --stop-on-failure --include-path $(ROOT_PATH) $(ROOT_PATH) || exit 1; \
+	else \
+		echo 'You need phpunit installed on your computer to run unit tests'; \
+	fi
+
 recurse:
 	@for DIR in $$(ls -d */ 2> /dev/null); \
 	do \
@@ -52,3 +60,9 @@ recurse:
 			$(MAKE) -C $${DIR} $(MAKECMDGOALS) || exit 1; \
 		fi; \
 	done
+
+
+
+
+
+
