@@ -15,8 +15,10 @@ abstract class AfsHelperBase
     public function __get($name)
     {
         $getter = 'get_' . $name;
-        if (method_exists($this, $getter)) {
+        if (is_callable(array($this, $getter))) {
             return $this->$getter();
+        } else {
+            throw new Exception("Undefined property: $name");
         }
     }
 }

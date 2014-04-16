@@ -632,11 +632,11 @@ class AfsQuery extends AfsQueryBase
                 foreach ($values as $key => $value) {
                     $result = $result->$adder($key, $value);
                 }
-            } elseif (method_exists($result, $adder)) {
+            } elseif (is_object($result) && is_callable(array($result, $adder))) {
                 foreach ($values as $value) {
                     $result = $result->$adder($value);
                 }
-            } elseif (method_exists($result, $setter)) {
+            } elseif (is_object($result) && is_callable(array($result, $setter))) {
                 $result = $result->$setter($values);
             } else {
                 // Ignore unknown parameter
