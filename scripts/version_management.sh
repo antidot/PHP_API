@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 function help()
 {
     echo "You should specify which version number to increment:"
@@ -11,7 +13,9 @@ function help()
 
 function retrieve_version()
 {
-    RESULT=$(cat afs_version.php | grep "'$1'" | sed -E "s/.*$1[^0-9]*([0-9]+)[^0-9]*/\1/")
+  pushd $DIR/..  
+	RESULT=$(cat afs_version.php | grep "'$1'" | sed -E "s/.*$1[^0-9]*([0-9]+)[^0-9]*/\1/")
+	popd
 }
 
 function initialize_version()
@@ -26,7 +30,9 @@ function initialize_version()
 
 function update_version()
 {
+		pushd $DIR/..
     sed -i -E "s/(.*$1[^0-9]*)[0-9]+([^0-9]*)/\1$2\2/" afs_version.php
+		popd
 }
 
 function update()
