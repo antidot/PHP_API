@@ -4,7 +4,7 @@ require_once "AFS/SEARCH/afs_query.php";
 
 
 
-class Connector extends AfsSearchConnector
+class SearchConnector extends AfsSearchConnector
 {
     public function __construct($host, $service)
     {
@@ -37,14 +37,14 @@ class SearchConnectorTest extends PHPUnit_Framework_TestCase
 {
     public function testConstructDefaultParameters()
     {
-        $connector = new Connector('url', new AfsService(42));
+        $connector = new SearchConnector('url', new AfsService(42));
         $this->assertEquals($connector->get_url(), 'http://url/search');
         $this->assertTrue($connector->get_id() == 42);
         $this->assertTrue($connector->get_status() == 'stable');
     }
     public function testConstructParameters()
     {
-        $connector = new Connector('url', new AfsService(42, 'rc'));
+        $connector = new SearchConnector('url', new AfsService(42, 'rc'));
         $this->assertEquals($connector->get_url(), 'http://url/search');
         $this->assertTrue($connector->get_id() == 42);
         $this->assertTrue($connector->get_status() == 'rc');
@@ -52,12 +52,12 @@ class SearchConnectorTest extends PHPUnit_Framework_TestCase
 
     public function testNoParameter()
     {
-        $connector = new Connector('url', new AfsService(42));
+        $connector = new SearchConnector('url', new AfsService(42));
         $this->assertEquals($connector->format_parameters(array()), '');
     }
     public function testParameters()
     {
-        $connector = new Connector('url', new AfsService(42));
+        $connector = new SearchConnector('url', new AfsService(42));
         $this->assertEquals($connector->format_parameters(array(
             'foo' => 'bar',
             'fooz' => array('baz', 'bat'))),
@@ -75,7 +75,7 @@ class SearchConnectorTest extends PHPUnit_Framework_TestCase
 
     public function testAPIVersion()
     {
-        $connector = new Connector('foo', new AfsService(42));
+        $connector = new SearchConnector('foo', new AfsService(42));
         $query = new AfsQuery();
         $url = $connector->build_url($query->get_parameters());
         $this->assertFalse(strpos($url, urlencode(get_api_version())) === False,
@@ -84,7 +84,7 @@ class SearchConnectorTest extends PHPUnit_Framework_TestCase
 
     public function testNoUserAgent()
     {
-        $connector = new Connector('foo', new AfsService(42));
+        $connector = new SearchConnector('foo', new AfsService(42));
         $query = new AfsQuery();
         $url = $connector->build_url($query->get_parameters());
         $this->assertTrue(strpos($url, urlencode('afs:userAgent')) === False);
@@ -94,7 +94,7 @@ class SearchConnectorTest extends PHPUnit_Framework_TestCase
     {
         global $_SERVER;
         $_SERVER = array('HTTP_USER_AGENT' => 'foo');
-        $connector = new Connector('foo', new AfsService(42));
+        $connector = new SearchConnector('foo', new AfsService(42));
         $query = new AfsQuery();
         $url = $connector->build_url($query->get_parameters());
         $this->assertFalse(strpos($url, urlencode('afs:userAgent')) === False);
@@ -102,7 +102,7 @@ class SearchConnectorTest extends PHPUnit_Framework_TestCase
 
     public function testNoIp()
     {
-        $connector = new Connector('foo', new AfsService(42));
+        $connector = new SearchConnector('foo', new AfsService(42));
         $query = new AfsQuery();
         $url = $connector->build_url($query->get_parameters());
         $this->assertTrue(strpos($url, urlencode('afs:ip')) === False);
@@ -112,7 +112,7 @@ class SearchConnectorTest extends PHPUnit_Framework_TestCase
     {
         global $_SERVER;
         $_SERVER = array('REMOTE_ADDR' => '127.0.0.1');
-        $connector = new Connector('foo', new AfsService(42));
+        $connector = new SearchConnector('foo', new AfsService(42));
         $query = new AfsQuery();
         $url = $connector->build_url($query->get_parameters());
         $this->assertFalse(strpos($url, urlencode('afs:ip')) === False);
