@@ -72,6 +72,21 @@ class AfsHeaderHelper extends AfsHelperBase
     {
         return $this->header->performance->durationMs;
     }
+
+    /** @brief Retrieve query parameter stored in header
+     * @input $key : Name of the parameter
+     * @return value of the parameter
+     *
+     */
+    public function get_query_parameter($key)
+    {
+       foreach($this->header->query->queryParam as $param) {
+            if ($param->name === $key) {
+                return $param->value;
+            }
+        }
+        return null;
+    }
 }
 
 

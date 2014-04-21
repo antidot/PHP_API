@@ -1,6 +1,6 @@
 <?php ob_start();
 require_once 'AFS/SEARCH/afs_query_coder.php';
-
+require_once 'AFS/SEARCH/afs_search_connector.php';
 
 class QueryCoderTest extends PHPUnit_Framework_TestCase
 {
@@ -42,23 +42,5 @@ class QueryCoderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($query->get_filters()));
         $this->assertFalse($query->has_query());
         // and so on
-    }
-
-    public function testWriteCustomParameters()
-    {
-        $coder = new AfsQueryCoder();
-        $query = $coder->build_query(array("query" => "u2s!57e2"));
-        $coder->set_custom_parameter("mycustomparameter", "mycustomvalue");
-        $coder->set_custom_parameter("andanotherone", "withanothervalue");
-        $this->assertTrue(strpos($coder->generate_link($query), "mycustomparameter=mycustomvalue") !== false);
-        $this->assertTrue(strpos($coder->generate_link($query), "andanotherone=withanothervalue") !== false);
-    }
-
-    public function testReadCustomParameters()
-    {
-        $coder = new AfsQueryCoder();
-        $custom_get = array("toto" => "tutu");
-        $query = $coder->build_query($custom_get);
-        $this->assertTrue(strpos($coder->generate_link($query), "toto=tutu") !== false);
     }
 }

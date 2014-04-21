@@ -285,6 +285,16 @@ class AfsResponseHelper extends AfsResponseHelperBase
         if (! is_null($param) && is_null($this->$param))
             throw new AfsNoReplyException('No ' . $param . ' reply available!');
     }
+
+     /** @brief Retrieve query parameter stored in header
+      * @input $key : Name of the parameter
+      * @return value of the parameter
+      *
+      */
+    public function get_query_parameter($key)
+    {
+        return $this->header->get_query_parameter($key);
+    }
     /** @} */
 
 }

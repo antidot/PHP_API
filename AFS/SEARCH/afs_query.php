@@ -614,7 +614,7 @@ class AfsQuery extends AfsQueryBase
      * @param $params [in] structured array of parameters.
      * @return correctly initialized query.
      */
-    public static function create_from_parameters(array $params, array& $custom_params = null)
+    public static function create_from_parameters(array $params)
     {
         $result = AfsQuery::work_on_specific_parameters($params);
         $page = $result->get_page(); # page can be reset by some method calls
@@ -638,10 +638,9 @@ class AfsQuery extends AfsQueryBase
                 }
             } elseif (is_object($result) && is_callable(array($result, $setter))) {
                 $result = $result->$setter($values);
-            } elseif (! is_null($custom_params)) {
-                $custom_params[$param] = $values;
             } else {
-                // Ignore unknown parameter
+                // Store unknown parameter as a custom one
+                $result->set_custom_parameter($param, $values);
             }
         }
         $result->page = $page;
