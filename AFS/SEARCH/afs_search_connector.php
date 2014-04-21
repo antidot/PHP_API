@@ -1,5 +1,6 @@
 <?php
 require_once 'AFS/afs_connector.php';
+require_once 'COMMON/php-SAI/lib/Curl.php';
 
 /** @brief AFS search connector.
  *
@@ -18,9 +19,9 @@ class AfsSearchConnector extends AfsConnector
      *
      * @exception InvalidArgumentException invalid scheme parameter provided.
      */
-    public function __construct($host, AfsService $service, $scheme=AFS_SCHEME_HTTP)
+    public function __construct($host, AfsService $service, $scheme=AFS_SCHEME_HTTP, SAI_CurlInterface $curlConnector=null)
     {
-        parent::__construct($host, $service, $scheme);
+        parent::__construct($host, $service, $scheme, $curlConnector);
         if ($scheme != AFS_SCHEME_HTTP)
             throw InvalidArgumentException('Search connector support only HTTTP connection');
     }

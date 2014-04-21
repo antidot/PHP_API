@@ -101,15 +101,15 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
             $this->curlConnector->curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
             //$this->curlConnector->curl_setopt($request, CURLOPT_FAILONERROR, true);
             $this->curlConnector->curl_setopt($request, CURLOPT_HTTPHEADER, $this->get_http_header());
-
             $result = $this->curlConnector->curl_exec($request);
             $this->curlConnector->curl_close($request);
             try {
                 if ($result == false)
                     throw new AfsConnectorExecutionFailedException();
                 $result = json_decode($result, $this->associative_array);
-                if (empty($result))
+                if (empty($result)) {
                     throw new AfsConnectorExecutionFailedException();
+                }
             } catch (AfsConnectorExecutionFailedException $e) {
                 $result = $this->build_error('Failed to execute request',  $this->url);
             }

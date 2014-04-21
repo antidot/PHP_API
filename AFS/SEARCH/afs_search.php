@@ -22,10 +22,10 @@ class AfsSearch
      * @param $id [in] identifier of the desired service.
      * @param $status [in] status of the desired service (see @ref AfsServiceStatus).
      */
-    public function __construct($host, $id, $status=AfsServiceStatus::STABLE)
+    public function __construct($host, $id, $status=AfsServiceStatus::STABLE, $curlConnector=null)
     {
         $this->service = new AfsService($id, $status);
-        $this->connector = new AfsSearchConnector($host, $this->service);
+        $this->connector = new AfsSearchConnector($host, $this->service, AFS_SCHEME_HTTP, $curlConnector);
         $this->config = new AfsHelperConfiguration();
         $this->query = new AfsQuery();
     }

@@ -119,6 +119,7 @@ class AfsSearchQueryManager
                 $params['afs:' . $param] = $values;
             }
         }
+        $params = array_merge($params, $query->get_custom_parameters());
         return $params;
     }
 
