@@ -21,6 +21,7 @@ abstract class AfsQueryBase
     protected $key = null;          // afs:key
     protected $from = null;         // afs:from : query origin
     protected $auto_set_from = true;
+    protected $custom_parameters = array();
 
 
     /** @brief Constructs new AFS ACP query object.
@@ -422,5 +423,15 @@ abstract class AfsQueryBase
     protected function get_additional_parameters()
     {
         return array('from', 'userId', 'sessionId', 'log', 'key');
+    }
+
+    public function get_custom_parameters()
+    {
+        return $this->custom_parameters;
+    }
+
+    public function set_custom_parameter($key, $value)
+    {
+        $this->custom_parameters[$key] = $value;
     }
 }
