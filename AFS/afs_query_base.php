@@ -43,6 +43,7 @@ abstract class AfsQueryBase
             $this->key = $afs_query->key;
             $this->from = $afs_query->from;
             $this->auto_set_from = $afs_query->auto_set_from;
+            $this->custom_parameters = $afs_query->custom_parameters;
         }
     }
 
@@ -412,7 +413,7 @@ abstract class AfsQueryBase
      */
     protected function get_relevant_parameters()
     {
-        return array('replies', 'feed', 'query');
+        return array_merge(array('replies', 'feed', 'query'), array_keys($this->custom_parameters));
     }
 
     /** @brief Retrieves additional parameters.
@@ -433,5 +434,21 @@ abstract class AfsQueryBase
     public function set_custom_parameter($key, $value)
     {
         $this->custom_parameters[$key] = $value;
+    }
+
+    /** @brief Add ability to get custom params as member fields */
+    public function __get($name)
+    {
+        if(property_exists($this, $name)) {
+            //$name is a field of AfsQueryBase
+            return $this->$name;
+        } else {
+            if (array_key_exists($name, $this->custom_parameters)) {
+                //$name is a custom parameter
+                return $this->custom_parameters[$name];
+            } else {
+                throw new InvalidArgumentException();
+            }
+        }
     }
 }

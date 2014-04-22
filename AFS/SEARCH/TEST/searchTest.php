@@ -134,9 +134,21 @@ JSON;
 JSON;
         //Set BO response for AboutConnector
         $curlConnector->setResponse($aboutResponse, $aboutRequestOpts);
+        //Set response for query
         $curlConnector->setResponse($response);
         $search = new AfsSearch($mockBaseUrl, '71003', AfsServiceStatus::STABLE, $curlConnector);
+        $search->set_query($query);
+        $coder = new AfsQueryCoder();
+        $search->set_query_coder($coder);
         $helper = $search->execute($query);
+        $replysetHelper = $helper->get_replyset("Book");
+        $facetHelpers = $replysetHelper->get_facets();
+        //Make sure each link of facets contains custom parameter
+        foreach($facetHelpers as $facetHelper) {
+            foreach($facetHelper->get_elements() as $facetValueHelper) {
+                $this->assertEquals(1, preg_match("/[&\?]mycustomparameter=mycustomvalue[&$]/", $facetValueHelper->link));
+            }
+        }
         $this->assertEquals("mycustomvalue", $helper->get_query_parameter("mycustomparameter"));
     }
 }

@@ -12,7 +12,6 @@ class AfsQueryCoder implements AfsQueryCoderInterface
     private $feed_coder = null;
     private $filter_coder = null;
     private $sort_coder = null;
-    private $custom_params = array();
 
     /** @brief Construct new instance.
      * @param $path [in] base path used to generate appropriate link (see
@@ -53,9 +52,6 @@ class AfsQueryCoder implements AfsQueryCoderInterface
             $result[] = $param . '=' . htmlspecialchars(urlencode(
                 $this->coder($param, $values, 'encode')));
         }
-        foreach ($this->custom_params as $key => $value) {
-            array_push($result, $key . '=' . htmlspecialchars(urlencode($value)));
-        }
         return implode('&', $result);
     }
 
@@ -81,7 +77,7 @@ class AfsQueryCoder implements AfsQueryCoderInterface
         foreach ($params as $param => $values) {
             $buffer[$param] = $this->coder($param, $values, 'decode');
         }
-        $query = AfsQuery::create_from_parameters($buffer, $this->custom_params);
+        $query = AfsQuery::create_from_parameters($buffer);
         return $query;
     }
 
@@ -106,16 +102,6 @@ class AfsQueryCoder implements AfsQueryCoderInterface
         } else {
             return $values;
         }
-    }
-
-    /** @brief Store custom GET parameters to use when building url
-     * Parameter already stored will be updated with new value
-     * @param $name [in] name of the custom parameter
-     * @param $value [in] value of the custom parameter
-     */
-    public function set_custom_parameter($name, $value)
-    {
-        $this->custom_params[$name] = $value;
     }
 }
 
