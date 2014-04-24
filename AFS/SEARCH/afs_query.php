@@ -168,7 +168,10 @@ class AfsQuery extends AfsQueryBase
      */
     public function get_filter_values($facet_id)
     {
-        return $this->filter[$facet_id];
+        if (array_key_exists($facet_id, $this->filter)) {
+          return $this->filter[$facet_id];
+        }
+        throw new AfsFilterException("$facet_id doesn't exist");
     }
     /** @brief Retrieve the list of all managed facet ids.
      *
