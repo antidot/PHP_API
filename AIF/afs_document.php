@@ -46,13 +46,15 @@ class AfsDocument
 						}
 		}			
 
-    private function set_mime_from_file($file)
+    private function set_mime_from_filename($filename)
     {
         if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
             $magic = new finfo(FILEINFO_MIME_TYPE);
-            $this->mime_type = $magic->file($file);
+            $this->mime_type = $magic->file($filename);
         } else {
+						$file = fopen($filename, "r");
 						$this->set_mime_compat($file);
+						fclose($file);
         }
     }
 
@@ -109,7 +111,7 @@ class AfsDocument
                 . 'unexisting file: ' . $filename);
         }
         if (is_null($mime_type)) {
-            $this->set_mime_from_file($filename);
+            $this->set_mime_from_filename($filename);
         } else {
             $this->mime_type = $mime_type;
         }
