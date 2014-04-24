@@ -6,9 +6,18 @@ require_once 'COMMON/afs_tools.php';
  * Specify the mode of the facets. Modes allow to combine or replace values of
  * the facets.
  */
-abstract class AfsFacetMode extends BasicEnum
+class AfsFacetMode extends BasicEnum
 {
-    /** @brief Single mode.
+ 		private static $instance = null;
+
+    static public function check_value($value, $msg=null)
+    {
+        if (is_null(self::$instance))
+            self::$instance = new self();
+        BasicEnum::check_val(self::$instance, $value, $msg);
+    }
+
+   /** @brief Single mode.
      *
      * New value set for the facet replaces existing one.
      *

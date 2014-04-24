@@ -8,8 +8,17 @@ require_once "COMMON/afs_tools.php";
  * helpers (such as AfsSpellcheckHelper). You are encouraged to set it manually
  * when you do not use queries provided by the different available helpers.
  */
-abstract class AfsOrigin extends BasicEnum
+class AfsOrigin extends BasicEnum
 {
+    private static $instance = null;
+
+    static public function check_value($value, $msg=null)
+    {
+        if (is_null(self::$instance))
+            self::$instance = new self();
+        BasicEnum::check_val(self::$instance, $value, $msg);
+    }
+
     private static $cache = null;
 
     /** @brief Direct access

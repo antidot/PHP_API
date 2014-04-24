@@ -5,8 +5,17 @@ require_once 'COMMON/afs_tools.php';
  *
  * Specify the layout of the facets.
  */
-abstract class AfsFacetLayout extends BasicEnum
+class AfsFacetLayout extends BasicEnum
 {
+		private static $instance = null;
+
+    static public function check_value($value, $msg=null)
+    {
+        if (is_null(self::$instance))
+            self::$instance = new self();
+        BasicEnum::check_val(self::$instance, $value, $msg);
+    }
+
     /** @brief Tree layout.
      *
      * This layout is used for flat and hierarchical facet values. */

@@ -5,9 +5,18 @@ require_once 'COMMON/afs_tools.php';
  *
  * Specify the type of the facets.
  */
-abstract class AfsFacetType extends BasicEnum
+class AfsFacetType extends BasicEnum
 {
-    /** @brief Facet values of type integer. */
+ 		private static $instance = null;
+
+    static public function check_value($value, $msg=null)
+    {
+        if (is_null(self::$instance))
+            self::$instance = new self();
+        BasicEnum::check_val(self::$instance, $value, $msg);
+    }
+
+   /** @brief Facet values of type integer. */
     const INTEGER_TYPE = 'INTEGER';
     /** @brief Facet values of type real. */
     const REAL_TYPE = 'REAL';

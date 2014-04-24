@@ -2,8 +2,17 @@
 require_once "COMMON/afs_tools.php";
 
 
-abstract class MyEnum extends BasicEnum
+class MyEnum extends BasicEnum
 {
+    private static $instance = null;
+
+    static public function check_value($value, $msg=null)
+    {
+        if (is_null(self::$instance))
+            self::$instance = new self();
+        BasicEnum::check_val(self::$instance, $value, $msg);
+    }
+
     const FOO = 'foo';
     const BAR = 'bar';
 }
@@ -64,28 +73,28 @@ class ToolsTest extends PHPUnit_Framework_TestCase
             DOMNodeHelper::get_text($doc->documentElement, array(XML_ELEMENT_NODE => array($filter1, $filter2))));
     }
 
-    public function testValidEnumValue()
-    {
-        $this->assertTrue(MyEnum::is_valid_value(MyEnum::FOO));
-        $this->assertTrue(MyEnum::is_valid_value('foo'));
-        $this->assertTrue(MyEnum::is_valid_value(MyEnum::BAR));
-        $this->assertTrue(MyEnum::is_valid_value('bar'));
-    }
-
     public function testInvalidEnumValue()
     {
-        $this->assertFalse(MyEnum::is_valid_value('FOO'));
-        $this->assertFalse(MyEnum::is_valid_value('Foo'));
+        try {
+            MyEnum::check_value('FOO');
+            $this->fail();
+        } catch (InvalidArgumentException $e) {
+        }
+        try {
+            MyEnum::check_value('Foo');
+            $this->fail();
+        } catch (InvalidArgumentException $e) {
+        }
     }
 
     public function testCheckValidValue()
     {
         try
         {
-            $this->assertTrue(MyEnum::is_valid_value(MyEnum::FOO));
-            $this->assertTrue(MyEnum::is_valid_value('foo'));
-            $this->assertTrue(MyEnum::is_valid_value(MyEnum::BAR));
-            $this->assertTrue(MyEnum::is_valid_value('bar'));
+            MyEnum::check_value(MyEnum::FOO);
+            MyEnum::check_value('foo');
+            MyEnum::check_value(MyEnum::BAR);
+            MyEnum::check_value('bar');
         } catch (Exception $e) {
             $this->fail('Should not have raise any exception!');
         }
