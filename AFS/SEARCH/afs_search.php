@@ -89,7 +89,7 @@ class AfsSearch
     public function execute($query=null, $format=AfsHelperFormat::HELPERS)
     {
         if (! is_null($query)) {
-            if (is_a($query, 'AfsQuery'))
+            if ($query instanceof AfsQuery)
                 $this->set_query($query);
             else
                 $format = $query;
