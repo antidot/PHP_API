@@ -41,6 +41,8 @@ class AfsDocument
             $this->mime_type = $magic->file($file);
         } else {
             $this->mime_type = mime_content_type($file);
+            if ($this->mime_type === false)
+                $this->mime_type = `file -iL $file 2>/dev/null`;
         }
     }
 
@@ -54,6 +56,8 @@ class AfsDocument
             fwrite($temp, $data, 2048);
             fseek($temp, 0);
             $this->mime_type = mime_content_type($temp);
+            if ($this->mime_type === false)
+                $this->mime_type = `file -iL $temp 2>/dev/null`;
             fclose($temp);
         }
     }
