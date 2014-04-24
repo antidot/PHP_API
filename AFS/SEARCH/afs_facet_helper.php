@@ -3,6 +3,10 @@ require_once 'AFS/SEARCH/afs_facet_manager.php';
 require_once 'COMMON/afs_helper_base.php';
 require_once 'AFS/SEARCH/afs_facet_helper_retriever.php';
 
+function is_not_null($value) {
+    return ! is_null($value);
+}
+
 /** @brief Helper to manage facets. */
 class AfsFacetHelper extends AfsHelperBase
 {
@@ -85,6 +89,7 @@ class AfsFacetHelper extends AfsHelperBase
     }
 
     /** @brief Retrieves stickyness of the facet.
+     * @return return true when the facet is sticky, false otherwise.
      * @return return true when the facet is sticky, false otherwise.
      */
     public function is_sticky()
@@ -215,8 +220,8 @@ class AfsFacetValueHelper extends AfsHelperBase
                 $formatted_values[] = $value->format();
             $this->values = $formatted_values;
         }
-        return array_filter(get_object_vars($this),
-            function ($value) { return ! is_null($value); });
+
+        return array_filter(get_object_vars($this), is_not_null);
     }
 }
 
