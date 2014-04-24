@@ -33,6 +33,18 @@ class AfsDocument
             $this->set_content($data, $mime_type);
         }
     }
+		
+		private function set_mime_compat($file)
+		{
+						$this->mime_type = mime_content_type($file);
+						if ($this->mime_type === false) {
+										$fileMetaData = stream_get_meta_data($file);
+										$fileName = $fileMetaData['uri'];
+										$fileInfo = `file -iL $fileName 2>/dev/null`;
+										preg_match("/:([^;]*)/", $fileInfo, $mime);
+										$this->mime_type = trim($mime[1]);
+						}
+		}			
 
     private function set_mime_from_file($file)
     {
@@ -40,11 +52,7 @@ class AfsDocument
             $magic = new finfo(FILEINFO_MIME_TYPE);
             $this->mime_type = $magic->file($file);
         } else {
-            $this->mime_type = mime_content_type($file);
-            if ($this->mime_type === false)
-								$fileMetaData = stream_get_meta_data($file);
-								$fileName = $fileMetaData['uri'];
-                $this->mime_type = `file -iL $fileName 2>/dev/null`;
+						$this->set_mime_compat($file);
         }
     }
 
@@ -57,12 +65,8 @@ class AfsDocument
             $temp = tmpfile();
             fwrite($temp, $data, 2048);
             fseek($temp, 0);
-            $this->mime_type = mime_content_type($temp);
-            if ($this->mime_type === false)
-								$fileMetaData = stream_get_meta_data($temp);
-								$fileName = $fileMetaData['uri'];
-                $this->mime_type = `file -iL $fileName 2>/dev/null`;
-            fclose($temp);
+						$this->set_mime_compat($temp);
+		        fclose($temp);
         }
     }
 
