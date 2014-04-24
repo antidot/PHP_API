@@ -2,9 +2,18 @@
 require_once 'COMMON/afs_tools.php';
 
 /** @brief Sort mode of the facets. */
-abstract class AfsFacetOrder extends BasicEnum
+class AfsFacetOrder extends BasicEnum
 {
-    /** @brief Strict mode.
+ 		private static $instance = null;
+
+    static public function check_value($value, $msg=null)
+    {
+        if (is_null(self::$instance))
+            self::$instance = new self();
+        BasicEnum::check_val(self::$instance, $value, $msg);
+    }
+
+   /** @brief Strict mode.
      *
      * All facets are sorted according to provided sort order list. Facets not
      * present in the list are removed from reply. */

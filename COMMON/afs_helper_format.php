@@ -5,9 +5,18 @@ require_once "COMMON/afs_tools.php";
  *
  * Specify in which format helpers are generated.
  */
-abstract class AfsHelperFormat extends BasicEnum
+class AfsHelperFormat extends BasicEnum
 {
-    /** @brief Outputs from response helper and sub-sequent child helpers are 
+ 		private static $instance = null;
+
+    static public function check_value($value, $msg=null)
+    {
+        if (is_null(self::$instance))
+            self::$instance = new self();
+        BasicEnum::check_val(self::$instance, $value, $msg);
+    }
+
+   /** @brief Outputs from response helper and sub-sequent child helpers are 
      * instances of helper classes. */
     const HELPERS = 0;
     /** @brief Outputs from response helper and sub-sequent child helpers are 

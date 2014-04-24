@@ -4,7 +4,16 @@ require_once 'COMMON/afs_tools.php';
 /** @brief List of built-ins sort parameters. */
 class AfsSortBuiltins extends BasicEnum
 {
-    /** @brief Number of the query words found in the document. */
+ 		private static $instance = null;
+
+    static public function check_value($value, $msg=null)
+    {
+        if (is_null(self::$instance))
+            self::$instance = new self();
+        BasicEnum::check_val(self::$instance, $value, $msg);
+    }
+
+   /** @brief Number of the query words found in the document. */
     const WORDS = 'afs:words';
     /** @brief Minimal distance between query words in the document. */
     const PATHLEN = 'afs:pathlen';

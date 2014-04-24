@@ -293,29 +293,15 @@ class TruncatedFilterNode extends FilterNode
  * You whould derive from this class to create your own pseudo enum. */
 abstract class BasicEnum {
 
-    private static function get_constants()
-    {
-        $reflect = new ReflectionClass(get_called_class());
-        return $reflect->getConstants();
-    }
-
-    /** @brief Checks whether provided variable name is valid.
-     * @param $name [in] variable name to test.
-     * @return @c True on valid name, @c false otherwise.
-     */
-    public static function is_valid_name($name)
-    {
-        $constants = self::get_constants();
-        return array_key_exists($name, $constants);
-    }
-
     /** @brief Checks whether provided variable value is valid.
      * @param $value [in] variable value to test.
      * @return @c True on valid value, @c false otherwise.
      */
-    public static function is_valid_value($value)
+    private static function is_valid_value($instance, $value)
     {
-        $values = array_values(self::get_constants());
+        $reflect = new ReflectionClass(get_class($instance));
+        $constants = $reflect->getConstants();
+        $values = array_values($constants);
         return in_array($value, $values, $strict=true);
     }
 
@@ -326,15 +312,14 @@ abstract class BasicEnum {
      *
      * @exception InvalidArgumentException when provided value is invalid.
      */
-    public static function check_value($value, $msg=null)
+    protected static function check_val($instance, $value, $msg=null)
     {
-        if (! self::is_valid_value($value)) {
+        if (! self::is_valid_value($instance, $value)) {
             if (is_null($msg)) {
                 $msg = 'Invalid value: ';
             }
             throw new InvalidArgumentException($msg . $value);
         }
-
     }
 }
 

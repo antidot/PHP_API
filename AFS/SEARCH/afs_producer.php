@@ -5,9 +5,18 @@ require_once "COMMON/afs_tools.php";
  *
  * Specifies which agent produces reply set.
  */
-abstract class AfsProducer extends BasicEnum
+class AfsProducer extends BasicEnum
 {
-  /** @brief Reply set result of check query. */
+	private static $instance = null;
+
+  static public function check_value($value, $msg=null)
+  {
+      if (is_null(self::$instance))
+          self::$instance = new self();
+      BasicEnum::check_val(self::$instance, $value, $msg);
+  }
+
+ /** @brief Reply set result of check query. */
   const CHECK = 'CHECK';
   /** @brief Reply set result of search agent. */
   const SEARCH = 'SEARCH';

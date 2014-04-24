@@ -4,7 +4,16 @@ require_once 'COMMON/afs_tools.php';
 /** @brief Facet values sort mode enumerator. */
 class AfsFacetValuesSortMode extends BasicEnum
 {
-    /** @brief Alphabetical sort order on facet value ids. */
+ 		private static $instance = null;
+
+    static public function check_value($value, $msg=null)
+    {
+        if (is_null(self::$instance))
+            self::$instance = new self();
+        BasicEnum::check_val(self::$instance, $value, $msg);
+    }
+
+   /** @brief Alphabetical sort order on facet value ids. */
     const ALPHA = 'alpha';
     /** @brief Numerical sort order on number of items per facet value. */
     const ITEMS = 'items';

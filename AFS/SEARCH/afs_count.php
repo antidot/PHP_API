@@ -5,8 +5,17 @@ require_once 'COMMON/afs_tools.php';
  *
  * Specify whether reply count should consider documents or clusters.
  */
-abstract class AfsCount extends BasicEnum
+class AfsCount extends BasicEnum
 {
+		private static $instance = null;
+
+    static public function check_value($value, $msg=null)
+    {
+        if (is_null(self::$instance))
+            self::$instance = new self();
+        BasicEnum::check_val(self::$instance, $value, $msg);
+    }
+
     /** @brief Count number of documents. */
     const DOCUMENTS = 'documents';
     /** @brief Count number of replies. */
