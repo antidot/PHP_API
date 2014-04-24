@@ -20,7 +20,7 @@ local_test:
 	then \
 		if [ "${TEST_DIR}" != "" ]; \
 		then \
-			phpunit --stop-on-failure --include-path $(ROOT_PATH) $(CURDIR) || exit 1; \
+			phpunit -d display_errors=1 -d display_startup_errors=1 -d error_reporting=-1 --stop-on-failure --include-path $(ROOT_PATH) $(CURDIR) || exit 1; \
 		fi; \
 	else \
 		echo 'You need phpunit installed on your computer to run unit tests'; \
@@ -47,7 +47,7 @@ test_coverage:
 	@if [ -f $(which phpunit) ]; \
 	then \
 			rm -rf $(ROOT_PATH)/coverage; \
-			phpunit --coverage-html=$(ROOT_PATH)/coverage --stop-on-failure --include-path $(ROOT_PATH) $(ROOT_PATH) || exit 1; \
+			phpunit -d display_errors=1 -d display_startup_errors=1 -d error_reporting=-1 --coverage-html=$(ROOT_PATH)/coverage --stop-on-failure --include-path $(ROOT_PATH) $(ROOT_PATH) || exit 1; \
 	else \
 		echo 'You need phpunit installed on your computer to run unit tests'; \
 	fi

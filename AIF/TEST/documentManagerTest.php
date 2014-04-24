@@ -29,7 +29,8 @@ class DocumentManagerTest extends PHPUnit_Framework_TestCase
         $mgr->add_document(new AfsDocument('baz'), 'bar');
         $this->assertTrue($mgr->has_document());
         $this->assertEquals(count($mgr->get_documents()), 1);
-        $filename = reset($mgr->get_documents())->get_filename();
+        $docs = $mgr->get_documents();
+        $filename = reset($docs)->get_filename();
         $this->assertEquals(file_get_contents($filename), 'baz');
     }
 

@@ -339,7 +339,8 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
         $concept_item = each($concept_items);
         $concept_item = $concept_item['value'];
         $this->assertEquals('mariage', $concept_item->get_text());
-        $item = each($concept_item->get_data());
+        $data = $concept_item->get_data();
+        $item = each($data);
         $this->assertEquals('foo', $item['value']);
         $this->assertEquals('lnf:taxo#QI-thm2009862', $item['key']);
     }

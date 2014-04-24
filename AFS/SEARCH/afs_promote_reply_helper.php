@@ -62,10 +62,11 @@ class AfsPromoteReplyHelper extends AfsBaseReplyHelper
         }
     }
 
-    private function extract_key_value_pairs($clientdata)
+    private function extract_key_value_pairs($clientData)
     {
         $result = array();
-        $doc = DOMDocument::loadXML($clientdata->get_value());
+        $doc = new DOMDocument();
+        $doc->loadXML($clientData->get_value());
         if ($doc->hasChildNodes() && $doc->childNodes->item(0)->hasChildNodes()) {
             foreach ($doc->childNodes->item(0)->childNodes as $node) {
                 $result[$node->localName] = $node->nodeValue;

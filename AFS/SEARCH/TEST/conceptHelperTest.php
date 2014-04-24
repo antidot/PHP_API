@@ -75,7 +75,8 @@ class ConceptHelperTest extends PHPUnit_Framework_TestCase
         $key_value = each($items);
         $this->assertEquals('mariage', $key_value['value']->get_text());
         $this->assertTrue($key_value['value']->has_concept());
-        $item = each($key_value['value']->get_data());
+        $data = $key_value['value']->get_data();
+        $item = each($data);
         $this->assertEquals('foo', $item['value']);
         $this->assertEquals('lnf:taxo#QI-thm2009862', $item['key']);
 
@@ -86,7 +87,8 @@ class ConceptHelperTest extends PHPUnit_Framework_TestCase
         $key_value = each($items);
         $this->assertEquals('divorce', $key_value['value']->get_text());
         $this->assertTrue($key_value['value']->has_concept());
-        $item = each($key_value['value']->get_data());
+        $data = $key_value['value']->get_data();
+        $item = each($data);
         $this->assertEquals('bar', $item['value']);
         $this->assertEquals('lnf:taxo#QI-thm1344998', $item['key']);
     }
@@ -150,7 +152,8 @@ class ConceptHelperTest extends PHPUnit_Framework_TestCase
         $key_value = each($items);
         $this->assertEquals('mariage', $key_value['value']->get_text());
         $this->assertTrue($key_value['value']->has_concept());
-        $item = each($key_value['value']->get_data());
+        $data = $key_value['value']->get_data();
+        $item = each($data);
         $this->assertEquals('foo', $item['value']);
         $this->assertEquals('lnf:taxo#QI-thm2009862', $item['key']);
     }
