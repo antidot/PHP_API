@@ -1,0 +1,14 @@
+language: php
+
+php:
+  - 5.3
+  - 5.2
+
+before_install:
+  - sudo apt-get update > /dev/null
+
+install:
+  # install php packages required for running a web server from drush on php 5.3
+  - sudo apt-get install -y --force-yes make
+
+script: make
