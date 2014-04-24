@@ -91,7 +91,7 @@ interface AfsClientDataHelperInterface
      *        appropriate formatter (default=null, default formatter is used).
      * @return first matching client data with specified name as text.
      */
-    public function get_value($name, $context, $formatter);
+    public function get_value($name=null, $context=array(), $formatter=null);
     /** @brief Retrieves client data as array of texts.
      *
      * All client data or sub-tree can be retrieved depending on @a name
@@ -104,7 +104,7 @@ interface AfsClientDataHelperInterface
      *        appropriate formatter (default=null, default formatter is used).
      * @return matching client data as array of texts.
      */
-    public function get_values($name, $context, $formatter);
+    public function get_values($name=null, $context=array(), $formatter=null);
 
     /** @brief Retrieve client data's mime type.
      *
@@ -213,13 +213,13 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
      * @exception AfsInvalidQueryException when provided XPath is invalid.
      * @exception AfsNoResultException when provided XPath returns no value/node.
      */
-    public function get_value($path=null, $nsmap=array(), $callbacks=array())
+    public function get_value($path=null, $nsmap=array(), $callbacks=null)
     {
         if (is_null($path)) {
             return $this->contents;
         } else {
             $items = $this->apply_xpath($path, $nsmap);
-            $named_callbacks = $this->update_callbacks($callbacks);
+            $named_callbacks = $this->update_callbacks(is_null($callbacks) ? array() : $callbacks);
             return DOMNodeHelper::get_text($items->item(0), $named_callbacks);
         }
     }
@@ -241,13 +241,13 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
      * @exception AfsInvalidQueryException when provided XPath is invalid.
      * @exception AfsNoResultException when provided XPath returns no value/node.
      */
-    public function get_values($path=null, $nsmap=array(), $callbacks=array())
+    public function get_values($path=null, $nsmap=array(), $callbacks=null)
     {
         if (is_null($path)) {
             return array($this->contents);
         } else {
             $items = $this->apply_xpath($path, $nsmap);
-            $named_callbacks = $this->update_callbacks($callbacks);
+            $named_callbacks = $this->update_callbacks(is_null($callbacks) ? array() : $callbacks);
             $result = array();
             foreach ($items as $item) {
                 $result[] = DOMNodeHelper::get_text($item, $named_callbacks);
