@@ -6,7 +6,7 @@ class DocumentTest extends PHPUnit_Framework_TestCase
     public function testXmlDocumentMimeType()
     {
         $doc = new AfsDocument('<?xml version="1.0" ?><root><foo/></root>');
-        $this->assertEquals($doc->get_mime_type(), 'application/xml');
+        $this->assertEquals('application/xml', $doc->get_mime_type());
     }
 
     public function testJsonDocumentMimeType()

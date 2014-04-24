@@ -33,6 +33,44 @@ class AfsDocument
             $this->set_content($data, $mime_type);
         }
     }
+		
+		private function set_mime_compat($file)
+		{
+						$this->mime_type = mime_content_type($file);
+						if ($this->mime_type === false) {
+										$fileMetaData = stream_get_meta_data($file);
+										$fileName = $fileMetaData['uri'];
+										$fileInfo = `file -iL $fileName 2>/dev/null`;
+										preg_match("/:([^;]*)/", $fileInfo, $mime);
+										$this->mime_type = trim($mime[1]);
+						}
+		}			
+
+    private function set_mime_from_filename($filename)
+    {
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+            $magic = new finfo(FILEINFO_MIME_TYPE);
+            $this->mime_type = $magic->file($filename);
+        } else {
+						$file = fopen($filename, "r");
+						$this->set_mime_compat($file);
+						fclose($file);
+        }
+    }
+
+    private function set_mime_from_string($data)
+    {
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+            $magic = new finfo(FILEINFO_MIME_TYPE);
+            $this->mime_type = $magic->buffer(substr($data, 0, 2048));
+        } else {
+            $temp = tmpfile();
+            fwrite($temp, $data, 2048);
+            fseek($temp, 0);
+						$this->set_mime_compat($temp);
+		        fclose($temp);
+        }
+    }
 
     /** @brief Define document content and mime-type.
      *
@@ -51,8 +89,7 @@ class AfsDocument
         }
         $this->data = $data;
         if (is_null($mime_type)) {
-            $magic = new finfo(FILEINFO_MIME_TYPE);
-            $this->mime_type = $magic->buffer(substr($data, 0, 2048));
+            $this->set_mime_from_string($data);
         } else {
             $this->mime_type = $mime_type;
         }
@@ -74,8 +111,7 @@ class AfsDocument
                 . 'unexisting file: ' . $filename);
         }
         if (is_null($mime_type)) {
-            $magic = new finfo(FILEINFO_MIME_TYPE);
-            $this->mime_type = $magic->file($filename);
+            $this->set_mime_from_filename($filename);
         } else {
             $this->mime_type = $mime_type;
         }
