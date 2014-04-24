@@ -13,4 +13,6 @@ install:
   # install php packages required for running a web server from drush on php 5.3
   - sudo apt-get install -y --force-yes make
 
+before_script: pecl install Fileinfo
+
 script: make
