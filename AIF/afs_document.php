@@ -34,6 +34,30 @@ class AfsDocument
         }
     }
 
+    private function set_mime_from_file($file)
+    {
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+            $magic = new finfo(FILEINFO_MIME_TYPE);
+            $this->mime_type = $magic->file($file);
+        } else {
+            $this->mime_type = mime_content_type($file);
+        }
+    }
+
+    private function set_mime_from_string($data)
+    {
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+            $magic = new finfo(FILEINFO_MIME_TYPE);
+            $this->mime_type = $magic->buffer(substr($data, 0, 2048));
+        } else {
+            $temp = tmpfile();
+            fwrite($temp, $data, 2048);
+            fseek($temp, 0);
+            $this->mime_type = mime_content_type($temp);
+            fclose($temp);
+        }
+    }
+
     /** @brief Define document content and mime-type.
      *
      * @param $data [in] new document content.
@@ -51,12 +75,7 @@ class AfsDocument
         }
         $this->data = $data;
         if (is_null($mime_type)) {
-            if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-                $magic = new finfo(FILEINFO_MIME_TYPE);
-                $this->mime_type = $magic->buffer(substr($data, 0, 2048));
-            } else {
-                $magic = mime_content_type($data);
-            }
+            $this->set_mime_from_string($data);
         } else {
             $this->mime_type = $mime_type;
         }
@@ -78,8 +97,7 @@ class AfsDocument
                 . 'unexisting file: ' . $filename);
         }
         if (is_null($mime_type)) {
-            $magic = new finfo(FILEINFO_MIME_TYPE);
-            $this->mime_type = $magic->file($filename);
+            $this->set_mime_from_file($filename);
         } else {
             $this->mime_type = $mime_type;
         }
