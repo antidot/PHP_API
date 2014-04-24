@@ -51,11 +51,11 @@ class AfsDocument
         }
         $this->data = $data;
         if (is_null($mime_type)) {
-            if(phpversion('tidy') == '5.2') {
-                $magic = mime_content_type($data);
-            } else {
+            if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
                 $magic = new finfo(FILEINFO_MIME_TYPE);
                 $this->mime_type = $magic->buffer(substr($data, 0, 2048));
+            } else {
+                $magic = mime_content_type($data);
             }
         } else {
             $this->mime_type = $mime_type;
