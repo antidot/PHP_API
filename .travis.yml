@@ -11,9 +11,9 @@ before_install:
 
 install:
   - sudo apt-get install -y --force-yes make php5-dev php-pear libmagic-dev 
-	- pecl install fileinfo
- 	- sudo echo "extension=fileinfo.so" > /etc/php5/fileinfo.ini
-	- sudo apachectl restart
+  - pecl install fileinfo
+  - sudo echo "extension=fileinfo.so" > /etc/php5/fileinfo.ini
+  - sudo apachectl restart
 
 
 
