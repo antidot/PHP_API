@@ -5,7 +5,7 @@ php:
   - 5.4
   - 5.3
   - 5.2
-	- hhvm
+  - hhvm
 
 before_install:
   - sudo apt-get update > /dev/null
