@@ -10,8 +10,6 @@ before_install:
   - sudo apt-get update > /dev/null
 
 install:
-  - sudo apt-get install -y --force-yes make php5-dev php-pear libmagic-dev 
-  - pecl install fileinfo
-  - echo "extension=fileinfo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sudo apt-get install -y --force-yes make
 
 script: make
