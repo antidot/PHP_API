@@ -1034,6 +1034,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('optional', $parameters['ftsDefault']);
         try {
             $query->set_fts_default('InvalidValu3');
+            $this->fail();
         } catch (InvalidArgumentException $e) {
             $this->assertTrue(true);
         }
