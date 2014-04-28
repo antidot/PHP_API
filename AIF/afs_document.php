@@ -27,24 +27,24 @@ class AfsDocument
      *
      * @exception InvalidArgumentException when data is not a string.
      */
-    public function __construct($data=null, $mime_type=null)
+    public function __construct($data = null, $mime_type = null)
     {
-        if (! is_null($data)) {
+        if (!is_null($data)) {
             $this->set_content($data, $mime_type);
         }
     }
-		
-		private function set_mime_compat($file)
-		{
-						$this->mime_type = mime_content_type($file);
-						if ($this->mime_type === false) {
-										$fileMetaData = stream_get_meta_data($file);
-										$fileName = $fileMetaData['uri'];
-										$fileInfo = `file -iL $fileName 2>/dev/null`;
-										preg_match("/:([^;]*)/", $fileInfo, $mime);
-										$this->mime_type = trim($mime[1]);
-						}
-		}			
+
+    private function set_mime_compat($file)
+    {
+        $this->mime_type = mime_content_type($file);
+        if ($this->mime_type === false) {
+            $fileMetaData = stream_get_meta_data($file);
+            $fileName = $fileMetaData['uri'];
+            $fileInfo = `file -iL $fileName 2>/dev/null`;
+            preg_match("/:([^;]*)/", $fileInfo, $mime);
+            $this->mime_type = trim($mime[1]);
+        }
+    }
 
     private function set_mime_from_filename($filename)
     {
@@ -52,9 +52,9 @@ class AfsDocument
             $magic = new finfo(FILEINFO_MIME_TYPE);
             $this->mime_type = $magic->file($filename);
         } else {
-						$file = fopen($filename, "r");
-						$this->set_mime_compat($file);
-						fclose($file);
+            $file = fopen($filename, "r");
+            $this->set_mime_compat($file);
+            fclose($file);
         }
     }
 
@@ -67,8 +67,8 @@ class AfsDocument
             $temp = tmpfile();
             fwrite($temp, $data, 2048);
             fseek($temp, 0);
-						$this->set_mime_compat($temp);
-		        fclose($temp);
+            $this->set_mime_compat($temp);
+            fclose($temp);
         }
     }
 
@@ -80,10 +80,10 @@ class AfsDocument
      *
      * @exception InvalidArgumentException when data is not a string.
      */
-    public function set_content($data, $mime_type=null)
+    public function set_content($data, $mime_type = null)
     {
         $this->clean_up();
-        if (! is_string($data)) {
+        if (!is_string($data)) {
             throw new InvalidArgumentException('Provided data is not of string type: '
                 . gettype($data));
         }
@@ -103,10 +103,10 @@ class AfsDocument
      *
      * @exception RuntimeException when provided @a filename does not exist.
      */
-    public function set_content_from_file($filename, $mime_type=null)
+    public function set_content_from_file($filename, $mime_type = null)
     {
         $this->clean_up();
-        if (! file_exists($filename)) {
+        if (!file_exists($filename)) {
             throw new RuntimeException('Cannot define document using '
                 . 'unexisting file: ' . $filename);
         }
@@ -123,7 +123,7 @@ class AfsDocument
      */
     public function is_valid()
     {
-        return ! is_null($this->data) || ! is_null($this->filename);
+        return !is_null($this->data) || !is_null($this->filename);
     }
 
     /** @brief Retrieve document filename.
@@ -165,7 +165,7 @@ class AfsDocument
     {
         $this->data = null;
         $this->filename = null;
-        if (! is_null($this->temp_file)) {
+        if (!is_null($this->temp_file)) {
             fclose($this->temp_file);
             $this->temp_file = null;
         }
