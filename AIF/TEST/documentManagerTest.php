@@ -30,7 +30,8 @@ class DocumentManagerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($mgr->has_document());
         $this->assertEquals(count($mgr->get_documents()), 1);
         $docs = $mgr->get_documents();
-        $filename = reset($docs)->get_filename();
+				$doc = reset($docs);
+        $filename = $doc->get_filename();
         $this->assertEquals(file_get_contents($filename), 'baz');
     }
 
