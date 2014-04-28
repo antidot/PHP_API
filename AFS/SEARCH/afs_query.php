@@ -7,6 +7,7 @@ require_once 'AFS/SEARCH/afs_cluster_exception.php';
 require_once 'AFS/SEARCH/afs_count.php';
 require_once 'AFS/SEARCH/afs_facet_manager.php';
 require_once 'AFS/SEARCH/afs_facet_default.php';
+require_once 'AFS/SEARCH/afs_fts_mode.php';
 
 /** @brief Represent an AFS query.
  *
@@ -41,6 +42,8 @@ class AfsQuery extends AfsQueryBase
     protected $overspill = null;
     protected $count = null;      // afs:count for cluster mode
     protected $advancedFilter = array();  // exposed only to AFS search engine
+    protected $ftsDefault = null;   // afs:ftsDefault
+    protected $clientData = array();   // afs:clientData
 
     /**
      * @brief Construct new AFS query object.
@@ -62,6 +65,8 @@ class AfsQuery extends AfsQueryBase
             $this->overspill = $afs_query->overspill;
             $this->count = $afs_query->count;
             $this->advancedFilter = $afs_query->advancedFilter;
+            $this->ftsDefault = $afs_query->ftsDefault;
+            $this->clientData = $afs_query->clientData;
         } else {
             $this->facet_mgr = new AfsFacetManager();
             $this->lang = new AfsLanguage(null);
@@ -667,7 +672,7 @@ class AfsQuery extends AfsQueryBase
 
     protected function get_relevant_parameters()
     {
-        $params = array('filter', 'sort', 'cluster', 'maxClusters', 'overspill', 'count');
+        $params = array('filter', 'sort', 'cluster', 'maxClusters', 'overspill', 'count', 'ftsDefault', 'clientData');
         if ($this->page != 1)
             $params[] = 'page';
         if (! is_null($this->lang->lang))
@@ -823,6 +828,40 @@ class AfsQuery extends AfsQueryBase
         $copy = $this->copy();
         $copy->facet_mgr->set_facets_mode(AfsFacetMode::SINGLE_MODE, $args);
         return $copy;
+    }
+    /** @brief Defines Full Text Search mode
+     *
+     *
+     * @param $ftsDefault Full Text Search mode
+     */
+    public function set_fts_default($ftsDefault)
+    {
+        AfsFtsMode::check_value($ftsDefault, "Invalid Full Text Search mode: ");
+        $this->ftsDefault = $ftsDefault;
+    }
+    /** @brief Defines id or array of ids of client data to retrieve
+     * This method overwrite any id set before
+     * @param $id id or array of ids of client data
+     */
+    public function set_client_data($id)
+    {
+        if (is_array($id)) {
+            $this->clientData = $id;
+        } else {
+            $this->clientData = array($id);
+        }
+    }
+    /**
+     * @brief Adds id or array of ids of client data to retrieve
+     * @param $id id or array of ids of client data
+     */
+    public function add_client_data($id)
+    {
+        if (is_array($id)) {
+            $this->clientData = array_merge($this->clientData, $id);
+        } else {
+            array_push($this->clientData, $id);
+        }
     }
     /** @} */
 }
