@@ -1,6 +1,7 @@
 {
     "name": "antidot/php_api",
     "description": "This API allows you to simplify integration of Antidot products.",
+    "license" : "LGPL",
     "require": {
         "php": ">=5.3.0"
     }
