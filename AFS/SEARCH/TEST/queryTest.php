@@ -1022,6 +1022,55 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->set_facet_order(array('foo', 'bar'), AfsFacetOrder::STRICT);
         $this->assertTrue($query->get_facet_manager()->is_facet_order_strict());
     }
+
+    public function testFtsDefault()
+    {
+        $query = new AfsQuery();
+        $query->set_fts_default(AfsFtsMode::MANDATORY);
+        $parameters = $query->get_parameters();
+        $this->assertEquals('mandatory', $parameters['ftsDefault']);
+        $query->set_fts_default(AfsFtsMode::OPTIONAL);
+        $parameters = $query->get_parameters();
+        $this->assertEquals('optional', $parameters['ftsDefault']);
+        try {
+            $query->set_fts_default('InvalidValu3');
+        } catch (InvalidArgumentException $e) {
+            $this->assertTrue(true);
+        }
+    }
+
+    public function testSetClientData()
+    {
+        $query = new AfsQuery();
+        $ids = array(1,2,3);
+        $query->set_client_data($ids);
+        $parameters = $query->get_parameters();
+        $clientData = $parameters['clientData'];
+        $this->assertEquals(3, count($clientData));
+        foreach ($ids as $id) {
+            $this->assertTrue(in_array($id, $clientData));
+        }
+        $query->set_client_data(4);
+        $parameters = $query->get_parameters();
+        $clientData = $parameters['clientData'];
+        $this->assertEquals(1, count($clientData));
+        $this->assertTrue(in_array(4, $clientData));
+    }
+
+    public function testAddClientData()
+    {
+        $query = new AfsQuery();
+        $ids = array(1,2,3);
+        $id = 4;
+        $query->add_client_data($id);
+        $query->add_client_data($ids);
+        $parameters = $query->get_parameters();
+        $clientData = $parameters['clientData'];
+        $this->assertEquals(4, count($clientData));
+        for ($i=1 ; $i <= 4 ; $i++) {
+            $this->assertTrue(in_array($i, $clientData));
+        }
+    }
 }
 
 

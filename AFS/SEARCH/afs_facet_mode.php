@@ -8,7 +8,7 @@ require_once 'COMMON/afs_tools.php';
  */
 class AfsFacetMode extends BasicEnum
 {
- 		private static $instance = null;
+    private static $instance = null;
 
     static public function check_value($value, $msg=null)
     {
