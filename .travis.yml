@@ -10,9 +10,8 @@ before_install:
   - sudo apt-get update > /dev/null
 
 install:
-  # install php packages required for running a web server from drush on php 5.3
-  - sudo apt-get install -y --force-yes make php5-dev 
-
-before_script: pecl install Fileinfo
+  - sudo apt-get install -y --force-yes make php5-dev php-pear libmagic-dev 
+  - pecl install fileinfo
+  - echo "extension=fileinfo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script: make
