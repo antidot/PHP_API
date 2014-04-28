@@ -1,0 +1,7 @@
+{
+    "name": "antidot/PHP_API",
+    "description": "This API allows you to simplify integration of Antidot products.",
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
