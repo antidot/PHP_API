@@ -28,15 +28,32 @@ class AfsFacet
      *        (default: UNSPECIFIED_MODE).
      *
      * @exception InvalidArgumentException invalid parameter value provided for
-     *            @a type, @a layout or @a mode parameter.
+     *            @a id, @a type, @a layout or @a mode parameter.
      */
     public function __construct($id, $type=AfsFacetType::UNKNOWN_TYPE,
         $layout=AfsFacetLayout::TREE, $mode=AfsFacetMode::UNSPECIFIED_MODE)
     {
+        $this->validate_id($id);
         $this->set_type($type);
         $this->id = $id;
         $this->layout = $layout;
         $this->set_mode($mode);
+    }
+
+    /** @brief Validates facet identifier against official regex.
+     * @param $id [in] identifier to validate.
+     * @exception InvalidArgumentException when identifier doesn't validate.
+     * @exception Exception when bad internal error occures.
+     */
+    private function validate_id($id)
+    {
+        $id_pattern = '/^[a-zA-Z][a-zA-Z0-9_:]*$/';
+        $result = preg_match($id_pattern, $id);
+        if (0 == $result) {
+            throw new InvalidArgumentException('Provided facet id(' . $id . ') doesn\'t conform pattern: ' . $id_pattern);
+        } elseif (FALSE === $result) {
+            throw new Exception('Please contact Antidot support for this PHP API!');
+        }
     }
 
     /** @brief Retrieves facet id.

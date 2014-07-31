@@ -15,6 +15,27 @@ class FacetTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($facet->has_single_mode());
     }
 
+    public function testFailOnBadIdentifier()
+    {
+        try {
+            $facet = new AfsFacet(NULL);
+            $this->fail('Should have failed on invalid identifier');
+        } catch (InvalidArgumentException $e) { }
+        try {
+            $facet = new AfsFacet('');
+            $this->fail('Should have failed on invalid identifier');
+        } catch (InvalidArgumentException $e) { }
+        try {
+            $facet = new AfsFacet('4foo');
+            $this->fail('Should have failed on invalid identifier');
+        } catch (InvalidArgumentException $e) { }
+        try {
+            $facet = new AfsFacet('foo bar');
+            $this->fail('Should have failed on invalid identifier');
+        } catch (InvalidArgumentException $e) { }
+
+    }
+
     public function testFailOnBadTypeValue()
     {
         try {
