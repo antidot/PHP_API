@@ -1078,9 +1078,9 @@ class QueryTest extends PHPUnit_Framework_TestCase
 
         // test default parameters
         $query = $query->set_geoDist_filter(45.5, 5.2);
-        $functionalFilter = PHPUnit_Framework_Assert::readAttribute($query, 'functionalFilter');
-        $expectedFunctionalFilter = array("geo:dist" => array( "params" => array(45.5, 5.2, "geo:lat", "geo:long")));
-        $this->assertTrue($expectedFunctionalFilter == $functionalFilter);
+        $advancedFilter = PHPUnit_Framework_Assert::readAttribute($query, "advancedFilter");
+        $expectedAdvancedFilter = array("geo:dist(45.5,5.2,geo:lat,geo:long)<0");
+        $this->assertTrue($expectedAdvancedFilter == $advancedFilter);
     }
 
     public function testSetGeoDistFilterFullParameters()
@@ -1089,9 +1089,56 @@ class QueryTest extends PHPUnit_Framework_TestCase
 
         // test full parameters call
         $query = $query->set_geoDist_filter(45.5, 5.2, 1000, 'MyLat', 'MyLong');
-        $functionalFilter = PHPUnit_Framework_Assert::readAttribute($query, 'functionalFilter');
-        $expectedFunctionalFilter = array("geo:dist" => array("params" => array(45.5, 5.2, "MyLat", "MyLong"), "operator" => "<", "operand" => 1000));
-        $this->assertTrue($expectedFunctionalFilter == $functionalFilter);
+        $advancedFilter = PHPUnit_Framework_Assert::readAttribute($query, 'advancedFilter');
+        $expectedAdvancedFilter = array("geo:dist(45.5,5.2,MyLat,MyLong)<1000");
+        $this->assertTrue($expectedAdvancedFilter == $advancedFilter);
+    }
+
+    public function testSetMultipleGeoDistFilters() {
+        $query = new AfsQuery();
+
+        // test full parameters call
+        $query = $query->set_geoDist_filter(45.5, 5.2, 1);
+        $query = $query->add_geoDist_filter(45, 5.2, 10);
+        $query = $query->add_geoDist_filter(45.5, 5, 10000);
+        $query = $query->add_geoDist_filter(43, 5.2, 2000);
+
+        $advancedFilter = PHPUnit_Framework_Assert::readAttribute($query, 'advancedFilter');
+        $expectedAdvancedFilter = array("geo:dist(45.5,5.2,geo:lat,geo:long)<1",
+                                        "geo:dist(45,5.2,geo:lat,geo:long)<10",
+                                        "geo:dist(45.5,5,geo:lat,geo:long)<10000",
+                                        "geo:dist(43,5.2,geo:lat,geo:long)<2000");
+        $this->assertTrue($expectedAdvancedFilter == $advancedFilter);
+    }
+
+    public function testSetGeoDistMustEraseExistingsOnes() {
+        $query = new AfsQuery();
+
+        // test full parameters call
+        $query = $query->set_geoDist_filter(45.5, 5.2, 1);
+        $query = $query->add_geoDist_filter(45, 5.2, 10);
+        $query = $query->add_geoDist_filter(45.5, 5, 10000);
+        $query = $query->set_geoDist_filter(43, 5.2, 2000);
+
+        $advancedFilter = PHPUnit_Framework_Assert::readAttribute($query, 'advancedFilter');
+        $expectedAdvancedFilter = array("geo:dist(43,5.2,geo:lat,geo:long)<2000");
+        $this->assertTrue($expectedAdvancedFilter == $advancedFilter);
+    }
+
+    public function testSetGeoDistMusntEraseOthersAdvFilters() {
+        $query = new AfsQuery();
+
+        // test full parameters call
+        $query = $query->set_geoDist_filter(45.5, 5.2, 1);
+        $query = $query->add_geoDist_filter(45, 5.2, 10);
+        $query = $query->add_geoDist_filter(45.5, 5, 10000);
+
+        $query = $query->add_advanced_filter(filter("FOO")->less->value(42));
+
+        $query = $query->set_geoDist_filter(43, 5.2, 2000);
+
+        $advancedFilter = PHPUnit_Framework_Assert::readAttribute($query, 'advancedFilter');
+        $this->assertTrue(in_array("FOO<42", $advancedFilter));
     }
 }
 
