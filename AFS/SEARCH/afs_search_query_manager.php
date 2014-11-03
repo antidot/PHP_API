@@ -107,7 +107,7 @@ class AfsSearchQueryManager
                 foreach ($values as $facet => $ids)
                     $this->fill_in_filter($params, $this->format_filter($query, $facet, $ids));
             } elseif ($param == 'sort') {
-                if (! empty($values)) {
+                if (!empty($values)) {
                     foreach ($values as $name => $order) {
                         $params['afs:sort'][] = $this->format_sort($name, $order);
                     }
@@ -115,6 +115,15 @@ class AfsSearchQueryManager
             } elseif ($param == 'advancedFilter') {
                 foreach ($values as $value)
                     $this->fill_in_filter($params, $value);
+            } elseif ($param == 'functionalFilter') {
+                foreach ($values as $functionName => $functionParams) {
+                    if (! array_key_exists('afs:filter', $params))
+                        $params['afs:filter'] = array();
+                    if ( array_key_exists('operator', $functionParams) && array_key_exists('operand', $functionParams))
+                        $params['afs:filter'][] = $functionName.'('.implode(",", $functionParams["params"]).')'.$functionParams["operator"].$functionParams["operand"];
+                    else
+                        $params['afs:filter'][] = $functionName.'('.implode(",", $functionParams["params"]).')';
+                }
             } else {
                 $params['afs:' . $param] = $values;
             }
