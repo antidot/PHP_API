@@ -119,10 +119,7 @@ class AfsSearchQueryManager
                 foreach ($values as $functionName => $functionParams) {
                     if (! array_key_exists('afs:filter', $params))
                         $params['afs:filter'] = array();
-                    if ( array_key_exists('operator', $functionParams) && array_key_exists('operand', $functionParams))
-                        $params['afs:filter'][] = $functionName.'('.implode(",", $functionParams["params"]).')'.$functionParams["operator"].$functionParams["operand"];
-                    else
-                        $params['afs:filter'][] = $functionName.'('.implode(",", $functionParams["params"]).')';
+                    $params['afs:filter'][] = $functionName.'('.implode(",", $functionParams).')';
                 }
             } else {
                 $params['afs:' . $param] = $values;
