@@ -1072,6 +1072,27 @@ class QueryTest extends PHPUnit_Framework_TestCase
             $this->assertTrue(in_array($i, $clientData));
         }
     }
+
+    public function testSetGeoDistFilterDefaultParameters() {
+        $query = new AfsQuery();
+
+        // test default parameters
+        $query = $query->set_geoDist_filter(45.5, 5.2);
+        $functionalFilter = PHPUnit_Framework_Assert::readAttribute($query, 'functionalFilter');
+        $expectedFunctionalFilter = array("geo:dist" => array( "params" => array(45.5, 5.2, "geo:lat", "geo:long")));
+        $this->assertTrue($expectedFunctionalFilter == $functionalFilter);
+    }
+
+    public function testSetGeoDistFilterFullParameters()
+    {
+        $query = new AfsQuery();
+
+        // test full parameters call
+        $query = $query->set_geoDist_filter(45.5, 5.2, 1000, 'MyLat', 'MyLong');
+        $functionalFilter = PHPUnit_Framework_Assert::readAttribute($query, 'functionalFilter');
+        $expectedFunctionalFilter = array("geo:dist" => array("params" => array(45.5, 5.2, "MyLat", "MyLong"), "operator" => "<", "operand" => 1000));
+        $this->assertTrue($expectedFunctionalFilter == $functionalFilter);
+    }
 }
 
 

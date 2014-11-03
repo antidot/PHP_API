@@ -32,7 +32,8 @@ class AfsQuery extends AfsQueryBase
 {
     protected $facet_mgr = null;
 
-    protected $filter = array();  // afs:filter
+    protected $filter = array();  // afs:filter, filter on facets ids
+    protected $functionalFilter = array(); // afs:filter, use native functions (geo:dist, vfts, ...)
     protected $page = 1;          // afs:page
     protected $lang = null;       // afs:lang
     protected $sort = array();    // afs:sort
@@ -110,6 +111,24 @@ class AfsQuery extends AfsQueryBase
         $copy->filter[$facet_id] = $values;
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
+
+    /**
+     * @brief Assign new value(s) to specific native function to filter on, replacing any existing one
+     * @param $functionName to filter on
+     * @param $functionParams parameters to function to filter on
+     * @param null $operator optional operator to filter function results
+     * @param null $operand optional operand to filter function results
+     * @return New up to date instance
+     */
+    private function set_functional_filter($functionName, $functionParams, $operator='', $operand=null) {
+        $copy = $this->copy();
+        if ($operator != '' && $operand != null)
+            $copy->functionalFilter[$functionName] = array( "params" => $functionParams, "operator" => $operator, "operand" => $operand);
+        else
+            $copy->functionalFilter[$functionName] = array( "params" => $functionParams);
+        return $copy;
+    }
+
     /** @brief Assign new value(s) to specific facet.
      * @param $facet_id [in] id of the facet for which new @a value should be
      *        added.
@@ -127,6 +146,7 @@ class AfsQuery extends AfsQueryBase
         $copy->filter[$facet_id] = array_merge($copy->filter[$facet_id], $values);
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
+
     /** @brief Remove existing value from specific facet.
      * @remark No error is reported when the removed @a value is not already set.
      * @param $facet_id [in] id of the facet to update.
@@ -146,6 +166,23 @@ class AfsQuery extends AfsQueryBase
         }
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
+
+    private function remove_functional_filter($functionName) {
+
+    }
+
+    /** @brief set a filter on geolocation, using a center point and a range
+     * @param real $lat latitude of the center point
+     * @param real $lon longitude of the center point
+     * @param int $range range used to filter
+     * @param string $lat_facet_id the facet id where the latitudes are stored
+     * @param string $lon_facet_id the facet id where the longitudes are stored
+     * @return New up to date instance
+     */
+    public function set_geoDist_filter($lat, $lon, $range=0, $lat_facet_id='geo:lat', $lon_facet_id='geo:long') {
+        return $this->set_functional_filter('geo:dist', array($lat, $lon, $lat_facet_id, $lon_facet_id), '<', $range);
+    }
+
     /** @brief Check whether instance has a @a value associated with specified
      * facet id.
      * @param $facet_id [in] id of the facet to check.
@@ -672,7 +709,7 @@ class AfsQuery extends AfsQueryBase
 
     protected function get_relevant_parameters()
     {
-        $params = array('filter', 'sort', 'cluster', 'maxClusters', 'overspill', 'count', 'ftsDefault', 'clientData');
+        $params = array('filter', 'functionalFilter', 'sort', 'cluster', 'maxClusters', 'overspill', 'count', 'ftsDefault', 'clientData');
         if ($this->page != 1)
             $params[] = 'page';
         if (! is_null($this->lang->lang))
