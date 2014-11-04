@@ -115,11 +115,11 @@ class AfsSearchQueryManager
             } elseif ($param == 'advancedFilter') {
                 foreach ($values as $value)
                     $this->fill_in_filter($params, $value);
-            } elseif ($param == 'functionalFilter') {
-                foreach ($values as $functionName => $functionParams) {
-                    if (! array_key_exists('afs:filter', $params))
+            } elseif ($param == 'nativeFunctionFilter') {
+                foreach ($values as $value) {
+                    if (! array_key_exists('afs:filter', $value))
                         $params['afs:filter'] = array();
-                    $params['afs:filter'][] = $functionName.'('.implode(",", $functionParams).')';
+                    $params['afs:filter'][] = $value;
                 }
             } else {
                 $params['afs:' . $param] = $values;

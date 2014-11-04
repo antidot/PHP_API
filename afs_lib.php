@@ -15,3 +15,4 @@ require_once 'AFS/SEARCH/afs_search.php';
 require_once 'AFS/SEARCH/FILTER/afs_filter.php';
 
 require_once 'AFS/ACP/afs_acp.php';
+
