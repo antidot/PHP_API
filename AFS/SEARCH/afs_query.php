@@ -33,6 +33,7 @@ class AfsQuery extends AfsQueryBase
     protected $facet_mgr = null;
 
     protected $filter = array();  // afs:filter, filter on facets ids
+    protected $nativeFunctionFilter = array(); // use native search engine function such as geo:dist, vfst ...
     protected $page = 1;          // afs:page
     protected $lang = null;       // afs:lang
     protected $sort = array();    // afs:sort
@@ -67,6 +68,7 @@ class AfsQuery extends AfsQueryBase
             $this->advancedFilter = $afs_query->advancedFilter;
             $this->ftsDefault = $afs_query->ftsDefault;
             $this->clientData = $afs_query->clientData;
+            $this->nativeFunctionFilter = $afs_query->nativeFunctionFilter;
         } else {
             $this->facet_mgr = new AfsFacetManager();
             $this->lang = new AfsLanguage(null);
@@ -90,6 +92,29 @@ class AfsQuery extends AfsQueryBase
     protected function on_assignment()
     {
         $this->reset_page();
+    }
+
+    private function set_native_function_filter(AfsFilterWrapper $filter) {
+        $copy = $this->copy();
+        $copy->nativeFunctionFilter = array($filter->to_string());
+        return $copy;
+    }
+
+    private function remove_native_function_filter($native_function) {
+        $copy = $this->copy();
+
+        // removed existing geo:dist filter
+        $removed = false;
+        $cpt = 0;
+        while (! $removed && $cpt < count($copy->nativeFunctionFilter)) {
+            if (substr($copy->nativeFunctionFilter[$cpt], 0, count($native_function)) == $native_function) {
+                unset($copy->nativeFunctionFilter[$cpt]);
+                $removed = true;
+            } else {
+                $cpt++;
+            }
+        }
+        return $copy;
     }
 
 
@@ -150,7 +175,7 @@ class AfsQuery extends AfsQueryBase
     }
 
      /**
-      * @brief set a new geolocation filter (replacing any existing one) using a center point and a range.
+      * @brief set a new geolocation filter (replacing existing one) using a center point and a range.
       * @param $lat the center point latitude
       * @param $lon the center point longitude
       * @param int $range the range used to filter
@@ -158,30 +183,25 @@ class AfsQuery extends AfsQueryBase
       * @param string $lon_facet_id the facet id used to compare longitude
       * @return new up to date instance
       */
-    public function set_geoDist_filter($lat, $lon, $range=0, $lat_facet_id='geo:lat', $lon_facet_id='geo:long') {
-        // remove all existing geo:dist filters
-        foreach ($this->advancedFilter as $key => $value) {
-            if (substr($value, 0, 8) == 'geo:dist') {
-                unset($this->advancedFilter[$key]);
-                var_dump($this->advancedFilter);
-            }
-        }
+    public function set_geoDist_filter($lat, $lon, $range, $lat_facet_id='geo:lat', $lon_facet_id='geo:long') {
+        // remove existing geoDist filter
+        $copy = $this->remove_native_function_filter(AfsNativeFunction::Geo_dist);
 
-        return $this->add_advanced_filter(filter('geo:dist('.$lat.','.$lon.','.$lat_facet_id.','.$lon_facet_id.')')->less->value($range));
+        // create the filter
+        $filter = native_function_filter(AfsNativeFunction::Geo_dist, array($lat,$lon,$lat_facet_id,$lon_facet_id));
+        // add operator and operand
+        $filter = $filter->less->value($range);
+        // set the new filter
+        return $copy->set_native_function_filter($filter);
     }
 
     /**
-     * @brief add a new geolocation filter using a center point and a range.
-     * @param $lat the center point latitude
-     * @param $lon the center point longitude
-     * @param int $range the range used to filter
-     * @param string $lat_facet_id the facet id used to compare latitudes
-     * @param string $lon_facet_id the facet id used to compare longitude
+     * @brief remove geolocation filter if exists
      * @return new up to date instance
      */
-     public function add_geoDist_filter($lat, $lon, $range=0, $lat_facet_id='geo:lat', $lon_facet_id='geo:long') {
-         return $this->add_advanced_filter(filter('geo:dist('.$lat.','.$lon.','.$lat_facet_id.','.$lon_facet_id.')')->less->value($range));
-     }
+    public function remove_geoDist_filter() {
+       return $this->remove_native_function_filter(AfsNativeFunction::Geo_dist);
+    }
 
     /** @brief Check whether instance has a @a value associated with specified
      * facet id.
@@ -719,7 +739,7 @@ class AfsQuery extends AfsQueryBase
 
     protected function get_additional_parameters()
     {
-        return array('facetDefault', 'advancedFilter');
+        return array('facetDefault', 'advancedFilter', 'nativeFunctionFilter');
     }
     /**  @} */
 
