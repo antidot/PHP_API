@@ -1105,21 +1105,25 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($expectedNativeFunctionFilter == $functionFilter);
     }
 
-    public function testSetGeoDistMusntEraseOthersFilters() {
+    public function testSetGeoDistMusntEraseOthersFilters()
+    {
         $query = new AfsQuery();
 
         $query = $query->set_advanced_filter(filter("FOO")->less->value(42));
         $query = $query->set_filter('foo', 'bar');
         $query = $query->set_geoDist_filter(43, 5.2, 2000);
 
-        $expectedNativeFunctionFilter = PHPUnit_Framework_Assert::readAttribute($query, 'advancedFilter');
+        $advancedFilter = PHPUnit_Framework_Assert::readAttribute($query, 'advancedFilter');
+        $functionFilter = PHPUnit_Framework_Assert::readAttribute($query, 'nativeFunctionFilter');
+        $expectedFunctionFilter = array("geo:dist(43,5.2,geo:lat,geo:long)<2000");
         $filter = PHPUnit_Framework_Assert::readAttribute($query, 'filter');
 
         // check in query object
-        $this->assertTrue(in_array('FOO<42', $expectedNativeFunctionFilter));
+        $this->assertTrue(in_array('FOO<42', $advancedFilter));
         $this->assertTrue(array_key_exists('foo', $filter));
         $this->assertTrue($filter['foo'] == array('bar'));
-        $this->assertTrue($expectedAdvancedFilter == $functionFilter);
+        $this->assertTrue($expectedFunctionFilter == $functionFilter);
+    }
 }
 
 
