@@ -37,6 +37,7 @@ class AfsQuery extends AfsQueryBase
     protected $page = 1;          // afs:page
     protected $lang = null;       // afs:lang
     protected $sort = array();    // afs:sort
+    protected $nativeFunctionSort = array();
     protected $facetDefault = null; // afs:facetDefault
     protected $cluster = null;
     protected $maxClusters = null;
@@ -109,6 +110,29 @@ class AfsQuery extends AfsQueryBase
         while (! $removed && $cpt < count($copy->nativeFunctionFilter)) {
             if (substr($copy->nativeFunctionFilter[$cpt], 0, count($native_function)) == $native_function) {
                 unset($copy->nativeFunctionFilter[$cpt]);
+                $removed = true;
+            } else {
+                $cpt++;
+            }
+        }
+        return $copy;
+    }
+
+    private function set_native_function_sort($sort) {
+        $copy = $this->copy();
+        $copy->nativeFunctionSort = array($sort);
+        return $copy;
+    }
+
+    private function remove_native_function_sort($native_function) {
+        $copy = $this->copy();
+
+        // removed existing geo:dist filter
+        $removed = false;
+        $cpt = 0;
+        while (! $removed && $cpt < count($copy->nativeFunctionSort)) {
+            if (substr($copy->nativeFunctionSort[$cpt], 0, count($native_function)) == $native_function) {
+                unset($copy->nativeFunctionSort[$cpt]);
                 $removed = true;
             } else {
                 $cpt++;
@@ -201,6 +225,21 @@ class AfsQuery extends AfsQueryBase
      */
     public function remove_geoDist_filter() {
        return $this->remove_native_function_filter(AfsNativeFunction::Geo_dist);
+    }
+
+    /**
+     * @param $lat
+     * @param $lon
+     * @param string $lat_facet_id
+     * @param string $lon_facet_id
+     * @return copy
+     */
+    public function set_geoDist_sort($lat, $lon, $order=AfsSortOrder::DESC, $lat_facet_id='geo:lat', $lon_facet_id='geo:long') {
+        // create the filter
+        $sort = AfsNativeFunction::Geo_dist . '(' . $lat . ',' . $lon . ',' . $lat_facet_id . ',' . $lon_facet_id . ')' . ',' . $order;
+
+
+        return $this->set_native_function_sort($sort);
     }
 
     /** @brief Check whether instance has a @a value associated with specified
@@ -739,7 +778,7 @@ class AfsQuery extends AfsQueryBase
 
     protected function get_additional_parameters()
     {
-        return array('facetDefault', 'advancedFilter', 'nativeFunctionFilter');
+        return array('facetDefault', 'advancedFilter', 'nativeFunctionFilter', 'nativeFunctionSort');
     }
     /**  @} */
 

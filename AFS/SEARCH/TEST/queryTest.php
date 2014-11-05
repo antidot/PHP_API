@@ -1090,8 +1090,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
         // test full parameters call
         $query = $query->set_geoDist_filter(45.5, 5.2, 1000, 'MyLat', 'MyLong');
         $functionFilter = PHPUnit_Framework_Assert::readAttribute($query, 'nativeFunctionFilter');
-        $expectedAdvancedFilter = array("geo:dist(45.5,5.2,MyLat,MyLong)<1000");
-        $this->assertTrue($expectedAdvancedFilter == $functionFilter);
+        $expectedNativeFunctionFilter = array("geo:dist(45.5,5.2,MyLat,MyLong)<1000");
+        $this->assertTrue($expectedNativeFunctionFilter == $functionFilter);
     }
 
     public function testSetGeoDistMustEraseExistingsOne() {
@@ -1101,20 +1101,24 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->set_geoDist_filter(43, 5.2, 2000);
 
         $functionFilter = PHPUnit_Framework_Assert::readAttribute($query, 'nativeFunctionFilter');
-        $expectedAdvancedFilter = array("geo:dist(43,5.2,geo:lat,geo:long)<2000");
-        $this->assertTrue($expectedAdvancedFilter == $functionFilter);
+        $expectedNativeFunctionFilter = array("geo:dist(43,5.2,geo:lat,geo:long)<2000");
+        $this->assertTrue($expectedNativeFunctionFilter == $functionFilter);
     }
 
-    public function testSetGeoDistMusntEraseOthersAdvFilters() {
+    public function testSetGeoDistMusntEraseOthersFilters() {
         $query = new AfsQuery();
 
-
-        $query = $query->add_advanced_filter(filter("FOO")->less->value(42));
-
+        $query = $query->set_advanced_filter(filter("FOO")->less->value(42));
+        $query = $query->set_filter('foo', 'bar');
         $query = $query->set_geoDist_filter(43, 5.2, 2000);
 
-        $advancedFilter = PHPUnit_Framework_Assert::readAttribute($query, 'advancedFilter');
-        $this->assertTrue(in_array("FOO<42", $advancedFilter));
+        $expectedNativeFunctionFilter = PHPUnit_Framework_Assert::readAttribute($query, 'advancedFilter');
+        $filter = PHPUnit_Framework_Assert::readAttribute($query, 'filter');
+
+        // check in query object
+        $this->assertTrue(in_array('FOO<42', $expectedNativeFunctionFilter));
+        $this->assertTrue(array_key_exists('foo', $filter));
+        $this->assertTrue($filter['foo'] == array('bar'));
     }
 }
 

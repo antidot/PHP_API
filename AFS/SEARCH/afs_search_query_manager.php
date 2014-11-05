@@ -116,10 +116,12 @@ class AfsSearchQueryManager
                 foreach ($values as $value)
                     $this->fill_in_filter($params, $value);
             } elseif ($param == 'nativeFunctionFilter') {
+                foreach ($values as $value)
+                    $this->fill_in_filter($params, $value);
+
+            } elseif ($param == 'nativeFunctionSort') {
                 foreach ($values as $value) {
-                    if (! array_key_exists('afs:filter', $value))
-                        $params['afs:filter'] = array();
-                    $params['afs:filter'][] = $value;
+                    $params['afs:sort'][] = $value;
                 }
             } else {
                 $params['afs:' . $param] = $values;

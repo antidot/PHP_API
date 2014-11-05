@@ -32,6 +32,18 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->qm = new AfsSearchQueryManager($this->connector, $this->config);
     }
 
+    private function checkfilterValues($values) {
+        $params = $this->connector->get_parameters();
+        foreach ($values as $value)
+            $this->assertTrue(in_array($value, $params['afs:filter']));
+    }
+
+    private function checkSortValues($values) {
+        $params = $this->connector->get_parameters();
+        foreach ($values as $value)
+            $this->assertTrue(in_array($value, $params['afs:sort']));
+    }
+
     private function checkOneFacetValue($facet_id, $facet_value, $operator='=')
     {
         $params = $this->connector->get_parameters();
@@ -330,4 +342,27 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(strpos($url, $afs_log.'LOGGG') === False,
             'No afs:log LOGGG in URL: '.$url);
     }
+
+    public function testNativeFunctionDoesntOverrideFilters() {
+        $query = new AfsQuery();
+
+        $query = $query->set_filter('foo', 'bar');
+        $filter = filter('Foo')->less->value(42);
+        $query = $query->set_advanced_filter($filter);
+        $query = $query->set_geoDIst_filter(45, 5, 1000);
+
+        $this->qm->send($query);
+        $this->checkfilterValues(array('foo=bar', $filter->to_string(), 'geo:dist(45,5,geo:lat,geo:long)<1000'));
+    }
+
+    /*public function testNativeFunctionDoesntOverrideSort() {
+        $query = new AfsQuery();
+
+        $query = $query->set_sort('foo');
+        $query = $query->set_sort('bar');
+        $query = $query->set_geoDIst_sort(45, 5);
+
+        $this->qm->send($query);
+        $this->checkSortValues(array('foo,DESC', 'bar,DESC', 'geo:dist(45,5,geo:lat,geo:long),DESC'));
+    }*/
 }
