@@ -1119,7 +1119,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(in_array('FOO<42', $expectedNativeFunctionFilter));
         $this->assertTrue(array_key_exists('foo', $filter));
         $this->assertTrue($filter['foo'] == array('bar'));
-    }
+        $this->assertTrue($expectedAdvancedFilter == $functionFilter);
 }
 
 
