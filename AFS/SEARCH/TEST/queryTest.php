@@ -1101,8 +1101,8 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->set_geoDist_filter(43, 5.2, 2000);
 
         $functionFilter = PHPUnit_Framework_Assert::readAttribute($query, 'nativeFunctionFilter');
-        $expectedNativeFunctionFilter = array("geo:dist(43,5.2,geo:lat,geo:long)<2000");
-        $this->assertTrue($expectedNativeFunctionFilter == $functionFilter);
+        $expectedNativeFunctionFilter = "geo:dist(43,5.2,geo:lat,geo:long)<2000";
+        $this->assertTrue(in_array($expectedNativeFunctionFilter, $functionFilter));
     }
 
     public function testSetGeoDistMusntEraseOthersFilters()

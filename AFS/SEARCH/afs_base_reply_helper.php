@@ -82,7 +82,6 @@ class AfsBaseReplyHelper extends AfsHelperBase
         $text_mgr = new AfsTextManager($json_text);
         return $text_mgr->visit_text($this->visitor);
     }
-
 }
 
 

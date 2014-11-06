@@ -355,14 +355,14 @@ class SearchQueryManagerTest extends PHPUnit_Framework_TestCase
         $this->checkfilterValues(array('foo=bar', $filter->to_string(), 'geo:dist(45,5,geo:lat,geo:long)<1000'));
     }
 
-    /*public function testNativeFunctionDoesntOverrideSort() {
+    public function testNativeFunctionDoesntOverrideSort() {
         $query = new AfsQuery();
 
         $query = $query->set_sort('foo');
-        $query = $query->set_sort('bar');
+        $query = $query->add_sort('bar');
         $query = $query->set_geoDIst_sort(45, 5);
 
         $this->qm->send($query);
         $this->checkSortValues(array('foo,DESC', 'bar,DESC', 'geo:dist(45,5,geo:lat,geo:long),DESC'));
-    }*/
+    }
 }

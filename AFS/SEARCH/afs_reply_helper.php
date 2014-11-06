@@ -66,6 +66,27 @@ class AfsReplyHelper extends AfsBaseReplyHelper
     {
         return $this->get_clientdatas()->get_clientdata($id);
     }
+
+    /**
+     * @brief check if geo data exists in reply set
+     * @return bool true if geo data exists, else false
+     */
+    public function has_geo_data() {
+        try {
+            return $this->reply->geo_reply_ext != null;
+        }
+        catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @brief return the geo data field in current reply set
+     * @return an array of geo data field values if exists, else null
+     */
+    public function get_geo_data() {
+        return $this->has_geo_data() ? $this->reply->geo_reply_ext : null;
+    }
 }
 
 

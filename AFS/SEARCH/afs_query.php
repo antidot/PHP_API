@@ -95,37 +95,40 @@ class AfsQuery extends AfsQueryBase
         $this->reset_page();
     }
 
+    /**
+     * @brief set a new filter on native function
+     * @param AfsFilterWrapper $filter
+     */
     private function set_native_function_filter(AfsFilterWrapper $filter) {
-        $copy = $this->copy();
-        $copy->nativeFunctionFilter = array($filter->to_string());
-        return $copy;
+        array_push($this->nativeFunctionFilter, $filter->to_string());
     }
 
+    /**
+     * @brief remove a filter on native function if exists
+     * @param $native_function
+     */
     private function remove_native_function_filter($native_function) {
-        $copy = $this->copy();
-
-        // removed existing geo:dist filter
-        $removed = false;
-        $cpt = 0;
-        while (! $removed && $cpt < count($copy->nativeFunctionFilter)) {
-            if (substr($copy->nativeFunctionFilter[$cpt], 0, count($native_function)) == $native_function) {
-                unset($copy->nativeFunctionFilter[$cpt]);
-                $removed = true;
-            } else {
-                $cpt++;
+        // removed existing function filter
+        foreach ($this->nativeFunctionFilter as $key => $value) {
+            if (substr($value, 0, count($native_function))) {
+                unset($this->nativeFunctionFilter[$key]);
+                break;
             }
         }
-        return $copy;
     }
 
+    /**
+     * @param $sort
+     */
     private function set_native_function_sort($sort) {
-        $copy = $this->copy();
-        $copy->nativeFunctionSort = array($sort);
-        return $copy;
+        $this->nativeFunctionSort = array($sort);
     }
 
+    /**
+     * @param $native_function
+     * @return New
+     */
     private function remove_native_function_sort($native_function) {
-        $copy = $this->copy();
 
         // removed existing geo:dist filter
         $removed = false;
@@ -138,7 +141,6 @@ class AfsQuery extends AfsQueryBase
                 $cpt++;
             }
         }
-        return $copy;
     }
 
 
@@ -208,15 +210,17 @@ class AfsQuery extends AfsQueryBase
       * @return new up to date instance
       */
     public function set_geoDist_filter($lat, $lon, $range, $lat_facet_id='geo:lat', $lon_facet_id='geo:long') {
+        $copy =$this->copy();
         // remove existing geoDist filter
-        $copy = $this->remove_native_function_filter(AfsNativeFunction::Geo_dist);
+        $copy->remove_native_function_filter(AfsNativeFunction::Geo_dist);
 
         // create the filter
         $filter = native_function_filter(AfsNativeFunction::Geo_dist, array($lat,$lon,$lat_facet_id,$lon_facet_id));
         // add operator and operand
         $filter = $filter->less->value($range);
         // set the new filter
-        return $copy->set_native_function_filter($filter);
+        $copy->set_native_function_filter($filter);
+        return $copy;
     }
 
     /**
@@ -224,7 +228,9 @@ class AfsQuery extends AfsQueryBase
      * @return new up to date instance
      */
     public function remove_geoDist_filter() {
-       return $this->remove_native_function_filter(AfsNativeFunction::Geo_dist);
+        $copy = $this->copy();
+       $copy->remove_native_function_filter(AfsNativeFunction::Geo_dist);
+        return $copy;
     }
 
     /**
@@ -235,11 +241,14 @@ class AfsQuery extends AfsQueryBase
      * @return copy
      */
     public function set_geoDist_sort($lat, $lon, $order=AfsSortOrder::DESC, $lat_facet_id='geo:lat', $lon_facet_id='geo:long') {
+        $copy = $this->copy();
         // create the filter
         $sort = AfsNativeFunction::Geo_dist . '(' . $lat . ',' . $lon . ',' . $lat_facet_id . ',' . $lon_facet_id . ')' . ',' . $order;
 
 
-        return $this->set_native_function_sort($sort);
+        $copy->set_native_function_sort($sort);
+
+        return $copy;
     }
 
     /** @brief Check whether instance has a @a value associated with specified
