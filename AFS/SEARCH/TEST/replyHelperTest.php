@@ -53,4 +53,92 @@ class ReplyHelperTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('data 1', $helper->get_clientdata()->get_value('/clientdata/data/data1[2]'));
     }
+
+    public function testGetGeoDataSouldReturnNull () {
+        $reply = json_decode('{
+                "docId": 180,
+                "uri": "http://foo.bar.baz/14",
+                "title": [
+                    {
+                        "afs:t": "KwicString",
+                        "text": "The title 14"
+                    }
+                ]
+            }');
+        $helper = new AfsReplyHelper($reply);
+        $this->assertTrue($helper->get_geo_data() == null);
+    }
+
+    public function testGetGeoData() {
+        $reply = json_decode('{
+                "docId": 180,
+                "uri": "http://foo.bar.baz/14",
+                "title": [
+                    {
+                        "afs:t": "KwicString",
+                        "text": "The title 14"
+                    }
+                ],
+                "geo_reply_ext": [{
+
+                        "point": {
+                            "dist" : 0,
+                            "lat"  : 45,
+                            "lon"  : 5
+                        }
+                }]
+
+            }');
+        $helper = new AfsReplyHelper($reply);
+        $geo_data = $helper->get_geo_data();
+
+        $expected_geo_data = new stdClass();
+        $expected_geo_data->dist = 0;
+        $expected_geo_data->lat = 45;
+        $expected_geo_data->lon = 5;
+        $this->assertTrue($geo_data[0]->point == $expected_geo_data);
+    }
+
+    public function testHasGeoDataShouldReturnTrue() {
+        $reply = json_decode('{
+                "docId": 180,
+                "uri": "http://foo.bar.baz/14",
+                "title": [
+                    {
+                        "afs:t": "KwicString",
+                        "text": "The title 14"
+                    }
+                ],
+                "geo_reply_ext": [{
+
+                        "point": {
+                            "dist" : 0,
+                            "lat"  : 45,
+                            "lon"  : 5
+                        }
+                }]
+
+            }');
+
+        $helper = new AfsReplyHelper($reply);
+
+        $this->assertTrue($helper->has_geo_data());
+    }
+
+    public function testHasGeoDataShouldReturnFalse() {
+        $reply = json_decode('{
+                "docId": 180,
+                "uri": "http://foo.bar.baz/14",
+                "title": [
+                    {
+                        "afs:t": "KwicString",
+                        "text": "The title 14"
+                    }
+                ]
+            }');
+
+        $helper = new AfsReplyHelper($reply);
+
+        $this->assertTrue(! $helper->has_geo_data());
+    }
 }
