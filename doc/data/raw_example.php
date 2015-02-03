@@ -3,7 +3,7 @@
  * @example raw_example.php
  */
 
-require_once "PHP_API/afs_lib.php";
+require_once "/home/ct/Dev/PHP_API/afs_lib.php";
 
 $search = new AfsSearch('eval.partners.antidot.net', 48000);
 

@@ -73,10 +73,13 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
         $parameters['afs:service'] = $this->service->id;
         $parameters['afs:status'] = $this->service->status;
         $parameters['afs:output'] = 'json,2';
-        if (array_key_exists('afs:log', $parameters))
-            $parameters['afs:log'][] = get_api_version();
-        else
-            $parameters['afs:log'] = array(get_api_version());
+        if (!array_key_exists('afs:log', $parameters))
+            $parameters['afs:log'] = array();
+
+        $parameters['afs:log'][] = get_api_version();
+        $parameters['afs:log'][] = phpversion();
+        $parameters['afs:log'][] = curl_version();
+
         if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
             $parameters['afs:ip'] = $_SERVER['REMOTE_ADDR'];
         }
