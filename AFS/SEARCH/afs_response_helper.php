@@ -12,7 +12,7 @@ require_once 'COMMON/afs_helper_format.php';
 
 /** @brief Main helper for AFS search reply.
  *
- * This helper is intended to be initiliazed with the reply provided by @a 
+ * This helper is intended to be initiliazed with the reply provided by @a
  * AfsSearchQueryManager::send. It allows to manage replies of one of the
  * available replysets, including facets and pager. Connection and query errors
  * are managed in a uniform way to simplify integration.
@@ -33,11 +33,11 @@ class AfsResponseHelper extends AfsResponseHelperBase
      * @param $query [in] query which has produced current reply.
      * @param $config [in] helper configuration object.
      *
-     * @exception InvalidArgumentException when one of the parameters is 
+     * @exception InvalidArgumentException when one of the parameters is
      * invalid.
      */
     public function __construct($response, AfsQuery $query,
-        AfsHelperConfiguration $config)
+                                AfsHelperConfiguration $config)
     {
         $query = $query->auto_set_from();
         $this->config = $config;
@@ -59,11 +59,11 @@ class AfsResponseHelper extends AfsResponseHelperBase
     }
 
     private function initialize_replysets($replysets, AfsQuery $query,
-        AfsHelperConfiguration $config)
+                                          AfsHelperConfiguration $config)
     {
         foreach ($replysets as $replyset) {
             if (property_exists($replyset, 'meta')
-                    && property_exists($replyset->meta, 'producer')) {
+                && property_exists($replyset->meta, 'producer')) {
                 $producer = $replyset->meta->producer;
                 if ($producer == AfsProducer::SEARCH) {
                     if ('Promote' == $replyset->meta->uri) {
@@ -94,12 +94,24 @@ class AfsResponseHelper extends AfsResponseHelperBase
     /** @name Replies
      * @{ */
 
-    /** @brief Check whether reponse has a reply.
+    /** @brief Check whether reponse has a reply. Possible to check reply for on feed or for all feeds
+     * @param $feed name to be checked
      * @return true when a reply is available, false otherwise.
      */
-    public function has_replyset()
+    public function has_replyset($feed=null)
     {
-        return $this->has_reply && (! empty($this->replysets));
+        if ($feed == null)
+            return $this->has_reply && (! empty($this->replysets));
+        else {
+            try {
+                $this->get_replyset($feed);
+                return true;
+            } catch (OutOfBoundsException $e) {
+                return false;
+            } catch (AfsNoReplyException $e) {
+                return false;
+            }
+        }
     }
     /** @brief Retrieves all replysets.
      * @return all defined reply sets.
@@ -141,7 +153,7 @@ class AfsResponseHelper extends AfsResponseHelperBase
     public function has_spellcheck()
     {
         return $this->has_reply and (!is_null($this->spellcheck_mgr))
-            and $this->spellcheck_mgr->has_spellcheck();
+        and $this->spellcheck_mgr->has_spellcheck();
     }
     /** @brief Retrieves spellchecks from the @a response.
      * @return list of @a AfsSpellcheckHelper or formatted spellcheck depending
@@ -179,7 +191,7 @@ class AfsResponseHelper extends AfsResponseHelperBase
     public function has_promote()
     {
         return $this->has_reply and (! is_null($this->promote))
-            and $this->promote->has_reply();
+        and $this->promote->has_reply();
     }
     /** @brief Retrieves all promote helpers.
      * @return promote replies.
@@ -212,7 +224,7 @@ class AfsResponseHelper extends AfsResponseHelperBase
     public function has_concept()
     {
         return $this->has_reply and (! is_null($this->concepts))
-            and $this->concepts->has_concept();
+        and $this->concepts->has_concept();
     }
     /** @brief Retrieves all concept helpers.
      * @return concept replies.
