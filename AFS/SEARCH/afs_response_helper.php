@@ -94,12 +94,22 @@ class AfsResponseHelper extends AfsResponseHelperBase
     /** @name Replies
      * @{ */
 
-    /** @brief Check whether reponse has a reply.
+    /** @brief Check whether reponse has a reply. Possible to check reply for on feed or for all feeds
+     * @param $feed name to be checked
      * @return true when a reply is available, false otherwise.
      */
-    public function has_replyset()
+    public function has_replyset($feed=null)
     {
-        return $this->has_reply && (! empty($this->replysets));
+        if ($feed == null)
+            return $this->has_reply && (! empty($this->replysets));
+        else {
+            try {
+              $this->get_replyset($feed);
+                return true;
+            } catch (OutOfBoundsException $e) {
+                return false;
+            }
+        }
     }
     /** @brief Retrieves all replysets.
      * @return all defined reply sets.
