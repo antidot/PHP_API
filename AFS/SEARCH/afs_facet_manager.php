@@ -291,7 +291,8 @@ class AfsFacetManager
     private function is_mode_sticky($mode)
     {
         if (AfsFacetMode::SINGLE_MODE == $mode
-                || AfsFacetMode::OR_MODE == $mode) {
+                || AfsFacetMode::OR_MODE == $mode
+                || AfsFacetMode::STICKY_AND_MODE == $mode) {
             return true;
         } else {
             return false;
