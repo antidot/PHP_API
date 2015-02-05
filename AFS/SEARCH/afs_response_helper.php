@@ -45,9 +45,10 @@ class AfsResponseHelper extends AfsResponseHelperBase
 
         if (property_exists($response, 'replySet')) {
             $this->has_reply = true;
-            $us_mgr = $config->get_user_session_manager();
-            $us_mgr->set_user_id($this->header->get_user_id());
-            $us_mgr->set_session_id($this->header->get_session_id());
+            # remove cookie settings to avoid headers already send error
+            #$us_mgr = $config->get_user_session_manager();
+            #$us_mgr->set_user_id($this->header->get_user_id());
+            #$us_mgr->set_session_id($this->header->get_session_id());
 
             $this->spellcheck_mgr = new AfsSpellcheckManager($query, $config);
             $this->concepts = new AfsConceptManager();
