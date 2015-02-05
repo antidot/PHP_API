@@ -98,7 +98,7 @@ class AfsFacet
         if (AfsFacetMode::SINGLE_MODE == $mode
                 || AfsFacetMode::OR_MODE == $mode) {
             $this->combination = 'or';
-        } elseif (AfsFacetMode::AND_MODE == $mode) {
+        } elseif (AfsFacetMode::AND_MODE == $mode || AfsFacetMode::STICKY_AND_MODE == $mode) {
             $this->combination = 'and';
         }
     }
@@ -129,6 +129,11 @@ class AfsFacet
     public function has_and_mode()
     {
         return $this->get_mode() == AfsFacetMode::AND_MODE;
+    }
+
+    public function has_sticky_and_mode()
+    {
+        return $this->get_mode() == AfsFacetMode::STICKY_AND_MODE;
     }
 
     /** @brief Checks whether provided facet is similar to current instance.
