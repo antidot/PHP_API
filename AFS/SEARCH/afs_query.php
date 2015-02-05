@@ -906,19 +906,31 @@ class AfsQuery extends AfsQueryBase
     }
     /** @brief Defines multi-selection mode for one or more facets.
      *
-     * See AfsSearch::set_default_multi_selection_facets or
-     * AfsFacetMode::OR_MODE for more details.
+     * Default facet behavior is OR_MODE => see AfsFacetMode::OR_MODE for more details.
+     * If $and_mode is set to true, facet behavior is STICKY_AND_MODE => see AfsFacetMode::STICKY_AND_MODE for more details.
      *
      * @remark Parameters: one (string) or more facet identifiers (individual
      * strings or array of strings).
      */
-    public function set_multi_selection_facets($ids)
+    public function set_multi_selection_facets($ids, $and_mode=false)
     {
         $args = get_function_args_as_array(func_get_args());
+        $and_mode = false;
+        if (is_bool(end($args)))
+            $and_mode = array_pop($args);
+
+        if ($and_mode) {
+            $mode = AfsFacetMode::STICKY_AND_MODE;
+        }
+        else {
+            $mode = AfsFacetMode::OR_MODE;
+        }
+
         $copy = $this->copy();
-        $copy->facet_mgr->set_facets_mode(AfsFacetMode::OR_MODE, $args);
+        $copy->facet_mgr->set_facets_mode($mode, $args);
         return $copy;
     }
+
     /** @brief Defines mono-selection mode for one or more facets.
      *
      * See AfsSearch::set_default_mono_selection_facets or
