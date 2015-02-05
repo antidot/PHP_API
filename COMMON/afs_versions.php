@@ -1,4 +1,4 @@
 <?php
 
 
-define('AFS_VERSION_76', '7.6');
+define('AFS_VERSION_77', '7.7');
