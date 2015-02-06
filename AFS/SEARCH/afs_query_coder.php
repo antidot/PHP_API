@@ -96,6 +96,7 @@ class AfsQueryCoder implements AfsQueryCoderInterface
      */
     private function coder($param_name, $values, $action)
     {
+        $param_name = explode('@', $param_name)[0];
         $coder = $param_name . '_coder';
         if (property_exists($this, $coder)) {
             return $this->$coder->$action($values);
