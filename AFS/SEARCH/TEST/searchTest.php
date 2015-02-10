@@ -57,7 +57,7 @@ class SearchTest extends PHPUnit_Framework_TestCase
     public function testSetFeedFilter() {
         $search = new AfsSearch('127.0.0.1', 666);
         $query = new AfsQuery();
-        $query = $query->set_filter('foo', 'bar', 'feed');
+        $query = $query->set_filter_on_feed('foo', array('bar'), 'feed');
         $search->set_query($query);
 
         $search->execute();

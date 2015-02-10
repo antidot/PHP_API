@@ -47,14 +47,14 @@ class QueryTest extends PHPUnit_Framework_TestCase
 
     public function testaddFeedFilterValue() {
         $query = new AfsQuery();
-        $query = $query->add_filter('foo', 'bar', 'feed');
+        $query = $query->add_filter_on_feed('foo', array('bar'), 'feed');
         $this->assertTrue($query->has_filter('foo', 'bar', 'feed'));
     }
 
     public function testfilteronBothfeedAndGeneric() {
         $query = new AfsQuery();
         $query = $query->add_filter('foo', 'bar');
-        $query = $query->add_filter('foo', 'barr', 'feed');
+        $query = $query->add_filter_on_feed('foo', 	array('barr'), 'feed');
 
         $this->assertTrue($query->has_filter('foo', 'bar'));
         $this->assertTrue($query->has_filter('foo', 'barr', 'feed'));
@@ -820,10 +820,10 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $query = $query->add_filter('fox', 'bat');
         $query = $query->add_filter('fox', 'bas');
 
-        $query = $query->add_filter('foo', 'bar', 'feed');
-        $query = $query->add_filter('foo', 'baz', 'feed');
-        $query = $query->add_filter('fox', 'bat', 'feed');
-        $query = $query->add_filter('fox', 'bas', 'feed');
+        $query = $query->add_filter_on_feed('foo', array('bar'), 'feed');
+        $query = $query->add_filter_on_feed('foo', array('baz'), 'feed');
+        $query = $query->add_filter_on_feed('fox', array('bat'), 'feed');
+        $query = $query->add_filter_on_feed('fox', array('bas'), 'feed');
 
         $query = $query->add_feed('feed');
         $query = $query->add_feed('food');
@@ -1244,7 +1244,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
     public function testFeedContextualization() {
         $query = new AfsQuery();
 
-        $query = $query->set_filter('foo', 'bar', 'food');
+        $query = $query->set_filter_on_feed('foo', array('bar'), 'food');
         $query = $query->set_page(7, 'food');
         //$query = $query->set_count(10, 'food');
         $query = $query->set_query('blabla', 'food');

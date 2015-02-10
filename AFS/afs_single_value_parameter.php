@@ -10,12 +10,11 @@ require_once 'AFS/afs_query_parameter.php';
 
 class AfsSingleValueParameter extends AfsQueryParameter
 {
-    protected $feed;
     protected $key;
     protected $value;
 
-    public function __construct($key, $value, $feed=null) {
-        parent::__construct($key, $feed);
+    public function __construct($key, $value) {
+        parent::__construct($key);
         $this->value = $value;
     }
 

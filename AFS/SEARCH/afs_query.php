@@ -157,27 +157,45 @@ class AfsQuery extends AfsQueryBase
      * @param $values [in] new value(s) to filter on.
      * @return new up to date instance.
      */
-    public function set_filter($facet_id, $values, $feed=null)
+    public function set_filter($facet_id, $values)
     {
         $copy = $this->copy();
         $copy = $copy->on_assignment();
         if (!is_array($values))
             $values = array($values);
-
-        if (!is_null($feed)) {
-            if (!is_null($this->feed) && ($f = $copy->get_feed($feed)) != null) {
-                $f->set_filter($facet_id, $values);
-            } else {
-                $new_feed = new AfsFeed($feed, false);
-                $new_feed->set_filter($facet_id, $values);
-                $copy->feed[] = $new_feed;
-            }
-        } else {
-            $copy->filter = array(new AfsFilterParameter($facet_id, $values, $feed));
-        }
-
-        return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
+        
+		$copy->filter = array (new AfsFilterParameter ( $facet_id, $values ));
+		
+		return $this->auto_set_from ? $copy->set_from ( AfsOrigin::FACET ) : $copy;
     }
+	
+	/**
+	 * @brief Assign new value(s) to specific facet  on feed replacing any existing one.
+	 * 
+	 * @param $facet_id [in]
+	 *        	id of the facet to update.
+	 * @param $values [in]
+	 *        	new value(s) to filter on.
+	 * @param $feed [in]
+	 *        	feed to filter on    
+	 * @return new up to date instance.
+	 */
+	public function set_filter_on_feed($facet_id, array $values, $feed) {
+		$copy = $this->copy ();
+		$copy = $copy->on_assignment ();
+		if (! is_array ( $values ))
+			$values = array ($values);
+		
+		if (($f = $copy->get_feed ( $feed )) != null) {
+			$f->set_filter ( $facet_id, $values );
+		} else {
+			$new_feed = new AfsFeed ( $feed, false );
+			$new_feed->set_filter ( $facet_id, $values );
+			$copy->feed [] = $new_feed;
+		}
+		
+		return $this->auto_set_from ? $copy->set_from ( AfsOrigin::FACET ) : $copy;
+	}
 
     /** @brief Assign new value(s) to specific facet.
      * @param $facet_id [in] id of the facet for which new @a value should be
@@ -185,40 +203,56 @@ class AfsQuery extends AfsQueryBase
      * @param $values [in] value(s) to add to the facet.
      * @return new up to date instance.
      */
-    public function add_filter($facet_id, $values, $feed=null)
+    public function add_filter($facet_id, $values)
     {
         $copy = $this->copy();
         $copy = $copy->on_assignment();
 
         if (! is_array($values))
             $values = array($values);
-
-        if (!is_null($feed)) {
-            if (!is_null($this->feed) && ($f = $copy->get_feed($feed)) != null) {
-                $f->add_filter($facet_id, $values);
-            } else {
-                $new_feed = new AfsFeed($feed, false);
-                $new_feed->set_filter($facet_id, $values);
-                $copy->feed[] = $new_feed;
-            }
-        } else {
-            $filters = $copy->filter;
-            $filter_exists = false;
-            foreach ($filters as $filter) {
-                if ($filter->get_facet_id() === $facet_id) {
-                    $filter->add_values($values);
-                    $filter_exists = true;
-                    break;
-                }
-            }
-            if (!$filter_exists) {
-                $filters[] = new AfsFilterParameter($facet_id, $values, $feed);
-            }
-
-            is_null($feed) ? $copy->filter = $filters : $copy->feed->set_filters($filters);
-        }
-
+        
+		$filters = $copy->filter;
+		$filter_exists = false;
+		foreach ( $filters as $filter ) {
+			if ($filter->get_facet_id () === $facet_id) {
+				$filter->add_values ( $values );
+				$filter_exists = true;
+				break;
+			}
+		}
+		if (! $filter_exists) {
+			$filters [] = new AfsFilterParameter ( $facet_id, $values );
+		}
+		
+		$copy->filter = $filters;
+		
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
+    }
+    
+    /** @brief Assign new value(s) to specific facet.
+     * @param $facet_id [in] id of the facet for which new @a value should be
+     *        added.
+     * @param $values [in] value(s) to add to the facet.
+     * @param $feed [in] feed to filter on
+     * @return new up to date instance.
+     */
+    public function add_filter_on_feed($facet_id, $values, $feed)
+    {
+    	$copy = $this->copy();
+    	$copy = $copy->on_assignment();
+    
+    	if (! is_array($values))
+    		$values = array($values);
+    	
+		if (($f = $copy->get_feed ( $feed )) != null) {
+			$f->add_filter ( $facet_id, $values );
+		} else {
+			$new_feed = new AfsFeed ( $feed, false );
+			$new_feed->set_filter ( $facet_id, $values );
+			$copy->feed [] = $new_feed;
+		}
+    
+    	return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
 
     /** @brief Remove existing value from specific facet.
@@ -228,35 +262,49 @@ class AfsQuery extends AfsQueryBase
      *        to the facet.
      * @return new up to date instance.
      */
-    public function remove_filter($facet_id, $value, $feed=null)
+    public function remove_filter($facet_id, $value)
     {
         $copy = $this->copy();
         $copy = $copy->on_assignment();
-
-        if (! is_null($feed) && ! is_null($this->$feed)) {
-            if (($f = $copy->get_feed($feed)) != null) {
-               $f->remove_filter($facet_id, $value);
-            }
-        } else {
-            $filters = $copy->filter;
-            foreach ($filters as $filter) {
-                if ($filter->get_facet_id() === $facet_id) {
-                    $current_values = $filter->get_values();
-                    $pos = array_search($value, $current_values);
-                    unset($current_values[$pos]);
-
-                    if (empty($current_values)) {
-                        $pos = array_search($filter, $filters);
-                        unset($filters[$pos]);
-                    } else {
-                        $filter->set_values($current_values);
-                    }
-                }
-            }
+        
+		$filters = $copy->filter;
+		foreach ( $filters as $filter ) {
+			if ($filter->get_facet_id () === $facet_id) {
+				$current_values = $filter->get_values ();
+				$pos = array_search ( $value, $current_values );
+				if (! is_null ( $pos )) {
+					unset ( $current_values [$pos] );
+					if (empty ( $current_values )) {
+						$pos = array_search ( $filter, $filters );
+						unset ( $filters [$pos] );
+					} else {
+						$filter->set_values ( $current_values );
+					}
+				}
+			}
             $copy->filter = $filters;
         }
 
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
+    }
+    
+    /** @brief Remove existing value from specific facet.
+     * @remark No error is reported when the removed @a value is not already set.
+     * @param $facet_id [in] id of the facet to update.
+     * @param $value [in] value to be removed from the list of values associated
+     *        to the facet.
+     * @return new up to date instance.
+     */
+    public function remove_filter_on_feed($facet_id, $value, $feed=null)
+    {
+    	$copy = $this->copy();
+    	$copy = $copy->on_assignment();
+    	
+		if (($f = $copy->get_feed ( $feed )) != null) {
+			$f->remove_filter ( $facet_id, $value );
+		}
+    
+    	return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
 
      /**
@@ -357,7 +405,7 @@ class AfsQuery extends AfsQueryBase
             throw new AfsFilterException("$facet_id doesn't exist");
         } else {
             foreach ($this->filter as $filter) {
-                if ($filter->get_facet_id() === $facet_id && $filter->get_feed() === $feed) {
+                if ($filter->get_facet_id() === $facet_id) {
                     return $filter->get_values();
                 }
             }
@@ -896,7 +944,10 @@ class AfsQuery extends AfsQueryBase
                     $feed = null;
                 foreach ($values as $filter => $filter_values) {
                     foreach ($filter_values as $value) {
-                        $result = $result->add_filter($filter, $value, $feed);
+                        if ( ! is_null($feed))
+                        	$result = $result->add_filter_on_feed($filter, array($value), $feed);
+                        else 
+                        	$result = $result->add_filter($filter, $value, $feed);
                     }
                 }
             } elseif ($param == 'sort') {

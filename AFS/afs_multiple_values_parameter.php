@@ -8,12 +8,11 @@
 
 class AfsMultipleValuesParameter extends AfsQueryParameter
 {
-    protected $feed;
     protected $key;
     protected $values;
 
-    public function __construct($key, array $values, $feed=null) {
-        parent::__construct($key, $feed);
+    public function __construct($key, array $values) {
+        parent::__construct($key);
         $this->values = $values;
     }
 

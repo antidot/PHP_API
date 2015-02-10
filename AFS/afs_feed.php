@@ -240,26 +240,6 @@ class AfsFeed {
     /**
      * @return array
      */
-	public function format_parameters() {
-        return array_merge($this->format_filters(), $this->get_parameters());
-	}
-
-    /**
-     * @return array
-     */
-    private function format_filters() {
-        $result = array();
-        foreach ($this->filters as $filter) {
-            foreach ($filter->get_values() as $value) {
-                $result['filter@' . $this->name][] =  $filter->get_facet_id() . "=" . $value;;
-            }
-        }
-        return $result;
-    }
-
-    /**
-     * @return array
-     */
     private function get_filter_parameters() {
         $result = array();
         foreach ($this->filters as $filter) {

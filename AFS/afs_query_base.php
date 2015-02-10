@@ -438,19 +438,17 @@ abstract class AfsQueryBase
         foreach ($parameters as $param) {
             $own_param = $this->$param;
             if ($own_param != null && !empty($own_param)) {
-                if (is_object($own_param) && ! is_array($own_param) && is_callable(array($own_param, 'format')))
+                if (is_object($own_param) && is_callable(array($own_param, 'format')))
                     $own_param = $own_param->format();
                 elseif (is_array($own_param)) {
                     $formatted_param = array();
                     foreach ($own_param as $key => $param_value) {
-                        if (is_callable(array($param_value, 'format'))) {
+                        if (is_object($param_value) && is_callable(array($param_value, 'format'))) {
                             $formatted_value = $param_value->format();
                             if (is_array($formatted_value))
                                 $formatted_param = array_merge($formatted_param, $formatted_value);
                             else
                                 $formatted_param[$key] = $formatted_value;
-                        } elseif (is_array($param_value)) {
-                            $formatted_param[$key] = $param_value;
                         } else {
                             $formatted_param[$key] = $param_value;
                         }

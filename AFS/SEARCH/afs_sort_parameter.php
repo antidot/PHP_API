@@ -20,9 +20,6 @@ class AfsSortParameter  extends AfsSingleValueParameter {
     }
 
     public function format () {
-        $key = $this->key;
-        if ($this->feed != null)
-            $key = $key. '@' . $this->feed;
-        return array($key => $this->value);
+        return array($this->key => $this->value);
     }
 }
