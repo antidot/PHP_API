@@ -117,6 +117,15 @@ class AfsQueryCoder implements AfsQueryCoderInterface {
 			return $values;
 		}
 	}
+
+    public function get_separator($param) {
+        $coder = $param . '_coder';
+        if (property_exists($this, $coder)) {
+            return $this->$coder->get_separator();
+        } else {
+            return ',';
+        }
+    }
 }
 
 

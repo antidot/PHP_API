@@ -73,5 +73,9 @@ class AfsFeedCoder extends AfsCoderBase implements AfsCoderInterface
             . preg_quote($this->value_sep) . '|' . preg_quote($this->escape)
             . ')', '$1', $value);
     }
+
+    public function get_separator() {
+        return $this->value_sep;
+    }
 }
 

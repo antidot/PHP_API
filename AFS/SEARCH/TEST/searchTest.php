@@ -9,6 +9,7 @@ class SearchTest extends PHPUnit_Framework_TestCase
     {
         $search = new AfsSearch('127.0.0.1', 666);
 
+
         $service = $search->get_service();
         $this->assertEquals(666, $service->id);
         $this->assertEquals(AfsServiceStatus::STABLE, $service->status);
@@ -21,6 +22,23 @@ class SearchTest extends PHPUnit_Framework_TestCase
 
         $config = $search->get_helpers_configuration();
         $this->assertEquals(AfsHelperFormat::HELPERS, $config->get_helper_format());
+    }
+
+    public function testBuildFromUrl() {
+        http://www.perlesandco.com/test/antidot/raw_example.php?replies=60&filter=price|_eur_[0+..+1]-marketing_%22is|_promotional%22
+        $search = new AfsSearch('127.0.0.1', 666);
+
+        $_SERVER['QUERY_STRING'] = 'filter=key_val&filter=k_v';
+        $query = $search->build_query_from_url_parameters();
+
+        $this->assertTrue($query->has_filter('key', 'val'));
+        $this->assertTrue($query->has_filter('k', 'v'));
+
+        $_SERVER['QUERY_STRING'] = 'filter=key_val-k_v';
+        $query = $search->build_query_from_url_parameters();
+
+        $this->assertTrue($query->has_filter('key', 'val'));
+        $this->assertTrue($query->has_filter('k', 'v'));
     }
 
     public function testRetrieveSpecificParameters()

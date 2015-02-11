@@ -89,5 +89,9 @@ class AfsFilterCoder extends AfsCoderBase implements AfsCoderInterface
             . preg_quote($this->value_sep) . '|' . preg_quote($this->filter_sep)
             . '|' . preg_quote($this->escape) . ')', '$1', $value);
     }
+
+    public function get_separator() {
+        return $this->filter_sep;
+    }
 }
 

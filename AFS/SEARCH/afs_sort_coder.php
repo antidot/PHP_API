@@ -83,5 +83,9 @@ class AfsSortCoder extends AfsCoderBase implements AfsCoderInterface
             . preg_quote($this->value_sep) . '|' . preg_quote($this->escape)
             . ')', '$1', $value);
     }
+
+    public function get_value_separator() {
+        return $this->get_value_separator();
+    }
 }
 
