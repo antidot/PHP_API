@@ -504,7 +504,7 @@ abstract class AfsQueryBase
      */
     protected function get_relevant_parameters()
     {
-        return array_merge(array('replies', 'page', 'query'), array_keys($this->custom_parameters));
+        return array_merge(array('replies', 'query'), array_keys($this->custom_parameters));
     }
 
     /** @brief Retrieves additional parameters.
