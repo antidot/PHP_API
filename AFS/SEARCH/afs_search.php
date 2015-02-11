@@ -136,6 +136,14 @@ class AfsSearch
         return $this->config;
     }
 
+    /** @brief set helper configuration
+     * @param $helperConfiguration the new configuration
+     */
+    public function set_helper_configuration($helperConfiguration)
+    {
+        $this->config = $helperConfiguration;
+    }
+
     /** @brief Retrieves search engine connector.
      * @return AFS search connector.
      */

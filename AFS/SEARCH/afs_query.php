@@ -4,10 +4,14 @@ require_once 'AFS/afs_query_base.php';
 require_once 'AFS/SEARCH/afs_sort_order.php';
 require_once 'AFS/SEARCH/afs_sort_builtins.php';
 require_once 'AFS/SEARCH/afs_cluster_exception.php';
+require_once 'AFS/SEARCH/afs_cluster_exception.php';
 require_once 'AFS/SEARCH/afs_count.php';
 require_once 'AFS/SEARCH/afs_facet_manager.php';
 require_once 'AFS/SEARCH/afs_facet_default.php';
 require_once 'AFS/SEARCH/afs_fts_mode.php';
+require_once 'AFS/SEARCH/afs_filter_parameter.php';
+require_once 'AFS/SEARCH/afs_sort_parameter.php';
+require_once 'AFS/SEARCH/afs_cluster_parameter.php';
 
 /** @brief Represent an AFS query.
  *
@@ -34,7 +38,7 @@ class AfsQuery extends AfsQueryBase
 
     protected $filter = array();  // afs:filter, filter on facets ids
     protected $nativeFunctionFilter = array(); // use native search engine function such as geo:dist, vfst ...
-    protected $page = 1;          // afs:page
+    protected $page;          // afs:page
     protected $lang = null;       // afs:lang
     protected $sort = array();    // afs:sort
     protected $nativeFunctionSort = array();
@@ -75,6 +79,7 @@ class AfsQuery extends AfsQueryBase
             $this->lang = new AfsLanguage(null);
             $this->facetDefault = new AfsFacetDefault();
             $this->auto_set_from = false;
+            $this->page = new AfsSingleValueParameter('page', 1);
         }
     }
 
@@ -92,7 +97,7 @@ class AfsQuery extends AfsQueryBase
      * Page number is reset. */
     protected function on_assignment()
     {
-        $this->reset_page();
+        return $this->reset_page();
     }
 
     /**
@@ -155,12 +160,42 @@ class AfsQuery extends AfsQueryBase
     public function set_filter($facet_id, $values)
     {
         $copy = $this->copy();
-        $copy->on_assignment();
-        if (! is_array($values))
+        $copy = $copy->on_assignment();
+        if (!is_array($values))
             $values = array($values);
-        $copy->filter[$facet_id] = $values;
-        return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
+        
+		$copy->filter = array (new AfsFilterParameter ( $facet_id, $values ));
+		
+		return $this->auto_set_from ? $copy->set_from ( AfsOrigin::FACET ) : $copy;
     }
+	
+	/**
+	 * @brief Assign new value(s) to specific facet  on feed replacing any existing one.
+	 * 
+	 * @param $facet_id [in]
+	 *        	id of the facet to update.
+	 * @param $values [in]
+	 *        	new value(s) to filter on.
+	 * @param $feed [in]
+	 *        	feed to filter on    
+	 * @return new up to date instance.
+	 */
+	public function set_filter_on_feed($facet_id, array $values, $feed) {
+		$copy = $this->copy ();
+		$copy = $copy->on_assignment ();
+		if (! is_array ( $values ))
+			$values = array ($values);
+		
+		if (($f = $copy->get_feed ( $feed )) != null) {
+			$f->set_filter ( $facet_id, $values );
+		} else {
+			$new_feed = new AfsFeed ( $feed, false );
+			$new_feed->set_filter ( $facet_id, $values );
+			$copy->feed [] = $new_feed;
+		}
+		
+		return $this->auto_set_from ? $copy->set_from ( AfsOrigin::FACET ) : $copy;
+	}
 
     /** @brief Assign new value(s) to specific facet.
      * @param $facet_id [in] id of the facet for which new @a value should be
@@ -171,13 +206,53 @@ class AfsQuery extends AfsQueryBase
     public function add_filter($facet_id, $values)
     {
         $copy = $this->copy();
-        $copy->on_assignment();
-        if (empty($copy->filter[$facet_id]))
-            $copy->filter[$facet_id] = array();
+        $copy = $copy->on_assignment();
+
         if (! is_array($values))
             $values = array($values);
-        $copy->filter[$facet_id] = array_merge($copy->filter[$facet_id], $values);
+        
+		$filters = $copy->filter;
+		$filter_exists = false;
+		foreach ( $filters as $filter ) {
+			if ($filter->get_facet_id () === $facet_id) {
+				$filter->add_values ( $values );
+				$filter_exists = true;
+				break;
+			}
+		}
+		if (! $filter_exists) {
+			$filters [] = new AfsFilterParameter ( $facet_id, $values );
+		}
+		
+		$copy->filter = $filters;
+		
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
+    }
+    
+    /** @brief Assign new value(s) to specific facet.
+     * @param $facet_id [in] id of the facet for which new @a value should be
+     *        added.
+     * @param $values [in] value(s) to add to the facet.
+     * @param $feed [in] feed to filter on
+     * @return new up to date instance.
+     */
+    public function add_filter_on_feed($facet_id, $values, $feed)
+    {
+    	$copy = $this->copy();
+    	$copy = $copy->on_assignment();
+    
+    	if (! is_array($values))
+    		$values = array($values);
+    	
+		if (($f = $copy->get_feed ( $feed )) != null) {
+			$f->add_filter ( $facet_id, $values );
+		} else {
+			$new_feed = new AfsFeed ( $feed, false );
+			$new_feed->set_filter ( $facet_id, $values );
+			$copy->feed [] = $new_feed;
+		}
+    
+    	return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
 
     /** @brief Remove existing value from specific facet.
@@ -190,14 +265,46 @@ class AfsQuery extends AfsQueryBase
     public function remove_filter($facet_id, $value)
     {
         $copy = $this->copy();
-        $copy->on_assignment();
-        if (! empty($copy->filter[$facet_id])) {
-            $pos = array_search($value, $copy->filter[$facet_id]);
-            unset($copy->filter[$facet_id][$pos]);
-            if (empty($copy->filter[$facet_id]))
-                unset($copy->filter[$facet_id]);
+        $copy = $copy->on_assignment();
+        
+		$filters = $copy->filter;
+		foreach ( $filters as $filter ) {
+			if ($filter->get_facet_id () === $facet_id) {
+				$current_values = $filter->get_values ();
+				$pos = array_search ( $value, $current_values );
+				if (! is_null ( $pos )) {
+					unset ( $current_values [$pos] );
+					if (empty ( $current_values )) {
+						$pos = array_search ( $filter, $filters );
+						unset ( $filters [$pos] );
+					} else {
+						$filter->set_values ( $current_values );
+					}
+				}
+			}
+            $copy->filter = $filters;
         }
+
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
+    }
+    
+    /** @brief Remove existing value from specific facet.
+     * @remark No error is reported when the removed @a value is not already set.
+     * @param $facet_id [in] id of the facet to update.
+     * @param $value [in] value to be removed from the list of values associated
+     *        to the facet.
+     * @return new up to date instance.
+     */
+    public function remove_filter_on_feed($facet_id, $value, $feed=null)
+    {
+    	$copy = $this->copy();
+    	$copy = $copy->on_assignment();
+    	
+		if (($f = $copy->get_feed ( $feed )) != null) {
+			$f->remove_filter ( $facet_id, $value );
+		}
+    
+    	return $this->auto_set_from ? $copy->set_from(AfsOrigin::FACET) : $copy;
     }
 
      /**
@@ -260,15 +367,24 @@ class AfsQuery extends AfsQueryBase
      * associated with @a facet_id, false otherwise. Always false when provided
      * @a facet_id is unknown.
      */
-    public function has_filter($facet_id, $value)
+    public function has_filter($facet_id, $value, $feed=null)
     {
-        if (empty($this->filter[$facet_id])) {
+        if (! is_null($feed) && ! is_null($this->feed)) {
+            foreach ($this->feed as $f) {
+                if ($f->get_name() === $feed) {
+                    return $f->has_filter($facet_id, $value);
+                }
+            }
+            return false;
+        } elseif (! is_null($feed)) {
             return false;
         } else {
-            if (! isset($value))
-                return true;
-            else
-                return in_array($value, $this->filter[$facet_id]);
+            foreach ($this->filter as $filter) {
+                if ($filter->get_facet_id() === $facet_id) {
+                    return in_array($value, $filter->get_values());
+                }
+            }
+            return false;
         }
     }
     /** @brief Retrieve the list of values for specific facet id.
@@ -276,12 +392,25 @@ class AfsQuery extends AfsQueryBase
      * @param $facet_id [in] facet id to consider.
      * @return list of values associated to the given @a facet_id.
      */
-    public function get_filter_values($facet_id)
+    public function get_filter_values($facet_id, $feed=null)
     {
-        if (array_key_exists($facet_id, $this->filter)) {
-          return $this->filter[$facet_id];
+        if (! is_null($feed) && ! is_null($this->feed)) {
+            foreach($this->feed as $f) {
+                if ($f->get_name() === $feed) {
+                    return $f->get_filter_values($facet_id);
+                }
+            }
+            throw new AfsFilterException("$facet_id doesn't exist");
+        } elseif (! is_null($feed)) {
+            throw new AfsFilterException("$facet_id doesn't exist");
+        } else {
+            foreach ($this->filter as $filter) {
+                if ($filter->get_facet_id() === $facet_id) {
+                    return $filter->get_values();
+                }
+            }
+            throw new AfsFilterException("$facet_id doesn't exist");
         }
-        throw new AfsFilterException("$facet_id doesn't exist");
     }
     /** @brief Retrieve the list of all managed facet ids.
      *
@@ -291,7 +420,15 @@ class AfsQuery extends AfsQueryBase
      */
     public function get_filters()
     {
-        return array_keys($this->filter);
+        $facet_ids = array();
+        foreach ($this->filter as $filter) {
+            $facet_ids[] = $filter->get_facet_id();
+        }
+        foreach ($this->feed as $feed) {
+            $facet_ids = array_merge($facet_ids, $feed->get_facet_ids());
+        }
+
+        return $facet_ids;
     }
     /**  @} */
 
@@ -352,9 +489,9 @@ class AfsQuery extends AfsQueryBase
     /** @brief Check whether reply page is set.
      * @return always true.
      */
-    public function has_page()
+    public function has_page($feed=null)
     {
-        return $this->page != null;
+        return $this->has_parameter('page', $feed);
     }
     /** @brief Define new result page.
      * @param $page [in] result page to output. It should be greater than or
@@ -362,23 +499,27 @@ class AfsQuery extends AfsQueryBase
      * @return new up to date instance.
      * @exception Exception on invalid page number.
      */
-    public function set_page($page)
+    public function set_page($page, $feed=null)
     {
         if ($page <= 0)
         {
             throw new Exception('Invalid page number: ' . $page);
         }
+
         $copy = $this->copy();
-        $copy->page = $page;
+        is_null($assignment_res = $copy->on_assignment()) ? null : $copy = $assignment_res;
+
+        $copy->set_parameter('page', $page, $feed);
+
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::PAGER) : $copy;
     }
     /** @brief Retrieve current reply page.
      * @remark For a new query, this vaue is reset to 1.
      * @return reply page number.
      */
-    public function get_page()
+    public function get_page($feed=null)
     {
-        return $this->page;
+        return $this->get_parameter('page', $feed);
     }
     /** @brief Shortcut for @a set_page(1).
      *
@@ -386,7 +527,8 @@ class AfsQuery extends AfsQueryBase
      */
     protected function reset_page()
     {
-        return $this->page = 1;
+        $this->set_parameter('page', 1);
+        return $this;
     }
     /**  @} */
 
@@ -439,14 +581,30 @@ class AfsQuery extends AfsQueryBase
      *        checks whether at least one sort parameter is set).
      * @return true when sort parameter is set, false otherwise.
      */
-    public function has_sort($name=null)
+    public function has_sort($name = null, $feed = null)
     {
-        if (is_null($name)) {
-            return ! empty($this->sort);
+        if (!is_null($feed)) {
+            $f = $this->get_feed($feed);
+            if (!is_null($f)) {
+                $sort_list = $f->get_sorts();
+            } else {
+                $sort_list = array();
+            }
         } else {
-            return array_key_exists($name, $this->sort);
+            $sort_list = $this->sort;
+        }
+
+        if (is_null($name)) {
+            return !empty($sort_list);
+        } else {
+            foreach ($sort_list as $sort) {
+                if ($sort->get_key() === $name)
+                    return true;
+            }
+            return false;
         }
     }
+
     /** @brief Resets sort order to AFS default sort order.
      */
     public function reset_sort()
@@ -467,9 +625,22 @@ class AfsQuery extends AfsQueryBase
      * @exception Exception when provided sort parameter does not conform to
      * required syntax.
      */
-    public function set_sort($sort_param, $order=AfsSortOrder::DESC)
+    public function set_sort($sort_param, $order=AfsSortOrder::DESC, $feed=null)
     {
-        return $this->internal_add_sort(null, $sort_param, $order);
+        $copy = $this->copy();
+        $copy = $copy->on_assignment();
+
+        if (! is_null($feed) && ! is_null(($f = $copy->get_feed($feed)))) {
+            $f->set_sort(array(new AfsSortParameter($sort_param, $order)));
+        } elseif (! is_null($feed)) {
+            $f = new AfsFeed($feed, false);
+            $f->add_sort($sort_param, $order);
+            $copy->feed[] = $f;
+        } else {
+            $copy->internal_add_sort($this->sort, $sort_param, $order);
+        }
+
+        return $copy;
     }
     /** @brief Defines additional sort order.
      *
@@ -486,23 +657,40 @@ class AfsQuery extends AfsQueryBase
      * @exception Exception when provided sort parameter does not conform to
      * required syntax.
      */
-    public function add_sort($sort_param, $order=AfsSortOrder::DESC)
+    public function add_sort($sort_param, $order=AfsSortOrder::DESC, $feed=null)
     {
-        return $this->internal_add_sort($this->sort, $sort_param, $order);
+        $copy = $this->copy();
+        $copy = $copy->on_assignment();
+
+        if (! is_null($feed) && ! is_null(($f = $copy->get_feed($feed)))) {
+            $f->add_sort($sort_param, $order);
+        } elseif (! is_null($feed)) {
+            $f = new AfsFeed($feed, false);
+            $f->add_sort($sort_param, $order);
+        } else {
+            $copy->internal_add_sort($this->sort, $sort_param, $order);
+        }
+
+        return $copy;
     }
     /** @brief Retrieves sort order.
      * @deprecated This method will be removed soon!
      * @return sort order as string.
      */
-    public function get_sort()
+    public function get_sort($feed=null)
     {
         $result = '';
         $sorts = array();
-        foreach ($this->sort as $k => $v) {
-            $sorts[] = $k . ',' . $v;
-        }
-        if (! empty($sorts)) {
-            $result = implode(';', $sorts);
+
+        if (! is_null($feed) && ! is_null(($f = $this->get_feed($feed)))) {
+            $result = $f->get_sort();
+        } else {
+            foreach ($this->sort as $sort) {
+                $sorts[] = $sort->format();
+            }
+            if (!empty($sorts)) {
+                $result = implode(';', $sorts);
+            }
         }
         return $result;
     }
@@ -512,14 +700,24 @@ class AfsQuery extends AfsQueryBase
      * @exception OutOfBoundsException when required sort parameter is not
      *            defined.
      */
-    public function get_sort_order($name)
+    public function get_sort_order($name, $feed=null)
     {
-        if (array_key_exists($name, $this->sort)) {
-            return $this->sort[$name];
+        if (! is_null($feed)) {
+            if (! is_null(($f = $this->get_feed($feed)))) {
+                $sort_list = $f->get_sorts();
+            }
         } else {
-            throw new OutOfBoundsException('Unknown sort parameter: ' . $name);
+            $sort_list = $this->sort;
         }
+
+        foreach ($sort_list as $sort) {
+            if ($sort->get_key() === $name) {
+                return $sort->get_sort_order();
+            }
+        }
+        throw new OutOfBoundsException('Unknown sort parameter: ' . $name);
     }
+
     /** @brief Adds new sort parameter or substitutes existing one.
      *
      * @param $current_value [in] current sort order value.
@@ -528,7 +726,7 @@ class AfsQuery extends AfsQueryBase
      *
      * @return copy of current query.
      */
-    private function internal_add_sort($current_value, $sort_param, $order)
+    private function internal_add_sort($current_value, $sort_param, $order, $feed=null)
     {
         if ($sort_param == '') {
             $sort_param = null;
@@ -542,15 +740,16 @@ class AfsQuery extends AfsQueryBase
             AfsSortOrder::check_value($order, 'Invalid sort order provided: ');
 
             $new_value = $current_value;
-            $new_value[$sort_param] = $order;
+            if (is_null($new_value)) {
+                $new_value = array();
+            }
+
+            $new_value[] = new AfsSortParameter($sort_param, $order, $feed);
         } else {
             $new_value = array();
         }
 
-        $copy = $this->copy();
-        $copy->on_assignment();
-        $copy->sort = $new_value;
-        return $copy;
+        $this->sort = $new_value;
     }
     /**  @} */
 
@@ -574,8 +773,8 @@ class AfsQuery extends AfsQueryBase
     public function set_cluster($facet_id, $replies_per_cluster)
     {
         $copy = $this->copy();
-        $copy->on_assignment();
-        $copy->cluster = $facet_id . ',' . $replies_per_cluster;
+        $copy = $copy->on_assignment();
+        $copy->cluster = new AfsClusterParameter($facet_id, $replies_per_cluster);
         return $copy;
     }
     /** @brief Unsets cluster definition.
@@ -596,8 +795,8 @@ class AfsQuery extends AfsQueryBase
      */
     public function get_cluster_id()
     {
-        $tmp = $this->get_splitted_cluster_definition();
-        return $tmp[0];
+        $this->check_cluster_initialization();
+        return $this->cluster->get_facet_id();
     }
     /** @brief Retrieves maximum number of replies per cluster.
      * @return Number of replies per cluster reply.
@@ -605,8 +804,8 @@ class AfsQuery extends AfsQueryBase
      */
     public function get_nb_replies_per_cluster()
     {
-        $tmp = $this->get_splitted_cluster_definition();
-        return $tmp[1];
+        $this->check_cluster_initialization();
+        return $this->cluster->get_value();
     }
     /** @internal
      * @brief Split cluster property to retrieve facet id and nb replies per cluster.
@@ -614,7 +813,7 @@ class AfsQuery extends AfsQueryBase
     private function get_splitted_cluster_definition()
     {
         $this->check_cluster_initialization();
-        return explode(',', $this->cluster);
+        return explode(',', $this->cluster->format());
     }
     /** @brief Checks whether number of cluster is limited.
      *
@@ -633,7 +832,7 @@ class AfsQuery extends AfsQueryBase
     {
         $this->check_cluster_initialization();
         $copy = $this->copy();
-        $copy->on_assignment();
+        $copy = $copy->on_assignment();
         $copy->maxClusters = $max_nb_of_clusters;
         return $copy;
     }
@@ -685,9 +884,9 @@ class AfsQuery extends AfsQueryBase
      * @return Current count mode. AfsCount::DOCUMENTS, AfsCount::CLUSTERS or
      *         @c null when no specific count mode has been set.
      */
-    public function get_count_mode()
+    public function get_count_mode($feed=null)
     {
-        return $this->count;
+        return $this->get_parameter('count', $feed);
     }
     /** @brief Defines new count mode.
      *
@@ -697,14 +896,16 @@ class AfsQuery extends AfsQueryBase
      *
      * @return new up to date instance.
      */
-    public function set_count($count_mode)
+    public function set_count($count_mode, $feed=null)
     {
         $this->check_cluster_initialization();
         if (!is_null($count_mode))
             AfsCount::check_value($count_mode, 'Invalid count mode: ');
         $copy = $this->copy();
-        $copy->on_assignment();
-        $copy->count = $count_mode;
+        is_null($assignment_res = $copy->on_assignment()) ? null : $copy = $assignment_res;
+
+        $copy->set_parameter('count', $count_mode, $feed);
+
         return $copy;
     }
     /** @internal
@@ -735,10 +936,18 @@ class AfsQuery extends AfsQueryBase
         foreach ($params as $param => $values) {
             $adder = 'add_' . $param;
             $setter = 'set_' . $param;
-            if ($param == 'filter') {
+            if (strpos($param, 'filter') !== false) {
+                $filter_array = explode('@', $param);
+                if (count($filter_array) === 2)
+                    $feed = $filter_array[1];
+                else
+                    $feed = null;
                 foreach ($values as $filter => $filter_values) {
                     foreach ($filter_values as $value) {
-                        $result = $result->add_filter($filter, $value);
+                        if ( ! is_null($feed))
+                        	$result = $result->add_filter_on_feed($filter, array($value), $feed);
+                        else 
+                        	$result = $result->add_filter($filter, $value, $feed);
                     }
                 }
             } elseif ($param == 'sort') {
@@ -756,7 +965,7 @@ class AfsQuery extends AfsQueryBase
                 $result->set_custom_parameter($param, $values);
             }
         }
-        $result->page = $page;
+        $result->page->set_value($page);
         return $result;
     }
 
@@ -764,11 +973,12 @@ class AfsQuery extends AfsQueryBase
     {
         $result = new AfsQuery();
         if (array_key_exists('cluster', $params)) {
-            $result->cluster = $params['cluster'];
+            list($facet_id, $nb_replies_per_cluster) = explode(',', $params['cluster']);
+            $result->cluster = new AfsClusterParameter($facet_id, $nb_replies_per_cluster);
             unset($params['cluster']);
         }
         if (array_key_exists('page', $params)) {
-            $result->page = $params['page'];
+            $result->page = new AfsSingleValueParameter('page', $params['page']);
             unset($params['page']);
         }
         return $result;
@@ -778,7 +988,15 @@ class AfsQuery extends AfsQueryBase
     protected function get_relevant_parameters()
     {
         $params = array('filter', 'sort', 'cluster', 'maxClusters', 'overspill', 'count', 'ftsDefault', 'clientData');
-        if ($this->page != 1)
+
+        $page_in_feed = false;
+        foreach ($this->feed as $feed) {
+            if (! is_null($feed->get_parameter('page'))) {
+                $page_in_feed = true;
+                break;
+            }
+        }
+        if ($page_in_feed || ! is_null($this->page) && $this->page->get_value() != 1)
             $params[] = 'page';
         if (! is_null($this->lang->lang))
             $params[] = 'lang';

@@ -43,4 +43,13 @@ class QueryCoderTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($query->has_query());
         // and so on
     }
+
+    public function testBuildQueryFromFeedFilterParameter()
+    {
+        $coder = new AfsQueryCoder();
+        $query = $coder->build_query(array('filter@Catalog' => 'FOO_bar_baz'));
+        $this->assertEquals(1, count($query->get_filters()));
+        $this->assertFalse($query->has_filter('FOO', 'bat', 'feed'));
+        $this->assertFalse($query->has_filter('FOO', 'baz', 'feed'));
+    }
 }

@@ -54,6 +54,16 @@ class SearchTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(strpos($search->get_generated_url(), 'query=foo') !== False, 'URL does not contain query!');
     }
 
+    public function testSetFeedFilter() {
+        $search = new AfsSearch('127.0.0.1', 666);
+        $query = new AfsQuery();
+        $query = $query->set_filter_on_feed('foo', array('bar'), 'feed');
+        $search->set_query($query);
+
+        $search->execute();
+        $this->assertTrue(strpos($search->get_generated_url(), 'filter%40feed=foo%3Dbar') !== False, 'URL does not contain query!');
+    }
+
     //Ensure custom parameters are kept
     public function testKeepCustomParameters()
     {
