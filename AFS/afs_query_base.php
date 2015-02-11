@@ -471,8 +471,19 @@ abstract class AfsQueryBase
 
                 $parameters['feed'][] = $feed->get_name();
             }
-            $parameters = array_merge($parameters, $feed->get_parameters($parameters_to_add));
+
+            $feed_parameters = $feed->get_parameters($parameters_to_add);
+            /* feed parameter should override default parameter
+            foreach ($feed_parameters as $name => $parameter) {
+                list($name, $feed) = explode('@', $name);
+                if (array_key_exists($name, $parameters) === true) {
+                    unset($parameters[$name]);
+                }
+            }*/
+
+            $parameters = array_merge($parameters, $feed_parameters);
         }
+
         return $parameters;
     }
 
@@ -493,7 +504,7 @@ abstract class AfsQueryBase
      */
     protected function get_relevant_parameters()
     {
-        return array_merge(array('replies', 'query'), array_keys($this->custom_parameters));
+        return array_merge(array('replies', 'page', 'query'), array_keys($this->custom_parameters));
     }
 
     /** @brief Retrieves additional parameters.

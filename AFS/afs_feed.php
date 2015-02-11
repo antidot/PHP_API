@@ -256,9 +256,9 @@ class AfsFeed {
         $result = array();
         foreach ($this->parameters as $parameter) {
             if (in_array($parameter->get_key(), $parameter_list)) {
-                if (is_callable($parameter, 'get_value')) {
+                if (is_callable(array($parameter, 'get_value'))) {
                     $result[$parameter->get_key() . '@' . $this->name] = $parameter->get_value();
-                } elseif (is_callable($parameter, 'get_values')) {
+                } elseif (is_callable(array($parameter, 'get_values'))) {
                     $result[$parameter->get_key() . '@' . $this->name] = $parameter->get_values();
                 }
             }

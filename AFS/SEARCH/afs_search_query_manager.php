@@ -116,7 +116,7 @@ class AfsSearchQueryManager
             } elseif ($param_name == 'sort') {
                 if (!empty($values)) {
                     foreach ($values as $name => $order) {
-                        $params['afs:sort'][] = $this->format_sort($name, $order);
+                        $this->fill_in_sort($params, $this->format_sort($name, $order), $feed);
                     }
                 }
             } elseif ($param_name == 'advancedFilter') {
@@ -131,7 +131,7 @@ class AfsSearchQueryManager
                     $params['afs:sort'][] = $value;
                 }
             } else {
-                $params['afs:' . $param_name] = $values;
+                $this->fill_in_param($params, $param_name, $values, $feed);
             }
         }
         $params = array_merge($params, $query->get_custom_parameters());
@@ -167,9 +167,25 @@ class AfsSearchQueryManager
         return $query->get_facet_manager()->get_or_create_facet($name)->join_values($values);
     }
 
+    private function fill_in_param(array& $params, $param_name, $param_value, $feed=null) {
+        if (is_null($feed)) {
+            $params['afs:' . $param_name] = $param_value;
+        } else {
+            $params['afs:' . $param_name . '@' . $feed] = $param_value;
+        }
+    }
+
+    private function fill_in_sort(array& $params, $value, $feed=null) {
+        if (is_null($feed)) {
+            $params['afs:sort'][] = $value;
+        } else {
+            $params['afs:sort' . '@' . $feed][] = $value;
+        }
+    }
+
     private function format_sort($name, $order)
     {
-        return $name . ',' . $order;
+            return $name  .  ',' . $order;
     }
 }
 
