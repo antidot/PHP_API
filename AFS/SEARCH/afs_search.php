@@ -57,7 +57,7 @@ class AfsSearch
             $this->config->set_query_coder(new AfsQueryCoder());
         }
         $parameters = array();
-        foreach (explode('&', $_SERVER['QUERY_STRING']) as $param) {
+        foreach (explode('&', urldecode($_SERVER['QUERY_STRING'])) as $param) {
             list($key, $value) = explode('=', $param);
             $separator = $this->config->get_query_coder()->get_separator($key);
             if (array_key_exists($key, $parameters)) {

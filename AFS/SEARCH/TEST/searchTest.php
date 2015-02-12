@@ -58,6 +58,17 @@ class SearchTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(AfsHelperFormat::ARRAYS, $config->get_helper_format());
     }
 
+    public function testEncodedUrlRobustness() {
+        $_SERVER['QUERY_STRING'] = urlencode('query=perles&filter=marketing_"is|_promotional"&filter=price|_eur_"[0 .. 1]"');
+
+        $search = new AfsSearch('127.0.0.2', 42, AfsServiceStatus::RC);
+        $query = $search->build_query_from_url_parameters();
+
+
+        $this->assertTrue($query->has_filter('marketing', "\"is_promotional\""));
+        $this->assertTrue($query->has_filter('price_eur', "\"[0 .. 1]\""));
+    }
+
     public function testSetQuery()
     {
         $search = new AfsSearch('127.0.0.1', 666);
