@@ -44,18 +44,7 @@ class AfsAcpConnector extends AfsConnector
      */
     protected function update_with_defaults(array& $parameters)
     {
-        $parameters['afs:service'] = $this->service->id;
-        $parameters['afs:status'] = $this->service->status;
+        parent::update_with_defaults($parameters);
         $parameters['afs:output'] = 'json,1';
-        if (array_key_exists('afs:log', $parameters))
-            $parameters['afs:log'][] = get_api_version();
-        else
-            $parameters['afs:log'] = array(get_api_version());
-        if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
-            $parameters['afs:ip'] = $_SERVER['REMOTE_ADDR'];
-        }
-        if (array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
-            $parameters['afs:userAgent'] = $_SERVER['HTTP_USER_AGENT'];
-        }
     }
 }
