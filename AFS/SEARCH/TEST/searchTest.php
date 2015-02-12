@@ -25,7 +25,6 @@ class SearchTest extends PHPUnit_Framework_TestCase
     }
 
     public function testBuildFromUrl() {
-        http://www.perlesandco.com/test/antidot/raw_example.php?replies=60&filter=price|_eur_[0+..+1]-marketing_%22is|_promotional%22
         $search = new AfsSearch('127.0.0.1', 666);
 
         $_SERVER['QUERY_STRING'] = 'filter=key_val&filter=k_v';
@@ -70,6 +69,18 @@ class SearchTest extends PHPUnit_Framework_TestCase
 
         $search->execute();
         $this->assertTrue(strpos($search->get_generated_url(), 'query=foo') !== False, 'URL does not contain query!');
+    }
+
+    public function testBuildQueryFromUrlParametersType() {
+        $search = new AfsSearch('127.0.0.1', 666);
+
+        $_SERVER['QUERY_STRING'] = 'page=10&replies=100';
+        $query = $search->build_query_from_url_parameters();
+
+        $this->assertTrue(is_int($query->get_replies()));
+        $this->assertTrue(is_int($query->get_page()));
+        $this->assertEquals(10, $query->get_page());
+        $this->assertEquals(100, $query->get_replies());
     }
 
     public function testSetFeedFilter() {

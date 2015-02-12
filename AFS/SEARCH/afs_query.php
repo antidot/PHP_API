@@ -509,7 +509,7 @@ class AfsQuery extends AfsQueryBase
         $copy = $this->copy();
         is_null($assignment_res = $copy->on_assignment()) ? null : $copy = $assignment_res;
 
-        $copy->set_parameter('page', $page, $feed);
+        $copy->set_parameter('page', (int) $page, $feed);
 
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::PAGER) : $copy;
     }
@@ -519,7 +519,7 @@ class AfsQuery extends AfsQueryBase
      */
     public function get_page($feed=null)
     {
-        return $this->get_parameter('page', $feed);
+        return  $this->get_parameter('page', $feed);
     }
     /** @brief Shortcut for @a set_page(1).
      *
@@ -974,11 +974,13 @@ class AfsQuery extends AfsQueryBase
         $result = new AfsQuery();
         if (array_key_exists('cluster', $params)) {
             list($facet_id, $nb_replies_per_cluster) = explode(',', $params['cluster']);
-            $result->cluster = new AfsClusterParameter($facet_id, $nb_replies_per_cluster);
+            $cluster_setter = 'set_cluster';
+            $result = $result->$cluster_setter($facet_id, $nb_replies_per_cluster);
             unset($params['cluster']);
         }
         if (array_key_exists('page', $params)) {
-            $result->page = new AfsSingleValueParameter('page', $params['page']);
+            $page_setter = 'set_page';
+            $result = $result->$page_setter($params['page']);
             unset($params['page']);
         }
         return $result;

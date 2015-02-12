@@ -201,7 +201,7 @@ abstract class AfsQueryBase
         $copy = $this->copy();
         is_null($assignment_res = $copy->on_assignment()) ? null : $copy = $assignment_res;
 
-        $copy->set_parameter('replies', $replies_nb, $feed);
+        $copy->set_parameter('replies', (int) $replies_nb, $feed);
 
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::SEARCHBOX) : $copy;
     }
@@ -210,7 +210,7 @@ abstract class AfsQueryBase
      */
     public function get_replies($feed=null)
     {
-        return $this->get_parameter('replies', $feed);
+        return  $this->get_parameter('replies', $feed);
     }
     /**  @} */
 
