@@ -241,6 +241,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         if (is_null($path)) {
             return $this->contents;
         } else {
+
             $items = $this->apply_xpath($path, $nsmap);
             $named_callbacks = $this->update_callbacks(is_null($callbacks) ? array() : $callbacks);
             return DOMNodeHelper::get_text($items->item(0), $named_callbacks);
@@ -269,6 +270,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         if (is_null($path)) {
             return array($this->contents);
         } else {
+
             $items = $this->apply_xpath($path, $nsmap);
             $named_callbacks = $this->update_callbacks(is_null($callbacks) ? array() : $callbacks);
             $result = array();
@@ -485,7 +487,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
             $array[$node->localName] = array();
             foreach ($node->childNodes as $childNode) {
                 if (false !== ($a = self::nodeToArray($dom, $childNode))) {
-                    $array[$node->localName] = array_merge($array[$node->localName], $a);
+                    $array[$node->localName] = $array[$node->localName] +  $a;
                 }
             }
         }

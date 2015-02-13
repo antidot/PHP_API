@@ -68,7 +68,7 @@ class AfsResponseHelper extends AfsResponseHelperBase
                 $producer = $replyset->meta->producer;
                 if ($producer == AfsProducer::SEARCH) {
                     if ('Promote' == $replyset->meta->uri) {
-                        $this->promote = new AfsPromoteReplysetHelper($replyset, $config);
+                        $this->promote = new AfsPromoteReplysetHelper($replyset,$this->config);
                     } else {
                         $replyset_helper = new AfsReplysetHelper($replyset, $query, $config);
                         $feed = $replyset_helper->get_meta()->get_feed();

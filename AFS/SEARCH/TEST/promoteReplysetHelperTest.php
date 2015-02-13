@@ -5,6 +5,7 @@ class PromoteReplysetHelperTest extends PHPUnit_Framework_TestCase
 {
     public function testBlabla()
     {
+        $client_data = '<afs:type xmlns:afs=\"http://ref.antidot.net/7.3/bo.xsd\">default</afs:type><afs:customData xmlns:afs=\"http://ref.antidot.net/7.3/bo.xsd\"><afs:key1>v1</afs:key1></afs:customData>';
         $input = json_decode('{
             "header": {
                 "query": {
@@ -101,7 +102,7 @@ class PromoteReplysetHelperTest extends PHPUnit_Framework_TestCase
                                 },
                                 "clientData": [
                                     {
-                                        "contents": "<clientdata>{&quot;data&quot;: [{&quot;data1&quot;: &quot;data 0&quot;}, {&quot;data1&quot;: &quot;data 1&quot;}, {&quot;m1&quot;: &quot;m 1&quot;, &quot;m0&quot;: &quot;m 0&quot;, &quot;m3&quot;: &quot;m 3&quot;, &quot;m2&quot;: &quot;m 2&quot;}]}</clientdata>",
+                                        "contents": "' . $client_data . '",
                                         "id": "main",
                                         "mimeType": "text/xml"
                                     }
@@ -138,7 +139,7 @@ class PromoteReplysetHelperTest extends PHPUnit_Framework_TestCase
                                 },
                                 "clientData": [
                                     {
-                                        "contents": "<clientdata>&lt;data&gt;&lt;data1&gt;data 0&lt;/data1&gt;&lt;data1&gt;data 1&lt;/data1&gt;&lt;multi&gt;&lt;m0&gt;m 0&lt;/m0&gt;&lt;m1&gt;m 1&lt;/m1&gt;&lt;m2&gt;m 2&lt;/m2&gt;&lt;m3&gt;m 3&lt;/m3&gt;&lt;/multi&gt;&lt;/data&gt;</clientdata>",
+                                        "contents": "' . $client_data . '",
                                         "id": "main",
                                         "mimeType": "text/xml"
                                     }
@@ -170,6 +171,8 @@ class PromoteReplysetHelperTest extends PHPUnit_Framework_TestCase
         $replies = $helper->get_replies();
         $this->assertEquals('The title 116', $replies[0]->title);
         $this->assertEquals('The title 81', $replies[1]->title);
+        $custom_data = $replies[0]->get_custom_data();
+        $this->assertEquals(array("key1" => "v1"), $custom_data);
         // and so on...
     }
 }

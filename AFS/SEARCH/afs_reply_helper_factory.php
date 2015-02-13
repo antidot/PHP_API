@@ -2,6 +2,9 @@
 require_once "AFS/SEARCH/afs_text_helper.php";
 require_once "AFS/SEARCH/afs_reply_helper.php";
 require_once "AFS/SEARCH/afs_promote_reply_helper.php";
+require_once "AFS/SEARCH/afs_promote_redirect_reply_helper.php";
+require_once "AFS/SEARCH/afs_promote_banner_reply_helper.php";
+require_once "COMMON/afs_exception.php";
 
 /** @brief Factory for reply helper. */
 class AfsReplyHelperFactory
@@ -26,7 +29,32 @@ class AfsReplyHelperFactory
     public function create($feed, $reply)
     {
         if ('Promote' == $feed) {
-            return new AfsPromoteReplyHelper($reply);
+            $xmlstring = $reply->clientData[0]->contents;
+            $xmlstring = '<promote>' . $xmlstring . '</promote>';
+            $clientdata = clone $reply->clientData[0];
+            $clientdata->contents = $xmlstring;
+
+            $xmlclientdata = new AfsXmlClientDataHelper($clientdata);
+
+
+            if ($xmlclientdata instanceof AfsJsonClientDataHelper) {
+                $type = $xmlclientdata->get_value('type');
+            } elseif ($xmlclientdata instanceof AfsXmlClientDataHelper) {
+                $type = $xmlclientdata->get_value('/promote/afs:type', array("afs" => "http://ref.antidot.net/7.3/bo.xsd"));
+            }
+
+            switch($type) {
+                case "default":
+                    return new AfsPromoteReplyHelper($reply);
+                case "banner":
+                    return new AfsPromoteBannerReplyHelper($reply);
+                case "redirection":
+                    return new AfsPromoteRedirectReplyHelper($reply);
+                    break;
+                default:
+                    throw new AfsUnknowPromoteTypeException($type);
+                    break;
+            }
         } else {
             return new AfsReplyHelper($reply, $this->visitor);
         }

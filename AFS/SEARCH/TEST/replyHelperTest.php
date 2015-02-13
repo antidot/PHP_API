@@ -1,5 +1,31 @@
 <?php ob_start();
+require_once "AFS/SEARCH/afs_reply_helper_factory.php";
 require_once "AFS/SEARCH/afs_reply_helper.php";
+require_once "AFS/SEARCH/afs_text_helper.php";
+
+class TestTextVisitor implements  AfsTextVisitorInterface {
+
+    /** @brief Visit @a AfsStringText instance.
+     * @param $afs_text [in] visited instance.
+     */
+    public function visit_AfsStringText(AfsStringText $afs_text)
+    {
+    }
+
+    /** @brief Visit @a AfsMatchText instance.
+     * @param $afs_text [in] visited instance.
+     */
+    public function visit_AfsMatchText(AfsMatchText $afs_text)
+    {
+    }
+
+    /** @brief Visit @a AfsTruncateText instance.
+     * @param $afs_text [in] visited instance.
+     */
+    public function visit_AfsTruncateText(AfsTruncateText $afs_text)
+    {
+    }
+}
 
 class ReplyHelperTest extends PHPUnit_Framework_TestCase
 {
@@ -140,5 +166,98 @@ class ReplyHelperTest extends PHPUnit_Framework_TestCase
         $helper = new AfsReplyHelper($reply);
 
         $this->assertTrue(! $helper->has_geo_data());
+    }
+
+    public function testReplyHelperFactoryOnRedirectionPromote() {
+        $clientData = '<afs:type xmlns:afs=\"http://ref.antidot.net/7.3/bo.xsd\">redirection</afs:type>';
+        $reply = json_decode('{
+                "docId": 180,
+                "uri": "http://foo.bar.baz/14",
+                "relevance" : {"rank" : 1},
+                "clientData": [
+                    {
+                        "contents": " ' . $clientData . '",
+                        "id": "main",
+                        "mimeType": "text/xml"
+                    }
+                ]
+            }');
+
+        $text_visitor = new TestTextVisitor();
+        $factory = new AfsReplyHelperFactory($text_visitor);
+
+        $promote = $factory->create('Promote', $reply);
+        $this->assertTrue($promote instanceof AfsPromoteRedirectReplyHelper);
+        $this->assertEquals('http://foo.bar.baz/14', $promote->get_url());
+    }
+
+    public function testReplyHelperFactoryOnBannerPromote() {
+        $clientData = '<afs:type xmlns:afs=\"http://ref.antidot.net/7.3/bo.xsd\">banner</afs:type><afs:images xmlns:afs=\"http://ref.antidot.net/7.3/bo.xsd\"><afs:image><afs:url>http://url</afs:url><afs:imageUrl>http://image/url</afs:imageUrl></afs:image></afs:images>';
+        $reply = json_decode('{
+                "docId": 180,
+                "uri": "http://foo.bar.baz/14",
+                "relevance" : {"rank" : 1},
+                "clientData": [
+                    {
+                        "contents": " ' . $clientData . '",
+                        "id": "main",
+                        "mimeType": "text/xml"
+                    }
+                ]
+            }');
+
+        $text_visitor = new TestTextVisitor();
+        $factory = new AfsReplyHelperFactory($text_visitor);
+
+        $promote = $factory->create('Promote', $reply);
+        $this->assertTrue($promote instanceof AfsPromoteBannerReplyHelper);
+        $this->assertEquals('http://url', $promote->get_url());
+        $this->assertEquals('http://image/url', $promote->get_image_url());
+    }
+
+    public function testReplyHelperFactoryOnDefaultPromote() {
+        $clientData = '<afs:type xmlns:afs=\"http://ref.antidot.net/7.3/bo.xsd\">default</afs:type><afs:customData xmlns:afs=\"http://ref.antidot.net/7.3/bo.xsd\"/>';
+        $reply = json_decode('{
+                "docId": 180,
+                "uri": "http://foo.bar.baz/14",
+                "relevance" : {"rank" : 1},
+                "clientData": [
+                    {
+                        "contents": " ' . $clientData . '",
+                        "id": "main",
+                        "mimeType": "text/xml"
+                    }
+                ]
+            }');
+
+        $text_visitor = new TestTextVisitor();
+        $factory = new AfsReplyHelperFactory($text_visitor);
+
+        $promote = $factory->create('Promote', $reply);
+        $this->assertTrue($promote instanceof AfsPromoteReplyHelper);
+    }
+
+    /**
+     * @expectedException        AfsUnknowPromoteTypeException
+     * @expectedExceptionMessage Unknow promote type: bidon
+     */
+    public function testUnknowPromoteType () {
+        $clientData = '<afs:type xmlns:afs=\"http://ref.antidot.net/7.3/bo.xsd\">bidon</afs:type><afs:customData xmlns:afs=\"http://ref.antidot.net/7.3/bo.xsd\"/>';
+        $reply = json_decode('{
+                "docId": 180,
+                "uri": "http://foo.bar.baz/14",
+                "relevance" : {"rank" : 1},
+                "clientData": [
+                    {
+                        "contents": " ' . $clientData . '",
+                        "id": "main",
+                        "mimeType": "text/xml"
+                    }
+                ]
+            }');
+
+        $text_visitor = new TestTextVisitor();
+        $factory = new AfsReplyHelperFactory($text_visitor);
+        $factory->create('Promote', $reply);
     }
 }
