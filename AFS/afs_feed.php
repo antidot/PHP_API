@@ -60,6 +60,7 @@ class AfsFeed {
                 return $parameter;
             }
         }
+
         return null;
     }
 
@@ -264,6 +265,16 @@ class AfsFeed {
             }
         }
 
+        $result = array_merge($result, $this->get_relevent_parameters());
+
         return array_merge($result, $this->get_filter_parameters());
+    }
+
+    private function get_relevent_parameters() {
+        $page = $this->get_parameter('page');
+        if (! is_null($page) && $page->get_value() !== 1) {
+            return array('page@' . $this->name => $page->get_value());
+        }
+        return array();
     }
 }

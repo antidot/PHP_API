@@ -73,8 +73,9 @@ class AfsReplysetHelper extends AfsBaseReplysetHelper
 
     protected function initialize_pager($reply_set, $query, $config)
     {
-        if (property_exists($reply_set, 'pager'))
+        if (property_exists($reply_set, 'pager')) {
             $this->pager = new AfsPagerHelper($reply_set->pager, $this->meta, $query, $config);
+        }
     }
 
 

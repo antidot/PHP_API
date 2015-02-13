@@ -991,15 +991,9 @@ class AfsQuery extends AfsQueryBase
     {
         $params = array('filter', 'sort', 'cluster', 'maxClusters', 'overspill', 'count', 'ftsDefault', 'clientData');
 
-        $page_in_feed = false;
-        foreach ($this->feed as $feed) {
-            if (! is_null($feed->get_parameter('page'))) {
-                $page_in_feed = true;
-                break;
-            }
-        }
-        if ($page_in_feed || ! is_null($this->page) && $this->page->get_value() != 1)
+        if (! is_null($this->page) && $this->page->get_value() != 1)
             $params[] = 'page';
+
         if (! is_null($this->lang->lang))
             $params[] = 'lang';
         return $params;

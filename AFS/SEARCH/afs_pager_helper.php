@@ -15,6 +15,7 @@ class AfsPagerHelper extends AfsHelperBase
     private $last_page = null;
     private $query = null;
     private $config = null;
+    private $feed_name = null;
     const PREVIOUS_NAME = 'previousPage';
     const NEXT_NAME = 'nextPage';
     const CURRENT_NAME = 'currentPage';
@@ -40,6 +41,7 @@ class AfsPagerHelper extends AfsHelperBase
         $this->pager = $pager;
         $this->query = $query;
         $this->config = $config;
+        $this->feed_name = $meta->get_feed();
         $this->initialize_last_page($meta);
     }
 
@@ -54,7 +56,7 @@ class AfsPagerHelper extends AfsHelperBase
     {
         $result = array();
         foreach ($this->pager->page as $page) {
-            $query = $this->query->set_page($page);
+            $query = $this->query->set_page($page, $this->feed_name);
             $result[$page] = $this->config->has_query_coder()
                 ? $this->config->get_query_coder()->generate_link($query)
                 : $query;
@@ -113,7 +115,7 @@ class AfsPagerHelper extends AfsHelperBase
     private function initialize_last_page($meta)
     {
         $page_no = ceil($meta->get_total_replies() / $meta->get_replies_per_page());
-        $query = $this->query->set_page($page_no);
+        $query = $this->query->set_page($page_no, $this->feed_name);
         if ($this->config->has_query_coder())
             $second = $this->config->get_query_coder()->generate_link($query);
         else
@@ -189,7 +191,7 @@ class AfsPagerHelper extends AfsHelperBase
     private function get_typed($type)
     {
         if (property_exists($this->pager, $type)) {
-            $query = $this->query->set_page($this->pager->$type);
+            $query = $this->query->set_page($this->pager->$type, $this->feed_name);
             return $this->config->has_query_coder()
                 ? $this->config->get_query_coder()->generate_link($query) : $query;
         } else {
