@@ -61,15 +61,23 @@ class AfsQuery extends AfsQueryBase
         parent::__construct($afs_query);
         if ($afs_query != null) {
             $this->facet_mgr = $afs_query->facet_mgr->copy();
-            $this->filter = $afs_query->filter;
-            $this->page = $afs_query->page;
-            $this->lang = $afs_query->lang;
-            $this->sort = $afs_query->sort;
+
+            foreach ($afs_query->filter as $filter) {
+                $this->filter[] = clone $filter;
+            }
+
+            if (! is_null($afs_query->page)) $this->page = clone $afs_query->page;
+            if (! is_null($afs_query->lang)) $this->lang = clone $afs_query->lang;
+
+            foreach ($afs_query->sort as $sort) {
+                $this->sort[] = clone $sort;
+            }
+
             $this->facetDefault = $afs_query->facetDefault->copy();
-            $this->cluster = $afs_query->cluster;
+            if (!is_null($afs_query->cluster)) $this->cluster = clone $afs_query->cluster;
             $this->maxClusters = $afs_query->maxClusters;
             $this->overspill = $afs_query->overspill;
-            $this->count = $afs_query->count;
+            if (! is_null($afs_query->count)) $this->count = clone $afs_query->count;
             $this->advancedFilter = $afs_query->advancedFilter;
             $this->ftsDefault = $afs_query->ftsDefault;
             $this->clientData = $afs_query->clientData;

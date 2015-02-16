@@ -17,7 +17,7 @@ abstract class AfsQueryBase
 {
     protected $feed = array();      // afs:feed
     protected $query = null;        // afs:query
-    protected $replies = 10;        // afs:replies
+    protected $replies = null;        // afs:replies
     protected $userId = null;       // afs:userId
     protected $sessionId = null;    // afs:sessionId
     protected $log = array();       // afs:log
@@ -38,16 +38,24 @@ abstract class AfsQueryBase
             $this->sessionId = new AfsSingleValueParameter('sessionId', uniqid('session_'));
             $this->replies = new AfsSingleValueParameter('replies', 10);
         } else {
-            $this->feed = $afs_query->feed;
-            $this->query = $afs_query->query;
-            $this->replies = $afs_query->replies;
-            $this->userId = $afs_query->userId;
-            $this->sessionId = $afs_query->sessionId;
-            $this->log = $afs_query->log;
-            $this->key = $afs_query->key;
-            $this->from = $afs_query->from;
+            foreach ($afs_query->feed as $feed) {
+                $this->feed[] = clone $feed;
+            }
+
+            if (! is_null($afs_query->query)) $this->query = clone $afs_query->query;
+            if (!is_array($afs_query->replies)) $this->replies = clone $afs_query->replies;
+            else $this->replies = new AfsSingleValueParameter('replies', 10);
+            if (! is_null($afs_query->userId)) $this->userId = clone $afs_query->userId;
+            if (! is_null($afs_query->sessionId)) $this->sessionId = clone $afs_query->sessionId;
+
+            foreach ($afs_query->log as $log) {
+                $this->log[] = clone $log;
+            }
+
+            if (! is_null($afs_query->key)) $this->key = clone $afs_query->key;
+            if (! is_null($afs_query->from)) $this->from = clone $afs_query->from;
+            if (! is_null($afs_query->sessionId)) $this->sessionId = clone $afs_query->sessionId;
             $this->auto_set_from = $afs_query->auto_set_from;
-            $this->custom_parameters = $afs_query->custom_parameters;
         }
     }
 
@@ -106,7 +114,7 @@ abstract class AfsQueryBase
         is_null($assignment_res = $copy->on_assignment()) ? null : $copy = $assignment_res;
 
         $feed_found = false;
-        foreach ($this->feed as $f) {
+        foreach ($copy->feed as $f) {
             if ($f->get_name() === $feed) {
                 $f->set_activated(true);
                 $feed_found = true;
