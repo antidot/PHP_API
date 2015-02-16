@@ -55,6 +55,7 @@ abstract class AfsQueryBase
             if (! is_null($afs_query->key)) $this->key = clone $afs_query->key;
             if (! is_null($afs_query->from)) $this->from = clone $afs_query->from;
             if (! is_null($afs_query->sessionId)) $this->sessionId = clone $afs_query->sessionId;
+            $this->custom_parameters = $afs_query->custom_parameters;
             $this->auto_set_from = $afs_query->auto_set_from;
         }
     }
