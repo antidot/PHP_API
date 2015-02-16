@@ -84,8 +84,8 @@ class AfsSortCoder extends AfsCoderBase implements AfsCoderInterface
             . ')', '$1', $value);
     }
 
-    public function get_value_separator() {
-        return $this->get_value_separator();
+    public function get_separator() {
+        return $this->value_sep;
     }
 }
 

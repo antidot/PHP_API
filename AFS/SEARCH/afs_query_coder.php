@@ -119,7 +119,9 @@ class AfsQueryCoder implements AfsQueryCoderInterface {
 	}
 
     public function get_separator($param) {
-        $coder = $param . '_coder';
+        $param = explode( '@', $param );
+        $param_name = $param [0];
+        $coder = $param_name . '_coder';
         if (property_exists($this, $coder)) {
             return $this->$coder->get_separator();
         } else {
