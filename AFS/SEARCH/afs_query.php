@@ -171,8 +171,18 @@ class AfsQuery extends AfsQueryBase
         $copy = $copy->on_assignment();
         if (!is_array($values))
             $values = array($values);
-        
-		$copy->filter = array (new AfsFilterParameter ( $facet_id, $values ));
+
+        $facet_id_found = false;
+        foreach ($copy->filter as $filter) {
+            if ($filter->get_facet_id() === $facet_id) {
+                $filter->set_values($values);
+                $facet_id_found = true;
+            }
+        }
+
+        if (! $facet_id_found) {
+            $copy->filter[] = new AfsFilterParameter($facet_id, $values);
+        }
 		
 		return $this->auto_set_from ? $copy->set_from ( AfsOrigin::FACET ) : $copy;
     }
@@ -639,7 +649,7 @@ class AfsQuery extends AfsQueryBase
         $copy = $copy->on_assignment();
 
         if (! is_null($feed) && ! is_null(($f = $copy->get_feed($feed)))) {
-            $f->set_sort(array(new AfsSortParameter($sort_param, $order)));
+            $f->set_sort($sort_param, $order);
         } elseif (! is_null($feed)) {
             $f = new AfsFeed($feed, false);
             $f->add_sort($sort_param, $order);

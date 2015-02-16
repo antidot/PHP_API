@@ -108,11 +108,22 @@ class AfsFeed {
     }
 
     /**
-     * @brief set a new sort parameter list
+     * @brief set a new sort parameter, replacing existing one
      * @param array $sort
      */
-    public function set_sort(array $sort) {
-        $this->sort = $sort;
+    public function set_sort($key, $order) {
+        $sort_found = false;
+        foreach ($this->sort as $sort) {
+            if ($sort->get_key() === $key) {
+                $sort->set_value($order);
+                $sort_found = true;
+                break;
+            }
+        }
+
+        if (! $sort_found) {
+            $this->sort[] = new AfsSortParameter($key, $order);
+        }
     }
 
     /**
