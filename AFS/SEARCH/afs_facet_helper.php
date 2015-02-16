@@ -300,7 +300,7 @@ class AfsFacetElementBuilder
             $query = $this->generate_query($facet_id, $value_id, $active);
             if ($config->has_query_coder()) {
                 $link = $config->get_query_coder()->generate_link($query);
-                $query = null; // we don't need it anymore
+                //$query = null; // we don't need it anymore
             } else {
                 $link = null;
             }
