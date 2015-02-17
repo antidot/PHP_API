@@ -57,7 +57,7 @@ class AfsSearch
             $this->config->set_query_coder(new AfsQueryCoder());
         }
         $parameters = array();
-        foreach (explode('&', urldecode($_SERVER['QUERY_STRING'])) as $param) {
+        /*foreach (explode('&', urldecode($_SERVER['QUERY_STRING'])) as $param) {
             list($key, $value) = explode('=', $param);
             $separator = $this->config->get_query_coder()->get_separator($key);
             if (array_key_exists($key, $parameters)) {
@@ -65,9 +65,9 @@ class AfsSearch
             } else {
                 $parameters[$key] = $value;
             }
-        }
+        }*/
 
-        $this->query = $this->config->get_query_coder()->build_query($parameters);
+        $this->query = $this->config->get_query_coder()->build_query($_GET);
         return $this->query;
     }
     /** @} */

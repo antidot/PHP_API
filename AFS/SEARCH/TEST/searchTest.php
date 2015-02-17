@@ -27,13 +27,8 @@ class SearchTest extends PHPUnit_Framework_TestCase
     public function testBuildFromUrl() {
         $search = new AfsSearch('127.0.0.1', 666);
 
-        $_SERVER['QUERY_STRING'] = 'filter=key_val&filter=k_v';
-        $query = $search->build_query_from_url_parameters();
-
-        $this->assertTrue($query->has_filter('key', 'val'));
-        $this->assertTrue($query->has_filter('k', 'v'));
-
         $_SERVER['QUERY_STRING'] = 'filter=key_val-k_v';
+        $_GET['filter'] = 'key_val-k_v';
         $query = $search->build_query_from_url_parameters();
 
         $this->assertTrue($query->has_filter('key', 'val'));
@@ -59,7 +54,8 @@ class SearchTest extends PHPUnit_Framework_TestCase
     }
 
     public function testEncodedUrlRobustness() {
-        $_SERVER['QUERY_STRING'] = urlencode('query=perles&filter=marketing_"is|_promotional"&filter=price|_eur_"[0 .. 1]"');
+        $_GET['query'] = 'perles';
+        $_GET['filter'] = 'marketing_"is|_promotional"-price|_eur_"[0 .. 1]"';
 
         $search = new AfsSearch('127.0.0.2', 42, AfsServiceStatus::RC);
         $query = $search->build_query_from_url_parameters();
@@ -85,7 +81,8 @@ class SearchTest extends PHPUnit_Framework_TestCase
     public function testBuildQueryFromUrlParametersType() {
         $search = new AfsSearch('127.0.0.1', 666);
 
-        $_SERVER['QUERY_STRING'] = 'page=10&replies=100';
+        $_GET['page'] = 10;
+        $_GET['replies'] = 100;
         $query = $search->build_query_from_url_parameters();
 
         $this->assertTrue(is_int($query->get_replies()));
