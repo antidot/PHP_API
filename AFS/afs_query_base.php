@@ -39,7 +39,7 @@ abstract class AfsQueryBase
             $this->replies = new AfsSingleValueParameter('replies', 10);
         } else {
             foreach ($afs_query->feed as $feed) {
-                $this->feed[] = clone $feed;
+                $this->feed[] = $feed->copy();
             }
 
             if (! is_null($afs_query->query)) $this->query = clone $afs_query->query;
@@ -546,6 +546,8 @@ abstract class AfsQueryBase
     {
         if(property_exists($this, $name)) {
             //$name is a field of AfsQueryBase
+            return $this->$name;
+        } elseif (method_exists($this, $name)) {
             return $this->$name;
         } else {
             if (array_key_exists($name, $this->custom_parameters)) {
