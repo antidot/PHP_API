@@ -436,14 +436,23 @@ class AfsQuery extends AfsQueryBase
      * method.
      * @return list of facet ids.
      */
-    public function get_filters()
+    public function get_filters($feed_name=null)
     {
         $facet_ids = array();
-        foreach ($this->filter as $filter) {
-            $facet_ids[] = $filter->get_facet_id();
-        }
-        foreach ($this->feed as $feed) {
-            $facet_ids = array_merge($facet_ids, $feed->get_facet_ids());
+        if ($feed_name==null) {
+            foreach ($this->filter as $filter) {
+                $facet_ids[] = $filter->get_facet_id();
+            }
+            foreach ($this->feed as $feed) {
+                $facet_ids = array_merge($facet_ids, $feed->get_facet_ids());
+            }
+        } else {
+            foreach ($this->feed as $feed) {
+                if ($feed->get_name() === $feed_name) {
+                    $facet_ids = array_merge($facet_ids, $feed->get_facet_ids());
+                }
+            }
+
         }
 
         return $facet_ids;
