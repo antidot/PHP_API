@@ -23,7 +23,7 @@ class AfsFacetHelper extends AfsHelperBase
      * @param $query [in] @a AfsQuery which has produced current reply.
      * @param $config [in] helper configuration object.
      */
-    public function __construct($facet, AfsQuery $query, AfsHelperConfiguration $config, $feed)
+    public function __construct($facet, AfsQuery $query, AfsHelperConfiguration $config, $feed=null)
     {
         $this->id = $facet->id;
         if (property_exists($facet, 'labels') && ! empty($facet->labels)
@@ -256,7 +256,7 @@ class AfsFacetElementBuilder
      * @return list of facet elements (see @ AfsFacetValueHelper).
      */
     public function create_elements($facet_id, $facet_element,
-        AfsHelperConfiguration $config, $feed)
+        AfsHelperConfiguration $config, $feed=null)
     {
         $formatter = AfsFacetHelperRetriever::get_formatter($facet_id, $this->query);
         return $this->create_elements_recursively($facet_id, $facet_element,
