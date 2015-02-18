@@ -14,6 +14,24 @@ class AfsFeed {
 								$this->parameters = $parameters;
 	}
 
+    public function copy() {
+        $filters = array();
+        foreach ($this->filters as $filter) {
+            $filters[] = clone $filter;
+        }
+
+        $sorts = array();
+        foreach ($this->sort as $sort) {
+            $sorts[] = clone $sort;
+        }
+
+        $copy = clone $this;
+        $copy->filters = $filters;
+        $copy->sort = $sorts;
+
+        return $copy;
+    }
+
     /**
      * @return feed name
      */
