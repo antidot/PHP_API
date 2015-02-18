@@ -15,7 +15,7 @@ define('AFS_API_VERSION_MINOR', 15);
 /** @brief API fix version number.
  *
  * You should increase this number as soon as a bug is fixed.*/
-define('AFS_API_VERSION_FIX', 10);
+define('AFS_API_VERSION_FIX', 11);
 
 /** @brief API full version number. */
 define('AFS_API_VERSION', implode('.', array(AFS_API_VERSION_MAJOR, AFS_API_VERSION_MINOR, AFS_API_VERSION_FIX)));
