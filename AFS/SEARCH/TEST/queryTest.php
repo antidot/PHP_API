@@ -946,10 +946,10 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(in_array('bat', $query->get_filter_values('fox')));
         $this->assertTrue(in_array('bas', $query->get_filter_values('fox')));
 
-        $this->assertTrue(in_array('foo', $query->get_filters('feed')));
+        $this->assertTrue(in_array('fooo', $query->get_filters('feed')));
         $this->assertTrue(in_array('bar', $query->get_filter_values('fooo', 'feed')));
         $this->assertTrue(in_array('baz', $query->get_filter_values('fooo', 'feed')));
-        $this->assertTrue(in_array('fox', $query->get_filters('feed')));
+        $this->assertTrue(in_array('foxx', $query->get_filters('feed')));
         $this->assertTrue(in_array('bat', $query->get_filter_values('foxx', 'feed')));
         $this->assertTrue(in_array('bas', $query->get_filter_values('foxx', 'feed')));
 
