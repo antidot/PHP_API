@@ -473,10 +473,6 @@ abstract class AfsQueryBase
     }
 
     private function add_feed_parameters(array $parameters_to_add, array $parameters) {
-        $pos = array_search('page', $parameters);
-        if ($pos !== false) {
-            unset($parameters[$pos]);
-        }
 
         foreach($this->feed as $feed) {
             if ($feed->is_activated()) {
