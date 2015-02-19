@@ -287,7 +287,9 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
      * @throws AfsNoResultException
      */
     public function get_node($xpath=null, $context=array()) {
-        return $this->get_nodes($xpath, $context)[0];
+        $nodes =  $this->get_nodes($xpath, $context);
+
+        return $nodes[0];
     }
 
     /**
