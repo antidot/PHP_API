@@ -554,40 +554,14 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
 
     public function get_node($jpath=null, $unused=array())
     {
-        return $this->get_nodes($jpath, $unused)[0];
-    }
+        $nodes = $this->get_nodes($jpath, $unused);
 
-
-
-
-    /*private function format_text($json_array, $visitor) {
-        try {
-            $text_mgr = new AfsTextManager($json_array);
-            $text_mgr->visit_text($visitor);
-        } catch (Exception $e) {
-
-        }
-
-        //return $this->get_values_recursively($path, $this->client_data->contents);
-        /*if (is_null($visitor)) {
-            $visitor = new AfsTextVisitor();
-        }
-        $contents = $this->client_data->contents;
-        if (is_null($path)) {
-            return json_encode($contents);
+        if (is_array($nodes) && ! empty($nodes)) {
+            return $nodes[0];
         } else {
-            if (! is_array($contents)) {
-                if (property_exists($contents, $path)) {
-                    $text_mgr = new AfsTextManager($contents->$name);
-                } else {
-                    throw new AfsNoResultException('No client data content named: ' . $name);
-                }
-            } else {
-                $text_mgr = new AfsTextManager($contents);
-            }
-            return $text_mgr->visit_text($visitor);
+            throw new AfsNoResultException('No result for: ' . $jpath);
         }
-    }*/
+    }
 
     /** @brief Retrieve client data's mime type.
      *
