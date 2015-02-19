@@ -289,7 +289,11 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
     public function get_node($xpath=null, $context=array()) {
         $nodes =  $this->get_nodes($xpath, $context);
 
-        return $nodes[0];
+        if (is_array($nodes) && ! empty($nodes)){
+            return $nodes[0];
+        } else {
+            throw new AfsNoResultException($xpath . ' not found in current client data');
+        }
     }
 
     /**
@@ -307,7 +311,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
 
         $items = $this->apply_xpath($xpath, $nsmap);
         if (empty($items)) {
-            throw new AfsNoResultException();
+            throw new AfsNoResultException($xpath . ' not found in current client data');
         } else {
             $result = array();
             foreach ($items as $item) {
