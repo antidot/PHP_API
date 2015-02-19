@@ -432,7 +432,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
     }
 
     public function testXmlCltDataMultipleElementsReturnedByGetNodes() {
-        $xml_client_data = '<clientData><data1>value1</data1><data1><k>v</k></data1></clientData>';
+        $xml_client_data = '<clientData><data1 attr=\"bidule\">value1</data1><data1><k>v</k></data1></clientData>';
         $input = json_decode('
               {
                 "contents": "' . $xml_client_data . '",
@@ -441,7 +441,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
               }');
 
         $xml_clientdata = new AfsXmlClientDataHelper($input);
-        $this->assertTrue(in_array(array('data1' => 'value1'), $xml_clientdata->get_nodes("//data1")));
+        $this->assertTrue(in_array(array('attr' => 'bidule'), $xml_clientdata->get_nodes("//data1/@attr")));
         $this->assertTrue(in_array(array("data1" => array("k" => "v")), $xml_clientdata->get_nodes("//data1")));
     }
 

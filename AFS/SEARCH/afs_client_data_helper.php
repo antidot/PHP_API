@@ -340,7 +340,11 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
 
         if( XML_TEXT_NODE == $node->nodeType ) {
             return $node->nodeValue;
+        } elseif (XML_ATTRIBUTE_NODE == $node->nodeType) {
+            $array[$node->localName] = $node->nodeValue;
+            return $array;
         }
+
         foreach ($node->attributes as $attr) {
             $attributes[$attr->localName] = $attr->nodeValue;
         }
