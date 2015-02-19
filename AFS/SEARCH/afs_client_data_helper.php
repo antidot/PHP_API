@@ -3,6 +3,10 @@ require_once "AFS/SEARCH/afs_text_visitor.php";
 require_once "AFS/SEARCH/afs_client_data_exception.php";
 require_once "COMMON/afs_helper_base.php";
 require_once "COMMON/afs_tools.php";
+require_once "COMMON/lib/JsonPath/JsonStore.php";
+require_once "COMMON/lib/JsonPath/JsonPath.php";
+
+use Peekmo\JsonPath\JsonStore;
 
 
 /** @brief Manage client data.
@@ -92,6 +96,7 @@ interface AfsClientDataHelperInterface
      * @return first matching client data with specified name as text.
      */
     public function get_value($name=null, $context=array(), $formatter=null);
+
     /** @brief Retrieves client data as array of texts.
      *
      * All client data or sub-tree can be retrieved depending on @a name
@@ -105,6 +110,22 @@ interface AfsClientDataHelperInterface
      * @return matching client data as array of texts.
      */
     public function get_values($name=null, $context=array(), $formatter=null);
+
+    /**
+     * @brief Retrieves full client data node (value and attributes)
+     * @param $name [in] node name to be extracted
+     * @param $context [in] context used for looking for node with specified name.
+     * @return first occurrence of node as array
+     */
+    public function get_node($name=null, $context=array());
+
+    /**
+     * @brief Retrieves full client data nodes (value and attributes)
+     * @param $name [in] node name to be extracted
+     * @param $context [in] context used for looking for node with specified name.
+     * @return all occurrences as array
+     */
+    public function get_nodes($name=null, $context=array());
 
     /** @brief Retrieve client data's mime type.
      *
@@ -169,7 +190,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
     private $contents = null;
     private $doc = null;
     private $callbacks = array();   // callbacks activated on specific node name
-    private static $afs_ns = 'http://ref.antidot.net/v7/afs#';
+    public static $afs_ns = 'http://ref.antidot.net/v7/afs#';
 
     /** @brief Construct new instance of XML helper.
      * @param $client_data [in] input data used to initialize the instance.
@@ -192,8 +213,9 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         } else {
             $this->contents = $client_data->contents;
         }
+
         $this->doc = new DOMDocument();
-        $this->doc->loadXML($this->contents);
+        $this->doc->loadXML($this->contents, LIBXML_NOBLANKS);
     }
 
     /** @brief Retrieves text from XML node.
@@ -201,7 +223,8 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
      * @remark @c afs prefix should never be used in provided XPath.
      *
      * @param $path [in] XPath to apply (default=null, retrieve all content as
-     *        text).
+     *        text). Has client data is override by the clientData node, all XPaths
+     *        should begin with '/clientData/...'
      * @param $nsmap [in] prefix/uri mapping to use along with provided XPath.
      * @param $callbacks [in] list of callbacks to emphase text when highlight
      *        of client data is activated or when client data text is truncated.
@@ -256,6 +279,88 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         }
     }
 
+    /**
+     * @brief Retrieves full client data node (value and attributes)
+     * @param $xpath [in] node name to be extracted
+     * @param $context [in] context used for looking for node with specified name.
+     * @return first occurrence of node as array
+     * @throws AfsNoResultException
+     */
+    public function get_node($xpath=null, $context=array()) {
+        $nodes =  $this->get_nodes($xpath, $context);
+
+        if (is_array($nodes) && ! empty($nodes)){
+            return $nodes[0];
+        } else {
+            throw new AfsNoResultException($xpath . ' not found in current client data');
+        }
+    }
+
+    /**
+     * @brief Retrieves full client data nodes (value and attributes)
+     * @param $name [in] node name to be extracted
+     * @param $context [in] context used for looking for node with specified name.
+     * @return all occurrences as array
+     * @throws AfsNoResultException
+     */
+    public function get_nodes($xpath=null, $nsmap=array())
+    {
+        if (is_null($xpath) || $xpath === "") {
+            $xpath = "/";
+        }
+
+        $items = $this->apply_xpath($xpath, $nsmap);
+        if (empty($items)) {
+            throw new AfsNoResultException($xpath . ' not found in current client data');
+        } else {
+            $result = array();
+            foreach ($items as $item) {
+                if ($item instanceof DOMDocument) {
+                    $item = $item->documentElement;
+                }
+                $result[] = $this->nodeToArray($this->doc, $item);
+            }
+            return $result;
+        }
+    }
+
+    /**
+     * Returns an array representation of a DOMNode
+     * Note, make sure to use the LIBXML_NOBLANKS flag when loading XML into the DOMDocument
+     * @param DOMDocument $dom
+     * @param DOMNode $node
+     * @return array
+     */
+    private function nodeToArray( $dom, $node) {
+        if(!is_a( $dom, 'DOMDocument' ) || !is_a( $node, 'DOMNode' )) {
+            return false;
+        }
+        $array = false;
+        $attributes = array();
+
+        if( XML_TEXT_NODE == $node->nodeType ) {
+            return $node->nodeValue;
+        }
+        foreach ($node->attributes as $attr) {
+            $attributes[$attr->localName] = $attr->nodeValue;
+        }
+        if (! empty($attributes)) {
+            $array['attributes'] = $attributes;
+        }
+
+        if ($node->firstChild->nodeType == XML_TEXT_NODE) {
+            $array[$node->localName] = $node->firstChild->nodeValue;
+        } else {
+            $array[$node->localName] = array();
+            foreach ($node->childNodes as $childNode) {
+                if (false !== ($a = self::nodeToArray($dom, $childNode))) {
+                    $array[$node->localName] = array_merge($array[$node->localName], $a);
+                }
+            }
+        }
+        return $array;
+    }
+
     /** @internal
      * @brief Retrieves values at given XPath or fails.
      *
@@ -282,6 +387,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
         } elseif ($result->length == 0) {
             throw new AfsNoResultException('No result available for: ' . $path);
         }
+
         return $result;
     }
 
@@ -341,55 +447,56 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
      * @par Example with name=null:
      * Input JSON client data:
      * @verbatim
-       {
-         "clientData": [
-           {
-             "contents": { "data": [ "afs:t": "KwicString", "text": "some text" ] },
-             "id": "data1",
-             "mimeType": "application/json"
-           }
-         ]
-       }
-       @endverbatim
+        {
+            "clientData": [
+                {
+                    "contents": { "data": [ "afs:t": "KwicString", "text": "some text" ] },
+                    "id": "data1",
+                    "mimeType": "application/json"
+                }
+            ]
+        }
+    @endverbatim
      * Call to <tt>get_text(null)</tt> will return
      * @verbatim {"data":["afs:t":"KwicString","text":"some text"]}@endverbatim.
      *
      * @par Example with name='data':
      * Same input JSON as previous example:
      * @verbatim
-       {
-         "clientData": [
-           {
-             "contents": { "data": [ "afs:t": "KwicString", "text": "some text" ] },
-             "id": "data1",
-             "mimeType": "application/json"
-           }
-         ]
-       }
-       @endverbatim
+        {
+            "clientData": [
+                {
+                    "contents": { "data": [ "afs:t": "KwicString", "text": "some text" ] },
+                    "id": "data1",
+                    "mimeType": "application/json"
+                }
+            ]
+        }
+    @endverbatim
      * Call to <tt>get_text('data')</tt> will return
      * @verbatim some text @endverbatim.
      *
      * @par Example with name='':
      * Client data is a @em simple text:
      * @verbatim
-       {
-         "clientData": [
-           {
-             "contents": [ { "afs:t": "KwicString", "text": "some text" } ],
-             "id": "data1",
-             "mimeType": "application/json"
-           }
-         ]
-       }
-       @endverbatim
+     *  {
+            "clientData": [
+                {
+                    "contents": [ { "afs:t": "KwicString", "text": "some text" } ],
+                    "id": "data1",
+                    "mimeType": "application/json"
+                }
+            ]
+        }
+        @endverbatim
      * Call to <tt>get_text('')</tt> will return
      * @verbatim some text @endverbatim.
      */
-    public function get_value($name=null, $unused=array(), $visitor=null)
+    public function get_value($path=null, $unused=array(), $visitor=null)
     {
-        return $this->get_values($name, $unused, $visitor);
+        return $this->get_values($path, $unused, $visitor);
     }
+
 
     /** @brief Same result as @a get_value method
      *
@@ -404,7 +511,7 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
      *
      * @return formatted text.
      *
-     * @exception AfsNoResultException when required JSON element is not defined.
+     * @throws AfsNoResultException when required JSON element is not defined.
      */
     public function get_values($name=null, $unused=array(), $visitor=null)
     {
@@ -425,6 +532,34 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
                 $text_mgr = new AfsTextManager($contents);
             }
             return $text_mgr->visit_text($visitor);
+        }
+    }
+
+    public function get_nodes($jpath=null, $unused=array()) {
+        if (is_null($jpath) || $jpath === "") {
+            // return json as array
+            return array(json_decode(json_encode($this->client_data->contents), true));
+        }
+
+        $store = new JsonStore($this->client_data->contents);
+        $result = $store->get($jpath, false);
+
+        if (! empty($result)) {
+            return $result;
+        } else {
+            throw new AfsNoResultException();
+        }
+    }
+
+
+    public function get_node($jpath=null, $unused=array())
+    {
+        $nodes = $this->get_nodes($jpath, $unused);
+
+        if (is_array($nodes) && ! empty($nodes)) {
+            return $nodes[0];
+        } else {
+            throw new AfsNoResultException('No result for: ' . $jpath);
         }
     }
 

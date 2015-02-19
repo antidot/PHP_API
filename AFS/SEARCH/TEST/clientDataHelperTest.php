@@ -168,7 +168,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($helper->mime_type, 'application/json');
     }
 
-    public function testRetrieveSimpleJSONDataAsText()
+    public function testRetrieveSimpleJSONDataAsText2()
     {
         $input = json_decode('{
             "clientData": [
@@ -301,5 +301,179 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
         $data = $mgr->get_clientdata('foo')->get_value();
         $doc = new DOMDocument();
         $doc->loadXML($data);
+    }
+
+    public function testJsonCltDataGetValueJsonClientDataHelper() {
+        $input = json_decode('
+              {
+                "contents": { "data1": "value1",
+                              "data2": [ { "k": "v" } ] },
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+
+
+        $json_clientdata = new AfsJsonClientDataHelper($input);
+        $this->assertEquals('value1', $json_clientdata->get_node("$.data1"));
+        $this->assertEquals('v', $json_clientdata->get_node("$.data2[0].k"));
+
+        $expected_result = array("data1" => "value1", "data2" => array(array("k" => "v")));
+        $this->assertEquals(array($expected_result),
+                $json_clientdata->get_nodes(""));
+        $this->assertEquals(array($expected_result),
+            $json_clientdata->get_nodes());
+        $this->assertEquals($expected_result,
+            $json_clientdata->get_node(""));
+        $this->assertEquals($expected_result,
+            $json_clientdata->get_node());
+    }
+
+    public function testJsonCltDataFirstElementReturnedByGetNode() {
+        $input = json_decode('
+              {
+                "contents": {
+                              "data1": [ { "k": "v" } ], "data1": "value1" },
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+
+        $json_clientdata = new AfsJsonClientDataHelper($input);
+        $this->assertEquals('value1', $json_clientdata->get_node("$.data1"));
+    }
+
+    public function testJsonCltDataMultipleElementsReturnedByGetNodes() {
+        $input = json_decode('
+              {
+                "contents": { "data1": "value1",
+                              "data": { "data1": [ { "k": "v" } ] }},
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+
+        $json_clientdata = new AfsJsonClientDataHelper($input);
+        $this->assertTrue(in_array('value1', $json_clientdata->get_nodes("$..data1")));
+        $this->assertTrue(in_array(array(array("k" => "v")), $json_clientdata->get_nodes("$..data1")));
+    }
+
+    /**
+     * @expectedException AfsNoResultException
+     */
+    public function testJsonCltDataNoElementFoundGetNode() {
+        $input = json_decode('
+              {
+                "contents": { "dataa1": "value1",
+                              "dataa2": [ { "k": "v" } ] },
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+        $json_clientdata = new AfsJsonClientDataHelper($input);
+        $json_clientdata->get_node("$.data1");
+    }
+
+    /**
+     * @expectedException AfsNoResultException
+     */
+    public function testJsonCltDataNoElementFoundgetNodes() {
+        $input = json_decode('
+              {
+                "contents": { "data1": "value1",
+                              "data2": [ { "k": "v" } ] },
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+
+        $input = json_decode('
+              {
+                "contents": { "dataa1": "value1",
+                              "dataa2": [ { "k": "v" } ] },
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+        $json_clientdata = new AfsJsonClientDataHelper($input);
+        $json_clientdata->get_nodes("$.data1");
+    }
+
+    public function testXmlCltDataGetNodeDataHelper() {
+        $xml_client_data = '<clientData><data1>value1</data1><data2><k>v</k></data2></clientData>';
+        $input = json_decode('
+              {
+                "contents": "' . $xml_client_data . '",
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+
+
+        $xml_clientdata = new AfsXmlClientDataHelper($input);
+        $this->assertEquals(array('data1' => 'value1'), $xml_clientdata->get_node("/clientData/data1"));
+        $this->assertEquals(array('data2' => array('k' => 'v')), $xml_clientdata->get_node("/clientData/data2"));
+
+        $expected_result = array('clientData' => array("data1" => "value1", "data2" => array("k" => "v")));
+        $this->assertEquals(array($expected_result),
+            $xml_clientdata->get_nodes(""));
+        $this->assertEquals(array($expected_result),
+            $xml_clientdata->get_nodes());
+        $this->assertEquals($expected_result,
+            $xml_clientdata->get_node(""));
+        $this->assertEquals($expected_result,
+            $xml_clientdata->get_node());
+    }
+
+    public function testXmlCltDataFirstElementReturnedByGetNode() {
+        $xml_client_data = '<clientData><data1>value1</data1><data1><k>v</k></data1></clientData>';
+        $input = json_decode('
+              {
+                "contents": "' . $xml_client_data . '",
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+
+        $xml_clientdata = new AfsXmlClientDataHelper($input);
+        $this->assertEquals(array('data1' => 'value1'), $xml_clientdata->get_node("/clientData/data1"));
+    }
+
+    public function testXmlCltDataMultipleElementsReturnedByGetNodes() {
+        $xml_client_data = '<clientData><data1>value1</data1><data1><k>v</k></data1></clientData>';
+        $input = json_decode('
+              {
+                "contents": "' . $xml_client_data . '",
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+
+        $xml_clientdata = new AfsXmlClientDataHelper($input);
+        $this->assertTrue(in_array(array('data1' => 'value1'), $xml_clientdata->get_nodes("//data1")));
+        $this->assertTrue(in_array(array("data1" => array("k" => "v")), $xml_clientdata->get_nodes("//data1")));
+    }
+
+    /**
+     * @expectedException AfsNoResultException
+     */
+    public function testXmlCltDataNoElementFoundGetNode() {
+        $xml_client_data = '<clientData><data1>value1</data1><data1><k>v</k></data1></clientData>';
+        $input = json_decode('
+              {
+                "contents": "' . $xml_client_data . '",
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+
+        $xml_clientdata = new AfsXmlClientDataHelper($input);
+        $xml_clientdata->get_node("/foo");
+    }
+
+    /**
+     * @expectedException AfsNoResultException
+     */
+    public function testXmlCltDataNoElementFoundgetNodes() {
+        $xml_client_data = '<clientData><data1>value1</data1><data1><k>v</k></data1></clientData>';
+        $input = json_decode('
+              {
+                "contents": "' . $xml_client_data . '",
+                "id": "id1",
+                "mimeType": "application/json"
+              }');
+
+        $xml_clientdata = new AfsXmlClientDataHelper($input);
+        $xml_clientdata->get_node("/foo");
     }
 }
