@@ -1,3 +1,18 @@
+Skip to content
+ This repository
+Explore
+Gist
+Blog
+Help
+charlthibault charlthibault
+ 
+9  Unwatch 
+  Star 6
+ Fork 5antidot/PHP_API
+ tag: v0.16.0  PHP_API/afs_lib.doxygen
+ml on Apr 4, 2014 Add support for number of facet value replies
+0 contributors
+2311 lines (1783 sloc)  100.656 kb RawBlameHistory  
 # Doxyfile 1.8.5
 
 # This file describes the settings to be used by the documentation system
@@ -38,7 +53,7 @@ PROJECT_NAME           = "Antidot PHP API"
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = "version 0.12.1"
+PROJECT_NUMBER         = "version 0.16.0"
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
@@ -2308,3 +2323,6 @@ GENERATE_LEGEND        = YES
 # This tag requires that the tag HAVE_DOT is set to YES.
 
 DOT_CLEANUP            = YES
+Status API Training Shop Blog About
+© 2015 GitHub, Inc. Terms Privacy Security Contact
+
