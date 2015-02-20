@@ -282,9 +282,66 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
     /**
      * @brief Retrieves full client data node (value and attributes)
      * @param $xpath [in] node name to be extracted
-     * @param $context [in] context used for looking for node with specified name.
+     * @param $nsmap [in] namespace used for looking for node with specified name.
      * @return first occurrence of node as array
      * @throws AfsNoResultException
+     *
+     * @par Usage example:
+     * Input XML client data:
+     * @verbatim
+     *  <clientData>
+     *      <data1 attr='foo'>value1</data1>
+     *      <data2><k>v</k></data2>
+     *   </clientData>
+     * @endverbatim
+     *
+     * Call to get_node() will return
+     * @verbatim
+        array   (
+                    [clientData] => Array
+                        (
+                            [data1] => Array
+                                (
+                                    [attributes] => Array
+                                        (
+                                            [attr] => foo
+                                        )
+
+                                    [0] => value1
+                                )
+
+                            [data2] => Array
+                                (
+                                    [data1] => value2
+                                )
+
+                        )
+
+                )
+      @endverbatim
+     *
+     * Call to get_node('/clientData/data1') will return
+     * @verbatim
+        array (
+            [data1] => Array
+                (
+                    [attributes] => Array
+                        (
+                            [attr] => foo
+                        )
+
+                    [0] => value1
+                )
+            )
+      @endverbatim
+     *
+     * Call to get_node('//data1/\@attr') will return
+     * @verbatim
+        Array
+            (
+                [attr] => foo
+            )
+      @endverbatim
      */
     public function get_node($xpath=null, $context=array()) {
         $nodes =  $this->get_nodes($xpath, $context);
@@ -299,9 +356,76 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
     /**
      * @brief Retrieves full client data nodes (value and attributes)
      * @param $name [in] node name to be extracted
-     * @param $context [in] context used for looking for node with specified name.
+     * @param $nsmap [in] namespace used for looking for node with specified name.
      * @return all occurrences as array
      * @throws AfsNoResultException
+     *
+     * @par Usage example:
+     * Input XML client data:
+     * @verbatim
+     *  <clientData>
+     *      <data1 attr='foo'>value1</data1>
+     *      <data2><data1>value2</data1></data2>
+     *   </clientData>
+     * @endverbatim
+     *
+     * Call to get_nodes() will return
+     * @verbatim
+        array
+    (
+        [0] => Array
+            (
+                [clientData] => Array
+                    (
+                        [data1] => Array
+                            (
+                                [attributes] => Array
+                                    (
+                                        [attr] => foo
+                                    )
+
+                                [0] => value1
+                            )
+
+                        [data2] => Array
+                            (
+                                [data1] => value2
+                            )
+
+                    )
+
+            )
+
+    )
+      @endverbatim
+     *
+     * Call to get_nodes('//data1') will return
+     * @verbatim
+    array (
+            array (
+                [data1] => Array
+                    (
+                        [attributes] => Array
+                            (
+                                [attr] => foo
+                            )
+                        [0] => value1
+                    )
+                )
+            array (
+                [data1] => value2
+            )
+        )
+
+      @endverbatim
+     *
+     * Call to get_nodes('//data1/@attr') will return
+     * @verbatim
+         Array
+            (
+                [attr] => foo
+            )
+      @endverbatim
      */
     public function get_nodes($xpath=null, $nsmap=array())
     {
@@ -325,6 +449,7 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
     }
 
     /**
+     * @internal
      * Returns an array representation of a DOMNode
      * Note, make sure to use the LIBXML_NOBLANKS flag when loading XML into the DOMDocument
      * @param DOMDocument $dom
@@ -345,15 +470,17 @@ class AfsXmlClientDataHelper extends AfsClientDataHelperBase implements AfsClien
             return $array;
         }
 
-        foreach ($node->attributes as $attr) {
-            $attributes[$attr->localName] = $attr->nodeValue;
-        }
-        if (! empty($attributes)) {
-            $array['attributes'] = $attributes;
-        }
 
         if ($node->firstChild->nodeType == XML_TEXT_NODE) {
-            $array[$node->localName] = $node->firstChild->nodeValue;
+            foreach ($node->attributes as $attr) {
+                $attributes[$attr->localName] = $attr->nodeValue;
+            }
+            if (! empty($attributes)) {
+                $array[$node->localName]['attributes'] = $attributes;
+                $array[$node->localName][] = $node->firstChild->nodeValue;
+            } else {
+                $array[$node->localName] = $node->firstChild->nodeValue;
+            }
         } else {
             $array[$node->localName] = array();
             foreach ($node->childNodes as $childNode) {
@@ -539,6 +666,13 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
         }
     }
 
+    /**
+     * @brief Retrieves full client data node (not only text)
+     * @param $jpath [in] node name to be extracted
+     * @param $context [in] context used for looking for node with specified name.
+     * @return all matching nodes as array (each node format like json_decode in array mode)
+     * @throws AfsNoResultException
+     */
     public function get_nodes($jpath=null, $unused=array()) {
         if (is_null($jpath) || $jpath === "") {
             // return json as array
@@ -555,7 +689,13 @@ class AfsJsonClientDataHelper extends AfsClientDataHelperBase implements AfsClie
         }
     }
 
-
+    /**
+     * @brief Retrieves full client data node (not only text)
+     * @param $jpath [in] node name to be extracted
+     * @param $context [in] context used for looking for node with specified name.
+     * @return first occurrence of node as array (node format like json_decode in array mode)
+     * @throws AfsNoResultException
+     */
     public function get_node($jpath=null, $unused=array())
     {
         $nodes = $this->get_nodes($jpath, $unused);

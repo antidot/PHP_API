@@ -394,7 +394,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
     }
 
     public function testXmlCltDataGetNodeDataHelper() {
-        $xml_client_data = '<clientData><data1>value1</data1><data2><k>v</k></data2></clientData>';
+        $xml_client_data = '<clientData><data1 attr=\"foo\">value1</data1><data2><data1>value2</data1></data2></clientData>';
         $input = json_decode('
               {
                 "contents": "' . $xml_client_data . '",
@@ -404,10 +404,10 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
 
 
         $xml_clientdata = new AfsXmlClientDataHelper($input);
-        $this->assertEquals(array('data1' => 'value1'), $xml_clientdata->get_node("/clientData/data1"));
-        $this->assertEquals(array('data2' => array('k' => 'v')), $xml_clientdata->get_node("/clientData/data2"));
+        $this->assertEquals(array("data1" => array('attributes' => array( 'attr' => 'foo'), "value1")), $xml_clientdata->get_node("/clientData/data1"));
+        $this->assertEquals(array("data2" => array("data1" => "value2")), $xml_clientdata->get_node("/clientData/data2"));
 
-        $expected_result = array('clientData' => array("data1" => "value1", "data2" => array("k" => "v")));
+        $expected_result =array('clientData' => array("data1" => array('attributes' => array( 'attr' => 'foo'), "value1"), "data2" => array("data1" => "value2")));
         $this->assertEquals(array($expected_result),
             $xml_clientdata->get_nodes(""));
         $this->assertEquals(array($expected_result),
@@ -442,6 +442,7 @@ class ClientDataHelperTest extends PHPUnit_Framework_TestCase
 
         $xml_clientdata = new AfsXmlClientDataHelper($input);
         $this->assertTrue(in_array(array('attr' => 'bidule'), $xml_clientdata->get_nodes("//data1/@attr")));
+        $this->assertTrue(in_array(array("data1" => array("attributes" => array('attr' => 'bidule'), "value1")), $xml_clientdata->get_nodes("//data1")));
         $this->assertTrue(in_array(array("data1" => array("k" => "v")), $xml_clientdata->get_nodes("//data1")));
     }
 
