@@ -27,12 +27,12 @@ class AfsSearchQueryManager
      *        appropriate AFS query.
      * @return reply of AFS search engine.
      */
-    public function send(AfsQuery $query)
+    public function send(AfsQuery $query, $text_encoding=TextEncoding::UTF8)
     {
         $query->initialize_user_and_session_id($this->config->get_user_session_manager());
         $params = $this->convert_to_param($query);
         $this->add_facet_options($query, $params);
-        return $this->connector->send($params);
+        return $this->connector->send($params, $text_encoding);
     }
 
     /** @internal

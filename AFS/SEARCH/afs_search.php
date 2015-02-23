@@ -119,10 +119,7 @@ class AfsSearch
         }
         $this->config->set_helper_format($format);
         $query_mgr = new AfsSearchQueryManager($this->connector, $this->config);
-        $reply = $query_mgr->send($this->query);
-        if ($this->config->get_text_encoding() === TextEncoding::ISO88591) {
-            $reply = utf8_decode($reply);
-        }
+        $reply = $query_mgr->send($this->query, $this->config->get_text_encoding());
         $helper = new AfsResponseHelper($reply, $this->query, $this->config);
         if (AfsHelperFormat::ARRAYS == $format) {
             return $helper->format();

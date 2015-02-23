@@ -94,7 +94,7 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
      * @param $parameters [in] list of parameters used to build the query.
      * @return JSON decoded reply of the query.
      */
-    public function send(array $parameters)
+    public function send(array $parameters, $encoding=TextEncoding::UTF8)
     {
         $this->url = $this->build_url($this->get_web_service_name(), $parameters);
         $request = $this->curlConnector->curl_init($this->url);
@@ -109,6 +109,9 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
             try {
                 if ($result == false)
                     throw new AfsConnectorExecutionFailedException();
+                if ($encoding === TextEncoding::ISO88591) {
+                    $result = utf8_decode($result);
+                }
                 $result = json_decode($result, $this->associative_array);
                 if (empty($result)) {
                     throw new AfsConnectorExecutionFailedException();
