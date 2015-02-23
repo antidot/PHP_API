@@ -4,6 +4,11 @@ require_once 'AFS/SEARCH/afs_query_coder.php';
 require_once 'AFS/SEARCH/afs_text_visitor.php';
 require_once 'AFS/SEARCH/afs_spellcheck_text_visitor.php';
 
+class TextEncoding extends BasicEnum {
+    const UTF8 = 'UTF-8';
+    const ISO88591 = 'ISO-8859-1';
+}
+
 
 /** @brief Configuration class for AFS helper classes. */
 class AfsHelperConfiguration extends AfsConfigurationBase
@@ -11,6 +16,8 @@ class AfsHelperConfiguration extends AfsConfigurationBase
     private $query_coder = null;
     private $reply_text_visitor = null;
     private $spellcheck_text_visitor = null;
+    // encoding used in URLS and response. API support both UTF-8 and ISO-8859-1
+    private $text_encoding = TextEncoding::UTF8;
 
     /** @brief Constructs new configuration class with default parameters set.
      */
@@ -19,6 +26,23 @@ class AfsHelperConfiguration extends AfsConfigurationBase
         parent::__construct();
         $this->reply_text_visitor = new AfsTextVisitor();
         $this->spellcheck_text_visitor = new AfsSpellcheckTextVisitor();
+    }
+
+    /**
+     * @Brief get the actual user encoding
+     * @return the current encoding (UTF-8 or ISO-8859-1)
+     */
+    public function get_text_encoding() {
+        return $this->text_encoding;
+    }
+
+    /**
+     * @Brief set the user encoding for URL building and response parsing
+     *        default used is UTF-8. UTF-8 and ISO-8859-1 are supported
+     * @param TextEncoding [in] $encoding
+     */
+    public function set_text_encoding($encoding) {
+        $this->text_encoding = $encoding;
     }
 
     /** @name Query coder

@@ -30,6 +30,23 @@ class AfsSearch
         $this->query = new AfsQuery();
     }
 
+    /**
+     * @Brief set the user encoding for URL building and response parsing
+     *        default used is UTF-8. UTF-8 and ISO-8859-1 are supported
+     * @param TextEncoding [in] $encoding
+     */
+    public function set_text_encoding($encoding) {
+        $this->config->set_text_encoding($encoding);
+    }
+
+    /**
+     * @Brief get the actual user encoding
+     * @return the current encoding (UTF-8 or ISO-8859-1)
+     */
+    public function get_text_encoding() {
+        return $this->config->get_text_encoding();
+    }
+
     /** @name Query coder
      *
      * This coder is useful only when you want AFS helpers to generate
@@ -56,16 +73,11 @@ class AfsSearch
         if (! $this->config->has_query_coder()) {
             $this->config->set_query_coder(new AfsQueryCoder());
         }
-        $parameters = array();
-        /*foreach (explode('&', urldecode($_SERVER['QUERY_STRING'])) as $param) {
-            list($key, $value) = explode('=', $param);
-            $separator = $this->config->get_query_coder()->get_separator($key);
-            if (array_key_exists($key, $parameters)) {
-                $parameters[$key] = $parameters[$key] . $separator . $value;
-            } else {
-                $parameters[$key] = $value;
+        if ($this->config->get_text_encoding() === TextEncoding::ISO88591) {
+            foreach ($_GET as $name => $value) {
+                $_GET[$name] = utf8_encode($value);
             }
-        }*/
+        }
 
         $this->query = $this->config->get_query_coder()->build_query($_GET);
         return $this->query;
@@ -108,6 +120,9 @@ class AfsSearch
         $this->config->set_helper_format($format);
         $query_mgr = new AfsSearchQueryManager($this->connector, $this->config);
         $reply = $query_mgr->send($this->query);
+        if ($this->config->get_text_encoding() === TextEncoding::ISO88591) {
+            $reply = utf8_decode($reply);
+        }
         $helper = new AfsResponseHelper($reply, $this->query, $this->config);
         if (AfsHelperFormat::ARRAYS == $format) {
             return $helper->format();
