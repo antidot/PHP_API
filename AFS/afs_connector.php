@@ -4,6 +4,7 @@ require_once "COMMON/afs_connector_base.php";
 require_once 'COMMON/afs_exception.php';
 require_once 'AFS/afs_exception.php';
 require_once 'afs_version.php';
+require_once 'COMMON/afs_tools.php';
 
 
 /** @brief Base class for all AFS web services.
@@ -109,10 +110,8 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
             try {
                 if ($result == false)
                     throw new AfsConnectorExecutionFailedException();
-                if ($encoding === TextEncoding::ISO88591) {
-                    $result = utf8_decode($result);
-                }
-                $result = json_decode($result, $this->associative_array);
+                $result = JsonDecoder::json_decode($result, $this->associative_array, $encoding);
+
                 if (empty($result)) {
                     throw new AfsConnectorExecutionFailedException();
                 }
@@ -122,6 +121,7 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
         }
         return $result;
     }
+
 
     private function get_http_header()
     {
