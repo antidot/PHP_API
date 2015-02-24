@@ -5,13 +5,12 @@ require_once 'AFS/SEARCH/afs_text_visitor.php';
 require_once 'AFS/SEARCH/afs_spellcheck_text_visitor.php';
 
 
-
 /** @brief Configuration class for AFS helper classes. */
 class AfsHelperConfiguration extends AfsConfigurationBase
 {
     private $query_coder = null;
     private $reply_text_visitor = null;
-
+    private $spellcheck_text_visitor = null;
 
     /** @brief Constructs new configuration class with default parameters set.
      */

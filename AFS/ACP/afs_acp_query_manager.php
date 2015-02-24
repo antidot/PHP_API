@@ -28,11 +28,11 @@ class AfsAcpQueryManager
      *        appropriate ACP query.
      * @return reply of AFS ACP engine.
      */
-    public function send(AfsAcpQuery $query, $text_encoding=TextEncoding::UTF8)
+    public function send(AfsAcpQuery $query)
     {
         $query->initialize_user_and_session_id($this->config->get_user_session_manager());
         $params = $this->convert_to_param($query);
-        return $this->connector->send($params, $text_encoding);
+        return $this->connector->send($params);
     }
 
     /** @internal

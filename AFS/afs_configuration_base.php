@@ -2,17 +2,12 @@
 require_once 'COMMON/afs_helper_format.php';
 require_once 'COMMON/afs_user_session_manager.php';
 
-class TextEncoding extends BasicEnum {
-    const UTF8 = 'UTF-8';
-    const ISO88591 = 'ISO-8859-1';
-}
 
 /** @brief Configuration base class for AFS configuration classes. */
 abstract class AfsConfigurationBase
 {
     protected $helper_format = null;
     protected $user_session_mgr = null;
-    protected $text_encoding = TextEncoding::UTF8;
 
     /** @brief Constructs new configuration class with default parameters set.
      */
@@ -20,23 +15,6 @@ abstract class AfsConfigurationBase
     {
         $this->helper_format = AfsHelperFormat::HELPERS;
         $this->user_session_mgr = new AfsUserSessionManager();
-    }
-
-    /**
-     * @Brief get the actual user encoding
-     * @return the current encoding (UTF-8 or ISO-8859-1)
-     */
-    public function get_text_encoding() {
-        return $this->text_encoding;
-    }
-
-    /**
-     * @Brief set the user encoding for URL building and response parsing
-     *        default used is UTF-8. UTF-8 and ISO-8859-1 are supported
-     * @param TextEncoding [in] $encoding
-     */
-    public function set_text_encoding($encoding) {
-        $this->text_encoding = $encoding;
     }
 
     /** @name Helper format

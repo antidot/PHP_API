@@ -29,23 +29,6 @@ class AfsAcp
         $this->query = new AfsAcpQuery();
     }
 
-    /**
-     * @Brief set the user encoding for URL building and response parsing
-     *        default used is UTF-8. UTF-8 and ISO-8859-1 are supported
-     * @param TextEncoding [in] $encoding
-     */
-    public function set_text_encoding($encoding) {
-        $this->config->set_text_encoding($encoding);
-    }
-
-    /**
-     * @Brief get the actual user encoding
-     * @return the current encoding (UTF-8 or ISO-8859-1)
-     */
-    public function get_text_encoding() {
-        return $this->config->get_text_encoding();
-    }
-
     /** @name Query management
      *
      * Remember that AfsAcpQuery objects are immutable.
@@ -96,7 +79,7 @@ class AfsAcp
     {
         $this->config->set_helper_format($format);
         $query_mgr = new AfsAcpQueryManager($this->connector, $this->config);
-        $reply = $query_mgr->send($this->query, $this->config->get_text_encoding());
+        $reply = $query_mgr->send($this->query);
         $helper = new AfsAcpResponseHelper($reply, $this->config);
         if (AfsHelperFormat::ARRAYS == $format)
             return $helper->format();

@@ -2,10 +2,8 @@
 require_once 'COMMON/afs_connector_interface.php';
 require_once "COMMON/afs_connector_base.php";
 require_once 'COMMON/afs_exception.php';
-require_once 'AFS/afs_configuration_base.php';
 require_once 'AFS/afs_exception.php';
 require_once 'afs_version.php';
-require_once 'COMMON/afs_tools.php';
 
 
 /** @brief Base class for all AFS web services.
@@ -96,7 +94,7 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
      * @param $parameters [in] list of parameters used to build the query.
      * @return JSON decoded reply of the query.
      */
-    public function send(array $parameters, $encoding=TextEncoding::UTF8)
+    public function send(array $parameters)
     {
         $this->url = $this->build_url($this->get_web_service_name(), $parameters);
         $request = $this->curlConnector->curl_init($this->url);
@@ -111,8 +109,7 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
             try {
                 if ($result == false)
                     throw new AfsConnectorExecutionFailedException();
-                $result = JsonDecoder::json_decode($result, $this->associative_array, $encoding);
-
+                $result = json_decode($result, $this->associative_array);
                 if (empty($result)) {
                     throw new AfsConnectorExecutionFailedException();
                 }
@@ -122,7 +119,6 @@ abstract class AfsConnector extends AfsConnectorBase implements AfsConnectorInte
         }
         return $result;
     }
-
 
     private function get_http_header()
     {
