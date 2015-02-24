@@ -2,24 +2,18 @@
 /** @file raw_example.php
  * @example raw_example.php
  */
-
 require_once "PHP_API/afs_lib.php";
-
 $search = new AfsSearch('eval.partners.antidot.net', 48000);
-
 $query = $search->build_query_from_url_parameters();
 $query = $query->set_lang('fr');  // language is set manually in order to get spellcheck results
 $query = $query->set_multi_selection_facets('classification');
 $query = $query->set_mono_selection_facets('afs:lang', 'has_variants', 'has_image');
 $query = $query->set_facet_order('price_eur', 'marketing', 'classification', 'has_variants', 'has_image');
 $query = $query->set_facets_values_sort_order(AfsFacetValuesSortMode::ITEMS, AfsSortOrder::DESC);
-
 $helper = $search->execute($query);
 $generated_url = $search->get_generated_url();
-
 $clustering_is_active = $query->has_cluster();
 $nsmap = array('ns' => 'http://ref.antidot.net/store/afs#');
-
 ?>
 
 
@@ -112,7 +106,6 @@ if ($helper->has_promote()) {
 // checks whether there is at least one replyset
 if ($helper->has_replyset()) {
     $replyset = $helper->get_replyset(); // Retrieves only first replyset
-
     if ($replyset->has_facet()) {
         /* if (in_array('facets', $replyset)) */
         ?>
@@ -237,7 +230,6 @@ if ($helper->has_replyset()) {
                 echo '
   </ul>';
             }
-
             echo '
   <div class="row">
     <div class="col-md-1"></div>
@@ -362,4 +354,3 @@ if ($helper->has_replyset()) {
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
-
