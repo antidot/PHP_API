@@ -16,7 +16,7 @@ require_once "AFS/SEARCH/afs_client_data_helper.php";
  */
 class AfsPromoteReplyHelper extends AfsBaseReplyHelper
 {
-    private $clientdata_mgr = null;
+    protected $clientdata = null;
 
     /** @brief Constructs new instance.
      * @param $reply [in] one reply used to initialize the instance.
@@ -24,9 +24,18 @@ class AfsPromoteReplyHelper extends AfsBaseReplyHelper
     public function __construct($reply)
     {
         parent::__construct($reply, new AfsRawTextVisitor());
-        if (property_exists($this->reply, 'clientData')) {
-            $this->clientdata_mgr = new AfsClientDataManager($this->reply->clientData);
-        }
+        $xmlstring = $reply->clientData[0]->contents;
+        $xmlstring = '<promote>' . $xmlstring . '</promote>';
+        $clientdata = clone $reply->clientData[0];
+        $clientdata->contents = $xmlstring;
+
+        $clientdata = new AfsXmlClientDataHelper($clientdata);
+
+        $this->clientdata = $clientdata;
+    }
+
+    public function get_type() {
+        return 'default';
     }
 
     /** @brief Retrieves custom data from promote reply.
@@ -37,41 +46,29 @@ class AfsPromoteReplyHelper extends AfsBaseReplyHelper
      */
     public function get_custom_data($key=null)
     {
-        if (is_null($this->clientdata_mgr)) {
+        if (is_null($this->clientdata)) {
             throw new Exception('No custom data available for this promote ('
                                 . $this->get_title() . ')');
         }
 
-        $clientdata = null;
-        try {
-            $clientdata = $this->clientdata_mgr->get_clientdata();
-        } catch (OutOfBoundsException $e) {
-            throw new Exception('Custom data with default identifier is not available!');
-        }
-
-        if ('application/xml' != $clientdata->get_mime_type()) {
-            throw new Exception('Custom data is not store in XML format, update'
-                . ' your PHP connector or contact Antidot support team.');
-        }
-
         if (is_null($key)) {
-            return $this->extract_key_value_pairs($clientdata);
+            return $this->extract_key_value_pairs();
         } else {
-            return $clientdata->get_value("/afs:customData/afs:$key",
+            return $this->clientdata->get_value("/promote/afs:customData/afs:$key",
                 array('afs' => 'http://ref.antidot.net/7.3/bo.xsd'));
         }
     }
 
-    private function extract_key_value_pairs($clientData)
+    private function extract_key_value_pairs()
     {
         $result = array();
-        $doc = new DOMDocument();
-        $doc->loadXML($clientData->get_value());
-        if ($doc->hasChildNodes() && $doc->childNodes->item(0)->hasChildNodes()) {
-            foreach ($doc->childNodes->item(0)->childNodes as $node) {
-                $result[$node->localName] = $node->nodeValue;
-            }
+        $customdata = $this->clientdata->get_node('/promote/afs:customData', array("afs" => "http://ref.antidot.net/7.3/bo.xsd"));
+
+        foreach (array_shift($customdata) as $key => $value) {
+            $result[$key] = $value;
         }
+
+
         return $result;
     }
 }
