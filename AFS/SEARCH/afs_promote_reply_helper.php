@@ -34,6 +34,10 @@ class AfsPromoteReplyHelper extends AfsBaseReplyHelper
         $this->clientdata = $clientdata;
     }
 
+    public function get_type() {
+        return 'default';
+    }
+
     /** @brief Retrieves custom data from promote reply.
      * @param $key [in] Identifier of the custom resource. When not specified
      *        custom data are returned as key/value pairs.

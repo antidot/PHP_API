@@ -26,4 +26,8 @@ class AfsPromoteBannerReplyHelper extends AfsPromoteReplyHelper {
     public function get_image_url() {
         return $this->image_url;
     }
+
+    public function get_type() {
+        return "banner";
+    }
 }

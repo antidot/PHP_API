@@ -20,4 +20,8 @@ class AfsPromoteRedirectReplyHelper {
     public function get_url() {
         return $this->url;
     }
+
+    public function get_type() {
+        return "redirect";
+    }
 }
