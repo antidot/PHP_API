@@ -1118,6 +1118,24 @@ class AfsQuery extends AfsQueryBase
         return $copy;
     }
 
+    /** @brief Defines sort order for all facet values.
+     *
+     * AFS search default sort for facet values is alphanumeric. This method
+     * allows to change this behaviour.
+     * @remark This configuration is not exposed to AfsQueryCoder.
+     *
+     * @param $mode [in] Sort mode (see AfsFacetValuesSortMode).
+     * @param $order [in] Sort order (see AfsSortOrder).
+     *
+     * @exception InvalidArgumentException when $mode or $order is invalid.
+     */
+    public function set_facet_values_sort_order($facet_id, $mode, $order)
+    {
+        $copy = $this->copy();
+        $copy->facet_mgr->set_facet_values_sort_order($facet_id, $mode, $order);
+        return $copy;
+    }
+
     /** @brief Defines maximum number of facet values replied per facet.
      *
      * Default maximum value is 1000.

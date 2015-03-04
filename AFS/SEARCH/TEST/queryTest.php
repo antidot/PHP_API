@@ -1090,6 +1090,7 @@ class QueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($facet_mgr->has_facet('FOO'));
         $facet = $facet_mgr->get_facet('FOO');
         $this->assertTrue($facet->has_single_mode());
+        $this->assertFalse($facet_mgr->is_sticky($facet));
     }
     public function testFacetsSingleValuedAsList()
     {

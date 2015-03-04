@@ -64,6 +64,11 @@ class AfsSearchQueryManager
                 $sticky = $facet_mgr->is_sticky($facet);
                 if ($default_sticky != $sticky)
                     $params['afs:facet'][] = $name . ',sticky=' .  ($sticky ? 'true' : 'false');
+                if (! is_null(($sort_order = $facet->get_values_sort_order()))) {
+                    list($sort, $order) = $sort_order->format();
+                    $params['afs:facet'][] = $name . ',sort=' . $sort;
+                    $params['afs:facet'][] = $name . ',order=' . $order;
+                }
             }
         }
         if ($facet_mgr->is_facet_order_strict())

@@ -14,6 +14,7 @@ class AfsFacet
     private $layout = null;
     private $mode = null;
     private $combination = null;
+    private $values_sort_order = null;
 
     /** @brief Construct new facet with specified parameters.
      *
@@ -38,6 +39,27 @@ class AfsFacet
         $this->id = $id;
         $this->layout = $layout;
         $this->set_mode($mode);
+    }
+
+    /**
+     * @brief set values sort order for this facet
+     *
+     * AFS search default sort for facet values is alphanumeric. This method
+     * allows to change this behaviour.
+     *
+     * @param $mode [in] the mode to use: see AfsFacetValuesSortMode
+     * @param $sort [in] the sort to use: see AfsSortOrder
+     */
+    public function set_values_sort_order($mode, $sort) {
+        $this->values_sort_order = new AfsFacetValuesSortOrder($mode, $sort);
+    }
+
+    /**
+     * @brief get current values sort order for this facet
+     * @return AfsFacetValuesSortOrder or null if sort order not specified
+     */
+    public function get_values_sort_order() {
+        return $this->values_sort_order;
     }
 
     /** @brief Validates facet identifier against official regex.
