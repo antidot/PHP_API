@@ -99,6 +99,24 @@ class AfsFacetManager
     {
         $this->facet_values_sort_order = new AfsFacetValuesSortOrder($mode, $order);
     }
+
+     /** @brief Defines values sort order for one specific facet id.
+      *
+      * AFS search default sort for facet values is alphanumeric. This method
+      * allows to change this behaviour.
+      *
+      * @param $facet_id [in] id of facet to configure
+      * @param $mode [in] Sort mode (see AfsFacetValuesSortMode).
+      * @param $order [in] Sort order (see AfsSortOrder).
+      *
+      * @exception InvalidArgumentException when $mode or $order is invalid.
+      */
+    public function set_facet_values_sort_order($facet_id, $mode, $order)
+    {
+        $facet = $this->get_facet($facet_id);
+        $facet->set_values_sort_order($mode, $order);
+    }
+
     /** @brief Checks whether specific sort order has been defined on facet values.
      * @return @c True when specific sort order has been defined, @c false otherwise.
      */
@@ -255,6 +273,19 @@ class AfsFacetManager
         }
 
     }
+
+    public function format() {
+        $facets_sorts = array();
+        foreach ($this->facets as $facet) {
+            if (! is_null($sort_order = $facet->get_values_sort_order()) ) {
+                list($sort, $order) = $sort_order->format();
+                $facets_sorts[] = $facet->get_id() . ',sort='. $sort;
+                $facets_sorts[] = $facet->get_id() . ',order='. $order;
+            }
+        }
+        return array('facet' => $facets_sorts);
+    }
+
     /**  @} */
 
     /** @name Internal helpers
