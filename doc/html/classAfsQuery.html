@@ -519,7 +519,8 @@ Full configuration through array of parameters</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$sort_param</td><td>[in] new sort parameter. When set to emty string or null, this call to this method is equivalent to call to <em>reset_sort</em>. </td></tr>
-    <tr><td class="paramname">$order</td><td>[in] order applied to the given parameter. Allowed values are <a class="el" href="classAfsSortOrder.html#a34abf23cff3df464425b7cedf58e2939" title="Sort in descending order.">AfsSortOrder::DESC</a> (default) or <a class="el" href="classAfsSortOrder.html" title="Sort order pseudo-enumerator.">AfsSortOrder</a>:ASC.</td></tr>
+    <tr><td class="paramname">$order</td><td>[in] order applied to the given parameter. Allowed values are <a class="el" href="classAfsSortOrder.html#a34abf23cff3df464425b7cedf58e2939" title="Sort in descending order.">AfsSortOrder::DESC</a> (default) or <a class="el" href="classAfsSortOrder.html" title="Sort order pseudo-enumerator.">AfsSortOrder</a>:ASC. </td></tr>
+    <tr><td class="paramname">@feed</td><td>[in] the feed name. If not set, sort is add for all feeds. </td></tr>
   </table>
   </dd>
 </dl>
@@ -704,6 +705,7 @@ Full configuration through array of parameters</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$facet_id</td><td>[in] facet id to consider. </td></tr>
+    <tr><td class="paramname">$feed</td><td>[in] the feed name. If not set, filter values applied on all feeds will be returned. </td></tr>
   </table>
   </dd>
 </dl>
@@ -727,6 +729,12 @@ Full configuration through array of parameters</h2></td></tr>
 
 <p>Retrieve the list of all managed facet ids. </p>
 <p>Only elements from this list should be used to query <em>get_filter_values</em> method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">@feed</td><td>[in] the feed name. If not set return all filter not set on feed. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>list of facet ids. </dd></dl>
 
 </div>
@@ -808,7 +816,7 @@ Full configuration through array of parameters</h2></td></tr>
 <p>Retrieve current reply page. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">$feed</td><td>[in] the feed name. If not set the default page will be returned (used when feed is not specified, see <em>set_page</em>) </td></tr>
+    <tr><td class="paramname">$feed</td><td>[in] the feed name. If not set the default page will be returned (used when feed is not specified, see <a class="el" href="classAfsQuery.html#ab6c4b62c795f1d759e0402042201a8dd" title="Define new result page.">AfsQuery::set_page</a>) </td></tr>
   </table>
   </dd>
 </dl>
@@ -862,6 +870,12 @@ Full configuration through array of parameters</h2></td></tr>
 
 <p>Retrieves sort order. </p>
 <dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000004">Deprecated:</a></b></dt><dd>This method will be removed soon! </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">@feed</td><td>[in] the feed name. If not set, sort for all feed is return. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>sort order as string. </dd></dl>
 
 </div>
@@ -894,6 +908,7 @@ Full configuration through array of parameters</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$name</td><td>[in] parameter name to check. </td></tr>
+    <tr><td class="paramname">@feed</td><td>[in] the feed name. If not set, sort order for all feeds is return. </td></tr>
   </table>
   </dd>
 </dl>
@@ -978,6 +993,7 @@ Full configuration through array of parameters</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">$facet_id</td><td>[in] id of the facet to check. </td></tr>
     <tr><td class="paramname">$value</td><td>[in] value to check in the list of values for the given <em>facet_id</em>. </td></tr>
+    <tr><td class="paramname">$feed</td><td>[in] the feed name. If no set, filter is set on all feed. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1055,6 +1071,12 @@ Full configuration through array of parameters</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check whether reply page is set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">@feed</td><td>[in] the feed name. If not set check if default page is set. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>always true. </dd></dl>
 
 </div>
@@ -1087,6 +1109,7 @@ Full configuration through array of parameters</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$name</td><td>[in] check this specific parameter name (default=null: checks whether at least one sort parameter is set). </td></tr>
+    <tr><td class="paramname">$feed</td><td>[in] the feed name. If not set, check if sort in set for all feeds. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2000,7 +2023,8 @@ Full configuration through array of parameters</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$sort_param</td><td>[in] new sort parameter. When set to emty string or null, this call to this method is equivalent to call to <em>reset_sort</em>. </td></tr>
-    <tr><td class="paramname">$order</td><td>[in] order applied to the given parameter. Allowed values are <a class="el" href="classAfsSortOrder.html#a34abf23cff3df464425b7cedf58e2939" title="Sort in descending order.">AfsSortOrder::DESC</a> (default) or <a class="el" href="classAfsSortOrder.html" title="Sort order pseudo-enumerator.">AfsSortOrder</a>:ASC.</td></tr>
+    <tr><td class="paramname">$order</td><td>[in] order applied to the given parameter. Allowed values are <a class="el" href="classAfsSortOrder.html#a34abf23cff3df464425b7cedf58e2939" title="Sort in descending order.">AfsSortOrder::DESC</a> (default) or <a class="el" href="classAfsSortOrder.html" title="Sort order pseudo-enumerator.">AfsSortOrder</a>:ASC. </td></tr>
+    <tr><td class="paramname">@feed</td><td>[in] the feed name. If not set, sort is set for all feeds. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2053,7 +2077,7 @@ Full configuration through array of parameters</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 19 2015 08:37:47 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 19 2015 08:54:02 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
