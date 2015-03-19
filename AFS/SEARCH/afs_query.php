@@ -381,6 +381,7 @@ class AfsQuery extends AfsQueryBase
      * @param $facet_id [in] id of the facet to check.
      * @param $value [in] value to check in the list of values for the given
      *        @a facet_id.
+     * @param $feed [in] the feed name. If no set, filter is set on all feed.
      * @return true when the @a value is present in the list of values
      * associated with @a facet_id, false otherwise. Always false when provided
      * @a facet_id is unknown.
@@ -408,6 +409,7 @@ class AfsQuery extends AfsQueryBase
     /** @brief Retrieve the list of values for specific facet id.
      * @remark You should ensure that the required @a facet_id is valid.
      * @param $facet_id [in] facet id to consider.
+     * @param $feed [in] the feed name. If not set, filter values applied on all feeds will be returned.
      * @return list of values associated to the given @a facet_id.
      */
     public function get_filter_values($facet_id, $feed=null)
@@ -434,6 +436,7 @@ class AfsQuery extends AfsQueryBase
      *
      * Only elements from this list should be used to query @a get_filter_values
      * method.
+     * @param @feed [in] the feed name. If not set return all filter not set on feed.
      * @return list of facet ids.
      */
     public function get_filters($feed_name=null)
@@ -514,6 +517,7 @@ class AfsQuery extends AfsQueryBase
      * @{ */
 
     /** @brief Check whether reply page is set.
+     * @param @feed [in] the feed name. If not set check if default page is set.
      * @return always true.
      */
     public function has_page($feed=null)
@@ -542,7 +546,7 @@ class AfsQuery extends AfsQueryBase
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::PAGER) : $copy;
     }
     /** @brief Retrieve current reply page.
-     * @param $feed  [in] the feed name. If not set the default page will be returned (used when feed is not specified, see @a set_page)
+     * @param $feed  [in] the feed name. If not set the default page will be returned (used when feed is not specified, see AfsQuery::set_page)
      * @remark For a new query, this value is reset to 1.
      * @return reply page number.
      */
@@ -608,6 +612,7 @@ class AfsQuery extends AfsQueryBase
     /** @brief Checks whether sort parameter is set.
      * @param $name [in] check this specific parameter name (default=null:
      *        checks whether at least one sort parameter is set).
+     * @param $feed [in] the feed name. If not set, check if sort in set for all feeds.
      * @return true when sort parameter is set, false otherwise.
      */
     public function has_sort($name = null, $feed = null)
@@ -650,7 +655,7 @@ class AfsQuery extends AfsQueryBase
      *        @a reset_sort.
      * @param $order [in] order applied to the given parameter. Allowed values
      *        are AfsSortOrder::DESC (default) or AfsSortOrder:ASC.
-     *
+     * @param @feed [in] the feed name. If not set, sort is set for all feeds.
      * @exception Exception when provided sort parameter does not conform to
      * required syntax.
      */
@@ -682,7 +687,7 @@ class AfsQuery extends AfsQueryBase
      *        @a reset_sort.
      * @param $order [in] order applied to the given parameter. Allowed values
      *        are AfsSortOrder::DESC (default) or AfsSortOrder:ASC.
-     *
+     * @param @feed [in] the feed name. If not set, sort is add for all feeds.
      * @exception Exception when provided sort parameter does not conform to
      * required syntax.
      */
@@ -704,6 +709,7 @@ class AfsQuery extends AfsQueryBase
     }
     /** @brief Retrieves sort order.
      * @deprecated This method will be removed soon!
+     * @param @feed [in] the feed name. If not set, sort for all feed is return.
      * @return sort order as string.
      */
     public function get_sort($feed=null)
@@ -725,6 +731,7 @@ class AfsQuery extends AfsQueryBase
     }
     /** @brief Retrieves sort order of the specified parameter.
      * @param $name [in] parameter name to check.
+     * @param @feed [in] the feed name. If not set, sort order for all feeds is return.
      * @return AfsSortOrder::ASC or AfsSortOrder::DESC.
      * @exception OutOfBoundsException when required sort parameter is not
      *            defined.
