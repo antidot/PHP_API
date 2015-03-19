@@ -806,7 +806,13 @@ Full configuration through array of parameters</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieve current reply page. </p>
-<dl class="section remark"><dt>Remarks</dt><dd>For a new query, this vaue is reset to 1. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$feed</td><td>[in] the feed name. If not set the default page will be returned (used when feed is not specified, see <em>set_page</em>) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section remark"><dt>Remarks</dt><dd>For a new query, this value is reset to 1. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>reply page number. </dd></dl>
 
 </div>
@@ -1945,6 +1951,7 @@ Full configuration through array of parameters</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$page</td><td>[in] result page to output. It should be greater than or equal to 1. </td></tr>
+    <tr><td class="paramname">$feed</td><td>[in] the feed to set the page on. Default behavior will set the page number for all feeds </td></tr>
   </table>
   </dd>
 </dl>
@@ -2046,7 +2053,7 @@ Full configuration through array of parameters</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 19 2015 08:04:28 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 19 2015 08:37:47 for Antidot PHP API by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
