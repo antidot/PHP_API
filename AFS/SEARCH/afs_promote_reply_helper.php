@@ -34,11 +34,16 @@ class AfsPromoteReplyHelper extends AfsBaseReplyHelper
         $this->clientdata = $clientdata;
     }
 
+    /**
+     * @brief get the current promote instance type, types are default, banner or redirect
+     * @return string 'default', 'banner' or 'redirect'
+     */
     public function get_type() {
         return 'default';
     }
 
     /** @brief Retrieves custom data from promote reply.
+     *         To call this method, get_type should return 'default'
      * @param $key [in] Identifier of the custom resource. When not specified
      *        custom data are returned as key/value pairs.
      * @return value(s) associated to specified key or all key/value pairs.

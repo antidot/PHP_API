@@ -17,10 +17,17 @@ class AfsPromoteRedirectReplyHelper {
         $this->url = $reply->uri;
     }
 
+    /**
+     * @return string, the url used for redirection
+     */
     public function get_url() {
         return $this->url;
     }
 
+    /**
+     * @brief get the current promote instance type, types are default, banner or redirect
+     * @return string 'default', 'banner' or 'redirect'
+     */
     public function get_type() {
         return "redirect";
     }

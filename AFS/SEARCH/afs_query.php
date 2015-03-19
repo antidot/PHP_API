@@ -523,8 +523,9 @@ class AfsQuery extends AfsQueryBase
     /** @brief Define new result page.
      * @param $page [in] result page to output. It should be greater than or
      *        equal to 1.
+     * @param $feed [in] the feed to set the page on. Default behavior will set the page number for all feeds
      * @return new up to date instance.
-     * @exception Exception on invalid page number.
+     * @throws Exception on invalid page number.
      */
     public function set_page($page, $feed=null)
     {
@@ -541,7 +542,8 @@ class AfsQuery extends AfsQueryBase
         return $this->auto_set_from ? $copy->set_from(AfsOrigin::PAGER) : $copy;
     }
     /** @brief Retrieve current reply page.
-     * @remark For a new query, this vaue is reset to 1.
+     * @param $feed  [in] the feed name. If not set the default page will be returned (used when feed is not specified, see @a set_page)
+     * @remark For a new query, this value is reset to 1.
      * @return reply page number.
      */
     public function get_page($feed=null)
