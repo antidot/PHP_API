@@ -9,7 +9,7 @@
 require_once "AFS/SEARCH/afs_promote_reply_helper.php";
 
 
-class AfsPromoteRedirectReplyHelper {
+class AfsPromoteRedirectReplyHelper extends AfsBaseReplyHelper {
     protected $url;
 
     public function __construct($reply)
