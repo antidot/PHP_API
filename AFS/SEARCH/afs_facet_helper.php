@@ -11,7 +11,7 @@ function is_not_null($value) {
 class AfsFacetHelper extends AfsHelperBase
 {
     private $id = null;
-    private $label = null;
+    private $labels = null;
     private $layout = null;
     private $type = null;
     private $sticky = null;
@@ -28,9 +28,9 @@ class AfsFacetHelper extends AfsHelperBase
         $this->id = $facet->id;
         if (property_exists($facet, 'labels') && ! empty($facet->labels)
                 && property_exists($facet->labels[0], 'label')) {
-            $this->label = $facet->labels[0]->label;
+            $this->labels = $facet->labels;
         } else {
-            $this->label = $this->id;
+            $this->labels = null;
         }
         $this->layout = $facet->layout;
         $this->type = $facet->type;
@@ -55,7 +55,32 @@ class AfsFacetHelper extends AfsHelperBase
      */
     public function get_label()
     {
-        return $this->label;
+        if (!is_null($this->labels)) {
+            return $this->labels[0]->label;
+        } else {
+            return $this->id;
+        }
+    }
+
+    /** @brief Retrieve all facet labels
+     *
+     * @return labels as a string array
+     */
+    public function get_labels() {
+        $labels = array();
+        if (!is_null($this->labels)) {
+            foreach ($this->labels as $label) {
+                if (property_exists($label, "lang")) {
+                    $labels[$label->lang] = ($label->label);
+                } else {
+                    $labels[] = ($label->label);
+                }
+            }
+        }
+        else {
+            $labels[] = $this->id;
+        }
+        return $labels;
     }
 
     /** @brief Retrieves facet id.

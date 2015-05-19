@@ -54,6 +54,35 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(AfsFacetType::BOOL_TYPE, $helper->get_type());
         $this->assertEquals(AfsFacetLayout::TREE, $helper->get_layout());
         $this->assertEquals(false, $helper->is_sticky());
+
+        $labels = $helper->get_labels();
+        $this->assertEquals(array("ES" => "Faceta booleana", "FR" => "Facette booléenne", "Boolean facet"), $labels);
+    }
+
+    public function testRetrieveLabelsWhenNoLabelsExists() {
+        $input = json_decode('{
+            "afs:t": "FacetTree",
+            "node": [
+                {
+                    "key": "false",
+                    "labels": [
+                        {
+                            "label": "BAD"
+                        }
+                    ],
+                    "items": 67
+                }
+            ],
+            "layout": "TREE",
+            "type": "BOOL",
+            "id": "FOO",
+             "sticky": "true" }');
+
+        $config = new AfsHelperConfiguration();
+        $helper = new AfsFacetHelper($input, new AfsQuery(), $config);
+        $labels = $helper->get_labels();
+        $this->assertEquals(array("FOO"), $labels);
+        $this->assertEquals("FOO", $helper->get_label());
     }
 
     public function testRetrieveStickyness()
