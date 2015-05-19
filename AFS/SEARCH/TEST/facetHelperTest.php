@@ -85,6 +85,65 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("FOO", $helper->get_label());
     }
 
+    public function testRetrieveTags() {
+        $input = json_decode('{
+            "afs:t": "FacetTree",
+            "tags": "tag1 tag2 tag3",
+            "node": [
+                {
+                    "key": "false",
+                    "labels": [
+                        {
+                            "label": "BAD"
+                        }
+                    ],
+                    "items": 67
+                }
+            ],
+            "layout": "TREE",
+            "type": "BOOL",
+            "id": "FOO",
+            "labels": [
+                {
+                    "label": "String facet"
+                }
+             ],
+             "sticky": "true" }');
+
+        $config = new AfsHelperConfiguration();
+        $helper = new AfsFacetHelper($input, new AfsQuery(), $config);
+        $this->assertEquals(array('tag1', 'tag2', 'tag3'), $helper->get_tags());
+    }
+
+    public function testNotags() {
+        $input = json_decode('{
+            "afs:t": "FacetTree",
+            "node": [
+                {
+                    "key": "false",
+                    "labels": [
+                        {
+                            "label": "BAD"
+                        }
+                    ],
+                    "items": 67
+                }
+            ],
+            "layout": "TREE",
+            "type": "BOOL",
+            "id": "FOO",
+            "labels": [
+                {
+                    "label": "String facet"
+                }
+             ],
+             "sticky": "true" }');
+
+        $config = new AfsHelperConfiguration();
+        $helper = new AfsFacetHelper($input, new AfsQuery(), $config);
+        $this->assertEquals(array(), $helper->get_tags());
+    }
+
     public function testRetrieveStickyness()
     {
         $input = json_decode('{

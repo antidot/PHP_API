@@ -12,6 +12,7 @@ class AfsFacetHelper extends AfsHelperBase
 {
     private $id = null;
     private $labels = null;
+    private $tags = null;
     private $layout = null;
     private $type = null;
     private $sticky = null;
@@ -26,12 +27,13 @@ class AfsFacetHelper extends AfsHelperBase
     public function __construct($facet, AfsQuery $query, AfsHelperConfiguration $config, $feed=null)
     {
         $this->id = $facet->id;
-        if (property_exists($facet, 'labels') && ! empty($facet->labels)
-                && property_exists($facet->labels[0], 'label')) {
+        if (property_exists($facet, 'labels') && ! empty($facet->labels)) {
             $this->labels = $facet->labels;
-        } else {
-            $this->labels = null;
         }
+        if (property_exists($facet, 'tags')) {
+            $this->tags = $facet->tags;
+        }
+
         $this->layout = $facet->layout;
         $this->type = $facet->type;
         if (property_exists($facet, 'sticky')
@@ -81,6 +83,18 @@ class AfsFacetHelper extends AfsHelperBase
             $labels[] = $this->id;
         }
         return $labels;
+    }
+
+    /** @brief Retrieve current facet tags
+     *
+     * @return tags as a string array or empty array if current facet have no tags
+     */
+    public function get_tags() {
+        if (! is_null($this->tags)) {
+            return explode(' ', $this->tags);
+        }
+
+        return array();
     }
 
     /** @brief Retrieves facet id.
