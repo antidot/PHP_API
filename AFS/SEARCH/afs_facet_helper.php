@@ -73,7 +73,7 @@ class AfsFacetHelper extends AfsHelperBase
         if (!is_null($this->labels)) {
             foreach ($this->labels as $label) {
                 if (property_exists($label, "lang")) {
-                    $labels[$label->lang] = ($label->label);
+                    $labels[strtolower($label->lang)] = ($label->label);
                 } else {
                     $labels[] = ($label->label);
                 }

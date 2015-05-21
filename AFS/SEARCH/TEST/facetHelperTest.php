@@ -56,7 +56,7 @@ class FacetHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(false, $helper->is_sticky());
 
         $labels = $helper->get_labels();
-        $this->assertEquals(array("ES" => "Faceta booleana", "FR" => "Facette booléenne", "Boolean facet"), $labels);
+        $this->assertEquals(array("es" => "Faceta booleana", "fr" => "Facette booléenne", "Boolean facet"), $labels);
     }
 
     public function testRetrieveLabelsWhenNoLabelsExists() {
