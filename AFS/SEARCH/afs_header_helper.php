@@ -1,5 +1,6 @@
 <?php
 require_once 'COMMON/afs_helper_base.php';
+require_once 'AFS/orchestration_type.php';
 
 /** @brief Helper to retrieve useful information from AFS search engine reply header.
  */
@@ -87,6 +88,48 @@ class AfsHeaderHelper extends AfsHelperBase
         }
         return null;
     }
+
+    /**
+     * @brief get request orchestration type (AutoSpellchecker or fallbackToOptional)
+     * @return OrchestrationType::(AutoSpellchecker or fallbackToOptional)
+     * @throws Exception
+     * @throws OrchestrationTypeException
+     */
+    public function get_orchestration_type()
+    {
+        if ($this->is_orchestrated())
+        {
+            if (property_exists($this->header->orchestrationInfo, 'autoSpellchecker'))
+            {
+                return OrchestrationType::AUTOSPELLCHECKER;
+            }
+            elseif (property_exists($this->header->orchestrationInfo, 'fallbackToOptional'))
+            {
+                return OrchestrationType::FALLBACKTOOPTIONAL;
+            }
+            else
+            {
+                throw new OrchestrationTypeException('Unknown orchestration type');
+            }
+        }
+        else
+        {
+            throw new Exception('This request is not orchestrated');
+        }
+    }
+
+    /**
+     * @return true if this request is a result of orchestration
+     */
+    public function is_orchestrated()
+    {
+        return property_exists($this->header, 'orchestrationInfo');
+    }
+}
+
+class OrchestrationTypeException extends Exception
+{
+
 }
 
 

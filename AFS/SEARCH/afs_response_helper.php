@@ -308,6 +308,25 @@ class AfsResponseHelper extends AfsResponseHelperBase
     {
         return $this->header->get_query_parameter($key);
     }
+
+    /**
+     * @brief get request orchestration type (AutoSpellchecker or fallbackToOptional)
+     * @return OrchestrationType::(AutoSpellchecker or fallbackToOptional)
+     * @throws Exception
+     * @throws OrchestrationTypeException
+     */
+    public function get_orchestration_type()
+    {
+        return $this->header->get_orchestration_type();
+    }
+
+    /**
+     * @return true if this request is a result of orchestration
+     */
+    public function is_orchestrated()
+    {
+        return $this->header->is_orchestrated();
+    }
     /** @} */
 
 }
