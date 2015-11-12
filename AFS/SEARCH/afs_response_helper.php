@@ -9,6 +9,7 @@ require_once 'AFS/SEARCH/afs_producer.php';
 require_once 'AFS/SEARCH/afs_helper_configuration.php';
 require_once 'AFS/SEARCH/afs_response_exception.php';
 require_once 'COMMON/afs_helper_format.php';
+require_once 'AFS/SEARCH/afs_metadata_helper.php';
 
 /** @brief Main helper for AFS search reply.
  *
@@ -21,8 +22,10 @@ class AfsResponseHelper extends AfsResponseHelperBase
 {
     private $config = null;
     private $has_reply = false;
+    private $has_metadata = false;
     private $header = null;
     private $replysets = array();
+    private $metadata = array();
     private $spellcheck_mgr = null;
     private $promote = null;
     private $concepts = null;
@@ -54,8 +57,17 @@ class AfsResponseHelper extends AfsResponseHelperBase
             $this->concepts = new AfsConceptManager();
 
             $this->initialize_replysets($response->replySet, $query, $config);
+        } elseif (property_exists($response, 'metadata')) {
+            $this->has_metadata = true;
+            $this->initialize_metadata($response->metadata);
         } elseif ($this->header->in_error()) {
             $this->set_error_msg($this->header->get_error());
+        }
+    }
+
+    private function initialize_metadata($metadata) {
+        foreach ($metadata as $meta) {
+            $this->metadata[$meta->uri] = new AfsMetadataHelper($meta);
         }
     }
 
@@ -180,6 +192,33 @@ class AfsResponseHelper extends AfsResponseHelperBase
     {
         $this->check_reply('spellcheck_mgr');
         return $this->spellcheck_mgr->get_spellcheck($feed);
+    }
+
+    /** @brief Retrieves metadata for all feeds */
+    public function get_all_metadata() {
+        return $this->metadata;
+    }
+
+    /**
+     * @brief Retrieves metadata for given feed
+     * @param $feed
+     */
+    public function get_feed_metadata($feed=null) {
+        return $this->metadata[$feed];
+    }
+
+    /**@brief Check if metadata is defined in response stream
+     * @param $feed. If not null, check if metadata is defined for this feed.
+     *               If null, check if at least one feed contains metadata.
+     * @return bool
+     */
+    public function has_metadata($feed=null)
+    {
+        if (! is_null($feed)) {
+            return array_key_exists($feed, $this->metadata);
+        } else {
+            return $this->has_metadata;
+        }
     }
     /** @} */
 
