@@ -536,6 +536,76 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(AfsOrigin::FACET, $elements[0]->query->get_from());
 
     }
+
+    public function testIntrospectionResponseShouldInitializeMetadata() {
+        $input = json_decode('{
+            "header": {
+                "query": {
+                    "userId": "afd070b6-4315-40cc-975d-747e28bf132a",
+                    "sessionId": "5bf5642d-a262-4608-9901-45aa6e87325d"
+                },
+                "performance": {
+                    "durationMs": 666
+                }
+            },
+            "metadata": [
+            {
+              "uri": "Catalog",
+              "meta": {
+                "producer": [],
+                "info": {
+                  "sizeKb": 409093,
+                  "date": 1447110000,
+                  "searchFeedInfo": {
+                    "nbDocs": 33210,
+                    "nbShards": 1,
+                    "setInfos": [
+                      {
+                        "setId": "Antidot_Root_Field",
+                        "childrenInfos": [],
+                        "facetInfos": [
+                          {
+                            "afs:t": "FacetTree",
+                            "layout": "TREE",
+                            "type": "INTEGER",
+                            "id": "product_id",
+                            "sticky": false,
+                            "filter": true
+                          },
+                          {
+                            "afs:t": "FacetTree",
+                            "layout": "TREE",
+                            "type": "STRING",
+                            "id": "name",
+                            "sticky": false,
+                            "filter": true
+                          },
+                          {
+                            "afs:t": "FacetTree",
+                            "layout": "TREE",
+                            "type": "REAL",
+                            "id": "price_from",
+                            "sticky": false,
+                            "filter": true
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }');
+
+        $config = new AfsHelperConfiguration();
+        $config->set_helper_format(AfsHelperFormat::HELPERS);
+        $response_helper = new AfsResponseHelper($input, new AfsQuery(), $config);
+
+        $this->assertNotEmpty($response_helper->get_all_metadata());
+        $this->assertTrue($response_helper->has_metadata('Catalog'));
+        $this->assertNotNull($response_helper->get_feed_metadata('Catalog'));
+    }
 }
 
 
