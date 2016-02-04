@@ -74,6 +74,12 @@ abstract class AfsConnectorBase
     {
         return urlencode($key) . '=' . urlencode($value);
     }
+
+    protected function post_add_opts(&$opts) {
+        if (strpos(phpversion(), '5.6') !== false) {
+            $opts[CURLOPT_SAFE_UPLOAD] = false;
+        }
+    }
 }
 
 

@@ -104,7 +104,10 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
                 . $doc->get_mime_type() . ';filename=' . basename($doc->get_filename());
             $doc_no++;
         }
-        if ($this->curlConnector->curl_setopt($request, CURLOPT_POSTFIELDS, $documents) === false) {
+        $opts = array(CURLOPT_POSTFIELDS => $documents);
+        $this->post_add_opts($opts);
+
+        if ($this->curlConnector->curl_setopt_array($request, $opts) === false) {
             throw new Exception('Cannot set documents to be sent');
         }
     }
