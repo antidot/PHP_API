@@ -5,12 +5,22 @@ require_once 'AIF/afs_paf_upload_reply.php';
 require_once 'AIF/afs_bows_information_cache.php';
 require_once 'COMMON/afs_connector_base.php';
 
+
+abstract class PaFMode
+{
+    const Full = 'FULL';
+    const Incremental = 'INCREMENTAL';
+}
+
+
+
 /** @brief AFS PaF connector.
  */
 class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterface
 {
     private $paf_name;
     private $authentication;
+    private $paf_mode = PaFMode::Incremental;
 
     /** @brief Construct new PaF connector.
      *
@@ -40,11 +50,11 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
      *
      * @exception see @a upload_docs method.
      */
-    public function upload_doc(AfsDocument $doc, $comment=null)
+    public function upload_doc(AfsDocument $doc, $comment=null, $paf_mode=PaFMode::Incremental)
     {
         $mgr = new AfsDocumentManager();
         $mgr->add_document($doc);
-        return $this->upload_docs($mgr, $comment);
+        return $this->upload_docs($mgr, $comment, $paf_mode);
     }
 
     /** @brief Upload one or more documents through document manager.
@@ -57,13 +67,14 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
      * @exception Exception when error occured while initializing or executing
      *            request.
      */
-    public function upload_docs(AfsDocumentManager $mgr, $comment=null)
+    public function upload_docs(AfsDocumentManager $mgr, $comment=null, $paf_mode=PaFMode::Incremental)
     {
+        $this->paf_mode = $paf_mode;
         if (! $mgr->has_document())
             throw new InvalidArgumentException('No document to be sent');
 
         $version = $this->get_bo_version();
-        $context = new AfsPafConnectorContext($version, $mgr, $comment);
+        $context = new AfsPafConnectorContext($version, $mgr, $comment, $paf_mode);
         return new AfsPafUploadReply(json_decode($this->query($context)));
     }
 
@@ -77,6 +88,7 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
         $url = parent::get_base_url('service');
 
         $params = $this->authentication->format_as_url_param($context->version);
+        $params['afs:type'] = $this->paf_mode;
         if (! is_null($context->comment))
             $params['comment'] = $context->comment;
 
