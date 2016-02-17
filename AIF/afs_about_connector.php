@@ -2,6 +2,7 @@
 require_once 'AIF/afs_bows_connector.php';
 require_once 'AIF/afs_bows_connector_interface.php';
 require_once 'AIF/afs_bows_information.php';
+require_once 'AIF/afs_token_authentication.php';
 
 
 /** @brief Simple connector to retrieve AFS Back Office information. */

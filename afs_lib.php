@@ -16,3 +16,9 @@ require_once 'AFS/SEARCH/FILTER/afs_filter.php';
 
 require_once 'AFS/ACP/afs_acp.php';
 
+require_once 'AIF/afs_paf_connector.php';
+require_once 'AIF/afs_bows_connector.php';
+require_once 'AIF/afs_paf_live_connector.php';
+require_once 'COMMON/afs_service.php';
+
+
