@@ -7,5 +7,10 @@
     },
     "autoload": {
         "files": [ "afs_lib.php" ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.16.x-dev"
+        }
     }
 }
