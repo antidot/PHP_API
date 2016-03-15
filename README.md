@@ -1,7 +1,7 @@
 PHP API
 =======
 
-This API allows you to simplify integration of Antidot products.
+This API allows you to simplify integration of Antidot products (AFS, AIF, AFS@Store, ...).
 
 License
 -------
