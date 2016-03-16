@@ -112,8 +112,16 @@ class AfsPafConnector extends AfsBOWSConnector implements AfsBOWSConnectorInterf
         $doc_no = 1;
         $documents = array();
         foreach ($mgr->get_documents() as $doc) {
-            $documents['file' . $doc_no] = '@' . $doc->get_filename() . ';type='
-                . $doc->get_mime_type() . ';filename=' . basename($doc->get_filename());
+            if (class_exists('CURLFile')) {
+                $documents['file' . $doc_no] = new CURLFile(
+                    $doc->get_filename(),
+                    $doc->get_mime_type(),
+                    basename($doc->get_filename())
+                );
+            } else {
+                $documents['file' . $doc_no] = '@' . $doc->get_filename() . ';type='
+                    . $doc->get_mime_type() . ';filename=' . basename($doc->get_filename());
+            }
             $doc_no++;
         }
         $opts = array(CURLOPT_POSTFIELDS => $documents);
