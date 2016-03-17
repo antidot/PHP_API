@@ -23,7 +23,7 @@ class AfsSearchConnector extends AfsConnector
     {
         parent::__construct($host, $service, $scheme, $curlConnector);
         if ($scheme != AFS_SCHEME_HTTP)
-            throw InvalidArgumentException('Search connector support only HTTTP connection');
+            throw new InvalidArgumentException('Search connector support only HTTP connection');
     }
 
     /** @brief Retrieves web service name.
