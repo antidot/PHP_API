@@ -15,7 +15,9 @@ class AfsMetadataHelper {
     }
 
     private function initialize_facets_info($meta) {
-        $this->initialize_facets_info_rec($meta->meta->info->searchFeedInfo->setInfos);
+        if (isset($meta->meta->info->searchFeedInfo)) {
+            $this->initialize_facets_info_rec($meta->meta->info->searchFeedInfo->setInfos);
+        }
     }
 
     private function initialize_facets_info_rec($setInfos) {
