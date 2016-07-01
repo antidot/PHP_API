@@ -84,6 +84,13 @@ class IntrospectionTest extends PHPUnit_Framework_TestCase {
     $this->check_facet_info($model, 'model', false, false, 'STRING', 'TREE', $expected_labels);
   }
 
+  public function testInstantSearch() {
+    $introspector = $this->init_introspector(RESULT_WITHOUT_FACETS);
+    $this->assertNotEquals($introspector->get_query_parameter('afs:storeContract'), 'instantSearch');
+    $introspector = $this->init_introspector(RESULT_WITH_FACETS_FLAT);
+    $this->assertEquals($introspector->get_query_parameter('afs:storeContract'), 'instantSearch');
+  }
+
   private function check_facet_info($facet_info, $expected_name, $is_sticky, $is_filter, $expected_type,
                                    $expected_layout, $expected_labels=null)
   {

@@ -8,6 +8,7 @@
  */
 class AfsIntrospection {
     private $feeds_metadata = array();
+    private $result;
 
     public function __construct($search) {
         $this->build_metadata($search);
@@ -47,11 +48,23 @@ class AfsIntrospection {
         }
     }
 
+    /**
+    *@brief Retrieve query parameter stored in header
+    * @input $key : Name of the parameter
+    * @return value of the parameter
+    */
+    public function get_query_parameter($key)
+    {
+        return $this->result->get_query_parameter($key);
+    }
+
     private function build_metadata($search) {
         $params = array('afs:what' => 'meta');
         $query = AfsQuery::create_from_parameters($params);
+        /** @var AfsResponseHelper $result */
         $result = $search->execute($query);
         $this->feeds_metadata = $result->get_all_metadata();
+        $this->result = $result;
     }
 
     private function setup_feeds_filters($search) {
