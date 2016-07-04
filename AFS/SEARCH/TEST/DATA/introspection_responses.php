@@ -101,6 +101,10 @@ define('RESULT_WITH_FACETS_FLAT', '{
         {
           "name": "afs:sort",
           "value": "afs:relevance,DESC;category_level,ASC;category_broader_length,ASC;category_name_length,ASC"
+        },
+        {
+          "name": "afs:storeContract",
+          "value": "instantSearch"
         }
       ],
       "mainCtx": {

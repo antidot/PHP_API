@@ -606,6 +606,54 @@ class ResponseHelperTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($response_helper->has_metadata('Catalog'));
         $this->assertNotNull($response_helper->get_feed_metadata('Catalog'));
     }
+
+    public function testGetQueryParameter()
+    {
+        $input = json_decode('{
+                "header": {
+                    "query": {
+                        "userId": "foo",
+                        "sessionId": "bar",
+                        "queryParam": [
+                            {
+                              "name": "afs:storeContract",
+                              "value": "instantSearch"
+                            }]
+                    },
+                    "user": { },
+                    "performance": {
+                        "durationMs": 215
+                    },
+                    "info": { }
+                }
+            }');
+
+        $config = new AfsHelperConfiguration();
+        $query = new AfsQuery();
+        $response = new AfsResponseHelper($input, $query, $config);
+        $this->assertEquals($response->get_query_parameter('afs:storeContract'), 'instantSearch');
+
+        $input = json_decode('{
+                "header": {
+                    "query": {
+                        "userId": "foo",
+                        "sessionId": "bar",
+                        "queryParam": []
+                    },
+                    "user": { },
+                    "performance": {
+                        "durationMs": 215
+                    },
+                    "info": { }
+                }
+            }');
+
+        $config = new AfsHelperConfiguration();
+        $query = new AfsQuery();
+        $response = new AfsResponseHelper($input, $query, $config);
+        $this->assertNotEquals($response->get_query_parameter('afs:storeContract'), 'instantSearch');
+
+    }
 }
 
 
