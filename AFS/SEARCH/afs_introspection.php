@@ -58,6 +58,16 @@ class AfsIntrospection {
         return $this->result->get_query_parameter($key);
     }
 
+    /** @brief Checks whether an error occured.
+     *
+     * You are encouraged to check error before accessing any other data.
+     * @return @c True on error, @c false otherwise.
+     */
+    public function in_error()
+    {
+        return !$this->result || $this->result->in_error();
+    }
+    
     private function build_metadata($search) {
         $params = array('afs:what' => 'meta');
         $query = AfsQuery::create_from_parameters($params);
