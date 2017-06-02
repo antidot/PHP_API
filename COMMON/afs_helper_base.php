@@ -18,7 +18,7 @@ abstract class AfsHelperBase
         if (is_callable(array($this, $getter))) {
             return $this->$getter();
         } else {
-            throw new Exception("Undefined property: $name");
+            throw new Exception("Undefined property: $name in class: ".get_class($this));
         }
     }
 }
