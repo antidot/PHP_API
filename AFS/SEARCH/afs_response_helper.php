@@ -321,10 +321,12 @@ class AfsResponseHelper extends AfsResponseHelperBase
             return array('error' => $this->get_error_msg());
         } else {
             $result = array('duration' => $this->get_duration());
-            if ($this->has_replyset())
+            if ($this->has_replyset()) {
                 $result['replysets'] = $this->get_replysets();
-            if ($this->spellcheck_mgr->has_spellcheck())
-                $result['spellchecks'] = $this->spellcheck_mgr->format();
+                if ($this->spellcheck_mgr->has_spellcheck()) {
+                    $result['spellchecks'] = $this->spellcheck_mgr->format();
+                }
+            }
             return $result;
         }
     }
